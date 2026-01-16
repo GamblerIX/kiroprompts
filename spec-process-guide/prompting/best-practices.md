@@ -1,379 +1,380 @@
-# Prompting Best Practices
+# 提示词最佳实践
 
-<!-- Navigation Metadata -->
-<!-- Prompting: Best Practices | Level: Practical Guide | Prerequisites: prompting/strategies.md -->
-<!-- Related: ai-reasoning/decision-frameworks.md, examples/troubleshooting-pitfalls.md, templates/README.md -->
+<!-- 导航元数据 -->
+<!-- 提示词：最佳实践 | 级别：实用指南 | 前置条件：prompting/strategies.md -->
+<!-- 相关：ai-reasoning/decision-frameworks.md, examples/troubleshooting-pitfalls.md, templates/README.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Prompting Strategies](README.md) → **Best Practices**
+**📍 您所在位置：** [主指南](../../README.md) → [提示词策略](README.md) → **最佳实践**
 
-## Quick Navigation
-- **📚 Learn Strategies:** [Prompting Strategies](strategies.md) - Core approaches first
-- **📝 Use Templates:** [Prompt Templates](templates.md) - Ready-to-use patterns
-- **🧠 Understand AI:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How AI makes choices
-- **🔧 Fix Problems:** [Troubleshooting Guide](../examples/troubleshooting-pitfalls.md) - When prompting goes wrong
+## 快速导航
+- **学习策略：** [提示词策略](strategies.md) - 首先学习核心方法
+- **使用模板：** [提示模板](templates.md) - 随时可用的模式
+- **理解AI：** [决策框架](../ai-reasoning/decision-frameworks.md) - AI如何做出选择
+- **解决问题：** [故障排除指南](../examples/troubleshooting-pitfalls.md) - 当提示出现问题时
 
 ---
 
-Effective techniques for AI collaboration during spec creation, including troubleshooting guidance and examples of successful interactions.
+在规范创建过程中与AI协作的有效技术，包括故障排除指导和成功交互示例。
 
-## Core Principles
+## 核心原则
 
-### 1. Context is King
+### 1. 上下文为王
 
-**Provide Rich Context**
-- Always include relevant background about your project, technology stack, and constraints
-- Reference previous discussions and decisions to maintain continuity
-- Explain the "why" behind your requirements, not just the "what"
+**提供丰富的上下文**
+- 始终包含关于您的项目、技术栈和约束的相关背景
+- 参考之前的讨论和决策以保持连续性
+- 解释需求背后的"为什么"，而不仅仅是"什么"
 
-**Example - Good Context Setting:**
+**示例 - 良好的上下文设置：**
 ```
-I'm working on a React e-commerce application that currently handles 10k daily users. 
-We use TypeScript, Node.js backend with PostgreSQL, and deploy on AWS. 
-I need to add a product recommendation feature that integrates with our existing 
-user behavior tracking system and should handle our expected 50% traffic growth.
-```
-
-**Example - Poor Context:**
-```
-I need a recommendation system.
+我正在开发一个目前每天处理10,000名用户的React电子商务应用程序。
+我们使用TypeScript、Node.js后端和PostgreSQL，并在AWS上部署。
+我需要添加一个产品推荐功能，该功能与现有的用户行为跟踪系统集成，
+并且应该处理我们预期的50%流量增长。
 ```
 
-### 2. Be Specific and Concrete
-
-**Use Concrete Examples**
-- Provide specific scenarios rather than abstract descriptions
-- Include actual data examples when discussing data models
-- Reference real user workflows and business processes
-
-**Example - Specific Request:**
+**示例 - 糟糕的上下文：**
 ```
-For the user authentication system, I need to handle these specific scenarios:
-1. New user registration with email verification
-2. Social login via Google and GitHub OAuth
-3. Password reset with secure token expiration (24 hours)
-4. Account lockout after 5 failed attempts with 30-minute cooldown
-5. Integration with our existing user profile system that stores preferences
+我需要一个推荐系统。
 ```
 
-### 3. Structure Complex Requests
+### 2. 具体且明确
 
-**Break Down Large Asks**
-- Divide complex features into logical phases
-- Prioritize core functionality over nice-to-have features
-- Sequence requests to build understanding progressively
+**使用具体示例**
+- 提供具体场景而不是抽象描述
+- 在讨论数据模型时包括实际数据示例
+- 引用真实的用户工作流程和业务过程
 
-**Example - Well-Structured Request:**
+**示例 - 具体请求：**
 ```
-I want to create a comprehensive spec for a file upload system. Let's start with:
-
-Phase 1: Core upload functionality
-- Single file upload with progress tracking
-- File type validation (images, documents)
-- Size limits (10MB max)
-
-Phase 2: Enhanced features (we'll tackle after Phase 1 is solid)
-- Multiple file upload
-- Drag-and-drop interface
-- Cloud storage integration
+对于用户身份验证系统，我需要处理这些具体场景：
+1. 带有电子邮件验证的新用户注册
+2. 通过Google和GitHub OAuth的社交登录
+3. 带有安全令牌过期（24小时）的密码重置
+4. 5次失败尝试后的账户锁定，冷却时间为30分钟
+5.与我们存储偏好的现有用户个人资料系统集成
 ```
 
-## Phase-Specific Best Practices
+### 3. 构架复杂请求
 
-### Requirements Phase
+**分解大型请求**
+- 将复杂功能划分为逻辑阶段
+- 优先考虑核心功能而非锦上添花的功能
+- 排序请求以逐步建立理解
 
-**Do:**
-- Start with user problems, not technical solutions
-- Use the "As a [role], I want [goal], so that [benefit]" format consistently
-- Include both happy path and error scenarios
-- Specify measurable acceptance criteria
-
-**Don't:**
-- Jump into implementation details
-- Assume the AI knows your business context
-- Create requirements that are too broad or vague
-- Skip edge cases and error handling
-
-**Successful Interaction Example:**
+**示例 - 结构良好的请求：**
 ```
-User: "I need user authentication for my app."
+我想为文件上传系统创建一个全面的规范。让我们从以下开始：
 
-Better approach: "I'm building a SaaS application for small businesses. 
-I need user authentication that supports:
-- Business owners who need to manage team access
-- Team members with different permission levels
-- Integration with existing customer data
-- Compliance with SOC 2 requirements
+第一阶段：核心上传功能
+- 带有进度跟踪的单文件上传
+- 文件类型验证（图像、文档）
+- 大小限制（最大10MB）
 
-The main user story is: As a business owner, I want to control who can 
-access our company data, so that I can maintain security and compliance."
+第二阶段：增强功能（第一阶段稳定后处理）
+- 多文件上传
+- 拖放界面
+- 云存储集成
 ```
 
-### Design Phase
+## 阶段特定最佳实践
 
-**Do:**
-- Reference specific requirements when making design decisions
-- Explain trade-offs between different approaches
-- Consider scalability and maintainability from the start
-- Include error handling and edge cases in the design
+### 需求阶段
 
-**Don't:**
-- Design in isolation from requirements
-- Over-engineer for hypothetical future needs
-- Ignore existing system constraints
-- Skip non-functional requirements
+**应该做的：**
+- 从用户问题开始，而不是技术解决方案
+- 一致地使用"作为[角色]，我希望[目标]，以便[利益]"格式
+- 包括愉快路径和错误场景
+- 指定可衡量的验收标准
 
-**Successful Interaction Example:**
+**不应该做的：**
+- 跳入实施细节
+- 假设AI了解您的业务背景
+- 创建过于宽泛或模糊的需求
+- 跳过边界情况和错误处理
+
+**成功交互示例：**
 ```
-User: "Based on our authentication requirements, I need a design that 
-handles the multi-tenant access control we discussed. Our current system 
-uses JWT tokens, and we have about 500 businesses with an average of 
-8 team members each. Performance is critical - login should be under 200ms.
+用户："我需要应用程序的用户身份验证。"
 
-Please design an approach that:
-1. Leverages our existing JWT infrastructure
-2. Scales to our current user base
-3. Supports the role-based permissions from requirement 2.3
-4. Integrates with our PostgreSQL user database"
-```
+更好的方法："我正在为小型企业构建SaaS应用程序。
+我需要的用户身份验证支持：
+- 需要管理团队访问的企业所有者
+- 具有不同权限级别的团队成员
+- 与现有客户数据集成
+- 符合SOC 2要求
 
-### Tasks Phase
-
-**Do:**
-- Request tasks that build incrementally
-- Specify testing requirements for each task
-- Ask for tasks that can be completed independently
-- Include integration and deployment considerations
-
-**Don't:**
-- Create tasks that are too large or complex
-- Skip testing and validation steps
-- Ignore dependencies between tasks
-- Forget about documentation and cleanup
-
-**Successful Interaction Example:**
-```
-User: "Please break down the authentication design into coding tasks. 
-I want to follow TDD principles and be able to deploy incrementally. 
-Each task should be completable in 2-4 hours and include its own tests.
-
-Priority is getting basic login/logout working first, then adding 
-the role-based permissions. I'm using Jest for testing and have 
-CI/CD set up with GitHub Actions."
+主要的用户故事是：作为企业所有者，我希望控制谁可以
+访问我们的公司数据，以便我能够维护安全性和合规性。"
 ```
 
-## Communication Techniques
+### 设计阶段
 
-### Iterative Refinement
+**应该做的：**
+- 在做出设计决策时参考具体需求
+- 解释不同方法之间的权衡
+- 从一开始就考虑可扩展性和可维护性
+- 在设计中包含错误处理和边界情况
 
-**Build on Previous Responses**
-```
-"The requirements look good overall. I'd like to refine requirement 2.1 
-to be more specific about the error handling. Instead of 'system should 
-handle errors gracefully', let's specify exactly what happens when 
-authentication fails, network is unavailable, and tokens expire."
-```
+**不应该做的：**
+- 孤立于需求进行设计
+- 为假想的未来需求过度设计
+- 忽略现有系统约束
+- 跳过非功能需求
 
-**Validate Understanding**
+**成功交互示例：**
 ```
-"Before we move to design, let me confirm my understanding:
-- We're prioritizing security over convenience
-- Integration with existing systems is mandatory, not optional  
-- Performance requirements are firm (sub-200ms login)
-- We need to support both web and mobile clients
-Is this correct?"
-```
+用户："基于我们的身份验证需求，我需要一个设计来处理
+我们讨论的多租户访问控制。我们的当前系统
+使用JWT令牌，我们大约有500家企业，平均
+8名团队成员。性能至关重要 - 登录应在200毫秒以内。
 
-### Feedback Integration
-
-**Specific Change Requests**
-```
-"I need these specific changes to the design:
-1. Replace Redis caching with in-memory caching to reduce infrastructure complexity
-2. Add rate limiting to prevent brute force attacks (requirement 1.4)
-3. Include session management for the mobile app use case
-4. Specify the database schema changes needed for role storage"
+请设计一种方法：
+1. 利用我们现有的JWT基础设施
+2. 扩展到我们当前的用户群
+3. 支持需求2.3中基于角色的权限
+4. 与我们的PostgreSQL用户数据库集成
 ```
 
-**Explain the Reasoning**
+### 任务阶段
+
+**应该做的：**
+- 请求增量构建的任务
+- 为每个任务指定测试要求
+- 询问可以独立完成的任务
+- 包含集成和部署注意事项
+
+**不应该做的：**
+- 创建太大或太复杂的任务
+- 跳过测试和验证步骤
+- 忽略任务之间的依赖关系
+- 忘记文档和清理工作
+
+**成功交互示例：**
 ```
-"I want to change the authentication approach from OAuth to JWT because:
-- Our team has more experience with JWT implementation
-- It reduces external dependencies (no OAuth provider needed)
-- Better fits our offline-capable mobile app requirement
-- Simpler to test and debug in our current setup"
-```
+用户："请将身份验证设计分解为编码任务。
+我想遵循TDD原则并能够增量部署。
+每个任务应在2-4小时内完成，并包含自己的测试。
 
-## Troubleshooting Common Issues
-
-### When Responses Are Too Generic
-
-**Problem:** AI provides high-level, generic advice instead of specific guidance.
-
-**Solution:** Add more context and constraints.
-
-**Before:**
-```
-"How should I structure my database for user management?"
-```
-
-**After:**
-```
-"I have a PostgreSQL database for a multi-tenant SaaS app with these constraints:
-- 500 businesses, average 8 users each
-- Need to track user roles, permissions, and activity
-- Current users table has id, email, created_at
-- Must maintain backward compatibility with existing auth system
-- Performance target: user lookup under 50ms
-
-How should I extend the schema to support role-based access control?"
+优先事项是首先让基本的登录/注销工作，然后添加
+基于角色的权限。我使用Jest进行测试，并已设置
+CI/CD与GitHub Actions。"
 ```
 
-### When Requirements Keep Changing
+## 沟通技术
 
-**Problem:** Scope creep during requirements phase.
+### 迭代优化
 
-**Solution:** Establish clear boundaries and priorities.
-
-**Approach:**
+**在先前响应基础上构建**
 ```
-"Let's establish the MVP scope first. For version 1, we MUST have:
-- [Core requirement 1]
-- [Core requirement 2]
-- [Core requirement 3]
-
-Nice-to-have features for future versions:
-- [Enhancement 1]
-- [Enhancement 2]
-
-Please focus the requirements only on the MVP scope."
+"需求整体看起来不错。我想优化需求2.1
+使其更加具体关于错误处理。而不是
+'系统应该优雅地处理错误'，让我们具体说明
+身份验证失败、网络不可用以及令牌过期时
+会发生什么。"
 ```
 
-### When Design Becomes Too Complex
-
-**Problem:** Design tries to solve every possible future need.
-
-**Solution:** Refocus on current requirements and constraints.
-
-**Approach:**
+**验证理解**
 ```
-"The design is getting complex. Let's simplify by focusing only on 
-requirements 1.1-1.4 for now. We can extend it later for requirements 
-2.x. Please revise the design to:
-- Handle current user load (not 10x future growth)
-- Use our existing tech stack (don't introduce new technologies)
-- Solve the specific problems in our requirements (not general problems)"
+"在进入设计之前，让我确认我的理解：
+- 我们优先考虑安全性而非便利性
+- 与现有系统的集成是强制的，不是可选的
+- 性能要求是固定的（登录<200毫秒）
+- 我们需要同时支持Web和移动客户端
+这样对吗？"
 ```
 
-### When Tasks Are Too Abstract
+### 反馈整合
 
-**Problem:** Implementation tasks are too high-level for actual coding.
-
-**Solution:** Request specific, actionable coding steps.
-
-**Before:**
+**具体更改请求**
 ```
-"- Implement user authentication system"
-```
-
-**After:**
-```
-"Please break down 'Implement user authentication system' into specific coding tasks like:
-- Create User model with email, password_hash, role fields
-- Write password hashing utility functions with bcrypt
-- Implement login endpoint that validates credentials and returns JWT
-- Create middleware to verify JWT tokens on protected routes
-- Write unit tests for each component"
+"我对设计需要这些具体更改：
+1. 用内存缓存替换Redis缓存以减少基础设施复杂性
+2. 添加速率限制以防止暴力攻击（需求1.4）
+3. 包含移动应用用例的会话管理
+4. 指定角色存储所需的数据库模式更改"
 ```
 
-## Quality Validation Techniques
-
-### Requirements Validation
-
-**Completeness Check:**
+**解释原因**
 ```
-"Please review these requirements and identify any gaps:
-- Are all user types covered?
-- Do we handle all error scenarios?
-- Are integration points specified?
-- Are performance requirements measurable?
-- Is the scope clearly bounded?"
+"我想将身份验证方法从OAuth更改为JWT，因为：
+- 我们的团队对JWT实施有更多经验
+- 减少外部依赖（不需要OAuth提供商）
+- 更适合我们的离线功能移动应用要求
+- 在我们当前的设置中更简单测试和调试"
 ```
 
-**EARS Format Validation:**
+## 故障排除常见问题
+
+### 当响应过于通用时
+
+**问题：** AI提供高层级的通用建议而不是具体指导。
+
+**解决方案：** 添加更多上下文和约束。
+
+**之前：**
 ```
-"Please check if these acceptance criteria follow EARS format properly:
-- Do they start with WHEN, IF, WHERE, WHILE?
-- Is the system response clearly specified with SHALL?
-- Are conditions and triggers specific and testable?"
+"我应该如何为用户管理构建数据库？"
 ```
 
-### Design Validation
+**之后：**
+```
+"我的PostgreSQL数据库用于多租户SaaS应用，有这些约束：
+- 500家企业，平均8名用户
+- 需要跟踪用户角色、权限和活动
+- 当前用户表有id、email、created_at
+- 必须与现有身份验证系统保持向后兼容
+- 性能目标：用户查找<50毫秒
 
-**Architecture Review:**
-```
-"Please validate this design against our requirements:
-- Does it address all functional requirements?
-- Are non-functional requirements (performance, security) handled?
-- Are interfaces between components well-defined?
-- Is error handling comprehensive?
-- Can this be tested effectively?"
-```
-
-**Technical Feasibility:**
-```
-"Given our constraints (team size, timeline, existing systems), 
-is this design realistic? Are there any parts that seem 
-over-engineered or under-specified?"
+我应该如何扩展模式以支持基于角色的访问控制？"
 ```
 
-### Task Validation
+### 当需求不断变化时
 
-**Actionability Check:**
+**问题：** 需求阶段的范围蔓延。
+
+**解决方案：** 建立明确的边界和优先级。
+
+**方法：**
 ```
-"Are these tasks specific enough for a developer to implement?
-- Do they specify exact files/components to create?
-- Are dependencies between tasks clear?
-- Can each task be completed and tested independently?
-- Do they build incrementally toward the full feature?"
-```
+"让我们首先建立MVP范围。对于版本1，我们必须拥有：
+- [核心需求1]
+- [核心需求2]
+- [核心需求3]
 
-## Advanced Techniques
+锦上添花的功能用于未来版本：
+- [增强功能1]
+- [增强功能2]
 
-### Research Integration
-
-**When You Need Technical Research:**
-```
-"Before we finalize the design, I need to research authentication 
-best practices for multi-tenant SaaS applications. Please help me 
-identify the key areas to research:
-- Industry standards for role-based access control
-- Common security vulnerabilities and mitigations
-- Performance optimization techniques for JWT at scale
-- Integration patterns with existing systems"
+请仅专注于MVP范围的需求。"
 ```
 
-### Constraint Management
+### 当设计变得过于复杂时
 
-**Handling Conflicting Requirements:**
+**问题：** 设计试图解决每一个可能的未来需求。
+
+**解决方案：** 重新聚焦于当前需求和约束。
+
+**方法：**
 ```
-"We have conflicting requirements: users want single sign-on (req 1.3) 
-but we also need offline capability (req 2.1). Please help me:
-1. Analyze the trade-offs between these approaches
-2. Suggest compromise solutions
-3. Recommend which requirement should take priority and why"
+"设计变得复杂了。让我们通过仅关注
+需求1.1-1.4来简化。我们可以以后再扩展它以满足需求
+2.x。请修改设计：
+- 处理当前用户负载（而非10倍未来增长）
+- 使用我们现有的技术栈（不引入新技术）
+- 解决我们需求中的具体问题（而非一般问题）"
 ```
 
-### Stakeholder Alignment
+### 当任务过于抽象时
 
-**Multi-Perspective Validation:**
+**问题：** 实施任务对于实际编码来说过于高层。
+
+**解决方案：** 请求具体的、可操作的编码步骤。
+
+**之前：**
 ```
-"Please review these requirements from different stakeholder perspectives:
-- Developer: Are they technically feasible with our stack?
-- User: Do they solve real user problems effectively?
-- Business: Do they align with our business goals and constraints?
-- Security: Are there any security concerns or gaps?"
+"- 实施用户身份验证系统"
+```
+
+**之后：**
+```
+"请将'实施用户身份验证系统'分解为具体的编码任务，例如：
+- 创建具有email、password_hash、role字段的User模型
+- 用bcrypt编写密码哈希实用函数
+- 实现验证凭证并返回JWT的登录端点
+- 创建用于验证受保护路由上JWT令牌的中间件
+- 为每个组件编写单元测试"
+```
+
+## 质量验证技术
+
+### 需求验证
+
+**完整性检查：**
+```
+"请审查这些需求并识别任何差距：
+- 是否涵盖所有用户类型？
+- 我们是否处理所有错误场景？
+- 是否指定了集成点？
+- 性能要求是否可衡量？
+- 范围是否明确界定？"
+```
+
+**EARS格式验证：**
+```
+"请检查这些验收标准是否正确遵循EARS格式：
+- 它们是否以WHEN、IF、WHERE、WHILE开头？
+- 系统响应是否用SHALL清楚指定？
+- 条件和触发器是否具体且可测试？"
+```
+
+### 设计验证
+
+**架构审查：**
+```
+"请根据我们的需求验证此设计：
+- 它是否满足所有功能需求？
+- 非功能需求（性能、安全性）是否得到处理？
+- 组件之间的接口是否定义良好？
+- 错误处理是否全面？
+- 这可以有效测试吗？"
+```
+
+**技术可行性：**
+```
+"考虑到我们的约束（团队规模、时间线、现有系统），
+这个设计现实吗？是否有任何部分看起来
+过度设计或未充分指定？"
+```
+
+### 任务验证
+
+**可操作性检查：**
+```
+"这些任务对于开发者来说是否足够具体？
+- 它们是否指定了要创建的确切文件/组件？
+- 任务之间的依赖关系是否清楚？
+- 每个任务可以独立完成和测试吗？
+- 它们是否增量构建到完整功能？"
+```
+
+## 高级技术
+
+### 研究整合
+
+**当您需要技术研究时：**
+```
+"在最终确定设计之前，我需要研究
+多租户SaaS应用程序的身份验证
+最佳实践。请帮助我识别关键研究领域：
+- 基于角色访问控制的行业标准
+- 常见安全漏洞和缓解措施
+- JWT大规模性能优化技术
+- 与现有系统的集成模式"
+```
+
+### 约束管理
+
+**处理冲突需求：**
+```
+"我们有冲突的需求：用户想要单点登录（需求1.3）
+但我们也需要离线功能（需求2.1）。请帮助我：
+1. 分析这些方法之间的权衡
+2. 建议折中解决方案
+3. 推荐哪个需求应该优先及原因"
+```
+
+### 利益相关者对齐
+
+**多角度验证：**
+```
+"请从不同利益相关者的角度审查这些需求：
+- 开发者：使用我们的技术栈在技术上是否可行？
+- 用户：它们是否有效解决真实的用户问题？
+- 业务：它们是否与我们的业务目标和约束一致？
+- 安全：是否存在任何安全问题或差距？"
 ```
 
 ---
 
-[← Templates](templates.md) | [Back to Prompting Guide](README.md)
+[← 模板](templates.md) | [返回提示词指南](README.md)

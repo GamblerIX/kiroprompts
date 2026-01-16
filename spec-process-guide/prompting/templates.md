@@ -1,318 +1,334 @@
-# Prompt Templates and Patterns
+# 提示词模板与模式
 
-This guide provides specific prompt templates for each phase of spec development, with variations for different feature types and complexity levels.
+本指南为规范开发的每个阶段提供具体的提示词模板，针对不同功能类型和复杂程度提供多种变体。
 
-## Template Structure
+## 模板结构
 
-Each template follows this pattern:
-- **Context Setting**: Establish project background and constraints
-- **Phase-Specific Instructions**: Clear guidance for the current phase
-- **Output Format**: Specific formatting requirements
-- **Validation Criteria**: How to evaluate the response
+每个模板遵循以下模式：
+- **上下文设置**：建立项目背景和约束条件
+- **阶段特定指令**：针对当前阶段的清晰指导
+- **输出格式**：具体的格式要求
+- **验证标准**：如何评估响应质量
 
-## Requirements Phase Templates
+## 需求阶段模板
 
-### Basic Feature Requirements
-
-```
-I want to create a spec for [FEATURE_NAME]. Here's my initial idea:
-
-[BRIEF_FEATURE_DESCRIPTION]
-
-Please help me create comprehensive requirements using the EARS format. Focus on:
-- User stories that capture the core value proposition
-- Acceptance criteria that are testable and specific
-- Edge cases and error scenarios
-- Integration points with existing systems
-
-The feature should serve [TARGET_USER_TYPE] and solve [CORE_PROBLEM].
-```
-
-### Complex System Requirements
+### 基本功能需求
 
 ```
-I'm planning a [SYSTEM_TYPE] that needs to handle [CORE_FUNCTIONALITY]. 
+我想为[功能名称]创建一个规范。以下是我的初步想法：
 
-Key constraints:
-- Performance: [PERFORMANCE_REQUIREMENTS]
-- Scale: [EXPECTED_USAGE_PATTERNS]
-- Integration: [EXISTING_SYSTEMS_TO_INTEGRATE]
-- Compliance: [REGULATORY_OR_BUSINESS_REQUIREMENTS]
+[简要功能描述]
 
-Please help me break this down into well-structured requirements using EARS format. Pay special attention to:
-- System boundaries and interfaces
-- Non-functional requirements
-- Data flow and processing requirements
-- Security and compliance considerations
+请使用EARS格式帮助我创建全面的需求文档。重点关注：
+- 捕捉核心价值主张的用户故事
+- 可测试且具体的验收标准
+- 边界情况和错误场景
+- 与现有系统的集成点
+
+该功能应为[目标用户类型]服务，解决[核心问题]。
 ```
 
-### API/Service Requirements
+### 复杂系统需求
 
 ```
-I need to design an API for [API_PURPOSE]. The API should:
+我正在规划一个[系统类型]，需要处理[核心功能]。
 
-Core functionality:
-- [PRIMARY_OPERATIONS]
-- [SECONDARY_OPERATIONS]
+关键约束条件：
+- 性能：[性能要求]
+- 规模：[预期使用模式]
+- 集成：[需要集成的现有系统]
+- 合规性：[监管或业务要求]
 
-Technical context:
-- Expected consumers: [WHO_WILL_USE_IT]
-- Data sources: [WHERE_DATA_COMES_FROM]
-- Performance needs: [RESPONSE_TIME_REQUIREMENTS]
-
-Please create requirements that cover:
-- Endpoint specifications and data models
-- Authentication and authorization
-- Error handling and status codes
-- Rate limiting and usage policies
-```
-
-## Design Phase Templates
-
-### Architecture Design
+请帮助我使用EARS格式将其分解为结构良好的需求文档。特别关注：
+- 系统边界和接口
+- 非功能需求
+- 数据流和处理需求
+- 安全性和合规性考虑
 
 ```
-Based on the requirements we've established, I need a comprehensive design for [FEATURE_NAME].
 
-Requirements summary: [BRIEF_RECAP_OF_KEY_REQUIREMENTS]
-
-Please create a design that addresses:
-- Overall architecture and component relationships
-- Data models and their relationships
-- API interfaces and contracts
-- Error handling strategies
-- Testing approach
-
-Consider these technical constraints:
-- Technology stack: [CURRENT_TECH_STACK]
-- Performance requirements: [KEY_PERFORMANCE_NEEDS]
-- Integration points: [SYSTEMS_TO_INTEGRATE_WITH]
-```
-
-### Database Design Focus
+### API/服务需求
 
 ```
-I need a detailed database design for [FEATURE_NAME] based on our requirements.
+我需要设计一个用于[API用途]的API。该API应具备：
 
-Key data entities from requirements:
-- [ENTITY_1]: [BRIEF_DESCRIPTION]
-- [ENTITY_2]: [BRIEF_DESCRIPTION]
-- [ENTITY_3]: [BRIEF_DESCRIPTION]
+核心功能：
+- [主要操作]
+- [次要操作]
 
-Please design:
-- Entity relationship diagrams
-- Table schemas with appropriate constraints
-- Indexing strategy for performance
-- Data migration considerations
-- Backup and recovery approach
+技术上下文：
+- 预期使用者：[谁将使用它]
+- 数据来源：[数据从哪里来]
+- 性能需求：[响应时间要求]
 
-Database context: [CURRENT_DATABASE_TECHNOLOGY]
-```
-
-### UI/UX Design Focus
+请创建涵盖以下内容的需求：
+- 端点规范和数据模型
+- 身份验证和授权
+- 错误处理和状态码
+- 速率限制和使用策略
 
 ```
-Based on our requirements, I need a user experience design for [FEATURE_NAME].
 
-User context:
-- Primary users: [USER_TYPES]
-- Usage patterns: [HOW_THEY_WILL_USE_IT]
-- Device/platform: [WHERE_THEY_ACCESS_IT]
+## 设计阶段模板
 
-Please design:
-- User flow diagrams
-- Interface mockups or wireframes
-- Interaction patterns
-- Accessibility considerations
-- Error state handling
-```
-
-## Tasks Phase Templates
-
-### Implementation Planning
+### 架构设计
 
 ```
-Now that we have the design approved, please break it down into actionable coding tasks.
+基于我们已经确立的需求，我需要为[功能名称]创建一个全面的设计。
 
-Design summary: [KEY_DESIGN_COMPONENTS]
+需求摘要：[关键需求的简要回顾]
 
-Create an implementation plan that:
-- Follows test-driven development principles
-- Builds incrementally with early validation
-- Sequences tasks to minimize dependencies
-- Includes specific file/component creation steps
+请创建一个解决以下问题的设计：
+- 整体架构和组件关系
+- 数据模型及其关系
+- API接口和契约
+- 错误处理策略
+- 测试方法
 
-Each task should:
-- Reference specific requirements it addresses
-- Be completable by a coding agent
-- Build on previous tasks
-- Include testing considerations
-```
-
-### Refactoring/Migration Planning
+考虑以下技术约束条件：
+- 技术栈：[当前技术栈]
+- 性能要求：[关键性能需求]
+- 集成点：[需要集成的系统]
 
 ```
-I need to refactor [EXISTING_SYSTEM] to implement [NEW_FEATURE] based on our design.
 
-Current system context:
-- Existing codebase: [BRIEF_DESCRIPTION]
-- Technologies used: [CURRENT_TECH_STACK]
-- Areas that need changes: [COMPONENTS_TO_MODIFY]
-
-Create tasks that:
-- Minimize disruption to existing functionality
-- Allow for incremental rollout
-- Include comprehensive testing at each step
-- Handle data migration if needed
-```
-
-## Complexity-Based Variations
-
-### Simple Feature (< 5 requirements)
-
-Use concise templates focusing on:
-- Core user story and acceptance criteria
-- Basic architecture decisions
-- Straightforward task breakdown
-
-### Medium Feature (5-15 requirements)
-
-Include additional sections for:
-- Multiple user personas
-- Integration considerations
-- Performance and scalability
-- More detailed task sequencing
-
-### Complex Feature (15+ requirements)
-
-Expand templates to cover:
-- System-wide impact analysis
-- Detailed technical research needs
-- Phased implementation approach
-- Risk assessment and mitigation
-
-## Communication Patterns
-
-### Context Preservation
+### 数据库设计
 
 ```
-Continuing from our previous discussion about [FEATURE_NAME], I'd like to [SPECIFIC_REQUEST].
+基于我们的需求，我需要为[功能名称]设计详细的数据库。
 
-Previous context:
-- [KEY_POINT_1]
-- [KEY_POINT_2]
-- [KEY_POINT_3]
+需求中的关键数据实体：
+- [实体1]：[简要描述]
+- [实体2]：[简要描述]
+- [实体3]：[简要描述]
 
-Please [SPECIFIC_ACTION] while maintaining consistency with what we've established.
-```
+请设计：
+- 实体关系图
+- 具有适当约束的表模式
+- 性能索引策略
+- 数据迁移考虑
+- 备份和恢复方法
 
-### Feedback Integration
-
-```
-I've reviewed the [REQUIREMENTS/DESIGN/TASKS] and have some feedback:
-
-Changes needed:
-1. [SPECIFIC_CHANGE_1] - [REASON]
-2. [SPECIFIC_CHANGE_2] - [REASON]
-3. [SPECIFIC_CHANGE_3] - [REASON]
-
-Please update the document to incorporate these changes while maintaining the overall structure and quality.
-```
-
-### Clarification Requests
+数据库上下文：[当前数据库技术]
 
 ```
-I need clarification on [SPECIFIC_ASPECT] from the [REQUIREMENTS/DESIGN/TASKS].
 
-Specifically:
-- [QUESTION_1]
-- [QUESTION_2]
-- [QUESTION_3]
-
-Please provide detailed explanations and update the document if needed to make these points clearer.
-```
-
-## Quality Validation Prompts
-
-### Requirements Review
+### UI/UX设计
 
 ```
-Please review the requirements document for [FEATURE_NAME] and check:
+基于我们的需求，我需要为[功能名称]设计用户体验。
 
-- Are all user stories complete with clear acceptance criteria?
-- Do the requirements use proper EARS format?
-- Are edge cases and error scenarios covered?
-- Is the scope clearly defined and bounded?
-- Are there any missing integration points?
+用户上下文：
+- 主要用户：[用户类型]
+- 使用模式：[他们将如何使用]
+- 设备/平台：[从哪里访问]
 
-Provide specific feedback on any issues found.
-```
-
-### Design Review
-
-```
-Please review the design document for [FEATURE_NAME] and validate:
-
-- Does the architecture address all requirements?
-- Are the component interfaces well-defined?
-- Is the error handling strategy comprehensive?
-- Are performance considerations addressed?
-- Is the testing approach adequate?
-
-Highlight any gaps or inconsistencies.
-```
-
-### Tasks Review
+请设计：
+- 用户流程图
+- 界面原型或线框图
+- 交互模式
+- 无障碍考虑
+- 错误状态处理
 
 ```
-Please review the implementation plan for [FEATURE_NAME] and check:
 
-- Are all tasks actionable by a coding agent?
-- Do tasks build incrementally without big jumps?
-- Are all requirements covered by the tasks?
-- Is the sequencing logical and dependency-aware?
-- Are testing tasks integrated throughout?
+## 任务阶段模板
 
-Suggest improvements for any issues identified.
-```
-
-## Troubleshooting Prompts
-
-### When Requirements Are Too Vague
+### 实施规划
 
 ```
-The requirements seem too high-level. Please help me break down [SPECIFIC_REQUIREMENT] into more specific, testable acceptance criteria.
+现在设计已经获得批准，请将其分解为可执行的编码任务。
 
-Focus on:
-- Concrete user actions and system responses
-- Measurable success criteria
-- Specific error conditions and handling
-- Clear boundaries of what's included/excluded
-```
+设计摘要：[关键设计组件]
 
-### When Design Lacks Detail
+创建一个遵循以下原则的实施计划：
+- 遵循测试驱动开发原则
+- 通过早期验证逐步构建
+- 最小化依赖的任务排序
+- 包含具体的文件/组件创建步骤
 
-```
-The design needs more technical detail for [SPECIFIC_COMPONENT]. Please expand on:
-
-- Specific interfaces and data contracts
-- Implementation approach and technology choices
-- Error handling and edge case management
-- Performance considerations and constraints
-- Testing strategy for this component
-```
-
-### When Tasks Are Too Abstract
+每个任务应：
+- 引用其满足的具体需求
+- 可由编码代理完成
+- 基于之前的任务构建
+- 包含测试考虑
 
 ```
-Some tasks in the implementation plan are too abstract for direct coding. Please break down [SPECIFIC_TASK] into concrete coding steps that specify:
 
-- Exact files or components to create/modify
-- Specific functions or classes to implement
-- Test cases to write
-- Integration points to establish
+### 重构/迁移规划
+
+```
+我需要重构[现有系统]以实现基于我们设计的新功能[新功能]。
+
+当前系统上下文：
+- 现有代码库：[简要描述]
+- 使用的技术：[当前技术栈]
+- 需要更改的区域：[需要修改的组件]
+
+创建能够满足以下要求的任务：
+- 最小化对现有功能的干扰
+- 允许增量推出
+- 在每个步骤包含全面测试
+- 如需要处理数据迁移
+
+```
+
+## 基于复杂度的变体
+
+### 简单功能（少于5个需求）
+
+使用简洁的模板，重点关注：
+- 核心用户故事和验收标准
+- 基本架构决策
+- 直接的任务分解
+
+### 中等功能（5-15个需求）
+
+包含额外部分用于：
+- 多个用户角色
+- 集成考虑
+- 性能和可扩展性
+- 更详细的任务排序
+
+### 复杂功能（15个以上需求）
+
+扩展模板以涵盖：
+- 系统范围的影响分析
+- 详细的技术研究需求
+- 分阶段实施方法
+- 风险评估和缓解
+
+## 沟通模式
+
+### 上下文保留
+
+```
+继续我们之前关于[功能名称]的讨论，我想进行[具体请求]。
+
+之前的上下文：
+- [关键点1]
+- [关键点2]
+- [关键点3]
+
+请在保持与我们已建立内容一致性的情况下[具体操作]。
+
+```
+
+### 反馈整合
+
+```
+我已经审查了[需求/设计/任务]，并有一些反馈：
+
+需要更改的地方：
+1. [具体更改1] - [原因]
+2. [具体更改2] - [原因]
+3. [具体更改3] - [原因]
+
+请更新文档以纳入这些更改，同时保持整体结构和质量。
+
+```
+
+### 澄清请求
+
+```
+我需要从[需求/设计/任务]中澄清[具体方面]。
+
+具体来说：
+- [问题1]
+- [问题2]
+- [问题3]
+
+请提供详细解释，如需要更新文档以使这些要点更清晰。
+
+```
+
+## 质量验证提示词
+
+### 需求审查
+
+```
+请审查[功能名称]的需求文档并检查：
+
+- 所有用户故事是否完整，具有清晰的验收标准？
+- 需求是否使用正确的EARS格式？
+- 是否涵盖边界情况和错误场景？
+- 范围是否明确定义和界定？
+- 是否有遗漏的集成点？
+
+对发现的问题提供具体反馈。
+
+```
+
+### 设计审查
+
+```
+请审查[功能名称]的设计文档并验证：
+
+- 架构是否满足所有需求？
+- 组件接口是否定义良好？
+- 错误处理策略是否全面？
+- 是否考虑了性能问题？
+- 测试方法是否充分？
+
+突出显示任何差距或不一致之处。
+
+```
+
+### 任务审查
+
+```
+请审查[功能名称]的实施计划并检查：
+
+- 所有任务是否可由编码代理执行？
+- 任务是否在没有大跳跃的情况下逐步构建？
+- 是否所有需求都得到任务覆盖？
+- 排序是否合理且具有依赖意识？
+- 测试任务是否贯穿始终？
+
+对发现的问题提出改进建议。
+
+```
+
+## 故障排除提示词
+
+### 当需求过于模糊时
+
+```
+需求似乎过于高层。请帮助我将[具体需求]分解为更具体、可测试的验收标准。
+
+重点关注：
+- 具体的用户操作和系统响应
+- 可衡量的成功标准
+- 具体的错误条件和处理
+- 包含/排除内容的明确边界
+
+```
+
+### 当设计缺乏细节时
+
+```
+[具体组件]的设计需要更多技术细节。请扩展：
+
+- 具体的接口和数据契约
+- 实现方法和技术选择
+- 错误处理和边界情况管理
+- 性能考虑和约束
+- 该组件的测试策略
+
+```
+
+### 当任务过于抽象时
+
+```
+实施计划中的一些任务对于直接编码来说过于抽象。请将[具体任务]分解为具体的编码步骤，指定：
+
+- 要创建/修改的确切文件或组件
+- 要实现的具体函数或类
+- 要编写的测试用例
+- 要建立的集成点
+
 ```
 
 ---
 
-[← Back to Prompting Guide](README.md) | [Best Practices →](best-practices.md)
+[← 返回提示词指南](README.md) | [最佳实践 →](best-practices.md)
