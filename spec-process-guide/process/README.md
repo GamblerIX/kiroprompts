@@ -1,65 +1,65 @@
-# Process Guide
+# 流程指南
 
-<!-- Navigation Metadata -->
-<!-- Section: Process | Level: Overview | Prerequisites: methodology/README.md -->
-<!-- Related: templates/README.md, prompting/strategies.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 章节：流程 | 级别：概述 | 前置条件：methodology/README.md -->
+<!-- 相关：templates/README.md, prompting/strategies.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Process Guide**
+**📍 你在这里：** [主指南](../../README.md) → **流程指南**
 
-## Quick Navigation
-- **Prerequisites:** [Methodology Overview](../methodology/README.md) - Understand the foundation first
-- **Templates:** [Ready-to-Use Templates](../templates/README.md) - Get started quickly
-- **Examples:** [See Complete Specs](../examples/README.md) - Learn from real examples
-- **AI Help:** [Prompting Strategies](../prompting/README.md) - Collaborate effectively with AI
+## 快速导航
+- **前置条件：** [方法论概述](../methodology/README.md) - 首先了解基础
+- **模板：** [即用型模板](../templates/README.md) - 快速开始
+- **示例：** [查看完整规范](../examples/README.md) - 从真实示例中学习
+- **AI 帮助：** [提示策略](../prompting/README.md) - 有效地与 AI 协作
 
 ---
 
-Step-by-step walkthrough of the three-phase spec-driven development workflow.
+三阶段规范驱动开发工作流程的分步指南。
 
-## In This Section
+## 本节内容
 
-- **[Requirements Phase](requirements-phase.md)** - Gathering and structuring requirements using EARS format
-- **[Design Phase](design-phase.md)** - Creating comprehensive design documents with research
-- **[Tasks Phase](tasks-phase.md)** - Breaking down design into actionable coding tasks
-- **[Change Management](change-management.md)** - Managing spec evolution and handling discovered requirements
-- **[Workflow Diagrams](workflow-diagrams.md)** - Visual process flows and decision points
+- **[需求阶段](requirements-phase.md)** - 使用 EARS 格式收集和构建需求
+- **[设计阶段](design-phase.md)** - 通过研究创建全面的设计文档
+- **[任务阶段](tasks-phase.md)** - 将设计分解为可操作的编码任务
+- **[变更管理](change-management.md)** - 管理规范演进和处理发现的需求
+- **[工作流程图](workflow-diagrams.md)** - 可视化流程和决策点
 
-## The Three-Phase Workflow
+## 三阶段工作流程
 
 ```mermaid
 stateDiagram-v2
-  [*] --> Requirements : Start with user needs
-  Requirements --> Design : Requirements approved
-  Design --> Tasks : Design approved
-  Tasks --> [*] : Ready for implementation
+  [*] --> Requirements : 从用户需求开始
+  Requirements --> Design : 需求已批准
+  Design --> Tasks : 设计已批准
+  Tasks --> [*] : 准备实施
   
-  Requirements --> Requirements : Iterate based on feedback
-  Design --> Design : Refine design
-  Tasks --> Tasks : Adjust task breakdown
+  Requirements --> Requirements : 根据反馈迭代
+  Design --> Design : 完善设计
+  Tasks --> Tasks : 调整任务分解
 ```
 
-Each phase builds upon the previous one, with explicit approval gates to ensure quality and alignment before proceeding.
+每个阶段都建立在前一个阶段的基础上，具有明确的批准门，以确保在继续之前的质量和一致性。
 
-## Phase Overview
+## 阶段概述
 
-1. **Requirements** - Transform rough ideas into structured, testable requirements
-2. **Design** - Research and architect a comprehensive solution
-3. **Tasks** - Create an actionable implementation plan with discrete coding steps
+1. **需求** - 将粗略的想法转化为结构化的、可测试的需求
+2. **设计** - 研究和架构全面的解决方案
+3. **任务** - 创建具有离散编码步骤的可操作实施计划
 
 ---
 
-## 🔗 Related Content
+## 🔗 相关内容
 
-### Prerequisites
-- [Methodology Overview](../methodology/README.md) - Understand the foundation first
+### 前置条件
+- [方法论概述](../methodology/README.md) - 首先了解基础
 
-### Next Steps
-- [Requirements Phase](requirements-phase.md) - Start the three-phase process
-- [Templates](../templates/README.md) - Get ready-to-use starting points
+### 下一步
+- [需求阶段](requirements-phase.md) - 开始三阶段流程
+- [模板](../templates/README.md) - 获取即用型起点
 
-### Related Sections
-- [Examples](../examples/README.md) - See complete process examples
-- [Prompting Strategies](../prompting/README.md) - Get better AI collaboration
-- [Execution Guide](../execution/README.md) - Implement your completed specs
+### 相关章节
+- [示例](../examples/README.md) - 查看完整流程示例
+- [提示策略](../prompting/README.md) - 获得更好的 AI 协作
+- [执行指南](../execution/README.md) - 实施你完成的规范
 
-[← Back to Main Guide](../../README.md) | [Start with Requirements →](requirements-phase.md)
+[← 返回主指南](../../README.md) | [从需求开始 →](requirements-phase.md)

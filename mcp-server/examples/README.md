@@ -1,12 +1,12 @@
-# Kiro MCP Server Examples
+# Kiro MCP 服务器示例
 
-This directory contains example configurations and usage patterns for the Kiro MCP Server.
+此目录包含 Kiro MCP 服务器的示例配置和使用模式。
 
-## Configuration Examples
+## 配置示例
 
-### Basic Configuration (mcp-config.json)
+### 基本配置 (mcp-config.json)
 
-Add this to your MCP client's configuration file (e.g., `~/.kiro/settings/mcp.json` or Claude Desktop's config):
+将此添加到你的 MCP 客户端配置文件（例如 `~/.kiro/settings/mcp.json` 或 Claude Desktop 的配置）：
 
 ```json
 {
@@ -21,9 +21,9 @@ Add this to your MCP client's configuration file (e.g., `~/.kiro/settings/mcp.js
 }
 ```
 
-### Local Development Configuration
+### 本地开发配置
 
-If you're running from source:
+如果从源代码运行：
 
 ```json
 {
@@ -40,60 +40,60 @@ If you're running from source:
 }
 ```
 
-## Usage Examples
+## 使用示例
 
-Once configured, you can use the server in your MCP client:
+配置完成后，你可以在 MCP 客户端中使用服务器：
 
-### Listing Available Instructions
+### 列出可用指令
 
-Use the `list_instructions` tool to see what's available:
-
-```
-Use the list_instructions tool
-```
-
-### Getting a Specific System Instruction
+使用 `list_instructions` 工具查看可用的内容：
 
 ```
-Use the get_system_instruction tool with instruction_type: "complete-instructions"
+使用 list_instructions 工具
 ```
 
-### Searching Instructions
+### 获取特定系统指令
 
 ```
-Use the search_instructions tool with query: "MCP"
+使用 get_system_instruction 工具，参数为 instruction_type: "complete-instructions"
 ```
 
-### Using Prompts
+### 搜索指令
 
-The server provides pre-configured prompts:
+```
+使用 search_instructions 工具，参数为 query: "MCP"
+```
 
-1. **kiro_assistant** - Full Kiro assistant configuration
-2. **code_review** - Code review with Kiro's standards
-3. **feature_development** - Feature development workflow
+### 使用提示
 
-## Testing the Server
+服务器提供预配置的提示：
 
-You can test the server is working by:
+1. **kiro_assistant** - 完整的 Kiro 助手配置
+2. **code_review** - 使用 Kiro 标准进行代码审查
+3. **feature_development** - 功能开发工作流程
 
-1. Checking the MCP Server view in your client
-2. Trying to list instructions
-3. Retrieving a system instruction document
+## 测试服务器
 
-## Troubleshooting
+你可以通过以下方式测试服务器是否正常工作：
 
-### Server doesn't start
+1. 在客户端中检查 MCP 服务器视图
+2. 尝试列出指令
+3. 检索系统指令文档
 
-- Check that `uvx` or `uv` is installed: `uv --version`
-- Try running directly: `uvx kiro-mcp-server` (this will fail with stdio errors but confirms the package is accessible)
+## 故障排除
 
-### Can't find system files
+### 服务器无法启动
 
-- Set the `KIRO_SYSTEM_PATH` environment variable to point to your `.kiro/system` directory
-- Ensure you're running from within the Kiro repository or have the package properly installed
+- 检查是否安装了 `uvx` 或 `uv`：`uv --version`
+- 尝试直接运行：`uvx kiro-mcp-server`（这会因 stdio 错误而失败，但确认包可访问）
 
-### Resources not showing up
+### 找不到系统文件
 
-- Check the MCP client logs for errors
-- Verify the server is listed and enabled in your MCP configuration
-- Try reconnecting the server from the MCP Server view
+- 将 `KIRO_SYSTEM_PATH` 环境变量设置为指向你的 `.kiro/system` 目录
+- 确保你在 Kiro 仓库内运行或已正确安装包
+
+### 资源未显示
+
+- 检查 MCP 客户端日志中的错误
+- 验证服务器在 MCP 配置中已列出并启用
+- 尝试从 MCP 服务器视图重新连接服务器

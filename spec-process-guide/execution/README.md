@@ -1,43 +1,43 @@
-# Execution Guide by kiro
+# 执行指南
 
-<!-- Navigation Metadata -->
-<!-- Section: Execution | Level: Overview | Prerequisites: process/tasks-phase.md -->
-<!-- Related: examples/simple-feature-spec.md, resources/tools.md, process/README.md -->
+<!-- 导航元数据 -->
+<!-- 章节：执行 | 级别：概述 | 前置条件：process/tasks-phase.md -->
+<!-- 相关：examples/simple-feature-spec.md, resources/tools.md, process/README.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Execution Guide**
+**📍 你在这里：** [主指南](../../README.md) → **执行指南**
 
-## Quick Navigation
-- **Prerequisites:** [Tasks Phase](../process/tasks-phase.md) - Learn how to create implementation plans
-- **Complete Example:** [Simple Feature Spec](../examples/simple-feature-spec.md) - See full spec-to-code workflow
-- **Helpful Tools:** [Tools & Resources](../resources/tools.md) - Recommended execution tools
-- **Process Overview:** [Three-Phase Workflow](../process/README.md) - Understand the full context
-
----
-
-Practical guidance for implementing features from completed specs.
-
-## In This Section
-
-- **[Implementation Guide](implementation-guide.md)** - Step-by-step execution strategies
-- **[Quality Assurance](quality-assurance.md)** - Testing and validation techniques
-- **[Troubleshooting](troubleshooting.md)** - Common issues and solutions
-
-## From Spec to Code
-
-Once you have a completed spec with requirements, design, and tasks, this section guides you through:
-
-- **Task Execution** - How to work through implementation tasks systematically
-- **Quality Gates** - Validation checkpoints to maintain code quality
-- **Progress Tracking** - Managing task completion and dependencies
-- **Adaptation Strategies** - Handling unexpected challenges during implementation
-
-## Execution Principles
-
-1. **One Task at a Time** - Focus on individual tasks to maintain quality
-2. **Validate Early** - Test components as you build them
-3. **Document Changes** - Track deviations from the original plan
-4. **Maintain Momentum** - Keep implementation moving while ensuring quality
+## 快速导航
+- **前置条件：** [任务阶段](../process/tasks-phase.md) - 了解如何创建实施计划
+- **完整示例：** [简单功能规范](../examples/simple-feature-spec.md) - 查看完整的规范到代码工作流程
+- **有用工具：** [工具和资源](../resources/tools.md) - 推荐的执行工具
+- **流程概述：** [三阶段工作流程](../process/README.md) - 了解完整上下文
 
 ---
 
-[← Back to Main Guide](../../README.md) | [Start Implementation →](implementation-guide.md)
+从完成的规范实施功能的实用指导。
+
+## 本节内容
+
+- **[实施指南](implementation-guide.md)** - 分步执行策略
+- **[质量保证](quality-assurance.md)** - 测试和验证技术
+- **[故障排除](troubleshooting.md)** - 常见问题和解决方案
+
+## 从规范到代码
+
+一旦你拥有包含需求、设计和任务的完整规范，本节将指导你完成：
+
+- **任务执行** - 如何系统地处理实施任务
+- **质量门** - 维护代码质量的验证检查点
+- **进度跟踪** - 管理任务完成和依赖关系
+- **适应策略** - 在实施期间处理意外挑战
+
+## 执行原则
+
+1. **一次一个任务** - 专注于单个任务以保持质量
+2. **尽早验证** - 在构建组件时测试它们
+3. **记录更改** - 跟踪与原始计划的偏差
+4. **保持势头** - 在确保质量的同时保持实施进展
+
+---
+
+[← 返回主指南](../../README.md) | [开始实施 →](implementation-guide.md)

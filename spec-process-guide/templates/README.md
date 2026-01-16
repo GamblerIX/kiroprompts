@@ -1,57 +1,57 @@
-# Templates
+# 模板
 
-<!-- Navigation Metadata -->
-<!-- Section: Templates | Level: Reference | Prerequisites: None -->
-<!-- Related: process/README.md, examples/README.md, resources/standards.md -->
+<!-- 导航元数据 -->
+<!-- 章节：模板 | 级别：参考 | 前置条件：无 -->
+<!-- 相关：process/README.md, examples/README.md, resources/standards.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Templates**
+**📍 你在这里：** [主指南](../../README.md) → **模板**
 
-## Quick Navigation
-- **Learn Process:** [Process Guide](../process/README.md) - Understand how to use these templates
-- **See Examples:** [Complete Examples](../examples/README.md) - Templates filled out in practice
-- **Standards Reference:** [EARS & Standards](../resources/standards.md) - Format guidelines
-- **Start Here:** [Requirements Template](requirements-template.md) - Begin your first spec
-
----
-
-Ready-to-use templates and checklists to accelerate your spec development process.
-
-## In This Section
-
-### Full Spec Templates
-- **[Requirements Template](requirements-template.md)** - EARS-formatted requirements structure
-- **[Design Template](design-template.md)** - Comprehensive design document framework
-- **[Tasks Template](tasks-template.md)** - Implementation planning format
-
-### Lightweight Templates
-- **[Quick Spec Template](quick-spec-template.md)** - For 1-3 day features (requirements + tasks only)
-- **[Micro Spec Template](micro-spec-template.md)** - For sub-1 day changes (minimal documentation)
-
-### Supporting Templates
-- **[Checklists](checklists.md)** - Quality gates and validation checklists
-
-## How to Use Templates
-
-1. **Copy the Template** - Start with the appropriate template for your phase
-2. **Customize Sections** - Adapt the structure to your specific feature needs
-3. **Fill in Content** - Replace placeholder text with your actual requirements/design/tasks
-4. **Validate Completeness** - Use the included checklists to ensure nothing is missed
-
-## Template Features
-
-Each template includes:
-- **Structured Format** - Consistent organization and formatting
-- **Placeholder Content** - Examples to guide your writing
-- **Validation Checklists** - Quality gates for each section
-- **Cross-References** - Links between related sections
-
-## Quick Start Guide
-
-1. **New Feature?** Start with [Requirements Template](requirements-template.md)
-2. **Requirements Done?** Move to [Design Template](design-template.md)  
-3. **Design Complete?** Use [Tasks Template](tasks-template.md)
-4. **Need Examples?** Check the [Examples](../examples/README.md) section
+## 快速导航
+- **学习流程：** [流程指南](../process/README.md) - 了解如何使用这些模板
+- **查看示例：** [完整示例](../examples/README.md) - 实践中填写的模板
+- **标准参考：** [EARS 和标准](../resources/standards.md) - 格式指南
+- **从这里开始：** [需求模板](requirements-template.md) - 开始你的第一个规范
 
 ---
 
-[← Back to Main Guide](../../README.md) | [Get Requirements Template →](requirements-template.md)
+即用型模板和检查清单，加速你的规范开发流程。
+
+## 本节内容
+
+### 完整规范模板
+- **[需求模板](requirements-template.md)** - EARS 格式的需求结构
+- **[设计模板](design-template.md)** - 全面的设计文档框架
+- **[任务模板](tasks-template.md)** - 实施规划格式
+
+### 轻量级模板
+- **[快速规范模板](quick-spec-template.md)** - 用于 1-3 天功能（仅需求 + 任务）
+- **[微型规范模板](micro-spec-template.md)** - 用于 1 天以下更改（最少文档）
+
+### 支持模板
+- **[检查清单](checklists.md)** - 质量门和验证检查清单
+
+## 如何使用模板
+
+1. **复制模板** - 从适合你阶段的模板开始
+2. **自定义部分** - 根据你的特定功能需求调整结构
+3. **填写内容** - 用你的实际需求/设计/任务替换占位符文本
+4. **验证完整性** - 使用包含的检查清单确保没有遗漏
+
+## 模板功能
+
+每个模板包括：
+- **结构化格式** - 一致的组织和格式
+- **占位符内容** - 指导你编写的示例
+- **验证检查清单** - 每个部分的质量门
+- **交叉引用** - 相关部分之间的链接
+
+## 快速开始指南
+
+1. **新功能？** 从 [需求模板](requirements-template.md) 开始
+2. **需求完成？** 移动到 [设计模板](design-template.md)  
+3. **设计完成？** 使用 [任务模板](tasks-template.md)
+4. **需要示例？** 查看 [示例](../examples/README.md) 部分
+
+---
+
+[← 返回主指南](../../README.md) | [获取需求模板 →](requirements-template.md)

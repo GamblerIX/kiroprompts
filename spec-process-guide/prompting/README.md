@@ -1,43 +1,43 @@
-# Prompting Strategies
+# 提示策略
 
-<!-- Navigation Metadata -->
-<!-- Section: Prompting | Level: Overview | Prerequisites: methodology/README.md -->
-<!-- Related: process/README.md, ai-reasoning/decision-frameworks.md, templates/README.md -->
+<!-- 导航元数据 -->
+<!-- 章节：提示 | 级别：概述 | 前置条件：methodology/README.md -->
+<!-- 相关：process/README.md, ai-reasoning/decision-frameworks.md, templates/README.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Prompting Strategies**
+**📍 你在这里：** [主指南](../../README.md) → **提示策略**
 
-## Quick Navigation
-- **Foundation:** [Methodology Overview](../methodology/README.md) - Understand spec-driven development first
-- **Process Steps:** [Process Guide](../process/README.md) - Learn the three-phase workflow
-- **AI Reasoning:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - Understand how AI makes choices
-- **Practice:** [Templates](../templates/README.md) - Try prompting with structured templates
-
----
-
-Effective communication techniques for successful AI collaboration during spec development.
-
-## In This Section
-
-- **[Strategies](strategies.md)** - Core approaches for clear, effective prompting
-- **[Templates](templates.md)** - Ready-to-use prompt patterns for each phase
-- **[Best Practices](best-practices.md)** - Tips for getting better results
-
-## Key Principles
-
-Effective prompting for spec development follows these principles:
-
-1. **Be Specific** - Provide clear context and concrete examples
-2. **Structure Requests** - Break complex asks into manageable parts
-3. **Iterate Thoughtfully** - Build on previous responses rather than starting over
-4. **Validate Understanding** - Confirm alignment before proceeding to next phases
-
-## Common Patterns
-
-- **Context Setting** - Establishing project background and constraints
-- **Phase Transitions** - Moving smoothly between requirements, design, and tasks
-- **Feedback Integration** - Incorporating changes and refinements effectively
-- **Quality Validation** - Ensuring outputs meet your standards
+## 快速导航
+- **基础：** [方法论概述](../methodology/README.md) - 首先了解规范驱动开发
+- **流程步骤：** [流程指南](../process/README.md) - 学习三阶段工作流程
+- **AI 推理：** [决策框架](../ai-reasoning/decision-frameworks.md) - 了解 AI 如何做出选择
+- **实践：** [模板](../templates/README.md) - 使用结构化模板尝试提示
 
 ---
 
-[← Back to Main Guide](../../README.md) | [Learn Core Strategies →](strategies.md)
+规范开发期间成功 AI 协作的有效沟通技巧。
+
+## 本节内容
+
+- **[策略](strategies.md)** - 清晰、有效提示的核心方法
+- **[模板](templates.md)** - 每个阶段的即用型提示模式
+- **[最佳实践](best-practices.md)** - 获得更好结果的技巧
+
+## 关键原则
+
+规范开发的有效提示遵循以下原则：
+
+1. **具体** - 提供清晰的上下文和具体示例
+2. **结构化请求** - 将复杂的请求分解为可管理的部分
+3. **深思熟虑地迭代** - 基于先前的响应构建而不是重新开始
+4. **验证理解** - 在继续下一阶段之前确认一致性
+
+## 常见模式
+
+- **上下文设置** - 建立项目背景和约束
+- **阶段转换** - 在需求、设计和任务之间平滑移动
+- **反馈集成** - 有效地整合更改和完善
+- **质量验证** - 确保输出符合你的标准
+
+---
+
+[← 返回主指南](../../README.md) | [学习核心策略 →](strategies.md)

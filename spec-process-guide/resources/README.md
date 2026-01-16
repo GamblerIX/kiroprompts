@@ -1,42 +1,42 @@
-# Resources
+# 资源
 
-<!-- Navigation Metadata -->
-<!-- Section: Resources | Level: Reference | Prerequisites: None -->
-<!-- Related: process/requirements-phase.md, templates/README.md, methodology/README.md -->
+<!-- 导航元数据 -->
+<!-- 章节：资源 | 级别：参考 | 前置条件：无 -->
+<!-- 相关：process/requirements-phase.md, templates/README.md, methodology/README.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Resources**
+**📍 你在这里：** [主指南](../../README.md) → **资源**
 
-## Quick Navigation
-- **Apply Standards:** [Requirements Phase](../process/requirements-phase.md) - Use EARS format in practice
-- **Get Templates:** [Templates & Checklists](../templates/README.md) - Ready-to-use starting points
-- **Understand Context:** [Methodology](../methodology/README.md) - See how resources fit the bigger picture
-- **Find Tools:** [Tool Integration Guide](tool-integration-guide.md) - Specific tool recommendations
-
----
-
-Curated references and learning materials to deepen your understanding of spec-driven development.
-
-## In This Section
-
-- **[Standards](standards.md)** - EARS format and industry requirements engineering standards
-- **[Tools](tools.md)** - Recommended tools and integrations for spec development
-- **[Further Reading](further-reading.md)** - Books, articles, and additional learning resources
-
-## Quick Reference
-
-### EARS Format
-**E**asy **A**pproach to **R**equirements **S**yntax - A structured way to write clear, testable requirements using keywords like WHEN, IF, WHILE, WHERE, and SHALL.
-
-### Key Standards
-- IEEE 830 - Software Requirements Specifications
-- ISO/IEC 25010 - Systems and software Quality Requirements and Evaluation
-- Agile Requirements Engineering practices
-
-### Essential Tools
-- Documentation platforms (Markdown, Notion, Confluence)
-- Diagramming tools (Mermaid, Lucidchart, Draw.io)
-- Project management (Linear, Jira, GitHub Issues)
+## 快速导航
+- **应用标准：** [需求阶段](../process/requirements-phase.md) - 在实践中使用 EARS 格式
+- **获取模板：** [模板和检查清单](../templates/README.md) - 获取即用型起点
+- **了解上下文：** [方法论](../methodology/README.md) - 查看资源如何融入大局
+- **查找工具：** [工具集成指南](tool-integration-guide.md) - 特定工具推荐
 
 ---
 
-[← Back to Main Guide](../../README.md) | [Explore Standards →](standards.md)
+精选参考资料和学习材料，以加深你对规范驱动开发的理解。
+
+## 本节内容
+
+- **[标准](standards.md)** - EARS 格式和行业需求工程标准
+- **[工具](tools.md)** - 规范开发的推荐工具和集成
+- **[延伸阅读](further-reading.md)** - 书籍、文章和额外学习资源
+
+## 快速参考
+
+### EARS 格式
+**E**asy **A**pproach to **R**equirements **S**yntax（需求语法简便方法）- 使用 WHEN、IF、WHILE、WHERE 和 SHALL 等关键字编写清晰、可测试需求的结构化方法。
+
+### 关键标准
+- IEEE 830 - 软件需求规范
+- ISO/IEC 25010 - 系统和软件质量要求和评估
+- 敏捷需求工程实践
+
+### 必要工具
+- 文档平台（Markdown、Notion、Confluence）
+- 图表工具（Mermaid、Lucidchart、Draw.io）
+- 项目管理（Linear、Jira、GitHub Issues）
+
+---
+
+[← 返回主指南](../../README.md) | [探索标准 →](standards.md)

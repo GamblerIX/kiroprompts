@@ -1,148 +1,148 @@
-# Spec-Driven Development Guide
+# 规范驱动开发指南
 
-[![Run in Smithery](https://smithery.ai/badge/skills/jasonkneen)](https://smithery.ai/skills?ns=jasonkneen&utm_source=github&utm_medium=badge)
+[![在 Smithery 中运行](https://smithery.ai/badge/skills/jasonkneen)](https://smithery.ai/skills?ns=jasonkneen&utm_source=github&utm_medium=badge)
 
 
-A comprehensive guide to systematic feature development using the three-phase spec process: Requirements → Design → Tasks.
+使用三阶段规范流程进行系统化功能开发的综合指南：需求 → 设计 → 任务。
 
-<!-- Navigation Metadata -->
-<!-- Keywords: spec-driven development, requirements engineering, system design, implementation planning, AI collaboration -->
-<!-- Topics: methodology, process, templates, examples, best practices -->
-<!-- Audience: developers, project managers, technical leads -->
+<!-- 导航元数据 -->
+<!-- 关键词：规范驱动开发、需求工程、系统设计、实施规划、AI 协作 -->
+<!-- 主题：方法论、流程、模板、示例、最佳实践 -->
+<!-- 受众：开发者、项目经理、技术主管 -->
 
-## Used by
+## 使用者
 
-- [@kazini](https://github.com/kazini) in their spec kit https://github.com/kazini/yask-spec-kit
-- Amazon in internal presentations: _"It’s the best stuff I have found on [spec driven development]. I will be sharing links back to your repo with full attribution."_
+- [@kazini](https://github.com/kazini) 在他们的规范工具包中使用 https://github.com/kazini/yask-spec-kit
+- 亚马逊在内部演示中：_"这是我在[规范驱动开发]方面找到的最好的内容。我将分享回你仓库的链接，并给予完整的署名。"_
 
-## 🧭 Navigation Guide
+## 🧭 导航指南
 
-**New to spec-driven development?** → Start with [Methodology Overview](spec-process-guide/methodology/README.md)  
-**Ready to create your first spec?** → Jump to [Process Guide](spec-process-guide/process/README.md)  
-**Looking for examples?** → Browse [Examples & Case Studies](spec-process-guide/examples/README.md)  
-**Need templates?** → Get [Ready-to-Use Templates](spec-process-guide/templates/README.md)  
-**Working with AI?** → Learn [Prompting Strategies](spec-process-guide/prompting/README.md)
+**规范驱动开发新手？** → 从[方法论概述](spec-process-guide/methodology/README.md)开始  
+**准备创建第一个规范？** → 跳转到[流程指南](spec-process-guide/process/README.md)  
+**寻找示例？** → 浏览[示例和案例研究](spec-process-guide/examples/README.md)  
+**需要模板？** → 获取[即用型模板](spec-process-guide/templates/README.md)  
+**与 AI 合作？** → 学习[提示策略](spec-process-guide/prompting/README.md)
 
-**📍 Need detailed navigation?** → See [Complete Navigation Index](spec-process-guide/NAVIGATION.md) - Find content by role, problem, or learning style
-
----
-
-## 📚 Complete Table of Contents
-
-### 🎯 [Methodology](spec-process-guide/methodology/README.md)
-Learn the foundational concepts and philosophy behind spec-driven development
-- [Overview](spec-process-guide/methodology/overview.md) - Core concepts and benefits
-- [Philosophy](spec-process-guide/methodology/philosophy.md) - Why spec-driven development works
-- [When to Use](spec-process-guide/methodology/when-to-use.md) - Decision framework and scenarios
-
-### 📋 [Process Guide](spec-process-guide/process/README.md)
-Step-by-step walkthrough of the three-phase workflow
-- [Requirements Phase](spec-process-guide/process/requirements-phase.md) - Gathering and structuring requirements using EARS
-- [Design Phase](spec-process-guide/process/design-phase.md) - Creating comprehensive design documents
-- [Tasks Phase](spec-process-guide/process/tasks-phase.md) - Breaking down design into actionable coding tasks
-- [Workflow Diagrams](spec-process-guide/process/workflow-diagrams.md) - Visual process flows and decision points
-
-### 🧠 [AI Reasoning](spec-process-guide/ai-reasoning/README.md)
-Insights into decision-making frameworks and thought processes
-- [Decision Frameworks](spec-process-guide/ai-reasoning/decision-frameworks.md) - How choices are evaluated
-- [Thought Processes](spec-process-guide/ai-reasoning/thought-processes.md) - Analysis and prioritization methods
-- [Examples](spec-process-guide/ai-reasoning/examples.md) - Real reasoning chains and decision points
-
-### 💬 [Prompting Strategies](spec-process-guide/prompting/README.md)
-Effective communication techniques for AI collaboration
-- [Strategies](spec-process-guide/prompting/strategies.md) - Core prompting approaches
-- [Templates](spec-process-guide/prompting/templates.md) - Ready-to-use prompt patterns
-- [Best Practices](spec-process-guide/prompting/best-practices.md) - Tips for clear, effective communication
-
-### ⚡ [Execution Guide](spec-process-guide/execution/README.md)
-Practical guidance for implementing features from specs
-- [Implementation Guide](spec-process-guide/execution/implementation-guide.md) - Step-by-step execution strategies
-- [Quality Assurance](spec-process-guide/execution/quality-assurance.md) - Testing and validation techniques
-- [Troubleshooting](spec-process-guide/execution/troubleshooting.md) - Common issues and solutions
-
-### 📚 [Resources](spec-process-guide/resources/README.md)
-Curated references and learning materials
-- [Standards](spec-process-guide/resources/standards.md) - EARS and industry standards
-- [Tools](spec-process-guide/resources/tools.md) - Recommended tools and integrations
-- [Further Reading](spec-process-guide/resources/further-reading.md) - Additional learning resources
-
-### 📖 [Examples](spec-process-guide/examples/README.md)
-Real-world case studies and complete spec examples
-- [Simple Feature Specs](spec-process-guide/examples/simple-feature-spec.md) - Basic feature examples
-- [Complex System Specs](spec-process-guide/examples/complex-system-spec.md) - Large system examples
-- [Case Studies](spec-process-guide/examples/case-studies.md) - Success stories and lessons learned
-- [Troubleshooting & Pitfalls](spec-process-guide/examples/troubleshooting-pitfalls.md) - Common mistakes and recovery strategies
-
-### 📝 [Templates](spec-process-guide/templates/README.md)
-Ready-to-use templates and checklists
-- [Requirements Template](spec-process-guide/templates/requirements-template.md) - EARS-formatted requirements
-- [Design Template](spec-process-guide/templates/design-template.md) - Comprehensive design structure
-- [Tasks Template](spec-process-guide/templates/tasks-template.md) - Implementation planning format
+**📍 需要详细导航？** → 查看[完整导航索引](spec-process-guide/NAVIGATION.md) - 按角色、问题或学习风格查找内容
 
 ---
 
-## Quick Start
+## 📚 完整目录
 
-New to spec-driven development? Start here:
+### 🎯 [方法论](spec-process-guide/methodology/README.md)
+了解规范驱动开发的基本概念和理念
+- [概述](spec-process-guide/methodology/overview.md) - 核心概念和优势
+- [理念](spec-process-guide/methodology/philosophy.md) - 为什么规范驱动开发有效
+- [何时使用](spec-process-guide/methodology/when-to-use.md) - 决策框架和场景
 
-1. **Understand the Methodology** - Read the [Overview](spec-process-guide/methodology/overview.md) to grasp core concepts
-2. **See It in Action** - Review a [Simple Feature Spec](spec-process-guide/examples/simple-feature-spec.md) example
-3. **Try It Yourself** - Use the [Requirements Template](spec-process-guide/templates/requirements-template.md) for your first spec
-4. **Get Better Results** - Apply [Prompting Strategies](spec-process-guide/prompting/strategies.md) for AI collaboration
+### 📋 [流程指南](spec-process-guide/process/README.md)
+三阶段工作流程的分步指南
+- [需求阶段](spec-process-guide/process/requirements-phase.md) - 使用 EARS 收集和构建需求
+- [设计阶段](spec-process-guide/process/design-phase.md) - 创建全面的设计文档
+- [任务阶段](spec-process-guide/process/tasks-phase.md) - 将设计分解为可执行的编码任务
+- [工作流程图](spec-process-guide/process/workflow-diagrams.md) - 可视化流程和决策点
 
-## Navigation Tips
+### 🧠 [AI 推理](spec-process-guide/ai-reasoning/README.md)
+决策框架和思维过程的见解
+- [决策框架](spec-process-guide/ai-reasoning/decision-frameworks.md) - 如何评估选择
+- [思维过程](spec-process-guide/ai-reasoning/thought-processes.md) - 分析和优先级排序方法
+- [示例](spec-process-guide/ai-reasoning/examples.md) - 真实推理链和决策点
 
-- 📋 **Process sections** provide step-by-step instructions
-- 🧠 **AI Reasoning sections** explain the "why" behind decisions  
-- 💬 **Prompting sections** help you communicate effectively with AI
-- 📖 **Examples** show complete, real-world applications
-- 📝 **Templates** give you ready-to-use starting points
+### 💬 [提示策略](spec-process-guide/prompting/README.md)
+AI 协作的有效沟通技巧
+- [策略](spec-process-guide/prompting/strategies.md) - 核心提示方法
+- [模板](spec-process-guide/prompting/templates.md) - 即用型提示模式
+- [最佳实践](spec-process-guide/prompting/best-practices.md) - 清晰有效沟通的技巧
+
+### ⚡ [执行指南](spec-process-guide/execution/README.md)
+从规范实施功能的实用指导
+- [实施指南](spec-process-guide/execution/implementation-guide.md) - 分步执行策略
+- [质量保证](spec-process-guide/execution/quality-assurance.md) - 测试和验证技术
+- [故障排除](spec-process-guide/execution/troubleshooting.md) - 常见问题和解决方案
+
+### 📚 [资源](spec-process-guide/resources/README.md)
+精选参考资料和学习材料
+- [标准](spec-process-guide/resources/standards.md) - EARS 和行业标准
+- [工具](spec-process-guide/resources/tools.md) - 推荐工具和集成
+- [延伸阅读](spec-process-guide/resources/further-reading.md) - 额外学习资源
+
+### 📖 [示例](spec-process-guide/examples/README.md)
+真实案例研究和完整规范示例
+- [简单功能规范](spec-process-guide/examples/simple-feature-spec.md) - 基本功能示例
+- [复杂系统规范](spec-process-guide/examples/complex-system-spec.md) - 大型系统示例
+- [案例研究](spec-process-guide/examples/case-studies.md) - 成功故事和经验教训
+- [故障排除和陷阱](spec-process-guide/examples/troubleshooting-pitfalls.md) - 常见错误和恢复策略
+
+### 📝 [模板](spec-process-guide/templates/README.md)
+即用型模板和检查清单
+- [需求模板](spec-process-guide/templates/requirements-template.md) - EARS 格式的需求
+- [设计模板](spec-process-guide/templates/design-template.md) - 全面的设计结构
+- [任务模板](spec-process-guide/templates/tasks-template.md) - 实施规划格式
 
 ---
 
-## 🔗 Cross-References & Related Content
+## 快速开始
 
-### By Workflow Phase
-- **Planning Phase**: [Methodology](spec-process-guide/methodology/README.md) → [Requirements](spec-process-guide/process/requirements-phase.md) → [Design](spec-process-guide/process/design-phase.md) → [Tasks](spec-process-guide/process/tasks-phase.md)
-- **Execution Phase**: [Implementation Guide](spec-process-guide/execution/implementation-guide.md) → [Quality Assurance](spec-process-guide/execution/quality-assurance.md)
-- **AI Collaboration**: [Prompting Strategies](spec-process-guide/prompting/README.md) → [AI Reasoning](spec-process-guide/ai-reasoning/README.md) → [Best Practices](spec-process-guide/prompting/best-practices.md)
+规范驱动开发新手？从这里开始：
 
-### By Experience Level
-- **Beginner**: [Methodology](spec-process-guide/methodology/README.md) → [Simple Examples](spec-process-guide/examples/simple-feature-spec.md) → [Templates](spec-process-guide/templates/README.md)
-- **Intermediate**: [Process Guide](spec-process-guide/process/README.md) → [Prompting Strategies](spec-process-guide/prompting/README.md) → [Case Studies](spec-process-guide/examples/case-studies.md)
-- **Advanced**: [AI Reasoning](spec-process-guide/ai-reasoning/README.md) → [Complex Examples](spec-process-guide/examples/complex-system-spec.md) → [Decision Frameworks](spec-process-guide/ai-reasoning/decision-frameworks.md)
+1. **理解方法论** - 阅读[概述](spec-process-guide/methodology/overview.md)以掌握核心概念
+2. **查看实际应用** - 审查[简单功能规范](spec-process-guide/examples/simple-feature-spec.md)示例
+3. **亲自尝试** - 使用[需求模板](spec-process-guide/templates/requirements-template.md)创建你的第一个规范
+4. **获得更好的结果** - 应用[提示策略](spec-process-guide/prompting/strategies.md)进行 AI 协作
 
-### Quick Problem Solving
-- **Unclear Requirements** → [Requirements Phase](spec-process-guide/process/requirements-phase.md) + [EARS Standards](spec-process-guide/resources/standards.md)
-- **Design Challenges** → [Design Phase](spec-process-guide/process/design-phase.md) + [AI Decision Frameworks](spec-process-guide/ai-reasoning/decision-frameworks.md)
-- **Implementation Issues** → [Implementation Guide](spec-process-guide/execution/implementation-guide.md) + [Troubleshooting](spec-process-guide/examples/troubleshooting-pitfalls.md)
-- **AI Communication Problems** → [Prompting Best Practices](spec-process-guide/prompting/best-practices.md) + [Troubleshooting](spec-process-guide/examples/troubleshooting-pitfalls.md)
+## 导航技巧
+
+- 📋 **流程部分**提供分步说明
+- 🧠 **AI 推理部分**解释决策背后的"原因"
+- 💬 **提示部分**帮助你有效地与 AI 沟通
+- 📖 **示例**展示完整的真实应用
+- 📝 **模板**为你提供即用型起点
 
 ---
 
-## 🔌 Kiro MCP Server
+## 🔗 交叉引用和相关内容
 
-The Kiro MCP Server exposes Kiro's system prompts and instructions through the Model Context Protocol (MCP), allowing other AI assistants and tools to access Kiro's best practices.
+### 按工作流程阶段
+- **规划阶段**：[方法论](spec-process-guide/methodology/README.md) → [需求](spec-process-guide/process/requirements-phase.md) → [设计](spec-process-guide/process/design-phase.md) → [任务](spec-process-guide/process/tasks-phase.md)
+- **执行阶段**：[实施指南](spec-process-guide/execution/implementation-guide.md) → [质量保证](spec-process-guide/execution/quality-assurance.md)
+- **AI 协作**：[提示策略](spec-process-guide/prompting/README.md) → [AI 推理](spec-process-guide/ai-reasoning/README.md) → [最佳实践](spec-process-guide/prompting/best-practices.md)
 
-### Features
+### 按经验水平
+- **初学者**：[方法论](spec-process-guide/methodology/README.md) → [简单示例](spec-process-guide/examples/simple-feature-spec.md) → [模板](spec-process-guide/templates/README.md)
+- **中级**：[流程指南](spec-process-guide/process/README.md) → [提示策略](spec-process-guide/prompting/README.md) → [案例研究](spec-process-guide/examples/case-studies.md)
+- **高级**：[AI 推理](spec-process-guide/ai-reasoning/README.md) → [复杂示例](spec-process-guide/examples/complex-system-spec.md) → [决策框架](spec-process-guide/ai-reasoning/decision-frameworks.md)
 
-- **Resources**: Access all Kiro system documentation files via MCP resources
-- **Tools**: Query and retrieve specific system instructions programmatically
-- **Prompts**: Pre-configured prompts for common Kiro workflows
+### 快速问题解决
+- **需求不明确** → [需求阶段](spec-process-guide/process/requirements-phase.md) + [EARS 标准](spec-process-guide/resources/standards.md)
+- **设计挑战** → [设计阶段](spec-process-guide/process/design-phase.md) + [AI 决策框架](spec-process-guide/ai-reasoning/decision-frameworks.md)
+- **实施问题** → [实施指南](spec-process-guide/execution/implementation-guide.md) + [故障排除](spec-process-guide/examples/troubleshooting-pitfalls.md)
+- **AI 沟通问题** → [提示最佳实践](spec-process-guide/prompting/best-practices.md) + [故障排除](spec-process-guide/examples/troubleshooting-pitfalls.md)
 
-### Quick Start
+---
 
-Install and configure the MCP server:
+## 🔌 Kiro MCP 服务器
+
+Kiro MCP 服务器通过模型上下文协议（MCP）暴露 Kiro 的系统提示和指令，允许其他 AI 助手和工具访问 Kiro 的最佳实践。
+
+### 功能
+
+- **资源**：通过 MCP 资源访问所有 Kiro 系统文档文件
+- **工具**：以编程方式查询和检索特定系统指令
+- **提示**：常见 Kiro 工作流程的预配置提示
+
+### 快速开始
+
+安装和配置 MCP 服务器：
 
 ```bash
-# Using uvx (recommended)
+# 使用 uvx（推荐）
 uvx kiro-mcp-server
 
-# Or install with pip
+# 或使用 pip 安装
 pip install kiro-mcp-server
 ```
 
-Add to your MCP client configuration (e.g., `~/.kiro/settings/mcp.json`):
+添加到你的 MCP 客户端配置（例如 `~/.kiro/settings/mcp.json`）：
 
 ```json
 {
@@ -156,57 +156,57 @@ Add to your MCP client configuration (e.g., `~/.kiro/settings/mcp.json`):
 }
 ```
 
-For more details, see the [MCP Server Documentation](mcp-server/README.md).
+更多详情，请参阅 [MCP 服务器文档](mcp-server/README.md)。
 
 ---
 
-## 🎯 Claude Code Plugin
+## 🎯 Claude Code 插件
 
-Kiro is available as an installable Claude Code plugin with 7 skills following the [agentskills.io](https://agentskills.io) specification.
+Kiro 可作为可安装的 Claude Code 插件使用，包含 7 个遵循 [agentskills.io](https://agentskills.io) 规范的技能。
 
-### Quick Install
+### 快速安装
 
 ```bash
-# In Claude Code
+# 在 Claude Code 中
 /plugin marketplace add https://github.com/jasonkneen/kiro
 /plugin install kiro-spec-driven@kiro-marketplace
 ```
 
-### Available Skills
+### 可用技能
 
-Once installed, Claude automatically uses these skills when relevant:
+安装后，Claude 会在相关时自动使用这些技能：
 
-| Skill | Description | Use When |
-|-------|-------------|----------|
-| [spec-driven-development](skills/spec-driven-development/) | Master methodology | "create a spec for..." |
-| [requirements-engineering](skills/requirements-engineering/) | EARS format | "write requirements for..." |
-| [design-documentation](skills/design-documentation/) | Technical architecture | "design the architecture..." |
-| [task-breakdown](skills/task-breakdown/) | Implementation planning | "break down into tasks..." |
-| [ai-prompting](skills/ai-prompting/) | AI communication | "how to prompt better..." |
-| [quality-assurance](skills/quality-assurance/) | Testing strategies | "testing strategy for..." |
-| [troubleshooting](skills/troubleshooting/) | Problem resolution | "debug this issue..." |
-| [create-steering-documents](skills/create-steering-documents/) | Project guidelines | "create steering documents..." |
+| 技能 | 描述 | 使用时机 |
+|------|------|----------|
+| [spec-driven-development](skills/spec-driven-development/) | 掌握方法论 | "为...创建规范" |
+| [requirements-engineering](skills/requirements-engineering/) | EARS 格式 | "为...编写需求" |
+| [design-documentation](skills/design-documentation/) | 技术架构 | "设计架构..." |
+| [task-breakdown](skills/task-breakdown/) | 实施规划 | "分解为任务..." |
+| [ai-prompting](skills/ai-prompting/) | AI 沟通 | "如何更好地提示..." |
+| [quality-assurance](skills/quality-assurance/) | 测试策略 | "...的测试策略" |
+| [troubleshooting](skills/troubleshooting/) | 问题解决 | "调试此问题..." |
+| [create-steering-documents](skills/create-steering-documents/) | 项目指南 | "创建指导文档..." |
 
-### Installation Options
+### 安装选项
 
 ```bash
-# User scope (available everywhere)
+# 用户范围（随处可用）
 /plugin install kiro-spec-driven@kiro-marketplace
 
-# Project scope (shared via git)
+# 项目范围（通过 git 共享）
 /plugin install kiro-spec-driven@kiro-marketplace --scope project
 ```
 
-### Validate Skills
+### 验证技能
 
 ```bash
 ./scripts/validate-skills.sh
 ```
 
-For more details, see the [Plugin Documentation](PLUGIN.md) and [Skills Documentation](skills/README.md).
+更多详情，请参阅[插件文档](PLUGIN.md)和[技能文档](skills/README.md)。
 
 ---
 
-*This guide is designed to be both a learning resource and a reference manual. Jump to any section based on your current needs, or read through sequentially for comprehensive understanding.*
+*本指南旨在既是学习资源又是参考手册。根据你当前的需求跳转到任何部分，或按顺序阅读以获得全面理解。*
 
-**📍 For detailed navigation by role, problem, or learning style, see the [Complete Navigation Index](spec-process-guide/NAVIGATION.md)**
+**📍 如需按角色、问题或学习风格进行详细导航，请参阅[完整导航索引](spec-process-guide/NAVIGATION.md)**

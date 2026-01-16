@@ -1,50 +1,50 @@
-# Kiro Skills
+# Kiro 技能
 
-A collection of Claude Code skills following the [agentskills.io](https://agentskills.io) specification for spec-driven development.
+遵循 [agentskills.io](https://agentskills.io) 规范的 Claude Code 技能集合，用于规范驱动开发。
 
-## Available Skills
+## 可用技能
 
-| Skill | Description | Complexity |
-|-------|-------------|------------|
-| [spec-driven-development](./spec-driven-development/) | Master methodology combining all three phases | Intermediate |
-| [requirements-engineering](./requirements-engineering/) | EARS format requirements and acceptance criteria | Beginner |
-| [design-documentation](./design-documentation/) | Technical architecture and component design | Intermediate |
-| [task-breakdown](./task-breakdown/) | Sequenced implementation task planning | Intermediate |
-| [ai-prompting](./ai-prompting/) | Effective AI communication strategies | Beginner |
-| [quality-assurance](./quality-assurance/) | Testing and validation techniques | Intermediate |
-| [troubleshooting](./troubleshooting/) | Diagnosing and resolving common issues | Intermediate |
-| [create-steering-documents](./create-steering-documents/) | Generate .kiro/steering/ project guidelines | Intermediate |
+| 技能 | 描述 | 复杂度 |
+|------|------|--------|
+| [spec-driven-development](./spec-driven-development/) | 结合所有三个阶段的主方法论 | 中级 |
+| [requirements-engineering](./requirements-engineering/) | EARS 格式需求和验收标准 | 初级 |
+| [design-documentation](./design-documentation/) | 技术架构和组件设计 | 中级 |
+| [task-breakdown](./task-breakdown/) | 顺序实施任务规划 | 中级 |
+| [ai-prompting](./ai-prompting/) | 有效的 AI 沟通策略 | 初级 |
+| [quality-assurance](./quality-assurance/) | 测试和验证技术 | 中级 |
+| [troubleshooting](./troubleshooting/) | 诊断和解决常见问题 | 中级 |
+| [create-steering-documents](./create-steering-documents/) | 生成 .kiro/steering/ 项目指南 | 中级 |
 
-## Installation
+## 安装
 
 ### Claude Code
 
-Skills can be referenced directly from the repository:
+可以直接从仓库引用技能：
 
 ```bash
-# Clone the repository
+# 克隆仓库
 git clone https://github.com/jasonkneen/kiro.git
 
-# Reference skills in your project
-# Skills are in the /skills directory
+# 在你的项目中引用技能
+# 技能位于 /skills 目录
 ```
 
-### Manual Installation
+### 手动安装
 
-Copy the desired skill folder to your project's `.claude/skills/` directory:
+将所需的技能文件夹复制到项目的 `.claude/skills/` 目录：
 
 ```bash
 cp -r kiro/skills/spec-driven-development .claude/skills/
 ```
 
-## Skill Format
+## 技能格式
 
-Each skill follows the agentskills.io SKILL.md format:
+每个技能遵循 agentskills.io 的 SKILL.md 格式：
 
 ```yaml
 ---
 name: skill-name
-description: What this skill does (up to 1024 chars)
+description: 此技能的作用（最多 1024 个字符）
 license: MIT
 compatibility: Claude Code, Cursor, VS Code
 metadata:
@@ -52,35 +52,35 @@ metadata:
   complexity: beginner|intermediate|advanced
 ---
 
-# Skill Name
+# 技能名称
 
-[Instructions for the agent to follow]
+[代理要遵循的指令]
 ```
 
-## Quick Start
+## 快速开始
 
-1. **New to specs?** Start with [spec-driven-development](./spec-driven-development/)
-2. **Just need requirements?** Use [requirements-engineering](./requirements-engineering/)
-3. **Improving AI results?** Try [ai-prompting](./ai-prompting/)
-4. **Having issues?** Check [troubleshooting](./troubleshooting/)
+1. **规范新手？** 从 [spec-driven-development](./spec-driven-development/) 开始
+2. **只需要需求？** 使用 [requirements-engineering](./requirements-engineering/)
+3. **改善 AI 结果？** 尝试 [ai-prompting](./ai-prompting/)
+4. **遇到问题？** 查看 [troubleshooting](./troubleshooting/)
 
-## Validation
+## 验证
 
-Run the validation script to check all skills:
+运行验证脚本检查所有技能：
 
 ```bash
 ./scripts/validate-skills.sh
 ```
 
-## Contributing
+## 贡献
 
-To add a new skill:
+要添加新技能：
 
-1. Create a new directory under `skills/`
-2. Add a `SKILL.md` file with proper frontmatter
-3. Run validation to ensure format compliance
-4. Submit a pull request
+1. 在 `skills/` 下创建新目录
+2. 添加具有正确 frontmatter 的 `SKILL.md` 文件
+3. 运行验证以确保格式符合要求
+4. 提交拉取请求
 
-## License
+## 许可证
 
-MIT - See [LICENSE](../LICENSE)
+MIT - 参见 [LICENSE](../LICENSE)

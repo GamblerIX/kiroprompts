@@ -1,191 +1,191 @@
-# Methodology Overview and Philosophy
+# 方法论概述和理念
 
-<!-- Navigation Metadata -->
-<!-- Section: Methodology | Level: Overview | Prerequisites: None -->
-<!-- Related: process/README.md, examples/simple-feature-spec.md, prompting/strategies.md -->
+<!-- 导航元数据 -->
+<!-- 章节：方法论 | 级别：概述 | 前置条件：无 -->
+<!-- 相关：process/README.md, examples/simple-feature-spec.md, prompting/strategies.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → **Methodology**
+**📍 你在这里：** [主指南](../../README.md) → **方法论**
 
-## Quick Navigation
-- **Next Step:** [Process Guide](../process/README.md) - Learn the step-by-step workflow
-- **See Examples:** [Simple Feature Specs](../examples/simple-feature-spec.md) - See methodology in action
-- **Get Started:** [Requirements Template](../templates/requirements-template.md) - Start your first spec
+## 快速导航
+- **下一步：** [流程指南](../process/README.md) - 学习分步工作流程
+- **查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - 查看方法论的实际应用
+- **开始：** [需求模板](../templates/requirements-template.md) - 开始你的第一个规范
 
 ---
 
-## In This Section
+## 本节内容
 
-- **[When to Use Specs](when-to-use.md)** - Decision framework for choosing specification level
-- **[Lightweight Specs](lightweight-specs.md)** - Streamlined process for small features and fixes
+- **[何时使用规范](when-to-use.md)** - 选择规范级别的决策框架
+- **[轻量级规范](lightweight-specs.md)** - 针对小功能和修复的简化流程
 
-## Introduction
+## 简介
 
-Spec-driven development is a systematic approach to software feature development that emphasizes thorough planning, clear documentation, and structured implementation. This methodology transforms rough feature ideas into well-defined, implementable solutions through a three-phase process that ensures quality, maintainability, and successful delivery.
+规范驱动开发是一种系统化的软件功能开发方法，强调 thorough 规划、清晰文档和结构化实施。该方法论通过三阶段流程将粗略的功能想法转化为明确定义、可实施的解决方案，确保质量、可维护性和成功交付。
 
-## Core Philosophy
+## 核心理念
 
-### Clarity Before Code
+### 代码前的清晰
 
-The fundamental principle of spec-driven development is that clarity of thought and purpose must precede implementation. By investing time in understanding requirements, designing solutions, and planning implementation, we reduce uncertainty, minimize rework, and increase the likelihood of building the right thing correctly.
+规范驱动开发的基本原则是思维和目的的清晰度必须先于实施。通过投入时间理解需求、设计解决方案和规划实施，我们减少了不确定性，最大限度地减少了返工，并增加了正确构建正确事物的可能性。
 
-### Iterative Refinement
+### 迭代完善
 
-Each phase of the spec process is designed to be iterative. Rather than moving linearly from idea to implementation, the methodology encourages refinement and validation at each step. This approach catches issues early when they're less expensive to fix and ensures that each phase builds solidly on the previous one.
+规范流程的每个阶段都设计为迭代的。该方法论鼓励在每个步骤进行完善和验证，而不是线性地从想法移动到实施。这种方法在问题修复成本较低时及早发现问题，并确保每个阶段都稳固地建立在前一个阶段的基础上。
 
-### Documentation as Communication
+### 文档即沟通
 
-Specifications serve as more than just planning documents—they're communication tools that align stakeholders, preserve decision rationale, and provide context for future maintenance and enhancement. Well-written specs become valuable assets that outlive the initial implementation.
+规范不仅仅是规划文档——它们是对齐利益相关者、保存决策理由并为未来维护和增强提供上下文的沟通工具。编写良好的规范成为超越初始实施的宝贵资产。
 
-## The Three-Phase Approach
+## 三阶段方法
 
-### Phase 1: Requirements Gathering
+### 阶段 1：需求收集
 
-**Purpose**: Transform vague feature ideas into clear, testable requirements
+**目的**：将模糊的功能想法转化为清晰、可测试的需求
 
-**Key Activities**:
-- Capture user stories that express value and purpose
-- Define acceptance criteria using EARS (Easy Approach to Requirements Syntax)
-- Identify edge cases and constraints
-- Validate completeness and feasibility
+**关键活动**：
+- 捕获表达价值和目的的用户故事
+- 使用 EARS（需求语法简便方法）定义验收标准
+- 识别边缘情况和约束
+- 验证完整性和可行性
 
-**Benefits**:
-- Ensures all stakeholders understand what's being built
-- Provides clear success criteria for implementation
-- Reduces scope creep and feature drift
-- Creates a foundation for testing and validation
+**好处**：
+- 确保所有利益相关者了解正在构建的内容
+- 为实施提供明确的成功标准
+- 减少范围蔓延和功能漂移
+- 为测试和验证创建基础
 
-### Phase 2: Design Documentation
+### 阶段 2：设计文档
 
-**Purpose**: Create a comprehensive technical plan for implementation
+**目的**：为实施创建全面的技术计划
 
-**Key Activities**:
-- Research technical approaches and constraints
-- Define system architecture and component interactions
-- Specify data models and interfaces
-- Plan error handling and testing strategies
+**关键活动**：
+- 研究技术方法和约束
+- 定义系统架构和组件交互
+- 指定数据模型和接口
+- 规划错误处理和测试策略
 
-**Benefits**:
-- Identifies technical challenges before coding begins
-- Enables better estimation and resource planning
-- Provides a roadmap for implementation
-- Documents design decisions and their rationale
+**好处**：
+- 在编码开始之前识别技术挑战
+- 实现更好的估算和资源规划
+- 提供实施路线图
+- 记录设计决策及其理由
 
-### Phase 3: Task Planning
+### 阶段 3：任务规划
 
-**Purpose**: Break down the design into actionable, sequential implementation steps
+**目的**：将设计分解为可操作的、顺序的实施步骤
 
-**Key Activities**:
-- Convert design elements into specific coding tasks
-- Sequence tasks to enable incremental progress
-- Define clear objectives and completion criteria
-- Reference requirements to ensure traceability
+**关键活动**：
+- 将设计元素转换为特定的编码任务
+- 对任务进行排序以实现增量进展
+- 定义明确的目标和完成标准
+- 引用需求以确保可追溯性
 
-**Benefits**:
-- Makes large features manageable through decomposition
-- Enables parallel work and better progress tracking
-- Reduces cognitive load during implementation
-- Facilitates code review and quality assurance
+**好处**：
+- 通过分解使大型功能易于管理
+- 实现并行工作和更好的进度跟踪
+- 减少实施期间的认知负荷
+- 促进代码审查和质量保证
 
-## Benefits of Spec-Driven Development
+## 规范驱动开发的好处
 
-### Reduced Risk and Uncertainty
+### 降低风险和不确定性
 
-By thoroughly planning before implementation, spec-driven development significantly reduces the risk of building the wrong thing or encountering unexpected technical challenges. The systematic approach helps identify and address issues early in the process.
+通过在实施之前进行彻底规划，规范驱动开发显著降低了构建错误事物或遇到意外技术挑战的风险。系统化方法有助于在流程早期识别和解决问题。
 
-### Improved Quality and Maintainability
+### 提高质量和可维护性
 
-Features developed through the spec process tend to be more robust, well-tested, and maintainable. The emphasis on clear requirements and thoughtful design leads to better architectural decisions and more comprehensive testing.
+通过规范流程开发的功能往往更加健壮、经过良好测试且易于维护。对清晰需求和深思熟虑设计的强调导致更好的架构决策和更全面的测试。
 
-### Enhanced Collaboration
+### 增强协作
 
-Specs provide a common language and shared understanding among team members, stakeholders, and future maintainers. This improved communication reduces misunderstandings and enables more effective collaboration.
+规范为团队成员、利益相关者和未来维护者提供了共同语言和共同理解。这种改进的沟通减少了误解并实现了更有效的协作。
 
-### Better Estimation and Planning
+### 更好的估算和规划
 
-The detailed planning inherent in spec-driven development enables more accurate time and resource estimation. Project managers and developers can make better decisions about scope, timeline, and resource allocation.
+规范驱动开发固有的详细规划能够实现更准确的时间和资源估算。项目经理和开发者可以就范围、时间表和资源分配做出更好的决策。
 
-### Knowledge Preservation
+### 知识保存
 
-Specs serve as living documentation that preserves the reasoning behind design decisions, requirements rationale, and implementation approaches. This knowledge remains accessible long after the original developers have moved on.
+规范作为活文档，保存设计决策、需求理由和实施方法背后的推理。这些知识在原始开发者离开后仍然可访问。
 
-## Comparison with Other Development Methodologies
+## 与其他开发方法的比较
 
-### Traditional Waterfall Development
+### 传统瀑布开发
 
-**Similarities**:
-- Both emphasize upfront planning and documentation
-- Both follow a sequential phase approach
+**相似之处**：
+- 两者都强调前期规划和文档
+- 两者都遵循顺序阶段方法
 
-**Key Differences**:
-- Spec-driven development is more iterative within each phase
-- Specs are designed to be living documents that evolve
-- The methodology is optimized for feature-level development rather than entire projects
-- Greater emphasis on AI-assisted development and collaboration
+**关键区别**：
+- 规范驱动开发在每个阶段内更具迭代性
+- 规范设计为演进的活文档
+- 该方法针对功能级开发而非整个项目进行优化
+- 更强调 AI 辅助开发和协作
 
-### Agile Development
+### 敏捷开发
 
-**Similarities**:
-- Both value working software and customer collaboration
-- Both embrace iterative refinement and feedback
+**相似之处**：
+- 两者都重视可工作的软件和客户协作
+- 两者都拥抱迭代完善和反馈
 
-**Key Differences**:
-- Spec-driven development places greater emphasis on upfront design
-- More structured documentation requirements
-- Designed to work within agile frameworks rather than replace them
-- Can be applied to individual features within agile sprints
+**关键区别**：
+- 规范驱动开发更强调前期设计
+- 更结构化的文档要求
+- 设计为在敏捷框架内工作而非替代它们
+- 可以应用于敏捷冲刺中的单个功能
 
-### Test-Driven Development (TDD)
+### 测试驱动开发（TDD）
 
-**Similarities**:
-- Both emphasize defining success criteria before implementation
-- Both use an iterative red-green-refactor cycle (requirements-design-implementation)
+**相似之处**：
+- 两者都强调在实施之前定义成功标准
+- 两者都使用迭代红-绿-重构周期（需求-设计-实施）
 
-**Key Differences**:
-- Spec-driven development operates at a higher level of abstraction
-- Includes business requirements and system design, not just test cases
-- Can incorporate TDD practices within the implementation phase
-- Provides broader context beyond just testing
+**关键区别**：
+- 规范驱动开发在更高抽象级别上运行
+- 包括业务需求和系统设计，而不仅仅是测试用例
+- 可以在实施阶段内结合 TDD 实践
+- 提供超出测试的更广泛上下文
 
-### Design-First Development
+### 设计优先开发
 
-**Similarities**:
-- Both prioritize design and planning before coding
-- Both create detailed technical specifications
+**相似之处**：
+- 两者都优先考虑设计和规划而非编码
+- 两者都创建详细的技术规范
 
-**Key Differences**:
-- Spec-driven development includes explicit requirements gathering
-- More structured approach to task breakdown and implementation planning
-- Designed specifically for AI-assisted development workflows
-- Includes specific methodologies like EARS for requirements
+**关键区别**：
+- 规范驱动开发包括明确的需求收集
+- 更结构化的任务分解和实施规划方法
+- 专为 AI 辅助开发工作流程设计
+- 包括 EARS 等特定需求方法
 
-## When to Use Spec-Driven Development
+## 何时使用规范驱动开发
 
-### Ideal Scenarios
+### 理想场景
 
-- **Complex Features**: When building features with multiple components, integrations, or user interactions
-- **High-Stakes Projects**: When the cost of failure or rework is significant
-- **Team Collaboration**: When multiple developers or stakeholders need to coordinate
-- **Knowledge Transfer**: When documentation and knowledge preservation are important
-- **AI-Assisted Development**: When working with AI tools that benefit from clear, structured input
+- **复杂功能**：构建具有多个组件、集成或用户交互的功能时
+- **高风险项目**：失败或返工成本显著时
+- **团队协作**：多个开发者或利益相关者需要协调时
+- **知识转移**：文档和知识保存很重要时
+- **AI 辅助开发**：与从清晰、结构化输入中受益的 AI 工具合作时
 
-### Less Suitable Scenarios
+### 不太适合的场景
 
-- **Simple Bug Fixes**: When the change is straightforward and well-understood
-- **Experimental Prototypes**: When the goal is rapid experimentation rather than production code
-- **Time-Critical Hotfixes**: When immediate action is required without time for planning
-- **Well-Established Patterns**: When implementing standard, repetitive functionality
+- **简单错误修复**：更改直接且易于理解时
+- **实验性原型**：目标是快速实验而非生产代码时
+- **时间关键的热修复**：需要立即行动而没有时间规划时
+- **既定模式**：实施标准、重复性功能时
 
-## Integration with Existing Workflows
+## 与现有工作流程的集成
 
-Spec-driven development is designed to complement, not replace, existing development methodologies. It can be integrated into:
+规范驱动开发旨在补充而非替代现有开发方法。它可以集成到：
 
-- **Agile Sprints**: Use specs for larger user stories or epics
-- **Feature Branches**: Create specs before starting feature development
-- **Code Reviews**: Use specs as context for reviewing implementations
-- **Documentation Systems**: Integrate specs into existing documentation workflows
+- **敏捷冲刺**：对较大的用户故事或史诗使用规范
+- **功能分支**：在开始功能开发之前创建规范
+- **代码审查**：使用规范作为审查实施的上下文
+- **文档系统**：将规范集成到现有文档工作流程中
 
-## Conclusion
+## 结论
 
-Spec-driven development represents a balanced approach that combines the benefits of thorough planning with the flexibility needed for modern software development. By following the three-phase methodology, development teams can build better software more efficiently while maintaining the agility needed to respond to changing requirements and emerging opportunities.
+规范驱动开发代表了一种平衡的方法，结合了彻底规划的好处和现代软件开发所需的灵活性。通过遵循三阶段方法论，开发团队可以更高效地构建更好的软件，同时保持响应变化需求和新兴机会所需的敏捷性。
 
-The methodology is particularly powerful when combined with AI-assisted development tools, as the structured approach to requirements, design, and task planning provides the clear context that AI systems need to be most effective.
+该方法论在与 AI 辅助开发工具结合时特别强大，因为结构化的需求、设计和任务规划方法为 AI 系统最有效所需的清晰上下文。

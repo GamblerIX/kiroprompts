@@ -1,19 +1,19 @@
-# Kiro AI Assistant System Documentation
+# Kiro AI 助手系统文档
 
-This folder contains documentation about Kiro's capabilities, guidelines, and operational standards.
+此文件夹包含关于 Kiro 能力、指南和操作标准的文档。
 
-## Contents
+## 内容
 
-- **[capabilities.md](capabilities.md)** - Core capabilities and features
-- **[guidelines.md](guidelines.md)** - Operational guidelines and standards
-- **[response-style.md](response-style.md)** - Communication style and tone
-- **[quality-standards.md](quality-standards.md)** - Code and output quality requirements
-- **[workflow-patterns.md](workflow-patterns.md)** - Common workflow patterns and approaches
+- **[capabilities.md](capabilities.md)** - 核心功能和特性
+- **[guidelines.md](guidelines.md)** - 操作指南和标准
+- **[response-style.md](response-style.md)** - 沟通风格和语调
+- **[quality-standards.md](quality-standards.md)** - 代码和输出质量要求
+- **[workflow-patterns.md](workflow-patterns.md)** - 常见工作流程模式和方法
 
-## Purpose
+## 目的
 
-These documents serve as reference material for understanding how Kiro operates and what quality standards are maintained when assisting with development tasks.
+这些文档作为参考资料，用于了解 Kiro 如何运作以及在协助开发任务时保持什么样的质量标准。
 
-## Integration with Spec Process
+## 与规范流程的集成
 
-Kiro's operational standards complement the spec-driven development process by ensuring that all assistance provided meets high quality standards and follows consistent patterns.
+Kiro 的操作标准补充了规范驱动开发流程，确保提供的所有帮助都符合高质量标准并遵循一致的模式。

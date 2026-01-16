@@ -1,43 +1,43 @@
-# Kiro MCP Server
+# Kiro MCP 服务器
 
-An MCP (Model Context Protocol) server that exposes Kiro's system prompts and instructions.
+一个 MCP（模型上下文协议）服务器，暴露 Kiro 的系统提示和指令。
 
-## Overview
+## 概述
 
-This server provides access to Kiro's comprehensive system instructions, capabilities, guidelines, and quality standards through the Model Context Protocol. It allows AI assistants and other MCP clients to access and utilize Kiro's prompt engineering best practices.
+此服务器通过模型上下文协议提供对 Kiro 全面系统指令、能力、指南和质量标准的访问。它允许 AI 助手和其他 MCP 客户端访问和利用 Kiro 的提示工程最佳实践。
 
-## Features
+## 功能
 
-- **Resources**: Access all Kiro system documentation files
-- **Tools**: Query and retrieve specific system instructions
-- **Prompts**: Pre-configured prompts for common Kiro workflows
+- **资源**：访问所有 Kiro 系统文档文件
+- **工具**：查询和检索特定系统指令
+- **提示**：常见 Kiro 工作流程的预配置提示
 
-## Installation
+## 安装
 
-### Using uvx (Recommended)
+### 使用 uvx（推荐）
 
 ```bash
 uvx kiro-mcp-server
 ```
 
-### Using pip
+### 使用 pip
 
 ```bash
 pip install kiro-mcp-server
 ```
 
-### From source
+### 从源代码
 
 ```bash
 cd mcp-server
 pip install -e .
 ```
 
-## Usage
+## 使用
 
-### Configuration
+### 配置
 
-Add to your MCP client configuration (e.g., Claude Desktop, Kiro):
+添加到你的 MCP 客户端配置（例如 Claude Desktop、Kiro）：
 
 ```json
 {
@@ -52,7 +52,7 @@ Add to your MCP client configuration (e.g., Claude Desktop, Kiro):
 }
 ```
 
-Or if installed locally:
+或者如果本地安装：
 
 ```json
 {
@@ -67,46 +67,46 @@ Or if installed locally:
 }
 ```
 
-### Available Resources
+### 可用资源
 
-The server exposes the following Kiro system documentation:
+服务器暴露以下 Kiro 系统文档：
 
-- `kiro://system/complete-instructions` - Complete Kiro system instructions
-- `kiro://system/capabilities` - Kiro capabilities and features
-- `kiro://system/guidelines` - Development guidelines
-- `kiro://system/quality-standards` - Quality standards
-- `kiro://system/response-style` - Response style guide
-- `kiro://system/workflow-patterns` - Common workflow patterns
+- `kiro://system/complete-instructions` - 完整的 Kiro 系统指令
+- `kiro://system/capabilities` - Kiro 能力和特性
+- `kiro://system/guidelines` - 开发指南
+- `kiro://system/quality-standards` - 质量标准
+- `kiro://system/response-style` - 响应风格指南
+- `kiro://system/workflow-patterns` - 常见工作流程模式
 
-### Available Tools
+### 可用工具
 
-- `get_system_instruction` - Retrieve specific system instruction by type
-- `search_instructions` - Search across all system instructions
-- `list_instructions` - List all available instruction types
+- `get_system_instruction` - 按类型检索特定系统指令
+- `search_instructions` - 在所有系统指令中搜索
+- `list_instructions` - 列出所有可用的指令类型
 
-### Available Prompts
+### 可用提示
 
-- `kiro_assistant` - Set up an AI assistant with Kiro's system instructions
-- `code_review` - Configure for code review with Kiro's standards
-- `feature_development` - Configure for feature development workflow
+- `kiro_assistant` - 使用 Kiro 系统指令设置 AI 助手
+- `code_review` - 使用 Kiro 标准配置代码审查
+- `feature_development` - 配置功能开发工作流程
 
-## Development
+## 开发
 
 ```bash
-# Install development dependencies
+# 安装开发依赖
 pip install -e ".[dev]"
 
-# Run tests
+# 运行测试
 pytest
 
-# Run the server locally
+# 本地运行服务器
 python -m kiro_mcp_server.server
 ```
 
-## License
+## 许可证
 
-See the main Kiro repository for license information.
+请参阅主 Kiro 仓库获取许可证信息。
 
-## Contributing
+## 贡献
 
-Contributions are welcome! Please see the main Kiro repository for contribution guidelines.
+欢迎贡献！请参阅主 Kiro 仓库获取贡献指南。

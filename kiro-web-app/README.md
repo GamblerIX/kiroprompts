@@ -1,82 +1,82 @@
-# Kiro Specification-Driven Development Guide – Web Application
+# Kiro 规范驱动开发指南 – Web 应用程序
 
-This is a modern web application designed to present and use the contents of the Kiro specification-driven development guide.
+这是一个现代化的 Web 应用程序，旨在展示和使用 Kiro 规范驱动开发指南的内容。
 
-## Features
+## 功能
 
-### 📚 Full Content Display
-- Methodology Overview – Core concepts and philosophy of specification-driven development
-- Process Guide – Detailed steps for the three-stage development process
-- AI Reasoning – Analysis of AI decision frameworks and thought processes
-- Prompting Strategies – Effective communication techniques for collaborating with AI
-- Execution Guide – Practical guidance from specification to implementation
-- Resource Library – Standards, tools, and learning materials
-- Examples and Cases – Real cases and complete specification samples
-- Template Library – Ready-to-use templates and checklists
+### 📚 完整内容展示
+- 方法论概述 – 规范驱动开发的核心概念和理念
+- 流程指南 – 三阶段开发流程的详细步骤
+- AI 推理 – AI 决策框架和思维过程的分析
+- 提示策略 – 与 AI 协作的有效沟通技巧
+- 执行指南 – 从规范到实施的实用指导
+- 资源库 – 标准、工具和学习材料
+- 示例和案例 – 真实案例和完整的规范样本
+- 模板库 – 即用型模板和检查清单
 
-### 🔧 System Documentation
-- System Capabilities – Core functions and features of the Kiro AI Assistant
-- Response Style – Communication style and interaction guide
-- Workflow Patterns – Execution methods and best practices
-- Quality Standards – Code quality and output standards
+### 🔧 系统文档
+- 系统能力 – Kiro AI 助手的核心功能和特性
+- 响应风格 – 沟通风格和交互指南
+- 工作流程模式 – 执行方法和最佳实践
+- 质量标准 – 代码质量和输出标准
 
-### 📋 Project Guidance
-- Project Standards – Code quality and test requirements
-- Git Workflow – Branching strategies and commit conventions
-- Frontend Standards – React/TypeScript development specifications
-- API Design – RESTful API design standards
-- Development Environment – Configuration and tooling
+### 📋 项目指导
+- 项目标准 – 代码质量和测试要求
+- Git 工作流程 – 分支策略和提交约定
+- 前端标准 – React/TypeScript 开发规范
+- API 设计 – RESTful API 设计标准
+- 开发环境 – 配置和工具
 
-### ⚡ Commands & Automation
-- Create guide documents – Automated generation of project guidance documents
-- Context commands – Retrieval of file, folder, issue, and other context
-- MCP Integration – Model Context Protocol support
+### ⚡ 命令和自动化
+- 创建指导文档 – 自动生成项目指导文档
+- 上下文命令 – 检索文件、文件夹、问题等上下文
+- MCP 集成 – 模型上下文协议支持
 
-## Tech Stack
+## 技术栈
 
-- React 18 – User interface framework
-- TypeScript – Type safety
-- Tailwind CSS – Styling framework
-- React Router – Routing management
-- Lucide React – Icon library
-- Vite – Build tool
+- React 18 – 用户界面框架
+- TypeScript – 类型安全
+- Tailwind CSS – 样式框架
+- React Router – 路由管理
+- Lucide React – 图标库
+- Vite – 构建工具
 
-## Quick Start
+## 快速开始
 
-### Install dependencies
+### 安装依赖
 ```bash
 npm install
 ```
 
-### Start development server
+### 启动开发服务器
 ```bash
 npm run dev
 ```
-The app will launch at http://localhost:3000
+应用将在 http://localhost:3000 启动
 
-### Build for production
+### 构建生产版本
 ```bash
 npm run build
 ```
 
-### Preview production build
+### 预览生产构建
 ```bash
 npm run preview
 ```
 
-## Project Structure
+## 项目结构
 
 ```
 src/
-├── components/          # Reusable components
-│   └── Layout.tsx      # Main layout component
-├── pages/              # Page components
-│   ├── Home.tsx        # Home page
-│   ├── Methodology.tsx # Methodology
-│   ├── Process.tsx     # Process guide
-│   ├── AIReasoning.tsx # AI reasoning
-│   ├── Prompting.tsx   # Prompting strategies
+├── components/          # 可重用组件
+│   └── Layout.tsx      # 主布局组件
+├── pages/              # 页面组件
+│   ├── Home.tsx        # 首页
+│   ├── Methodology.tsx # 方法论
+│   ├── Process.tsx     # 流程指南
+│   ├── AIReasoning.tsx # AI 推理
+│   ├── Prompting.tsx   # 提示策略
 
 ```
 
-MIT License – See LICENSE file
+MIT 许可证 – 参见 LICENSE 文件
