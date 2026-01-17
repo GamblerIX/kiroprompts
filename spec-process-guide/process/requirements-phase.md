@@ -1,271 +1,271 @@
-# Requirements Phase Documentation
+# 需求阶段文档
 
-<!-- Navigation Metadata -->
-<!-- Phase: Requirements | Level: Detailed Guide | Prerequisites: methodology/README.md -->
-<!-- Related: templates/requirements-template.md, resources/standards.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 阶段：需求 | 级别：详细指南 | 前置条件：methodology/README.md -->
+<!-- 相关：templates/requirements-template.md, resources/standards.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Process Guide](README.md) → **Requirements Phase**
+**📍 你在这里：** [主指南](../../README.md) → [流程指南](README.md) → **需求阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Requirements Template](../templates/requirements-template.md) - Ready-to-use template
-- **📖 See Example:** [Simple Feature Spec](../examples/simple-feature-spec.md) - Complete requirements example
-- **📚 Learn EARS:** [Standards Reference](../resources/standards.md) - EARS format details
-- **➡️ Next Phase:** [Design Phase](design-phase.md) - After requirements are approved
+## 快速导航
+- **🎯 开始：** [需求模板](../templates/requirements-template.md) - 即用型模板
+- **📖 查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - 完整需求示例
+- **📚 学习 EARS：** [标准参考](../resources/standards.md) - EARS 格式详情
+- **➡️ 下一阶段：** [设计阶段](design-phase.md) - 需求获批后
 
-## Phase Navigation
-- **Previous:** [Process Overview](README.md) - Three-phase workflow
-- **Current:** **Requirements Phase** - Transform ideas into structured requirements
-- **Next:** [Design Phase](design-phase.md) - Create technical architecture
-- **Final:** [Tasks Phase](tasks-phase.md) - Break down into implementation steps
+## 阶段导航
+- **上一步：** [流程概述](README.md) - 三阶段工作流
+- **当前：** **需求阶段** - 将创意转化为结构化需求
+- **下一步：** [设计阶段](design-phase.md) - 创建技术架构
+- **最后：** [任务阶段](tasks-phase.md) - 分解为实施步骤
 
 ---
 
-## Overview
+## 概述
 
-The Requirements Phase is the foundation of spec-driven development, where rough feature ideas are transformed into clear, testable requirements using the EARS (Easy Approach to Requirements Syntax) format. This phase ensures all stakeholders have a shared understanding of what needs to be built before moving to design and implementation.
+需求阶段是规范驱动开发的基础，也就是将粗略的功能想法转化为清晰、可测试的需求，这里使用 EARS（需求语法简便方法）格式。该阶段确保所有利益相关者在通过设计和实施之前对需构建内容达成共识。
 
-## Purpose and Goals
+## 目的和目标
 
-The requirements phase serves to:
-- Transform vague feature ideas into concrete, measurable requirements
-- Establish clear acceptance criteria for feature success
-- Create a shared understanding between stakeholders
-- Provide a foundation for design and implementation decisions
-- Enable effective testing and validation strategies
+需求阶段旨在：
+- 将模糊的功能想法转化为具体、可衡量的需求
+- 为功能成功建立明确的验收标准
+- 在利益相关者之间建立共同理解
+- 为设计和实施决策提供基础
+- 启用有效的测试和验证策略
 
-## Step-by-Step Process
+## 分步流程
 
-### Step 1: Initial Requirements Generation
+### 第一步：初始需求生成
 
-**Objective**: Create a first draft of requirements based on the feature idea
+**目标**：基于功能想法创建需求的初稿
 
-**Process**:
-1. **Analyze the Feature Idea**: Break down the core concept into user-facing functionality
-2. **Identify User Roles**: Determine who will interact with the feature
-3. **Define User Stories**: Create user stories in the format "As a [role], I want [feature], so that [benefit]"
-4. **Generate Acceptance Criteria**: Write EARS-format requirements for each user story
+**流程**：
+1. **分析功能想法**：将核心概念分解为面向用户的功能
+2. **识别用户角色**：确定谁将与功能交互
+3. **定义用户故事**：创建格式为"作为[角色]，我想要[功能]，以便[益处]"的用户故事
+4. **生成验收标准**：为每个用户故事编写 EARS 格式的需求
 
-**Key Principles**:
-- Start with what the user experiences, not technical implementation
-- Focus on observable, testable behaviors
-- Consider edge cases and error scenarios
-- Think about the complete user journey
+**关键原则**：
+- 从用户体验开始，而非技术实施
+- 专注于可观察、可测试的行为
+- 考虑边缘情况和错误场景
+- 思考完整的用户旅程
 
-### Step 2: Requirements Structure and Format
+### 第二步：需求结构和格式
 
-**Document Structure**:
+**文档结构**：
 ```markdown
-# Requirements Document
+# 需求文档
 
-## Introduction
-[Brief overview of the feature and its purpose]
+## 简介
+[功能的简要概述及其目的]
 
-## Requirements
+## 需求
 
-### Requirement 1
-**User Story:** As a [role], I want [feature], so that [benefit]
+### 需求 1
+**用户故事：** 作为[角色]，我想要[功能]，以便[益处]
 
-#### Acceptance Criteria
-1. WHEN [event] THEN [system] SHALL [response]
-2. IF [precondition] THEN [system] SHALL [response]
-3. WHEN [event] AND [condition] THEN [system] SHALL [response]
+#### 验收标准
+1. WHEN [事件] THEN [系统] SHALL [响应]
+2. IF [前置条件] THEN [系统] SHALL [响应]
+3. WHEN [事件] AND [条件] THEN [系统] SHALL [响应]
 
-### Requirement 2
-[Continue with additional requirements...]
+### 需求 2
+[继续其它需求...]
 ```
 
-**EARS Format Guidelines**:
-- **WHEN**: Describes triggering events or conditions
-- **IF**: Describes preconditions that must be met
-- **THEN**: Describes the system's required response
-- **SHALL**: Indicates mandatory behavior (use consistently)
-- **AND/OR**: Combines conditions when necessary
+**EARS 格式指南**：
+- **WHEN**：描述触发事件或条件
+- **IF**：描述必须满足的前置条件
+- **THEN**：描述系统的必要响应
+- **SHALL**：指示强制行为（始终使用）
+- **AND/OR**：必要时组合条件
 
-### Step 3: Requirements Validation
+### 第三步：需求验证
 
-**Validation Criteria**:
-- [ ] Each requirement is testable and measurable
-- [ ] Requirements cover normal, edge, and error cases
-- [ ] User stories provide clear business value
-- [ ] Acceptance criteria are specific and unambiguous
-- [ ] Requirements are independent and don't conflict
-- [ ] All user roles and interactions are addressed
+**验证标准**：
+- [ ] 每个需求都是可测试和可衡量的
+- [ ] 需求涵盖正常、边缘和错误情况
+- [ ] 用户故事提供清晰的业务价值
+- [ ] 验收标准具体且无歧义
+- [ ] 需求独立且不冲突
+- [ ] 已解决所有用户角色和交互
 
-**Common Validation Questions**:
-- Can this requirement be tested automatically?
-- Is the expected behavior clearly defined?
-- Are there any assumptions that need to be made explicit?
-- What happens when things go wrong?
-- Are there any missing user scenarios?
+**常见验证问题**：
+- 这个需求可以自动测试吗？
+- 预期行为是否定义清晰？
+- 是否有任何假设需要明确？
+- 当事情出错时会发生什么？
+- 是否有任何遗漏的用户场景？
 
-### Step 4: Iterative Refinement
+### 第四步：迭代完善
 
-**Refinement Process**:
-1. **Review with Stakeholders**: Get feedback on completeness and accuracy
-2. **Identify Gaps**: Look for missing scenarios or unclear requirements
-3. **Clarify Ambiguities**: Resolve any vague or conflicting requirements
-4. **Add Missing Details**: Include edge cases and error handling
-5. **Validate Business Value**: Ensure each requirement serves a clear purpose
+**完善流程**：
+1. **与利益相关者审查**：获取关于完整性和准确性的反馈
+2. **识别差距**：寻找遗漏的场景或不明确的需求
+3. **澄清歧义**：解决任何模糊或冲突的需求
+4. **添加遗漏细节**：包含边缘情况和错误处理
+5. **验证业务价值**：确保每个需求都有明确的目的
 
-**Iteration Guidelines**:
-- Make one focused change at a time
-- Always ask for explicit approval after changes
-- Document the reasoning behind requirement decisions
-- Keep requirements at the right level of detail (not too high, not too low)
+**迭代指南**：
+- 每次只做一个重点更改
+- 更改后总是寻求明确批准
+- 记录需求决策背后的理由
+- 保持需求在适当的细节级别（不要太高，也不要太低）
 
-## EARS Format Deep Dive
+## EARS 格式深入
 
-### Basic EARS Patterns
+### 基础 EARS 模式
 
-**Simple Event-Response**:
+**简单事件-响应**：
 ```
-WHEN [user clicks submit button] THEN [system] SHALL [validate form data]
-```
-
-**Conditional Behavior**:
-```
-IF [user is authenticated] THEN [system] SHALL [display user dashboard]
+WHEN [用户点击提交按钮] THEN [系统] SHALL [验证表单数据]
 ```
 
-**Complex Conditions**:
+**条件行为**：
 ```
-WHEN [user submits form] AND [all required fields are completed] THEN [system] SHALL [process the submission]
-```
-
-**Error Handling**:
-```
-WHEN [user submits invalid data] THEN [system] SHALL [display specific error messages]
+IF [用户已认证] THEN [系统] SHALL [显示用户仪表板]
 ```
 
-### Advanced EARS Patterns
-
-**State-Based Requirements**:
+**复杂条件**：
 ```
-WHEN [system is in maintenance mode] THEN [system] SHALL [display maintenance message to all users]
+WHEN [用户提交表单] AND [所有必填字段已完成] THEN [系统] SHALL [处理提交]
 ```
 
-**Performance Requirements**:
+**错误处理**：
 ```
-WHEN [user requests data] THEN [system] SHALL [respond within 2 seconds]
-```
-
-**Security Requirements**:
-```
-IF [user session expires] THEN [system] SHALL [redirect to login page]
+WHEN [用户提交无效数据] THEN [系统] SHALL [显示具体错误消息]
 ```
 
-## Examples of Well-Formed Requirements
+### 高级 EARS 模式
 
-### Example 1: User Authentication Feature
+**基于状态的需求**：
+```
+WHEN [系统处于维护模式] THEN [系统] SHALL [向所有用户显示维护消息]
+```
 
-**User Story**: As a new user, I want to create an account, so that I can access personalized features.
+**性能需求**：
+```
+WHEN [用户请求数据] THEN [系统] SHALL [在 2 秒内响应]
+```
 
-**Acceptance Criteria**:
-1. WHEN user provides valid email and password THEN system SHALL create new account
-2. WHEN user provides existing email THEN system SHALL display "email already registered" error
-3. WHEN user provides invalid email format THEN system SHALL display "invalid email format" error
-4. WHEN user provides password shorter than 8 characters THEN system SHALL display "password too short" error
-5. WHEN account creation succeeds THEN system SHALL send confirmation email
-6. WHEN account creation succeeds THEN system SHALL redirect to welcome page
+**安全需求**：
+```
+IF [用户会话过期] THEN [系统] SHALL [重定向到登录页面]
+```
 
-### Example 2: Data Validation Feature
+## 形式良好的需求示例
 
-**User Story**: As a user, I want my input to be validated, so that I don't submit incorrect information.
+### 示例 1：用户认证功能
 
-**Acceptance Criteria**:
-1. WHEN user enters data in required field THEN system SHALL remove any error highlighting
-2. WHEN user submits form with empty required fields THEN system SHALL highlight missing fields in red
-3. WHEN user enters invalid data format THEN system SHALL display format requirements below field
-4. WHEN all validation passes THEN system SHALL enable submit button
-5. IF validation fails THEN system SHALL keep submit button disabled
+**用户故事**：作为新用户，我想要创建一个帐户，以便我可以访问个性化功能。
 
-### Example 3: File Upload Feature
+**验收标准**：
+1. WHEN 用户提供有效电子邮件和密码 THEN 系统 SHALL 创建新帐户
+2. WHEN 用户提供现有电子邮件 THEN 系统 SHALL 显示"电子邮件已注册"错误
+3. WHEN 用户提供无效电子邮件格式 THEN 系统 SHALL 显示"无效电子邮件格式"错误
+4. WHEN 用户提供短于 8 个字符的密码 THEN 系统 SHALL 显示"密码太短"错误
+5. WHEN 帐户创建成功 THEN 系统 SHALL 发送确认电子邮件
+6. WHEN 帐户创建成功 THEN 系统 SHALL 重定向到欢迎页面
 
-**User Story**: As a user, I want to upload files, so that I can share documents with my team.
+### 示例 2：数据验证功能
 
-**Acceptance Criteria**:
-1. WHEN user selects file under 10MB THEN system SHALL accept file for upload
-2. WHEN user selects file over 10MB THEN system SHALL display "file too large" error
-3. WHEN user selects unsupported file type THEN system SHALL display "unsupported format" error
-4. WHEN upload is in progress THEN system SHALL display progress indicator
-5. WHEN upload completes successfully THEN system SHALL display success message
-6. WHEN upload fails THEN system SHALL display retry option
-7. IF user is not authenticated THEN system SHALL redirect to login before upload
+**用户故事**：作为用户，我想要我的输入被验证，以便我不会提交不正确的信息。
 
-## Common Pitfalls and How to Avoid Them
+**验收标准**：
+1. WHEN 用户在必填字段中输入数据 THEN 系统 SHALL 移除任何错误高亮
+2. WHEN 用户提交带有空必填字段的表单 THEN 系统 SHALL 以红色高亮缺失字段
+3. WHEN 用户输入无效数据格式 THEN 系统 SHALL 在字段下方显示格式要求
+4. WHEN 所有验证通过 THEN 系统 SHALL 启用提交按钮
+5. IF 验证失败 THEN 系统 SHALL 保持提交按钮禁用
 
-### Pitfall 1: Vague Requirements
-**Problem**: "System should be fast"
-**Solution**: "WHEN user requests data THEN system SHALL respond within 2 seconds"
+### 示例 3：文件上传功能
 
-### Pitfall 2: Implementation Details in Requirements
-**Problem**: "System shall use Redis for caching"
-**Solution**: "WHEN user requests frequently accessed data THEN system SHALL return cached results"
+**用户故事**：作为用户，我想要上传文件，以便我可以与团队共享文档。
 
-### Pitfall 3: Missing Error Cases
-**Problem**: Only defining happy path scenarios
-**Solution**: Always include WHEN/IF statements for error conditions
+**验收标准**：
+1. WHEN 用户选择小于 10MB 的文件 THEN 系统 SHALL 接受文件上传
+2. WHEN 用户选择大于 10MB 的文件 THEN 系统 SHALL 显示"文件太大"错误
+3. WHEN 用户选择不支持的文件类型 THEN 系统 SHALL 显示"不支持的格式"错误
+4. WHEN 上传正在进行中 THEN 系统 SHALL 显示进度指示器
+5. WHEN 上传成功完成 THEN 系统 SHALL 显示成功消息
+6. WHEN 上传失败 THEN 系统 SHALL 显示重试选项
+7. IF 用户未认证 THEN 系统 SHALL 在上传前重定向到登录
 
-### Pitfall 4: Conflicting Requirements
-**Problem**: Requirements that contradict each other
-**Solution**: Review all requirements together and resolve conflicts explicitly
+## 常见陷阱及如何避免
 
-### Pitfall 5: Untestable Requirements
-**Problem**: "System should be user-friendly"
-**Solution**: "WHEN new user completes onboarding THEN system SHALL require no more than 3 clicks to reach main features"
+### 陷阱 1：模糊的需求
+**问题**："系统应该很快"
+**解决方案**："WHEN 用户请求数据 THEN 系统 SHALL 在 2 秒内响应"
 
-## Quality Checklist
+### 陷阱 2：需求中的实施细节
+**问题**："系统应使用 Redis 进行缓存"
+**解决方案**："WHEN 用户请求频繁访问的数据 THEN 系统 SHALL 返回缓存结果"
 
-Before moving to the design phase, verify:
+### 陷阱 3：遗漏错误情况
+**问题**：仅定义快乐路径场景
+**解决方案**：始终包含针对错误条件的 WHEN/IF 语句
 
-**Completeness**:
-- [ ] All user roles are identified and addressed
-- [ ] Normal, edge, and error cases are covered
-- [ ] All user interactions have defined system responses
-- [ ] Business rules and constraints are captured
+### 陷阱 4：冲突的需求
+**问题**：相互矛盾的需求
+**解决方案**：一起审查所有需求并明确解决冲突
 
-**Clarity**:
-- [ ] Each requirement uses precise, unambiguous language
-- [ ] Technical jargon is avoided or clearly defined
-- [ ] Requirements are written from user perspective
-- [ ] Expected behaviors are specific and measurable
+### 陷阱 5：不可测试的需求
+**问题**："系统应该是用户友好的"
+**解决方案**："WHEN 新用户完成入职 THEN 系统 SHALL 要求不超过 3 次点击到达主要功能"
 
-**Consistency**:
-- [ ] EARS format is used consistently throughout
-- [ ] Terminology is consistent across requirements
-- [ ] Requirements don't contradict each other
-- [ ] Similar scenarios are handled similarly
+## 质量检查清单
 
-**Testability**:
-- [ ] Each requirement can be verified through testing
-- [ ] Success criteria are observable and measurable
-- [ ] Requirements specify both inputs and expected outputs
-- [ ] Acceptance criteria are specific enough to guide test creation
+在移动到设计阶段之前，验证：
 
-## Troubleshooting Common Issues
+**完整性**：
+- [ ] 所有用户角色都已识别和解决
+- [ ] 正常、边缘和错误情况都已涵盖
+- [ ] 所有用户交互都有定义的系统响应
+- [ ] 业务规则和约束已被捕获
 
-### Issue: Requirements Keep Growing
-**Symptoms**: New requirements constantly being added during review
-**Solution**: Set a scope boundary early and document out-of-scope items for future iterations
+**清晰度**：
+- [ ] 每个需求使用精确、无歧义的语言
+- [ ] 避免或明确定义了技术术语
+- [ ] 需求是从用户角度编写的
+- [ ] 预期行为具体且可衡量
 
-### Issue: Stakeholder Disagreement
-**Symptoms**: Different stakeholders want conflicting functionality
-**Solution**: Facilitate discussion to understand underlying needs and find compromise solutions
+**一致性**：
+- [ ] 自始至终一致使用 EARS 格式
+- [ ] 术语在需求之间一致
+- [ ] 需求不相互矛盾
+- [ ] 类似场景处理方式相似
 
-### Issue: Requirements Too Technical
-**Symptoms**: Requirements focus on implementation rather than user needs
-**Solution**: Reframe requirements from user perspective and move technical details to design phase
+**可测试性**：
+- [ ] 每个需求都可以通过测试验证
+- [ ] 成功标准可观察且可衡量
+- [ ] 需求指定了输入和预期输出
+- [ ] 验收标准足够具体以指导测试创建
 
-### Issue: Requirements Too Vague
-**Symptoms**: Acceptance criteria that can't be tested or measured
-**Solution**: Ask "How would we know this requirement is met?" and make criteria more specific
+## 常见问题故障排除
 
-## Next Steps
+### 问题：需求不断增长
+**症状**：审查期间不断添加新需求
+**解决方案**：及早设定范围边界，并将范围外的项目记录为未来迭代
 
-Once requirements are complete and approved:
-1. **Transition to Design Phase**: Use requirements as foundation for system design
-2. **Maintain Traceability**: Ensure design decisions map back to specific requirements
-3. **Keep Requirements Updated**: Update requirements if design reveals gaps or conflicts
-4. **Prepare for Implementation**: Requirements will guide task breakdown and testing strategy
+### 问题：利益相关者分歧
+**症状**：不同利益相关者想要冲突的功能
+**解决方案**：促进讨论以了解潜在需求并找到折衷方案
 
-The requirements phase sets the foundation for everything that follows. Taking time to get requirements right saves significant effort in design and implementation phases.
+### 问题：需求太技术化
+**症状**：需求关注实施而非用户需求
+**解决方案**：从用户角度重新构建需求，并将技术细节移至设计阶段
+
+### 问题：需求太模糊
+**症状**：无法测试或衡量的验收标准
+**解决方案**：问"我们如何知道此需求已满足？"并使标准更具体
+
+## 下一步
+
+一旦需求完成并获批：
+1. **过渡到设计阶段**：使用需求作为系统设计的基础
+2. **保持可追溯性**：确保设计决策映射回具体需求
+3. **保持需求更新**：如果设计揭示了差距或冲突，更新需求
+4. **准备实施**：需求将指导任务分解和测试策略
+
+需求阶段为后续一切奠定基础。花时间搞对需求可以显著节省设计和实施阶段的精力。

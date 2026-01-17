@@ -1,338 +1,338 @@
-# Tasks Template
+# 任务模板
 
-<!-- Navigation Metadata -->
-<!-- Template: Tasks | Level: Template | Prerequisites: design-template.md -->
-<!-- Related: process/tasks-phase.md, execution/implementation-guide.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 模板：任务 | 级别：模板 | 前置条件：design-template.md -->
+<!-- 相关：process/tasks-phase.md, execution/implementation-guide.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Templates](README.md) → **Tasks Template**
+**📍 你在这里：** [主指南](../../README.md) → [模板](README.md) → **任务模板**
 
-## Quick Navigation
-- **📚 Learn Process:** [Tasks Phase Guide](../process/tasks-phase.md) - How to use this template
-- **📖 See Example:** [Simple Feature Tasks](../examples/simple-feature-spec.md#tasks-document) - Template in action
-- **⚡ Execute Tasks:** [Implementation Guide](../execution/implementation-guide.md) - How to work through tasks
-- **🔄 Start Over:** [Requirements Template](requirements-template.md) - Full workflow
-
----
-
-Use this template to create actionable implementation plans that break down your design into manageable coding tasks.
-
-## Document Information
-
-- **Feature Name**: [Your Feature Name]
-- **Version**: 1.0
-- **Date**: [Current Date]
-- **Author**: [Your Name]
-- **Related Documents**: 
-  - Requirements: [Link to requirements document]
-  - Design: [Link to design document]
-
-## Implementation Overview
-
-[Provide a brief summary of the implementation approach. Explain the overall strategy for building this feature and any key considerations for the development process.]
-
-### Implementation Strategy
-- [Key strategy point 1]
-- [Key strategy point 2]
-- [Key strategy point 3]
-
-### Development Approach
-- **Testing Strategy**: [TDD, BDD, or other approach]
-- **Integration Strategy**: [How components will be integrated]
-- **Deployment Strategy**: [How features will be deployed]
-
-## Implementation Plan
-
-### Phase 1: Foundation and Setup
-
-- [ ] 1. Set up project structure and development environment
-  - Create directory structure for the feature
-  - Set up build configuration and dependencies
-  - Configure development tools and linting
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 2. Implement core data models and interfaces
-  - Define TypeScript interfaces for all data models
-  - Implement validation functions for data integrity
-  - Create unit tests for data model validation
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 3. Set up database schema and migrations
-  - Create database tables and relationships
-  - Write migration scripts for schema changes
-  - Set up database connection and configuration
-  - _Requirements: [Reference specific requirements]_
-
-### Phase 2: Core Business Logic
-
-- [ ] 4. Implement core business logic components
-- [ ] 4.1 Create [Component Name] service
-  - Implement core business rules and validation
-  - Add error handling and logging
-  - Write comprehensive unit tests
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 4.2 Create [Component Name] repository
-  - Implement data access layer with CRUD operations
-  - Add query optimization and caching
-  - Write integration tests with database
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 4.3 Implement [Business Process] workflow
-  - Code the main business process flow
-  - Add state management and transitions
-  - Write unit tests for workflow logic
-  - _Requirements: [Reference specific requirements]_
-
-### Phase 3: API Layer
-
-- [ ] 5. Implement REST API endpoints
-- [ ] 5.1 Create [Resource] API endpoints
-  - Implement GET, POST, PUT, DELETE operations
-  - Add request validation and sanitization
-  - Write API integration tests
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 5.2 Add authentication and authorization
-  - Implement JWT token validation
-  - Add role-based access control
-  - Write security tests and validation
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 5.3 Implement error handling and logging
-  - Create consistent error response format
-  - Add comprehensive logging and monitoring
-  - Write error handling tests
-  - _Requirements: [Reference specific requirements]_
-
-### Phase 4: User Interface
-
-- [ ] 6. Implement user interface components
-- [ ] 6.1 Create [UI Component] components
-  - Build reusable UI components
-  - Add responsive design and accessibility
-  - Write component unit tests
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 6.2 Implement [Feature] user flows
-  - Create complete user interaction flows
-  - Add form validation and error handling
-  - Write end-to-end tests for user scenarios
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 6.3 Add state management and data fetching
-  - Implement client-side state management
-  - Add API integration and caching
-  - Write integration tests for data flow
-  - _Requirements: [Reference specific requirements]_
-
-### Phase 5: Integration and Testing
-
-- [ ] 7. Implement system integration
-- [ ] 7.1 Integrate with external services
-  - Implement external API integrations
-  - Add retry logic and error handling
-  - Write integration tests with mocked services
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 7.2 Add monitoring and observability
-  - Implement health checks and metrics
-  - Add performance monitoring and alerting
-  - Write monitoring validation tests
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 7.3 Implement comprehensive testing suite
-  - Create end-to-end test scenarios
-  - Add performance and load testing
-  - Write security and penetration tests
-  - _Requirements: [Reference specific requirements]_
-
-### Phase 6: Deployment and Documentation
-
-- [ ] 8. Prepare for deployment
-- [ ] 8.1 Create deployment configuration
-  - Write deployment scripts and configuration
-  - Set up environment-specific settings
-  - Create rollback procedures
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 8.2 Create operational documentation
-  - Write API documentation and examples
-  - Create troubleshooting guides
-  - Document configuration and maintenance procedures
-  - _Requirements: [Reference specific requirements]_
-
-- [ ] 8.3 Implement final validation and cleanup
-  - Run complete test suite and validation
-  - Perform code review and quality checks
-  - Clean up temporary code and comments
-  - _Requirements: [Reference specific requirements]_
+## 快速导航
+- **📚 学习流程：** [任务阶段指南](../process/tasks-phase.md) - 如何使用此模板
+- **📖 查看示例：** [简单功能任务](../examples/simple-feature-spec.md#tasks-document) - 实际中的模板
+- **⚡ 执行任务：** [实施指南](../execution/implementation-guide.md) - 如何完成任务
+- **🔄 从头开始：** [需求模板](requirements-template.md) - 完整工作流
 
 ---
 
-## Task Planning Guidelines
+使用此模板创建可操作的实施计划，将你的设计分解为可管理的编码任务。
 
-### Task Structure Best Practices
+## 文档信息
 
-#### Task Naming
-- Use action verbs (Implement, Create, Add, Build)
-- Be specific about what's being built
-- Include the component or feature name
-- Keep titles concise but descriptive
+- **功能名称**：[你的功能名称]
+- **版本**：1.0
+- **日期**：[当前日期]
+- **作者**：[你的名字]
+- **相关文档**：
+  - 需求：[链接到需求文档]
+  - 设计：[链接到设计文档]
 
-#### Task Details
-- **Scope**: Clearly define what's included/excluded
-- **Acceptance Criteria**: Specific, testable outcomes
-- **Dependencies**: Prerequisites and blockers
-- **Estimates**: Time or complexity estimates
+## 实施概述
 
-#### Sub-task Organization
-- Break large tasks into smaller, manageable pieces
-- Each sub-task should be completable in 1-2 days
-- Maintain logical sequence and dependencies
-- Ensure each sub-task has clear deliverables
+[提供实施方法的简要总结。解释构建此功能的总体策略以及开发过程中的任何关键考虑因素。]
 
-### Requirements Traceability
+### 实施策略
+- [关键策略点 1]
+- [关键策略点 2]
+- [关键策略点 3]
 
-Each task should reference specific requirements:
-- Use requirement numbers or identifiers
-- Link to acceptance criteria being addressed
-- Ensure all requirements are covered by tasks
-- Validate task completion against requirements
+### 开发方法
+- **测试策略**：[TDD, BDD, 或其他方法]
+- **集成策略**：[组件将如何集成]
+- **部署策略**：[功能将如何部署]
 
-### Testing Integration
+## 实施计划
 
-Every implementation task should include testing:
-- **Unit Tests**: For individual components and functions
-- **Integration Tests**: For component interactions
-- **End-to-End Tests**: For complete user scenarios
-- **Performance Tests**: For non-functional requirements
+### 第一阶段：基础和设置
+
+- [ ] 1. 设置项目结构和开发环境
+  - 为功能创建目录结构
+  - 设置构建配置和依赖
+  - 配置开发工具和 linting
+  - _Requirements: [引用具体需求]_
+
+- [ ] 2. 实施核心数据模型和接口
+  - 为所有数据模型定义 TypeScript 接口
+  - 实施数据完整性验证函数
+  - 创建数据模型验证的单元测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 3. 设置数据库模式和迁移
+  - 创建数据库表和关系
+  - 编写模式更改的迁移脚本
+  - 设置数据库连接和配置
+  - _Requirements: [引用具体需求]_
+
+### 第二阶段：核心业务逻辑
+
+- [ ] 4. 实施核心业务逻辑组件
+- [ ] 4.1 创建 [Component Name] 服务
+  - 实施核心业务规则和验证
+  - 添加错误处理和日志记录
+  - 编写全面的单元测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 4.2 创建 [Component Name] 存储库
+  - 实施带 CRUD 操作的数据访问层
+  - 添加查询优化和缓存
+  - 编写带数据库的集成测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 4.3 实施 [Business Process] 工作流
+  - 编写主要业务流程流的代码
+  - 添加状态管理和转换
+  - 编写工作流逻辑的单元测试
+  - _Requirements: [引用具体需求]_
+
+### 第三阶段：API 层
+
+- [ ] 5. 实施 REST API 端点
+- [ ] 5.1 创建 [Resource] API 端点
+  - 实施 GET, POST, PUT, DELETE 操作
+  - 添加请求验证和清理
+  - 编写 API 集成测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 5.2 添加认证和授权
+  - 实施 JWT 令牌验证
+  - 添加基于角色的访问控制
+  - 编写安全测试和验证
+  - _Requirements: [引用具体需求]_
+
+- [ ] 5.3 实施错误处理和日志记录
+  - 创建一致的错误响应格式
+  - 添加全面的日志记录和监控
+  - 编写错误处理测试
+  - _Requirements: [引用具体需求]_
+
+### 第四阶段：用户界面
+
+- [ ] 6. 实施用户界面组件
+- [ ] 6.1 创建 [UI Component] 组件
+  - 构建可重用的 UI 组件
+  - 添加响应式设计和无障碍性
+  - 编写组件单元测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 6.2 实施 [Feature] 用户流
+  - 创建完整的用户交互流
+  - 添加表单验证和错误处理
+  - 编写用户场景的端到端测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 6.3 添加状态管理和数据获取
+  - 实施客户端状态管理
+  - 添加 API 集成和缓存
+  - 编写数据流集成测试
+  - _Requirements: [引用具体需求]_
+
+### 第五阶段：集成和测试
+
+- [ ] 7. 实施系统集成
+- [ ] 7.1 与外部服务集成
+  - 实施外部 API 集成
+  - 添加重试逻辑和错误处理
+  - 编写带模拟服务的集成测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 7.2 添加监控和可观测性
+  - 实施健康检查和指标
+  - 添加性能监控和警报
+  - 编写监控验证测试
+  - _Requirements: [引用具体需求]_
+
+- [ ] 7.3 实施全面测试套件
+  - 创建端到端测试场景
+  - 添加性能和负载测试
+  - 编写安全和渗透测试
+  - _Requirements: [引用具体需求]_
+
+### 第六阶段：部署和文档
+
+- [ ] 8. 准备部署
+- [ ] 8.1 创建部署配置
+  - 编写部署脚本和配置
+  - 设置特定环境的配置
+  - 创建回滚程序
+  - _Requirements: [引用具体需求]_
+
+- [ ] 8.2 创建运维文档
+  - 编写 API 文档和示例
+  - 创建故障排除指南
+  - 记录配置和维护程序
+  - _Requirements: [引用具体需求]_
+
+- [ ] 8.3 实施最终验证和清理
+  - 运行完整测试套件和验证
+  - 执行代码审查和质量检查
+  - 清理临时代码和注释
+  - _Requirements: [引用具体需求]_
 
 ---
 
-## Task Execution Checklist
+## 任务规划指南
 
-Use this checklist when executing each task:
+### 任务结构最佳实践
 
-### Before Starting
-- [ ] Requirements and design documents are reviewed
-- [ ] Dependencies are identified and available
-- [ ] Development environment is set up
-- [ ] Task scope and acceptance criteria are clear
+#### 任务命名
+- 使用动作动词（实施、创建、添加、构建）
+- 对正在构建的内容要具体
+- 包含组件或功能名称
+- 保持标题简洁但描述性强
 
-### During Implementation
-- [ ] Code follows established patterns and standards
-- [ ] Unit tests are written alongside implementation
-- [ ] Error handling and edge cases are considered
-- [ ] Code is documented with clear comments
+#### 任务详情
+- **范围**：清楚定义包含/排除的内容
+- **验收标准**：具体、可测试的结果
+- **依赖关系**：先决条件和阻碍因素
+- **估算**：时间或复杂性估算
 
-### Before Completion
-- [ ] All acceptance criteria are met
-- [ ] Tests pass and coverage is adequate
-- [ ] Code review is completed
-- [ ] Integration with existing code is verified
+#### 子任务组织
+- 将大任务分解为更小、可管理的部分
+- 每个子任务应在 1-2 天内完成
+- 保持逻辑顺序和依赖关系
+- 确保每个子任务都有清晰的交付物
 
-### Task Completion
-- [ ] Feature works as specified in requirements
-- [ ] No regressions in existing functionality
-- [ ] Documentation is updated if needed
-- [ ] Task is marked as complete in tracking system
+### 需求可追溯性
+
+每个任务应引用具体需求：
+- 使用需求编号或标识符
+- 链接到正在解决的验收标准
+- 确保所有需求都被任务覆盖
+- 对照需求验证任务完成情况
+
+### 测试集成
+
+每个实施任务应包含测试：
+- **单元测试**：针对单个组件和函数
+- **集成测试**：针对组件交互
+- **端到端测试**：针对完整用户场景
+- **性能测试**：针对非功能性需求
 
 ---
 
-## Common Task Patterns
+## 任务执行检查清单
 
-### Data Layer Tasks
+在执行每个任务时使用此检查清单：
+
+### 开始之前
+- [ ] 需求和设计文档已审查
+- [ ] 依赖关系已识别并可用
+- [ ] 开发环境已设置
+- [ ] 任务范围和验收标准清晰
+
+### 实施期间
+- [ ] 代码遵循既定模式和标准
+- [ ] 单元测试与实施一起编写
+- [ ] 考虑了错误处理和边缘情况
+- [ ] 代码有清晰的注释文档
+
+### 完成之前
+- [ ] 所有验收标准均已满足
+- [ ] 测试通过且覆盖率充足
+- [ ] 代码审查已完成
+- [ ] 与现有代码的集成已验证
+
+### 任务完成
+- [ ] 功能按需求规定工作
+- [ ] 现有功能无回归
+- [ ] 如果需要，文档已更新
+- [ ] 任务在跟踪系统中标记为完成
+
+---
+
+## 常见任务模式
+
+### 数据层任务
 ```markdown
-- [ ] X. Implement [Entity] data model
-  - Create TypeScript interface with validation
-  - Implement database schema and migrations
-  - Add CRUD operations with error handling
-  - Write unit and integration tests
+- [ ] X. 实施 [Entity] 数据模型
+  - 创建带验证的 TypeScript 接口
+  - 实施数据库模式和迁移
+  - 添加带错误处理的 CRUD 操作
+  - 编写单元和集成测试
   - _Requirements: [X.X]_
 ```
 
-### Service Layer Tasks
+### 服务层任务
 ```markdown
-- [ ] X. Create [Service] business logic
-  - Implement core business rules and validation
-  - Add error handling and logging
-  - Create service interfaces and abstractions
-  - Write comprehensive unit tests
+- [ ] X. 创建 [Service] 业务逻辑
+  - 实施核心业务规则和验证
+  - 添加错误处理和日志记录
+  - 创建服务接口和抽象
+  - 编写全面的单元测试
   - _Requirements: [X.X]_
 ```
 
-### API Layer Tasks
+### API 层任务
 ```markdown
-- [ ] X. Implement [Resource] API endpoints
-  - Create REST endpoints with proper HTTP methods
-  - Add request/response validation
-  - Implement authentication and authorization
-  - Write API integration tests
+- [ ] X. 实施 [Resource] API 端点
+  - 创建带适当 HTTP 方法的 REST 端点
+  - 添加请求/响应验证
+  - 实施认证和授权
+  - 编写 API 集成测试
   - _Requirements: [X.X]_
 ```
 
-### UI Layer Tasks
+### UI 层任务
 ```markdown
-- [ ] X. Build [Component] user interface
-  - Create reusable UI components
-  - Implement responsive design
-  - Add accessibility features
-  - Write component tests and user scenarios
+- [ ] X. 构建 [Component] 用户界面
+  - 创建可重用的 UI 组件
+  - 实施响应式设计
+  - 添加无障碍功能
+  - 编写组件测试和用户场景
   - _Requirements: [X.X]_
 ```
 
-### Integration Tasks
+### 集成任务
 ```markdown
-- [ ] X. Integrate with [External System]
-  - Implement API client with error handling
-  - Add retry logic and circuit breakers
-  - Create integration tests with mocking
-  - Document integration procedures
+- [ ] X. 与 [External System] 集成
+  - 实施带错误处理的 API 客户端
+  - 添加重试逻辑和断路器
+  - 创建带模拟的集成测试
+  - 记录集成程序
   - _Requirements: [X.X]_
 ```
 
 ---
 
-## Estimation Guidelines
+## 估算指南
 
-### Task Sizing
-- **Small (1-2 days)**: Simple components, basic CRUD operations
-- **Medium (3-5 days)**: Complex business logic, API integrations
-- **Large (1-2 weeks)**: Major features, complex UI flows
+### 任务规模
+- **小型 (1-2 天)**：简单组件，基本 CRUD 操作
+- **中型 (3-5 天)**：复杂业务逻辑，API 集成
+- **大型 (1-2 周)**：主要功能，复杂 UI 流
 
-### Complexity Factors
-- **Technical Complexity**: New technologies, complex algorithms
-- **Integration Complexity**: Multiple system interactions
-- **Business Complexity**: Complex rules, edge cases
-- **Testing Complexity**: Extensive test scenarios
+### 复杂性因素
+- **技术复杂性**：新技术，复杂算法
+- **集成复杂性**：多系统交互
+- **业务复杂性**：复杂规则，边缘情况
+- **测试复杂性**：广泛的测试场景
 
-### Risk Assessment
-- **High Risk**: New technologies, external dependencies
-- **Medium Risk**: Complex business logic, performance requirements
-- **Low Risk**: Standard CRUD operations, familiar patterns
-
----
-
-## Quality Gates
-
-### Code Quality
-- [ ] Code follows team standards and conventions
-- [ ] No code smells or technical debt introduced
-- [ ] Proper error handling and logging implemented
-- [ ] Security best practices followed
-
-### Testing Quality
-- [ ] Unit test coverage meets minimum threshold
-- [ ] Integration tests cover key scenarios
-- [ ] End-to-end tests validate user workflows
-- [ ] Performance tests meet requirements
-
-### Documentation Quality
-- [ ] Code is self-documenting with clear naming
-- [ ] Complex logic is explained with comments
-- [ ] API changes are documented
-- [ ] README and setup instructions are updated
+### 风险评估
+- **高风险**：新技术，外部依赖
+- **中风险**：复杂业务逻辑，性能需求
+- **低风险**：标准 CRUD 操作，熟悉模式
 
 ---
 
-[← Design Template](design-template.md) | [Back to Templates](README.md)
+## 质量门
+
+### 代码质量
+- [ ] 代码遵循团队标准和惯例
+- [ ] 未引入代码异味或技术债务
+- [ ] 实施了适当的错误处理和日志记录
+- [ ] 遵循了安全最佳实践
+
+### 测试质量
+- [ ] 单元测试覆盖率满足最低阈值
+- [ ] 集成测试覆盖关键场景
+- [ ] 端到端测试验证用户工作流
+- [ ] 性能测试满足需求
+
+### 文档质量
+- [ ] 代码自文档化，命名清晰
+- [ ] 复杂逻辑有注释解释
+- [ ] API 更改已记录
+- [ ] README 和设置说明已更新
+
+---
+
+[← 设计模板](design-template.md) | [返回模板](README.md)

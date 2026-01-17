@@ -1,222 +1,222 @@
-# Requirements Template
+# 需求模板
 
-<!-- Navigation Metadata -->
-<!-- Template: Requirements | Level: Template | Prerequisites: None -->
-<!-- Related: process/requirements-phase.md, resources/standards.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 模板：需求 | 级别：模板 | 前置条件：无 -->
+<!-- 相关：process/requirements-phase.md, resources/standards.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Templates](README.md) → **Requirements Template**
+**📍 你在这里：** [主指南](../../README.md) → [模板](README.md) → **需求模板**
 
-## Quick Navigation
-- **📚 Learn Process:** [Requirements Phase Guide](../process/requirements-phase.md) - How to use this template
-- **📖 See Example:** [Simple Feature Requirements](../examples/simple-feature-spec.md#requirements-document) - Template in action
-- **📋 EARS Reference:** [Standards Guide](../resources/standards.md) - EARS format details
-- **➡️ Next Template:** [Design Template](design-template.md) - After requirements are done
-
----
-
-Use this template to create comprehensive requirements documents using the EARS (Easy Approach to Requirements Syntax) format.
-
-## Document Information
-
-- **Feature Name**: [Your Feature Name]
-- **Version**: 1.0
-- **Date**: [Current Date]
-- **Author**: [Your Name]
-- **Stakeholders**: [List key stakeholders]
-
-## Introduction
-
-[Provide a clear, concise overview of the feature. Explain what problem it solves and why it's needed. Keep this section to 2-3 paragraphs maximum.]
-
-### Feature Summary
-[One sentence summary of what this feature does]
-
-### Business Value
-[Explain the business value and expected outcomes]
-
-### Scope
-[Define what is included and excluded from this feature]
-
-## Requirements
-
-### Requirement 1: [Requirement Title]
-
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
-
-#### Acceptance Criteria
-
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
-3. WHILE [ongoing condition] [system name] SHALL [continuous behavior]
-4. WHERE [context or location] [system name] SHALL [contextual behavior]
-
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies on other requirements or systems]
-- **Assumptions**: [List any assumptions made]
-
-### Requirement 2: [Requirement Title]
-
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
-
-#### Acceptance Criteria
-
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
-
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies]
-- **Assumptions**: [List any assumptions]
-
-### Requirement 3: [Requirement Title]
-
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
-
-#### Acceptance Criteria
-
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
-
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies]
-- **Assumptions**: [List any assumptions]
-
-## Non-Functional Requirements
-
-### Performance Requirements
-- WHEN [load condition] THEN [system name] SHALL [performance criteria]
-- IF [usage scenario] THEN [system name] SHALL [response time requirement]
-
-### Security Requirements
-- WHEN [security event] THEN [system name] SHALL [security response]
-- IF [authentication condition] THEN [system name] SHALL [access control behavior]
-
-### Usability Requirements
-- WHEN [user interaction] THEN [system name] SHALL [usability standard]
-- IF [accessibility condition] THEN [system name] SHALL [accessibility compliance]
-
-### Reliability Requirements
-- WHEN [failure condition] THEN [system name] SHALL [recovery behavior]
-- IF [error state] THEN [system name] SHALL [error handling response]
-
-## Constraints and Assumptions
-
-### Technical Constraints
-- [List technical limitations or constraints]
-- [Include platform, technology, or integration constraints]
-
-### Business Constraints
-- [List business rules or policy constraints]
-- [Include budget, timeline, or resource constraints]
-
-### Assumptions
-- [List assumptions about user behavior]
-- [Include assumptions about system environment]
-- [Note assumptions about external dependencies]
-
-## Success Criteria
-
-### Definition of Done
-- [ ] All acceptance criteria are met
-- [ ] Non-functional requirements are satisfied
-- [ ] Integration requirements are fulfilled
-- [ ] Testing criteria are passed
-
-### Acceptance Metrics
-- [Define measurable success criteria]
-- [Include performance benchmarks]
-- [Specify quality gates]
-
-## Glossary
-
-| Term | Definition |
-|------|------------|
-| [Term 1] | [Clear definition] |
-| [Term 2] | [Clear definition] |
-| [Term 3] | [Clear definition] |
+## 快速导航
+- **📚 学习流程：** [需求阶段指南](../process/requirements-phase.md) - 如何使用此模板
+- **📖 查看示例：** [简单功能需求](../examples/simple-feature-spec.md#requirements-document) - 实际中的模板
+- **📋 EARS 参考：** [标准指南](../resources/standards.md) - EARS 格式详情
+- **➡️ 下一个模板：** [设计模板](design-template.md) - 需求完成后
 
 ---
 
-## Requirements Review Checklist
+使用此模板使用 EARS (Easy Approach to Requirements Syntax) 格式创建全面的需求文档。
 
-Use this checklist to validate your requirements document:
+## 文档信息
 
-### Completeness
-- [ ] All user stories have clear roles, features, and benefits
-- [ ] Each requirement has specific acceptance criteria using EARS format
-- [ ] Non-functional requirements are addressed
-- [ ] Success criteria are defined and measurable
+- **功能名称**：[你的功能名称]
+- **版本**：1.0
+- **日期**：[当前日期]
+- **作者**：[你的名字]
+- **利益相关者**：[列出关键利益相关者]
 
-### Quality
-- [ ] Requirements are written in active voice
-- [ ] Each acceptance criterion is testable
-- [ ] Requirements avoid implementation details
-- [ ] Terminology is consistent throughout
+## 简介
 
-### EARS Format Validation
-- [ ] WHEN statements describe specific events or triggers
-- [ ] IF statements describe clear conditions or states
-- [ ] WHILE statements describe continuous behaviors
-- [ ] WHERE statements describe specific contexts
-- [ ] All statements use SHALL for system responses
+[提供功能的清晰、简洁的概述。解释它解决了什么问题以及为什么需要它。将此部分保持在最多 2-3 段。]
 
-### Clarity
-- [ ] Requirements are unambiguous
-- [ ] Technical jargon is explained in glossary
-- [ ] Stakeholders can understand all requirements
-- [ ] No conflicting requirements exist
+### 功能摘要
+[此功能做什么的一句话摘要]
 
-### Traceability
-- [ ] Requirements are numbered and organized
-- [ ] Dependencies between requirements are clear
-- [ ] Requirements link to business objectives
-- [ ] Assumptions and constraints are documented
+### 业务价值
+[解释业务价值和预期结果]
+
+### 范围
+[定义此功能包含和排除的内容]
+
+## 需求
+
+### 需求 1：[需求标题]
+
+**用户故事：** 作为[角色/用户类型]，我想要[期望的功能]，以便[益处/价值]。
+
+#### 验收标准
+
+1. WHEN [具体事件或触发器] THEN [系统名称] SHALL [具体系统响应]
+2. IF [条件或状态] THEN [系统名称] SHALL [必需行为]
+3. WHILE [持续条件] [系统名称] SHALL [持续行为]
+4. WHERE [上下文或位置] [系统名称] SHALL [上下文行为]
+
+#### 额外详情
+- **优先级**：[高/中/低]
+- **复杂性**：[高/中/低]
+- **依赖关系**：[列出对其他需求或系统的任何依赖]
+- **假设**：[列出所做的任何假设]
+
+### 需求 2：[需求标题]
+
+**用户故事：** 作为[角色/用户类型]，我想要[期望的功能]，以便[益处/价值]。
+
+#### 验收标准
+
+1. WHEN [具体事件或触发器] THEN [系统名称] SHALL [具体系统响应]
+2. IF [条件或状态] THEN [系统名称] SHALL [必需行为]
+
+#### 额外详情
+- **优先级**：[高/中/低]
+- **复杂性**：[高/中/低]
+- **依赖关系**：[列出任何依赖]
+- **假设**：[列出任何假设]
+
+### 需求 3：[需求标题]
+
+**用户故事：** 作为[角色/用户类型]，我想要[期望的功能]，以便[益处/价值]。
+
+#### 验收标准
+
+1. WHEN [具体事件或触发器] THEN [系统名称] SHALL [具体系统响应]
+2. IF [条件或状态] THEN [系统名称] SHALL [必需行为]
+
+#### 额外详情
+- **优先级**：[高/中/低]
+- **复杂性**：[高/中/低]
+- **依赖关系**：[列出任何依赖]
+- **假设**：[列出任何假设]
+
+## 非功能性需求
+
+### 性能需求
+- WHEN [负载条件] THEN [系统名称] SHALL [性能标准]
+- IF [使用场景] THEN [系统名称] SHALL [响应时间要求]
+
+### 安全需求
+- WHEN [安全事件] THEN [系统名称] SHALL [安全响应]
+- IF [认证条件] THEN [系统名称] SHALL [访问控制行为]
+
+### 易用性需求
+- WHEN [用户交互] THEN [系统名称] SHALL [易用性标准]
+- IF [无障碍条件] THEN [系统名称] SHALL [无障碍合规性]
+
+### 可靠性需求
+- WHEN [故障条件] THEN [系统名称] SHALL [恢复行为]
+- IF [错误状态] THEN [系统名称] SHALL [错误处理响应]
+
+## 约束和假设
+
+### 技术约束
+- [列出技术限制或约束]
+- [包含平台、技术或集成约束]
+
+### 业务约束
+- [列出业务规则或政策约束]
+- [包含预算、时间表或资源约束]
+
+### 假设
+- [列出关于用户行为的假设]
+- [包含关于系统环境的假设]
+- [注意关于外部依赖的假设]
+
+## 成功标准
+
+### 完成定义 (Definition of Done)
+- [ ] 所有验收标准均已满足
+- [ ] 非功能性需求已满足
+- [ ] 集成需求已履行
+- [ ] 测试标准已通过
+
+### 验收指标
+- [定义可衡量的成功标准]
+- [包含性能基准]
+- [指定质量门]
+
+## 术语表
+
+| 术语 | 定义 |
+|------|------|
+| [术语 1] | [清晰定义] |
+| [术语 2] | [清晰定义] |
+| [术语 3] | [清晰定义] |
 
 ---
 
-## Tips for Writing Good Requirements
+## 需求审查检查清单
 
-### Do's
-- ✅ Use active voice and specific language
-- ✅ Focus on what the system should do, not how
-- ✅ Make each requirement testable and verifiable
-- ✅ Include both positive and negative scenarios
-- ✅ Consider edge cases and error conditions
+使用此检查清单验证你的需求文档：
 
-### Don'ts
-- ❌ Don't use vague terms like "user-friendly" or "fast"
-- ❌ Don't combine multiple requirements in one statement
-- ❌ Don't specify implementation details
-- ❌ Don't use subjective or unmeasurable criteria
-- ❌ Don't forget to consider non-functional aspects
+### 完整性
+- [ ] 所有用户故事都有清晰的角色、功能和益处
+- [ ] 每个需求都有使用 EARS 格式的具体验收标准
+- [ ] 非功能性需求已得到解决
+- [ ] 成功标准已定义且可衡量
 
-### Common EARS Patterns
+### 质量
+- [ ] 需求使用主动语态编写
+- [ ] 每个验收标准都是可测试的
+- [ ] 需求避免实施细节
+- [ ] 术语自始至终一致
 
-**Event-Driven (WHEN)**
-- User actions: "WHEN user clicks submit button"
-- System events: "WHEN data sync completes"
-- Time-based: "WHEN daily backup runs"
+### EARS 格式验证
+- [ ] WHEN 语句描述具体事件或触发器
+- [ ] IF 语句描述清晰的条件或状态
+- [ ] WHILE 语句描述持续行为
+- [ ] WHERE 语句描述具体上下文
+- [ ] 所有语句使用 SHALL 表示系统响应
 
-**Condition-Based (IF)**
-- State checks: "IF user is authenticated"
-- Data validation: "IF input is invalid"
-- Permission checks: "IF user has admin role"
+### 清晰度
+- [ ] 需求无歧义
+- [ ] 技术术语在术语表中解释
+- [ ] 利益相关者能理解所有需求
+- [ ] 不存在冲突的需求
 
-**Continuous (WHILE)**
-- Ongoing processes: "WHILE file is uploading"
-- Monitoring: "WHILE system is running"
-- Real-time updates: "WHILE user is typing"
-
-**Contextual (WHERE)**
-- Platform-specific: "WHERE application runs on mobile"
-- Environment-specific: "WHERE system is in production"
-- Location-specific: "WHERE user is in restricted area"
+### 可追溯性
+- [ ] 需求已编号和组织
+- [ ] 需求之间的依赖关系清晰
+- [ ] 需求链接到业务目标
+- [ ] 假设和约束已记录
 
 ---
 
-[← Back to Templates](README.md) | [Design Template →](design-template.md)
+## 编写好需求的提示
+
+### 要做
+- ✅ 使用主动语态和具体语言
+- ✅ 专注于系统应该做什么，而不是如何做
+- ✅ 使每个需求可测试和可验证
+- ✅ 包含正面和负面场景
+- ✅ 考虑边缘情况和错误条件
+
+### 不要
+- ❌ 不要使用像"用户友好"或"快"这样的模糊术语
+- ❌ 不要在一条语句中组合多个需求
+- ❌ 不要指定实施细节
+- ❌ 不要使用主观或不可衡量的标准
+- ❌ 不要忘记考虑非功能性方面
+
+### 常见 EARS 模式
+
+**事件驱动 (WHEN)**
+- 用户动作："WHEN 用户点击提交按钮"
+- 系统事件："WHEN 数据同步完成"
+- 基于时间："WHEN 每日备份运行"
+
+**基于条件 (IF)**
+- 状态检查："IF 用户已认证"
+- 数据验证："IF 输入无效"
+- 权限检查："IF 用户具有管理员角色"
+
+**持续 (WHILE)**
+- 进行中的流程："WHILE 文件正在上传"
+- 监控："WHILE 系统正在运行"
+- 实时更新："WHILE 用户正在输入"
+
+**上下文 (WHERE)**
+- 特定平台："WHERE 应用程序在移动设备上运行"
+- 特定环境："WHERE 系统在生产环境中"
+- 特定位置："WHERE 用户在受限区域"
+
+---
+
+[← 返回模板](README.md) | [设计模板 →](design-template.md)

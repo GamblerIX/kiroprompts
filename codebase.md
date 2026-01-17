@@ -2121,219 +2121,219 @@ Tasks were defined without considering dependencies, leading to blocked work and
   - _Requirements: 3.2, 3.3_
 \`\`\`
 
-**Recovery Strategy:**
-- Map out dependencies between tasks
-- Sequence tasks so that each builds on completed work
-- Identify critical path items that block other work
-- Consider parallel work streams where possible
+**恢复策略：**
+- 梳理任务之间的依赖关系
+- 按照任务的先后顺序排列，确保每项工作都建立在已完成工作的基础上
+- 识别阻碍其他工作的关键路径项目
+- 在可能的情况下考虑并行工作流
 
-#### Pitfall 9: Insufficient Testing Strategy
+#### 陷阱 9：测试策略不足
 
-**What Went Wrong:**
-Tasks focused only on feature implementation without adequate testing, leading to bugs discovered late in development.
+**错误之处：**
+任务只关注功能实现而没有充分的测试，导致在开发后期才发现漏洞。
 
-**Example of Testing-Light Tasks:**
+**测试较少的任务示例：**
 \`\`\`markdown
-- [ ] 1. Implement user registration
-  - Create registration form
-  - Add backend validation
-  - Store user in database
-  - _Requirements: 1.1_
+- [ ] 1. 实现用户注册
+  - 创建注册表单
+  - 添加后端验证
+  - 将用户存储到数据库
+  - _需求：1.1_
 
-- [ ] 2. Add user login
-  - Create login form
-  - Verify credentials
-  - Create user session
-  - _Requirements: 2.1_
+- [ ] 2. 添加用户登录
+  - 创建登录表单
+  - 验证凭据
+  - 创建用户会话
+  - _需求：2.1_
 \`\`\`
 
-**What Should Have Been Done:**
+**正确的做法：**
 \`\`\`markdown
-- [ ] 1. Implement user registration with comprehensive testing
-  - Create User model with validation rules
-  - Write unit tests for User model validation edge cases
-  - Implement registration API endpoint with error handling
-  - Write integration tests for registration flow including error scenarios
-  - Create registration form with client-side validation
-  - Write end-to-end tests for complete registration user journey
-  - _Requirements: 1.1_
+- [ ] 1. 实现具有全面测试的用户注册
+  - 创建带有验证规则的 User 模型
+  - 为 User 模型验证的边缘情况编写单元测试
+  - 实现具有错误处理能力的注册 API 端点
+  - 为包含错误场景的注册流程编写集成测试
+  - 创建具有客户端验证的注册表单
+  - 为完整的注册用户旅程编写端到端测试
+  - _需求：1.1_
 
-- [ ] 2. Add user login with security testing
-  - Implement credential verification with secure password comparison
-  - Write unit tests for authentication logic including timing attacks
-  - Create login API endpoint with rate limiting
-  - Write integration tests for login flow including brute force scenarios
-  - Build login form with proper error handling
-  - Write end-to-end tests for login user journey and security measures
-  - _Requirements: 2.1_
+- [ ] 2. 添加具有安全测试的用户登录
+  - 使用安全密码比对实现凭据验证
+  - 为身份验证逻辑编写单元测试，包括计时攻击防御
+  - 创建具有速率限制的登录 API 端点
+  - 为登录流程编写集成测试，包括暴力破解场景
+  - 构建具有正确错误处理能力的登录表单
+  - 为登录用户旅程和安全措施编写端到端测试
+  - _需求：2.1_
 \`\`\`
 
-**Recovery Strategy:**
-- Add testing requirements to every implementation task
-- Include unit, integration, and end-to-end testing
-- Consider security testing for sensitive functionality
-- Plan for both positive and negative test scenarios
+**恢复策略：**
+- 为每个实现任务增加测试要求
+- 包括单元测试、集成测试和端到端测试
+- 针对敏感功能考虑进行安全性测试
+- 规划正向和负向的测试场景
 
-## Recovery Strategies for Common Problems
+## 常见问题的恢复策略
 
-### When Requirements Are Unclear Mid-Implementation
+### 当实现中途发现需求不清晰时
 
-**Symptoms:**
-- Developers asking frequent clarification questions
-- Implementation decisions being made without stakeholder input
-- Features being built that don't match user expectations
+**征兆：**
+- 开发人员频繁询问澄清性问题
+- 在没有利益相关者输入的情况下做出实现决策
+- 构建的功能不符合用户预期
 
-**Recovery Steps:**
-1. **Stop Implementation**: Pause coding work to prevent building the wrong thing
-2. **Document Assumptions**: List all assumptions being made about unclear requirements
-3. **Stakeholder Review**: Schedule immediate review with business stakeholders
-4. **Clarify and Update**: Update requirements document with specific, measurable criteria
-5. **Impact Assessment**: Evaluate what work needs to be redone
-6. **Resume with Clarity**: Continue implementation only after requirements are clear
+**恢复步骤：**
+1. **停止实现**：暂停编码工作，防止构建错误的东西
+2. **记录假设**：列出针对不清晰需求所做的所有假设
+3. **利益相关者确认**：立即安排与业务利益相关者的评审
+4. **澄清并更新**：使用具体的、可衡量的标准更新需求文档
+5. **影响评估**：评估哪些工作需要重做
+6. **清晰后恢复**：只有在需求清晰后才继续实现
 
-### When Design Doesn't Support Requirements
+### 当设计不支持需求时
 
-**Symptoms:**
-- Implementation tasks seem impossible or overly complex
-- Performance requirements can't be met with current design
-- Security or scalability concerns emerge during implementation
+**征兆：**
+- 实现任务看起来不可能或过于复杂
+- 性能需求无法通过当前设计满足
+- 在实现过程中暴露出安全或扩展性担忧
 
-**Recovery Steps:**
-1. **Identify Root Cause**: Determine which requirements the design fails to support
-2. **Design Review**: Conduct thorough review of design decisions
-3. **Alternative Evaluation**: Research alternative architectural approaches
-4. **Stakeholder Communication**: Explain trade-offs and get input on priorities
-5. **Design Revision**: Update design document with new approach
-6. **Task Adjustment**: Revise implementation tasks to match new design
+**恢复步骤：**
+1. **识别根本原因**：确定设计未能支持哪些需求
+2. **设计评审**：对设计决策进行彻底评审
+3. **方案评估**：研究替代的架构方法
+4. **利益相关者沟通**：解释权衡并获取关于优先级的建议
+5. **修订设计**：使用新方法更新设计文档
+6. **调整任务**：修订实现任务以匹配新设计
 
-### When Implementation Tasks Are Blocked
+### 当实现任务被阻塞时
 
-**Symptoms:**
-- Tasks can't be started due to missing dependencies
-- Work is proceeding in wrong order
-- Team members are waiting for others to complete prerequisite work
+**征兆：**
+- 由于缺少依赖项，任务无法启动
+- 工作顺序错误
+- 团队成员正在等待其他人完成前置工作
 
-**Recovery Steps:**
-1. **Dependency Mapping**: Create visual map of all task dependencies
-2. **Critical Path Analysis**: Identify which tasks are blocking the most other work
-3. **Parallel Work Identification**: Find tasks that can be done simultaneously
-4. **Task Resequencing**: Reorder tasks to optimize workflow
-5. **Resource Reallocation**: Assign team members to unblocked work
-6. **Regular Check-ins**: Implement daily standups to catch blocking issues early
+**恢复步骤：**
+1. **依赖映射**：创建所有任务依赖关系的视觉图谱
+2. **关键路径分析**：识别哪些任务阻塞了最多的其他工作
+3. **并行工作识别**：寻找可以同时进行的任务
+4. **重新排序任务**：重新安排任务顺序以优化工作流
+5. **资源重新分配**：将团队成员分配到未阻塞的工作中
+6. **定期检查**：实施每日站会以及早捕捉阻塞问题
 
-### When Quality Issues Emerge Late
+### 当后期出现质量问题时
 
-**Symptoms:**
-- Bugs discovered during integration testing
-- Performance problems in production-like environments
-- Security vulnerabilities found during review
+**征兆：**
+- 在集成测试期间发现漏洞
+- 类生产环境中的性能问题
+- 评审期间发现的安全漏洞
 
-**Recovery Steps:**
-1. **Issue Triage**: Categorize problems by severity and impact
-2. **Root Cause Analysis**: Determine why issues weren't caught earlier
-3. **Testing Gap Analysis**: Identify what testing was missing
-4. **Process Improvement**: Add missing testing types to future tasks
-5. **Immediate Fixes**: Address critical issues blocking progress
-6. **Prevention Planning**: Update spec process to prevent similar issues
+**恢复步骤：**
+1. **问题分类**：按严重程度和影响对问题进行分类
+2. **根本原因分析**：确定为什么问题没有及早被发现
+3. **测试缺口分析**：识别缺失了哪些测试
+4. **流程改进**：在未来的任务中增加缺失的测试类型
+5. **立即修复**：处理阻碍进度的关键问题
+6. **预防规划**：更新规范流程以防止类似问题再次发生
 
-## Lessons Learned from Failed Approaches
+## 失败方法的教训总结
 
-### Case Study 1: The Over-Specified Spec
+### 案例研究 1：过度细化的规范
 
-**Background:**
-A team created a 200-page specification document that attempted to define every possible detail of a content management system before any implementation began.
+**背景：**
+一个团队创建了一份 200 页的规范文档，试图在开始任何实现之前定义内容管理系统的每一个可能细节。
 
-**What Went Wrong:**
-- Specification took 3 months to write
-- Requirements changed during the long specification phase
-- Implementation revealed many specification assumptions were wrong
-- Team spent more time updating documentation than building features
+**错误之处：**
+- 编写规范花费了 3 个月时间
+- 在冗长的规范阶段中，需求发生了变化
+- 实现过程揭示了许多规范假设是错误的
+- 团队花在更新文档上的时间比构建功能的时间还多
 
-**Key Lessons:**
-- Specifications should be detailed enough to guide implementation, not replace thinking
-- Start with core functionality and iterate
-- Validate assumptions with prototypes before full specification
-- Keep specifications living documents that evolve with understanding
+**核心教训：**
+- 规范应足够详细以指导实现，而不是取代思考
+- 从核心功能开始并进行迭代
+- 在进行完整规范之前，通过原型验证假设
+- 保持规范作为随着理解而演进的动态文档
 
-### Case Study 2: The Technology-First Design
+### 案例研究 2：技术优先的设计
 
-**Background:**
-A team decided to use microservices, event sourcing, and GraphQL for a simple inventory management system because these were "modern" technologies.
+**背景：**
+一个团队决定为一个简单的库存管理系统使用微服务、事件溯源和 GraphQL，因为这些是“现代”技术。
 
-**What Went Wrong:**
-- Development time increased 3x due to complexity
-- Simple features required changes across multiple services
-- Debugging became extremely difficult
-- Team spent more time on infrastructure than business logic
+**错误之处：**
+- 由于复杂性，开发时间增加了 3 倍
+- 简单的功能需要更改多个服务
+- 调试变得极其困难
+- 团队在基础设施上花费的时间超过了业务逻辑
 
-**Key Lessons:**
-- Choose technology based on requirements, not trends
-- Start simple and add complexity only when needed
-- Consider team expertise when making technology choices
-- Focus on solving business problems, not showcasing technology
+**核心教训：**
+- 根据需求选择技术，而不是根据趋势
+- 从简单开始，仅在需要时增加复杂性
+- 在做出技术选择时考虑团队的专业知识
+- 专注于解决业务问题，而不是展示技术
 
-### Case Study 3: The Missing Monitoring Spec
+### 案例研究 3：缺失监控的规范
 
-**Background:**
-A data processing pipeline was thoroughly specified for functionality but had no monitoring, logging, or observability requirements.
+**背景：**
+一个数据处理管道在功能规范上非常详尽，但没有任何监控、日志或可观测性需求。
 
-**What Went Wrong:**
-- Production issues were impossible to debug
-- No visibility into system performance or health
-- Customer issues couldn't be traced to root causes
-- System reliability was poor due to lack of operational insight
+**错误之处：**
+- 生产问题无法调试
+- 无法了解系统性能或健康状态
+- 客户问题无法追溯到根本原因
+- 由于缺乏运营洞察力，系统可靠性极差
 
-**Key Lessons:**
-- Operational requirements are as important as functional ones
-- Monitoring and observability should be specified from the start
-- Consider the full lifecycle of the system, not just initial functionality
-- Include operational runbooks and troubleshooting procedures
+**核心教训：**
+- 运营需求与功能需求同样重要
+- 监控和可观测性应从一开始就在规范中定义
+- 考虑系统的全生命周期，而不只是初始功能
+- 包含运营操作手册和故障排除程序
 
-## Prevention Strategies
+## 预防策略
 
-### Requirements Phase Prevention
+### 需求阶段预防
 
-1. **Use Concrete Examples**: Always include specific examples of expected behavior
-2. **Define Acceptance Tests**: Write testable acceptance criteria for every requirement
-3. **Consider Edge Cases**: Systematically think through error scenarios and boundary conditions
-4. **Stakeholder Review**: Get explicit approval from business stakeholders before proceeding
-5. **Prototype Validation**: Build small prototypes to validate assumptions
+1. **使用具体示例**：始终包含预期行为的具体示例
+2. **定义验收测试**：为每个需求编写可测试的验收标准
+3. **考虑边缘情况**：有系统地思考错误场景和边界条件
+4. **利益相关者评审**：在继续之前获得业务利益相关者的明确批准
+5. **原型验证**：构建小型原型以验证假设
 
-### Design Phase Prevention
+### 设计阶段预防
 
-1. **Start Simple**: Begin with the simplest design that meets requirements
-2. **Plan for Evolution**: Design for future needs without implementing them initially
-3. **Consider Operations**: Include monitoring, logging, and maintenance in design
-4. **Review Trade-offs**: Explicitly document design decisions and their trade-offs
-5. **Validate with Implementation**: Build proof-of-concept for complex design decisions
+1. **从简单开始**：从满足需求的简单设计开始
+2. **规划演进**：为未来需求预留设计空间，但最初不要实现它们
+3. **考虑运营**：在设计中包含监控、日志和维护
+4. **评审权衡**：明确记录设计决策及其权衡
+5. **通过实现验证**：为复杂的设计决策构建概念验证 (PoC)
 
-### Tasks Phase Prevention
+### 任务阶段预防
 
-1. **Right-Size Tasks**: Each task should be completable in 1-2 days
-2. **Include Testing**: Every implementation task should include corresponding tests
-3. **Map Dependencies**: Understand and document task dependencies
-4. **Plan Integration**: Include tasks for integrating components together
-5. **Consider Deployment**: Include tasks for deployment and operational concerns
+1. **分配合理大小的任务**：每个任务应在 1-2 天内完成
+2. **包含测试**：每个实现任务都应包含相应的测试
+3. **映射依赖关系**：理解并记录任务依赖关系
+4. **规划集成**：包含用于将组件集成在一起的任务
+5. **考虑部署**：包含用于部署和运营关注点的任务
 
-## Quick Reference: Warning Signs
+## 快速参考：预警信号
 
-### Requirements Warning Signs
-- ❌ Requirements use subjective terms without definition ("fast", "user-friendly")
-- ❌ No error scenarios or edge cases considered
-- ❌ Technology choices embedded in requirements
-- ❌ Stakeholders haven't reviewed or approved requirements
+### 需求预警信号
+- ❌ 需求使用主观术语但未定义（如“快”、“用户友好”）
+- ❌ 未考虑错误场景或边缘情况
+- ❌ 需求中嵌入了技术选型
+- ❌ 利益相关者未评审或批准需求
 
-### Design Warning Signs
-- ❌ Design is much more complex than requirements suggest
-- ❌ No consideration of non-functional requirements
-- ❌ No error handling or failure scenarios planned
-- ❌ Design decisions not justified or documented
+### 设计预警信号
+- ❌ 设计比需求建议的要复杂得多
+- ❌ 未考虑非功能性需求
+- ❌ 未规划错误处理或失败场景
+- ❌ 设计决策没有经过证明或记录
 
-### Tasks Warning Signs
-- ❌ Tasks are too large (more than 2-3 days of work)
-- ❌ No testing included in implementation tasks
-- ❌ Dependencies between tasks not considered
-- ❌ No integration or deployment tasks included
+### 任务预警信号
+- ❌ 任务太大（超过 2-3 天的工作量）
+- ❌ 实现任务中未包含测试
+- ❌ 未考虑任务之间的依赖关系
+- ❌ 未包含集成或部署任务
 
 ---
 

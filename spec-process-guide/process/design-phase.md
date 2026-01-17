@@ -1,421 +1,421 @@
-# Design Phase Documentation
+# 设计阶段文档
 
-<!-- Navigation Metadata -->
-<!-- Phase: Design | Level: Detailed Guide | Prerequisites: requirements-phase.md -->
-<!-- Related: templates/design-template.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
+<!-- 导航元数据 -->
+<!-- 阶段：设计 | 级别：详细指南 | 前置条件：requirements-phase.md -->
+<!-- 相关：templates/design-template.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Process Guide](README.md) → **Design Phase**
+**📍 你在这里：** [主指南](../../README.md) → [流程指南](README.md) → **设计阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Design Template](../templates/design-template.md) - Ready-to-use template
-- **📖 See Example:** [Complex System Spec](../examples/complex-system-spec.md) - Complete design example
-- **🧠 Decision Help:** [AI Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How to evaluate choices
-- **➡️ Next Phase:** [Tasks Phase](tasks-phase.md) - After design is approved
+## 快速导航
+- **🎯 开始：** [设计模板](../templates/design-template.md) - 即用型模板
+- **📖 查看示例：** [复杂系统规范](../examples/complex-system-spec.md) - 完整设计示例
+- **🧠 决策帮助：** [AI 决策框架](../ai-reasoning/decision-frameworks.md) - 如何评估选择
+- **➡️ 下一阶段：** [任务阶段](tasks-phase.md) - 设计获批后
 
-## Phase Navigation
-- **Previous:** [Requirements Phase](requirements-phase.md) - Must be completed first
-- **Current:** **Design Phase** - Create technical architecture and plan
-- **Next:** [Tasks Phase](tasks-phase.md) - Break down into implementation steps
-- **Context:** [Process Overview](README.md) - Three-phase workflow
+## 阶段导航
+- **上一步：** [需求阶段](requirements-phase.md) - 必须首先完成
+- **当前：** **设计阶段** - 创建技术架构和计划
+- **下一步：** [任务阶段](tasks-phase.md) - 分解为实施步骤
+- **上下文：** [流程概述](README.md) - 三阶段工作流程
 
 ---
 
-## Overview
+## 概述
 
-The Design Phase transforms approved requirements into a comprehensive technical design that serves as a blueprint for implementation. This phase involves research, architectural decisions, and detailed planning that bridges the gap between what needs to be built (requirements) and how it will be built (implementation tasks).
+设计阶段将批准的需求转化为全面的技术设计，作为实施的蓝图。该阶段涉及研究、架构决策和详细规划，弥合了需要构建内容（需求）与如何构建（实施任务）之间的差距。
 
-## Purpose and Goals
+## 目的和目标
 
-The design phase serves to:
-- Translate requirements into technical architecture and system design
-- Conduct necessary research to inform design decisions
-- Define system components, interfaces, and data models
-- Establish error handling and testing strategies
-- Create a foundation for breaking down work into implementation tasks
-- Document design rationale and decision-making process
+设计阶段旨在：
+- 将需求转化为技术架构和系统设计
+- 进行必要的研究以告知设计决策
+- 定义系统组件、接口和数据模型
+- 建立错误处理和测试策略
+- 为将工作分解为实施任务打下基础
+- 记录设计理由和决策过程
 
-## Step-by-Step Process
+## 分步流程
 
-### Step 1: Requirements Analysis and Research Planning
+### 第一步：需求分析和研究规划
 
-**Objective**: Understand requirements deeply and identify areas needing research
+**目标**：深入理解需求并识别需要研究的领域
 
-**Process**:
-1. **Review Requirements Thoroughly**: Understand each requirement and its implications
-2. **Identify Technical Unknowns**: List areas where research is needed
-3. **Plan Research Activities**: Prioritize research based on design impact
-4. **Set Research Boundaries**: Define scope to avoid analysis paralysis
+**流程**：
+1. **彻底审查需求**：理解每个需求及其含义
+2. **识别技术未知数**：列出需要研究的领域
+3. **规划研究活动**：根据设计影响确定研究优先级
+4. **设定研究边界**：定义范围以避免分析瘫痪
 
-**Research Areas to Consider**:
-- Technology stack and framework choices
-- Third-party integrations and APIs
-- Performance and scalability requirements
-- Security and compliance considerations
-- Data storage and management approaches
-- User interface and experience patterns
+**要考虑的研究领域**：
+- 技术栈和框架选择
+- 第三方集成和 API
+- 性能和可扩展性需求
+- 安全和合规注意事项
+- 数据存储和管理方法
+- 用户界面和体验模式
 
-### Step 2: Conduct Research and Build Context
+### 第二步：进行研究并建立上下文
 
-**Research Process**:
-1. **Gather Information**: Research technologies, patterns, and best practices
-2. **Evaluate Options**: Compare different approaches and their trade-offs
-3. **Document Findings**: Summarize key insights that will inform design
-4. **Make Preliminary Decisions**: Choose approaches based on research
+**研究流程**：
+1. **收集信息**：研究技术、模式和最佳实践
+2. **评估选项**：比较不同方法及其权衡
+3. **记录发现**：总结将告知设计的关键见解
+4. **做出初步决策**：基于研究选择方法
 
-**Research Documentation Guidelines**:
-- Focus on findings that impact design decisions
-- Include pros/cons of different approaches
-- Cite sources and include relevant links
-- Summarize key insights rather than exhaustive details
-- Keep research contextual to the specific requirements
+**研究文档指南**：
+- 专注于影响设计决策的发现
+- 包含不同方法的优缺点
+- 引用来源并包含相关链接
+- 总结关键见解而非详尽细节
+- 保持研究针对具体需求
 
-### Step 3: Create System Architecture
+### 第三步：创建系统架构
 
-**Architecture Components**:
-1. **System Overview**: High-level description of how the system works
-2. **Component Architecture**: Major system components and their relationships
-3. **Data Flow**: How information moves through the system
-4. **Integration Points**: External systems and APIs
-5. **Technology Stack**: Chosen technologies and their rationale
+**架构组件**：
+1. **系统概述**：系统如何工作的高层描述
+2. **组件架构**：主要系统组件及其关系
+3. **数据流**：信息如何在系统中移动
+4. **集成点**：外部系统和 API
+5. **技术栈**：选定的技术及其理由
 
-**Architecture Documentation Pattern**:
+**架构文档模式**：
 ```markdown
-## Architecture
+## 架构
 
-### System Overview
-[High-level description of the system approach]
+### 系统概述
+[系统方法的高层描述]
 
-### Component Architecture
-[Description of major components and their responsibilities]
+### 组件架构
+[主要组件及其职责的描述]
 
-### Data Flow
-[How data moves through the system]
+### 数据流
+[数据如何在系统中移动]
 
-### Technology Decisions
-[Key technology choices and rationale]
+### 技术决策
+[关键技术选择和理由]
 ```
 
-### Step 4: Define Components and Interfaces
+### 第四步：定义组件和接口
 
-**Component Design Elements**:
-1. **Component Responsibilities**: What each component does
-2. **Interface Definitions**: How components communicate
-3. **Dependency Relationships**: How components depend on each other
-4. **Configuration and Setup**: How components are initialized
+**组件设计元素**：
+1. **组件职责**：每个组件做什么
+2. **接口定义**：组件如何通信
+3. **依赖关系**：组件如何相互依赖
+4. **配置和设置**：组件如何初始化
 
-**Interface Documentation Pattern**:
+**接口文档模式**：
 ```markdown
-## Components and Interfaces
+## 组件和接口
 
-### [Component Name]
-- **Purpose**: [What this component does]
-- **Responsibilities**: [Key functions and duties]
-- **Interfaces**: [How other components interact with it]
-- **Dependencies**: [What this component needs]
+### [组件名称]
+- **目的**：[此组件做什么]
+- **职责**：[关键功能和责任]
+- **接口**：[其他组件如何与其交互]
+- **依赖**：[此组件需要什么]
 ```
 
-### Step 5: Design Data Models
+### 第五步：设计数据模型
 
-**Data Model Elements**:
-1. **Entity Definitions**: Core data structures and their properties
-2. **Relationships**: How entities relate to each other
-3. **Validation Rules**: Data integrity and business rules
-4. **Storage Considerations**: How data will be persisted
+**数据模型元素**：
+1. **实体定义**：核心数据结构及其属性
+2. **关系**：实体如何相互关联
+3. **验证规则**：数据完整性和业务规则
+4. **存储考虑**：数据将如何持久化
 
-**Data Model Documentation Pattern**:
+**数据模型文档模式**：
 ```markdown
-## Data Models
+## 数据模型
 
-### [Entity Name]
-- **Properties**: [List of fields and their types]
-- **Validation**: [Rules for data integrity]
-- **Relationships**: [Connections to other entities]
-- **Storage**: [Persistence considerations]
+### [实体名称]
+- **属性**：[字段及其类型列表]
+- **验证**：[数据完整性规则]
+- **关系**：[与其他实体的连接]
+- **存储**：[持久化注意事项]
 ```
 
-### Step 6: Plan Error Handling and Edge Cases
+### 第六步：规划错误处理和边缘情况
 
-**Error Handling Design**:
-1. **Error Categories**: Types of errors the system might encounter
-2. **Error Response Strategies**: How the system responds to different errors
-3. **User Experience**: How errors are communicated to users
-4. **Recovery Mechanisms**: How the system handles and recovers from errors
+**错误处理设计**：
+1. **错误类别**：系统可能遇到的错误类型
+2. **错误响应策略**：系统如何响应不同错误
+3. **用户体验**：错误如何传达给用户
+4. **恢复机制**：系统如何处理错误并从中恢复
 
-### Step 7: Define Testing Strategy
+### 第七步：定义测试策略
 
-**Testing Strategy Elements**:
-1. **Testing Levels**: Unit, integration, and end-to-end testing approaches
-2. **Test Coverage**: What aspects of the system will be tested
-3. **Testing Tools**: Frameworks and tools for different types of testing
-4. **Quality Gates**: Criteria for determining when testing is sufficient
+**测试策略元素**：
+1. **测试级别**：单元、集成和端到端测试方法
+2. **测试覆盖率**：系统的哪些方面将被测试
+3. **测试工具**：用于不同类型测试的框架和工具
+4. **质量门**：确定测试何时充分的标准
 
-## Design Document Structure
+## 设计文档结构
 
-### Standard Design Document Template
+### 标准设计文档模板
 
 ```markdown
-# Design Document
+# 设计文档
 
-## Overview
-[High-level summary of the feature and approach]
+## 概述
+[功能和方法的高层摘要]
 
-## Architecture
-[System architecture and component overview]
+## 架构
+[系统架构和组件概述]
 
-## Components and Interfaces
-[Detailed component descriptions and interactions]
+## 组件和接口
+[详细组件描述和交互]
 
-## Data Models
-[Data structures and relationships]
+## 数据模型
+[数据结构和关系]
 
-## Error Handling
-[Error scenarios and response strategies]
+## 错误处理
+[错误场景和响应策略]
 
-## Testing Strategy
-[Testing approach and quality assurance]
+## 测试策略
+[测试方法和质量保证]
 ```
 
-### Section Guidelines
+### 章节指南
 
-**Overview Section**:
-- Provide context linking back to requirements
-- Explain the overall approach and key design decisions
-- Keep it concise but comprehensive enough for stakeholders
+**概述章节**：
+- 提供链接回需求的上下文
+- 解释整体方法和关键设计决策
+- 保持简洁但对利益相关者足够全面
 
-**Architecture Section**:
-- Focus on the big picture and major components
-- Explain how the system addresses the requirements
-- Include diagrams when helpful (Mermaid syntax recommended)
+**架构章节**：
+- 专注于大局和主要组件
+- 解释系统如何解决需求
+- 有帮助时包含图表（推荐 Mermaid 语法）
 
-**Components Section**:
-- Detail each major component's purpose and responsibilities
-- Define clear interfaces between components
-- Explain how components work together
+**组件章节**：
+- 详细说明每个主要组件的目的和职责
+- 定义组件之间的清晰接口
+- 解释组件如何协同工作
 
-**Data Models Section**:
-- Define all data structures used by the system
-- Include validation rules and business logic
-- Show relationships between different data entities
+**数据模型章节**：
+- 定义系统使用的所有数据结构
+- 包含验证规则和业务逻辑
+- 展示不同数据实体之间的关系
 
-**Error Handling Section**:
-- Cover both technical errors and business rule violations
-- Define user-facing error messages and system responses
-- Plan for graceful degradation and recovery
+**错误处理章节**：
+- 涵盖技术错误和业务规则违规
+- 定义面向用户的错误消息和系统响应
+- 规划优雅降级和恢复
 
-**Testing Strategy Section**:
-- Outline testing approach for different system layers
-- Define what constitutes adequate test coverage
-- Specify testing tools and frameworks
+**测试策略章节**：
+- 概述不同系统层的测试方法
+- 定义什么构成足够的测试覆盖率
+- 指定测试工具和框架
 
-## Examples of Design Patterns and Decisions
+## 设计模式和决策示例
 
-### Example 1: API Design Decision
+### 示例 1：API 设计决策
 
-**Context**: Need to design REST API for user management
+**背景**：需要为用户管理设计 REST API
 
-**Options Considered**:
-1. **RESTful with standard HTTP methods**
-   - Pros: Standard, well-understood, good tooling support
-   - Cons: May not fit all operations perfectly
+**考虑的选项**：
+1. **带标准 HTTP 方法的 RESTful**
+   - 优点：标准，易理解，工具支持好
+   - 缺点：可能不完美适合所有操作
 2. **GraphQL API**
-   - Pros: Flexible queries, single endpoint
-   - Cons: Additional complexity, learning curve
-3. **RPC-style API**
-   - Pros: Direct mapping to business operations
-   - Cons: Less standard, harder to cache
+   - 优点：灵活查询，单一端点
+   - 缺点：额外复杂度，学习曲线
+3. **RPC 风格 API**
+   - 优点：直接映射到业务操作
+   - 缺点：较不标准，更难缓存
 
-**Decision**: RESTful API with standard HTTP methods
-**Rationale**: Requirements indicate standard CRUD operations, team familiarity with REST, good ecosystem support
+**决策**：带标准 HTTP 方法的 RESTful API
+**理由**：需求指示标准 CRUD 操作，团队熟悉 REST，生态系统支持好
 
-### Example 2: Data Storage Decision
+### 示例 2：数据存储决策
 
-**Context**: Need to store user profiles and preferences
+**背景**：需要存储用户个人资料和偏好
 
-**Options Considered**:
-1. **Relational Database (PostgreSQL)**
-   - Pros: ACID compliance, complex queries, mature ecosystem
-   - Cons: Schema rigidity, scaling complexity
-2. **Document Database (MongoDB)**
-   - Pros: Schema flexibility, easy scaling
-   - Cons: Eventual consistency, less mature tooling
-3. **Key-Value Store (Redis)**
-   - Pros: High performance, simple operations
-   - Cons: Limited query capabilities, memory constraints
+**考虑的选项**：
+1. **关系数据库 (PostgreSQL)**
+   - 优点：ACID 合规，复杂查询，成熟生态系统
+   - 缺点：模式刚性，扩展复杂性
+2. **文档数据库 (MongoDB)**
+   - 优点：模式灵活性，易扩展
+   - 缺点：最终一致性，工具较不成熟
+3. **键值存储 (Redis)**
+   - 优点：高性能，简单操作
+   - 缺点：查询能力有限，内存限制
 
-**Decision**: PostgreSQL with JSON columns for flexible data
-**Rationale**: Need for data consistency, complex relationships, with flexibility for user preferences
+**决策**：PostgreSQL 带 JSON 列用于灵活数据
+**理由**：需要数据一致性，复杂关系，同时为用户偏好提供灵活性
 
-### Example 3: Authentication Strategy
+### 示例 3：认证策略
 
-**Context**: Need secure user authentication
+**背景**：需要安全的用户认证
 
-**Options Considered**:
-1. **Session-based authentication**
-   - Pros: Simple, server-controlled, secure
-   - Cons: Scalability challenges, state management
-2. **JWT tokens**
-   - Pros: Stateless, scalable, cross-domain support
-   - Cons: Token revocation complexity, size limitations
-3. **OAuth 2.0 with external provider**
-   - Pros: No password management, user convenience
-   - Cons: External dependency, limited customization
+**考虑的选项**：
+1. **基于会话的认证**
+   - 优点：简单，服务器控制，安全
+   - 缺点：可扩展性挑战，状态管理
+2. **JWT 令牌**
+   - 优点：无状态，可扩展，跨域支持
+   - 缺点：令牌撤销复杂性，大小限制
+3. **带外部提供商的 OAuth 2.0**
+   - 优点：无密码管理，用户方便
+   - 缺点：外部依赖，定制有限
 
-**Decision**: JWT tokens with refresh token rotation
-**Rationale**: Scalability requirements, API-first architecture, security best practices
+**决策**：带刷新令牌轮换的 JWT 令牌
+**理由**：可扩展性需求，API 优先架构，安全最佳实践
 
-## Design Decision Documentation
+## 设计决策文档
 
-### Decision Record Template
+### 决策记录模板
 
 ```markdown
-### Decision: [Brief title]
+### 决策：[简短标题]
 
-**Context**: [Situation requiring a decision]
+**背景**：[需要决策的情况]
 
-**Options Considered**:
-1. **[Option 1]**
-   - Pros: [Benefits]
-   - Cons: [Drawbacks]
-2. **[Option 2]**
-   - Pros: [Benefits]
-   - Cons: [Drawbacks]
+**考虑的选项**：
+1. **[选项 1]**
+   - 优点：[益处]
+   - 缺点：[缺点]
+2. **[选项 2]**
+   - 优点：[益处]
+   - 缺点：[缺点]
 
-**Decision**: [Chosen option]
-**Rationale**: [Why this option was selected]
-**Implications**: [What this means for implementation]
+**决策**：[选择的选项]
+**理由**：[为何选择此选项]
+**含义**：[这对实施意味着什么]
 ```
 
-### Key Decision Areas
+### 关键决策领域
 
-**Technology Stack Decisions**:
-- Programming language and framework
-- Database and storage solutions
-- Third-party libraries and services
-- Development and deployment tools
+**技术栈决策**：
+- 编程语言和框架
+- 数据库和存储解决方案
+- 第三方库和服务
+- 开发和部署工具
 
-**Architecture Pattern Decisions**:
-- Monolithic vs. microservices
-- Synchronous vs. asynchronous processing
-- Client-server vs. serverless architecture
-- Caching strategies and data flow
+**架构模式决策**：
+- 单体 vs 微服务
+- 同步 vs 异步处理
+- 客户端-服务器 vs 无服务器架构
+- 缓存策略和数据流
 
-**Security and Compliance Decisions**:
-- Authentication and authorization approaches
-- Data encryption and privacy measures
-- Input validation and sanitization strategies
-- Audit logging and monitoring requirements
+**安全和合规决策**：
+- 认证和授权方法
+- 数据加密和隐私措施
+- 输入验证和清洗策略
+- 审计日志和监控需求
 
-## Research Integration Guidelines
+## 研究集成指南
 
-### Effective Research Practices
+### 有效的研究实践
 
-**Research Scope**:
-- Focus on decisions that significantly impact the design
-- Time-box research to avoid analysis paralysis
-- Prioritize research based on risk and uncertainty
-- Document key findings rather than exhaustive details
+**研究范围**：
+- 专注于显著影响设计的决策
+- 为研究设定时间框以避免分析瘫痪
+- 基于风险和不确定性确定研究优先级
+- 记录关键发现而非详尽细节
 
-**Research Documentation**:
-- Summarize findings in the context of the specific requirements
-- Include relevant links and sources for future reference
-- Focus on actionable insights that inform design decisions
-- Update design document with research-informed decisions
+**研究文档**：
+- 在特定需求上下文中总结发现
+- 包含相关链接和来源供未来参考
+- 专注于告知设计决策的可行见解
+- 用研究得出的决策更新设计文档
 
-### Research Areas by Feature Type
+### 按功能类型的研究领域
 
-**User Interface Features**:
-- UI/UX patterns and best practices
-- Accessibility requirements and standards
-- Browser compatibility and responsive design
-- User interaction patterns and workflows
+**用户界面功能**：
+- UI/UX 模式和最佳实践
+- 无障碍需求和标准
+- 浏览器兼容性和响应式设计
+- 用户交互模式和工作流程
 
-**Data Processing Features**:
-- Data validation and transformation approaches
-- Performance optimization techniques
-- Error handling and recovery strategies
-- Scalability and throughput considerations
+**数据处理功能**：
+- 数据验证和转换方法
+- 性能优化技术
+- 错误处理和恢复策略
+- 可扩展性和吞吐量注意事项
 
-**Integration Features**:
-- API design patterns and standards
-- Authentication and authorization methods
-- Data synchronization strategies
-- Error handling for external dependencies
+**集成功能**：
+- API 设计模式和标准
+- 认证和授权方法
+- 数据同步策略
+- 外部依赖的错误处理
 
-## Quality Checklist
+## 质量检查清单
 
-Before moving to the tasks phase, verify:
+在移动到任务阶段之前，验证：
 
-**Completeness**:
-- [ ] All requirements are addressed in the design
-- [ ] Major system components are defined
-- [ ] Data models cover all necessary entities
-- [ ] Error handling covers expected failure modes
-- [ ] Testing strategy addresses all system layers
+**完整性**：
+- [ ] 所有需求都在设计中得到解决
+- [ ] 主要系统组件已定义
+- [ ] 数据模型涵盖所有必要的实体
+- [ ] 错误处理涵盖预期的故障模式
+- [ ] 测试策略解决所有系统层
 
-**Clarity**:
-- [ ] Design decisions are clearly explained
-- [ ] Component responsibilities are well-defined
-- [ ] Interfaces between components are specified
-- [ ] Technical choices include rationale
+**清晰度**：
+- [ ] 设计决策解释清楚
+- [ ] 组件职责定义良好
+- [ ] 组件之间的接口已指定
+- [ ] 技术选择包含理由
 
-**Feasibility**:
-- [ ] Design is technically achievable with chosen technologies
-- [ ] Performance requirements can be met
-- [ ] Security requirements are addressed
-- [ ] Implementation complexity is reasonable
+**可行性**：
+- [ ] 设计在选定技术下技术上可实现
+- [ ] 性能需求可以满足
+- [ ] 安全需求已解决
+- [ ] 实施复杂性合理
 
-**Traceability**:
-- [ ] Design elements map back to specific requirements
-- [ ] All requirements are covered by design components
-- [ ] Design decisions support requirement fulfillment
-- [ ] Testing strategy validates requirement satisfaction
+**可追溯性**：
+- [ ] 设计元素映射回具体需求
+- [ ] 所有需求都被设计组件覆盖
+- [ ] 设计决策支持需求满足
+- [ ] 测试策略验证需求满足
 
-## Common Design Pitfalls
+## 常见设计陷阱
 
-### Pitfall 1: Over-Engineering
-**Problem**: Designing for requirements that don't exist
-**Solution**: Focus on current requirements, design for extensibility but don't implement unused features
+### 陷阱 1：过度工程
+**问题**：为不存在的需求设计
+**解决方案**：专注于当前需求，为扩展性设计但不实施未使用的功能
 
-### Pitfall 2: Under-Specified Interfaces
-**Problem**: Vague component boundaries and interactions
-**Solution**: Clearly define what each component does and how components communicate
+### 陷阱 2：接口定义不足
+**问题**：模糊的组件边界和交互
+**解决方案**：清晰定义每个组件做什么以及组件如何通信
 
-### Pitfall 3: Ignoring Non-Functional Requirements
-**Problem**: Focusing only on functional behavior
-**Solution**: Address performance, security, scalability, and maintainability explicitly
+### 陷阱 3：忽略非功能性需求
+**问题**：仅关注功能行为
+**解决方案**：明确解决性能、安全、可扩展性和可维护性
 
-### Pitfall 4: Technology-First Design
-**Problem**: Choosing technologies before understanding requirements
-**Solution**: Let requirements drive technology choices, not the reverse
+### 陷阱 4：技术优先设计
+**问题**：在理解需求之前选择技术
+**解决方案**：让需求驱动技术选择，而不是相反
 
-### Pitfall 5: Insufficient Error Handling Design
-**Problem**: Only designing for happy path scenarios
-**Solution**: Explicitly design error handling and edge case behavior
+### 陷阱 5：错误处理设计不足
+**问题**：仅为快乐路径场景设计
+**解决方案**：明确设计错误处理和边缘情况行为
 
-## Troubleshooting Design Issues
+## 常见设计问题故障排除
 
-### Issue: Design Becomes Too Complex
-**Symptoms**: Design document is overwhelming, too many components
-**Solution**: Simplify by focusing on core requirements, consider phased implementation
+### 问题：设计变得太复杂
+**症状**：设计文档令人不知所措，组件太多
+**解决方案**：通过关注核心需求简化，考虑分阶段实施
 
-### Issue: Requirements Don't Map to Design
-**Symptoms**: Difficulty tracing requirements to design elements
-**Solution**: Review each requirement and ensure it's addressed in the design
+### 问题：需求不映射到设计
+**症状**：难以将需求追溯到设计元素
+**解决方案**：审查每个需求并确保其在设计中得到解决
 
-### Issue: Technology Choices Are Unclear
-**Symptoms**: Multiple viable options without clear selection criteria
-**Solution**: Define decision criteria based on requirements and constraints
+### 问题：技术选择不明确
+**症状**：多个可行选项没有明确的选择标准
+**解决方案**：根据需求和约束定义决策标准
 
-### Issue: Design Lacks Detail for Implementation
-**Symptoms**: Developers can't start coding from the design
-**Solution**: Add more specific component descriptions and interface definitions
+### 问题：设计缺乏实施细节
+**症状**：开发者无法根据设计开始编码
+**解决方案**：添加更具体的组件描述和接口定义
 
-## Next Steps
+## 下一步
 
-Once design is complete and approved:
-1. **Transition to Tasks Phase**: Break down design into actionable implementation tasks
-2. **Maintain Design-Task Traceability**: Ensure tasks implement all design elements
-3. **Keep Design Updated**: Update design if task breakdown reveals issues
-4. **Prepare Implementation Context**: Design serves as reference during coding
+一旦设计完成并获批：
+1. **过渡到任务阶段**：将设计分解为可操作的实施任务
+2. **保持设计-任务可追溯性**：确保任务实施所有设计元素
+3. **保持设计更新**：如果任务分解揭示问题，更新设计
+4. **准备实施上下文**：设计作为编码期间的参考
 
-The design phase bridges requirements and implementation, providing the technical foundation for building the feature effectively.
+设计阶段构建了需求和实施之间的桥梁，为有效构建功能提供了技术基础。

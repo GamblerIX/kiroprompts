@@ -1,6 +1,6 @@
 ---
 name: requirements-engineering
-description: Transform vague feature ideas into clear, testable requirements using EARS format. Capture user stories, define acceptance criteria, identify edge cases, and validate completeness before moving to design.
+description: 使用 EARS 格式将模糊的功能想法转化为清晰、可测试的需求。捕获用户故事，定义验收标准，识别边缘情况，并在进入设计阶段前验证完整性。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,257 +10,257 @@ metadata:
   version: "1.0.0"
 ---
 
-# Requirements Engineering
+# 需求工程 (Requirements Engineering)
 
-Master the art of capturing what needs to be built before diving into how to build it. This skill teaches the EARS (Easy Approach to Requirements Syntax) format for creating clear, testable requirements.
+掌握在深入构建之前明确“构建什么”的艺术。此技能教授 EARS（简单的需求语法方法）格式，用于创建清晰、可测试的需求。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use requirements engineering when:
-- Starting any new feature or project
-- Clarifying ambiguous stakeholder requests
-- Creating acceptance criteria for user stories
-- Documenting system behavior for testing
-- Ensuring all team members share understanding
+在以下情况下使用需求工程：
+- 开始任何新功能或项目时
+- 澄清模糊的利益相关者请求时
+- 为用户故事创建验收标准时
+- 为测试记录系统行为时
+- 确保所有团队成员共享理解时
 
-## The EARS Format
+## EARS 格式
 
-EARS provides consistent patterns for writing requirements that are specific, testable, and unambiguous.
+EARS 提供了编写具体、可测试且无歧义需求的一致模式。
 
-### Basic Patterns
+### 基础模式
 
-**Event-Response (Most Common):**
+**事件-响应（最常见）：**
 ```
-WHEN [triggering event] THEN [system] SHALL [required response]
-```
-
-**Conditional Behavior:**
-```
-IF [precondition is met] THEN [system] SHALL [required response]
+当 [触发事件] 时 [系统] 应 [要求的响应]
 ```
 
-**Complex Conditions:**
+**条件行为：**
 ```
-WHEN [event] AND [additional condition] THEN [system] SHALL [response]
-```
-
-**Optional Conditions:**
-```
-WHEN [event] OR [alternative event] THEN [system] SHALL [response]
+如果 [满足前置条件] 则 [系统] 应 [要求的响应]
 ```
 
-### Advanced Patterns
-
-**State-Based:**
+**复杂条件：**
 ```
-WHEN [system is in specific state] THEN [system] SHALL [behavior]
+当 [事件] 且 [附加条件] 时 [系统] 应 [响应]
 ```
 
-**Performance:**
+**可选条件：**
 ```
-WHEN [user action] THEN [system] SHALL [respond within X seconds/milliseconds]
-```
-
-**Security:**
-```
-IF [authentication condition] THEN [system] SHALL [security response]
+当 [事件] 或 [替代事件] 时 [系统] 应 [响应]
 ```
 
-## Step-by-Step Process
+### 高级模式
 
-### Step 1: Capture User Stories
+**基于状态：**
+```
+当 [系统处于特定状态] 时 [系统] 应 [行为]
+```
 
-Format: **As a [role], I want [feature], so that [benefit]**
+**性能：**
+```
+当 [用户操作] 时 [系统] 应 [在 X 秒/毫秒内响应]
+```
 
-Focus on:
-- Who is the user? (role)
-- What do they want to accomplish? (feature)
-- Why does it matter? (benefit/value)
+**安全：**
+```
+如果 [认证条件] 则 [系统] 应 [安全响应]
+```
 
-**Example:**
+## 分步流程
+
+### 第一步：捕获用户故事
+
+格式：**作为一个 [角色]，我想要 [功能]，以便 [好处]**
+
+关注：
+- 谁是用户？（角色）
+- 他们想要完成什么？（功能）
+- 为什么这很重要？（好处/价值）
+
+**示例：**
 ```markdown
-As a returning customer, I want to save my payment methods, so that I can checkout faster in the future.
+作为一个回头客，我想要保存我的支付方式，以便我将来可以更快地结账。
 ```
 
-### Step 2: Generate Acceptance Criteria
+### 第二步：生成验收标准
 
-For each user story, define specific acceptance criteria using EARS:
+对于每个用户故事，使用 EARS 定义具体的验收标准：
 
-**Example for payment methods:**
+**支付方式示例：**
 ```markdown
-**User Story:** As a returning customer, I want to save my payment methods, so that I can checkout faster.
+**用户故事：** 作为一个回头客，我想要保存我的支付方式，以便我可以更快地结账。
 
-**Acceptance Criteria:**
-1. WHEN user adds a valid credit card THEN system SHALL securely store card details
-2. WHEN user adds a card with invalid number THEN system SHALL display validation error
-3. WHEN user has saved cards THEN system SHALL display list during checkout
-4. WHEN user selects saved card THEN system SHALL pre-fill payment form
-5. WHEN user deletes saved card THEN system SHALL remove card from list
-6. IF user is not authenticated THEN system SHALL redirect to login before saving card
-7. WHEN user adds card THEN system SHALL mask all but last 4 digits in display
+**验收标准：**
+1. 当用户添加一张有效的信用卡时，系统应安全存储卡详情
+2. 当用户添加一张号码无效的卡时，系统应显示验证错误
+3. 当用户拥有已保存的卡时，系统应在结账时显示列表
+4. 当用户选择已保存的卡时，系统应预填充支付表单
+5. 当用户删除已保存的卡时，系统应从列表中移除该卡
+6. 如果用户未通过身份验证，则系统应在保存卡之前重定向到登录
+7. 当用户添加卡时，系统应在显示中屏蔽除最后 4 位以外的所有数字
 ```
 
-### Step 3: Identify Edge Cases
+### 第三步：识别边缘情况
 
-For each requirement, ask:
-- What if the input is empty/null?
-- What if the input is at boundary values?
-- What if the operation fails?
-- What if the user is not authorized?
-- What if there are concurrent operations?
+对于每个需求，问：
+- 如果输入为空/null 怎么办？
+- 如果输入处于边界值怎么办？
+- 如果操作失败怎么办？
+- 如果用户未获授权怎么办？
+- 如果存在并发操作怎么办？
 
-**Edge case patterns:**
+**边缘情况模式：**
 ```markdown
-**Error Handling:**
-- WHEN [operation fails] THEN system SHALL [display error / retry / log]
+**错误处理：**
+- 当 [操作失败] 时系统应 [显示错误 / 重试 / 记录日志]
 
-**Boundary Conditions:**
-- WHEN [value equals minimum/maximum] THEN system SHALL [specific behavior]
+**边界条件：**
+- 当 [值等于最小/最大] 时系统应 [特定行为]
 
-**Concurrent Access:**
-- WHEN [multiple users access same resource] THEN system SHALL [conflict resolution]
+**并发访问：**
+- 当 [多个用户访问同一资源] 时系统应 [冲突解决]
 
-**Empty States:**
-- WHEN [collection is empty] THEN system SHALL [display empty state message]
+**空状态：**
+- 当 [集合为空] 时系统应 [显示空状态消息]
 ```
 
-### Step 4: Validate Requirements
+### 第四步：验证需求
 
-Use this checklist:
+使用此检查清单：
 
-**Completeness:**
-- [ ] All user roles identified and addressed
-- [ ] Normal flow scenarios covered
-- [ ] Edge cases documented
-- [ ] Error cases handled
-- [ ] Business rules captured
+**完整性：**
+- [ ] 所有用户角色都已识别并处理
+- [ ] 正常流程场景已覆盖
+- [ ] 边缘情况已记录
+- [ ] 错误情况已处理
+- [ ] 业务规则已捕获
 
-**Clarity:**
-- [ ] Each requirement uses precise language
-- [ ] No ambiguous terms (fast, easy, user-friendly)
-- [ ] Technical jargon avoided or defined
-- [ ] Expected behaviors are specific
+**清晰度：**
+- [ ] 每个需求都使用精确的语言
+- [ ] 没有模棱两可的词语（快速、容易、用户友好）
+- [ ] 避免或定义了技术术语
+- [ ] 预期行为具体明确
 
-**Consistency:**
-- [ ] EARS format used throughout
-- [ ] Terminology consistent across requirements
-- [ ] No contradictory requirements
-- [ ] Similar scenarios handled similarly
+**一致性：**
+- [ ] 通篇使用 EARS 格式
+- [ ] 跨需求术语一致
+- [ ] 没有相互矛盾的需求
+- [ ] 相似场景处理方式相似
 
-**Testability:**
-- [ ] Each requirement can be verified
-- [ ] Success criteria are observable
-- [ ] Inputs and expected outputs specified
-- [ ] Performance requirements are measurable
+**可测试性：**
+- [ ] 每个需求都可验证
+- [ ] 成功标准可观察
+- [ ] 输入和预期输出已指定
+- [ ] 性能需求可衡量
 
-## Common Mistakes to Avoid
+## 避免常见错误
 
-### Mistake 1: Vague Requirements
-**Bad:** "System should be fast"
-**Good:** "WHEN user submits search THEN system SHALL return results within 2 seconds"
+### 错误 1：模糊的需求
+**坏：** “系统应该很快”
+**好：** “当用户提交搜索时，系统应在 2 秒内返回结果”
 
-### Mistake 2: Implementation Details
-**Bad:** "System shall use Redis for caching"
-**Good:** "WHEN user requests frequently accessed data THEN system SHALL return cached results"
+### 错误 2：实施细节
+**坏：** “系统应使用 Redis 进行缓存”
+**好：** “当用户请求频繁访问的数据时，系统应返回缓存结果”
 
-### Mistake 3: Missing Error Cases
-**Bad:** Only documenting happy path
-**Good:** Include WHEN/IF statements for all error conditions
+### 错误 3：缺少错误案例
+**坏：** 仅记录快乐路径
+**好：** 为所有错误条件包含 当/如果 语句
 
-### Mistake 4: Untestable Requirements
-**Bad:** "System should be user-friendly"
-**Good:** "WHEN new user completes onboarding THEN system SHALL require no more than 3 clicks to reach main dashboard"
+### 错误 4：不可测试的需求
+**坏：** “系统应该用户友好”
+**好：** “当新用户完成入职培训时，系统应要求不超过 3 次点击即可到达主仪表板”
 
-### Mistake 5: Conflicting Requirements
-**Bad:** Requirements that contradict each other
-**Good:** Review all requirements together, resolve conflicts explicitly
+### 错误 5：冲突的需求
+**坏：** 彼此矛盾的需求
+**好：** 一起审查所有需求，明确解决冲突
 
-## Examples
+## 示例
 
-### Example 1: File Upload Feature
-
-```markdown
-**User Story:** As a user, I want to upload files, so that I can share documents with my team.
-
-**Acceptance Criteria:**
-1. WHEN user selects file under 10MB THEN system SHALL accept file for upload
-2. WHEN user selects file over 10MB THEN system SHALL display "file too large (max 10MB)" error
-3. WHEN user selects unsupported file type THEN system SHALL display "unsupported format" error with list of allowed types
-4. WHEN upload is in progress THEN system SHALL display progress indicator with percentage
-5. WHEN upload completes successfully THEN system SHALL display success message with file link
-6. WHEN upload fails due to network error THEN system SHALL display retry option
-7. IF user is not authenticated THEN system SHALL redirect to login before upload
-8. WHEN user uploads file with same name as existing file THEN system SHALL prompt for rename or replace
-
-**Supported File Types:** PDF, DOC, DOCX, XLS, XLSX, PNG, JPG, GIF
-**Maximum File Size:** 10MB
-**Maximum Files Per Upload:** 5
-```
-
-### Example 2: Search Feature
+### 示例 1：文件上传功能
 
 ```markdown
-**User Story:** As a customer, I want to search products, so that I can find items quickly.
+**用户故事：** 作为一个用户，我想要上传文件，以便我可以与我的团队共享文档。
 
-**Acceptance Criteria:**
-1. WHEN user enters search term THEN system SHALL display matching products
-2. WHEN search returns results THEN system SHALL show result count
-3. WHEN search returns no results THEN system SHALL display "no products found" with suggestions
-4. WHEN user searches with special characters THEN system SHALL sanitize input and search
-5. WHEN user submits empty search THEN system SHALL display validation message
-6. WHEN results exceed 20 items THEN system SHALL paginate with 20 items per page
-7. WHEN user searches THEN system SHALL return results within 2 seconds
-8. WHEN user types in search box THEN system SHALL show autocomplete suggestions after 3 characters
+**验收标准：**
+1. 当用户选择小于 10MB 的文件时，系统应接受文件上传
+2. 当用户选择超过 10MB 的文件时，系统应显示“文件太大（最大 10MB）”错误
+3. 当用户选择不支持的文件类型时，系统应显示“不支持的格式”错误及允许的类型列表
+4. 当上传正在进行时，系统应显示带有百分比的进度指示器
+5. 当上传成功完成时，系统应显示成功消息及文件链接
+6. 当由于网络错误导致上传失败时，系统应显示重试选项
+7. 如果用户未通过身份验证，则系统应在上传之前重定向到登录
+8. 当用户上传与现有文件同名的文件时，系统应提示重命名或替换
 
-**Search Fields:** Product name, description, category, SKU
-**Minimum Search Length:** 2 characters
+**支持的文件类型：** PDF, DOC, DOCX, XLS, XLSX, PNG, JPG, GIF
+**最大文件大小：** 10MB
+**每次上传最大文件数：** 5
 ```
 
-## Requirements Document Template
+### 示例 2：搜索功能
 
 ```markdown
-# Requirements Document: [Feature Name]
+**用户故事：** 作为一个客户，我想要搜索产品，以便我可以快速找到商品。
 
-## Overview
-[Brief description of the feature and its purpose]
+**验收标准：**
+1. 当用户输入搜索词时，系统应显示匹配的产品
+2. 当搜索返回结果时，系统应显示结果数量
+3. 当搜索未返回结果时，系统应显示“未找到产品”及建议
+4. 当用户使用特殊字符搜索时，系统应清理输入并进行搜索
+5. 当用户提交空搜索时，系统应显示验证消息
+6. 当结果超过 20 项时，系统应分页，每页 20 项
+7. 当用户搜索时，系统应在 2 秒内返回结果
+8. 当用户在搜索框中键入时，系统应在 3 个字符后显示自动完成建议
 
-## User Roles
-- [Role 1]: [Description of this user type]
-- [Role 2]: [Description of this user type]
-
-## Requirements
-
-### Requirement 1: [Name]
-**User Story:** As a [role], I want [feature], so that [benefit]
-
-**Acceptance Criteria:**
-1. WHEN [event] THEN system SHALL [response]
-2. IF [condition] THEN system SHALL [response]
-3. WHEN [event] AND [condition] THEN system SHALL [response]
-
-**Edge Cases:**
-- [Edge case 1 and how it's handled]
-- [Edge case 2 and how it's handled]
-
-### Requirement 2: [Name]
-[Continue pattern...]
-
-## Non-Functional Requirements
-- **Performance:** [Specific metrics]
-- **Security:** [Security requirements]
-- **Accessibility:** [Accessibility standards]
-
-## Out of Scope
-- [Items explicitly not included in this feature]
-
-## Open Questions
-- [Questions that need stakeholder input]
+**搜索字段：** 产品名称，描述，类别，SKU
+**最小搜索长度：** 2 个字符
 ```
 
-## Next Steps
+## 需求文档模板
 
-After completing requirements:
-1. Review with stakeholders for accuracy
-2. Get explicit approval before proceeding
-3. Move to Design Phase to create technical architecture
-4. Use requirements as foundation for acceptance testing
+```markdown
+# 需求文档：[功能名称]
+
+## 概述
+[功能及其目的简要描述]
+
+## 用户角色
+- [角色 1]：[此用户类型的描述]
+- [角色 2]：[此用户类型的描述]
+
+## 需求
+
+### 需求 1：[名称]
+**用户故事：** 作为一个 [角色]，我想要 [功能]，以便 [好处]
+
+**验收标准：**
+1. 当 [事件] 时系统应 [响应]
+2. 如果 [条件] 则系统应 [响应]
+3. 当 [事件] 且 [条件] 时系统应 [响应]
+
+**边缘情况：**
+- [边缘情况 1 及其处理方式]
+- [边缘情况 2 及其处理方式]
+
+### 需求 2：[名称]
+[继续模式...]
+
+## 非功能性需求
+- **性能：** [具体指标]
+- **安全：** [安全需求]
+- **无障碍：** [无障碍标准]
+
+## 范围外
+- [此功能中明确不包含的项目]
+
+## 待解决问题
+- [需要利益相关者输入的问题]
+```
+
+## 下一步
+
+完成需求后：
+1. 与利益相关者一起审查准确性
+2. 在继续之前获得明确批准
+3. 进入设计阶段以创建技术架构
+4. 使用需求作为验收测试的基础

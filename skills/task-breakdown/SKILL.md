@@ -1,6 +1,6 @@
 ---
 name: task-breakdown
-description: Convert technical designs into actionable, sequenced implementation tasks. Create clear coding tasks that enable incremental progress, respect dependencies, and provide a roadmap for systematic feature development.
+description: 将技术设计转化为可操作的、顺序的实施任务。创建清晰的编码任务，实现增量进展，尊重依赖关系，并为系统化功能开发提供路线图。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,403 +10,403 @@ metadata:
   version: "1.0.0"
 ---
 
-# Task Breakdown
+# 任务分解 (Task Breakdown)
 
-Transform designs into actionable implementation plans. This skill teaches how to create well-structured task lists that enable efficient, systematic development.
+将设计转化为可操作的实施计划。此技能教授如何创建结构良好的任务列表，从而实现高效、系统化的开发。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use task breakdown when:
-- Design phase is complete and approved
-- Ready to begin implementation
-- Need to coordinate work across developers
-- Want to track incremental progress
-- Planning sprints or work assignments
+在以下情况下使用任务分解：
+- 设计阶段已完成并获批准
+- 准备开始实施
+- 需要协调开发人员之间的工作
+- 想要跟踪增量进展
+- 规划冲刺或工作分配
 
-## Task Structure
+## 任务结构
 
-### Two-Level Hierarchy
-
-```markdown
-- [ ] 1. [Epic/Major Component]
-- [ ] 1.1 [Specific implementation task]
-  - [Implementation details]
-  - [Files/components to create]
-  - _Requirements: [Requirement references]_
-- [ ] 1.2 [Next specific task]
-  - [Details]
-  - _Requirements: [References]_
-
-- [ ] 2. [Next Epic/Major Component]
-- [ ] 2.1 [Specific task]
-```
-
-### Task Specification Elements
-
-Each task should include:
-1. **Clear Objective:** What specific code to write/modify
-2. **Implementation Details:** Files, components, functions
-3. **Requirements Reference:** Which requirements this implements
-4. **Completion Criteria:** How to know the task is done
-
-## Step-by-Step Process
-
-### Step 1: Analyze Design Components
-
-Identify all implementation needs:
-- Data models and validation
-- Services and business logic
-- API endpoints and handlers
-- UI components
-- Tests for each layer
-- Integration points
-
-### Step 2: Identify Dependencies
-
-Map what needs to be built first:
-- **Technical:** Code dependencies (models before services)
-- **Logical:** Feature dependencies (login before profile)
-- **Data:** What data must exist first
-
-### Step 3: Sequence Tasks
-
-Order tasks to:
-- Respect dependencies
-- Enable early validation
-- Allow incremental testing
-- Minimize blocking between tasks
-
-### Step 4: Write Task Descriptions
-
-For each task, specify:
-```markdown
-- [ ] X.Y [Task Title]
-  - [What to implement]
-  - [Files to create/modify]
-  - [Key functionality]
-  - [Tests to write]
-  - _Requirements: [Req-1, Req-2]_
-```
-
-## Sequencing Strategies
-
-### Strategy 1: Foundation-First
-
-Build core infrastructure before features.
+### 两级层级
 
 ```markdown
-1. Project setup and core interfaces
-2. Data models and validation
-3. Data access layer
-4. Business logic services
-5. API endpoints
-6. Integration and wiring
+- [ ] 1. [史诗/主要组件]
+- [ ] 1.1 [具体实施任务]
+  - [实施细节]
+  - [要创建的文件/组件]
+  - _需求：[需求引用]_
+- [ ] 1.2 [下一个具体任务]
+  - [细节]
+  - _需求：[引用]_
+
+- [ ] 2. [下一个史诗/主要组件]
+- [ ] 2.1 [具体任务]
 ```
 
-**Best for:** New projects, complex systems
+### 任务规范要素
 
-### Strategy 2: Feature-Slice (Vertical)
+每个任务应包含：
+1. **明确的目标：** 具体要编写/修改什么代码
+2. **实施细节：** 文件、组件、函数
+3. **需求引用：** 此任务实现了哪些需求
+4. **完成标准：** 如何知道任务已完成
 
-Build complete features end-to-end.
+## 分步流程
+
+### 第一步：分析设计组件
+
+识别所有实施需求：
+- 数据模型和验证
+- 服务和业务逻辑
+- API 端点和处理程序
+- UI 组件
+- 每层的测试
+- 集成点
+
+### 第二步：识别依赖关系
+
+映射需要先构建的内容：
+- **技术依赖：** 代码依赖（模型在服务之前）
+- **逻辑依赖：** 功能依赖（登录在个人资料之前）
+- **数据依赖：** 必须先存在的数据
+
+### 第三步：任务排序
+
+任务排序旨在：
+- 尊重依赖关系
+- 启用早期验证
+- 允许增量测试
+- 最小化任务间的阻塞
+
+### 第四步：编写任务描述
+
+对于每个任务，指定：
+```markdown
+- [ ] X.Y [任务标题]
+  - [具体实施内容]
+  - [要创建/修改的文件]
+  - [关键功能]
+  - [要编写的测试]
+  - _需求：[Req-1, Req-2]_
+```
+
+## 排序策略
+
+### 策略 1：基础优先
+
+在功能之前构建核心基础设施。
 
 ```markdown
-1. User registration (complete flow)
-2. User authentication (complete flow)
-3. User profile management (complete flow)
-4. Advanced features
+1. 项目设置和核心接口
+2. 数据模型和验证
+3. 数据访问层
+4. 业务逻辑服务
+5. API 端点
+6. 集成和连接
 ```
 
-**Best for:** MVP development, early validation
+**最适合：** 新项目，复杂系统
 
-### Strategy 3: Risk-First
+### 策略 2：功能切片（垂直）
 
-Tackle uncertain areas early.
+端到端构建完整功能。
 
 ```markdown
-1. Most complex/uncertain components
-2. External integrations
-3. Core business logic
-4. User interface
-5. Polish and optimization
+1. 用户注册（完整流程）
+2. 用户认证（完整流程）
+3. 用户个人资料管理（完整流程）
+4. 高级功能
 ```
 
-**Best for:** High uncertainty, proof-of-concepts
+**最适合：** MVP 开发，早期验证
 
-### Strategy 4: Hybrid (Recommended)
+### 策略 3：风险优先
 
-Combine approaches pragmatically.
+尽早处理不确定的领域。
 
 ```markdown
-1. Minimal foundation (core interfaces)
-2. High-risk/high-value feature slice
-3. Expand foundation as needed
-4. Additional feature slices
-5. Integration and polish
+1. 最复杂/不确定的组件
+2. 外部集成
+3. 核心业务逻辑
+4. 用户界面
+5. 润色和优化
 ```
 
-## Task Categories
+**最适合：** 高不确定性，概念验证
 
-### Foundation Tasks
-```markdown
-- [ ] 1. Set up project foundation
-- [ ] 1.1 Create project structure and interfaces
-  - Set up directory structure
-  - Define TypeScript interfaces for core types
-  - Configure testing framework
-  - _Requirements: 1.1_
-```
+### 策略 4：混合（推荐）
 
-### Data Layer Tasks
-```markdown
-- [ ] 2. Implement data layer
-- [ ] 2.1 Create core data models
-  - Implement User model with validation
-  - Add database migrations
-  - Write unit tests for validation
-  - _Requirements: 2.1, 2.2_
-```
-
-### Business Logic Tasks
-```markdown
-- [ ] 3. Implement business logic
-- [ ] 3.1 Create authentication service
-  - Implement registration logic
-  - Add password hashing
-  - Create session management
-  - Write unit tests
-  - _Requirements: 1.2, 4.1_
-```
-
-### API Tasks
-```markdown
-- [ ] 4. Implement API layer
-- [ ] 4.1 Create user endpoints
-  - Implement POST /users endpoint
-  - Add request validation
-  - Write integration tests
-  - _Requirements: 1.2, 2.3_
-```
-
-### Integration Tasks
-```markdown
-- [ ] 5. Integration and testing
-- [ ] 5.1 Wire up components
-  - Connect services to API layer
-  - Implement middleware
-  - Add end-to-end tests
-  - _Requirements: 5.1_
-```
-
-## Writing Effective Tasks
-
-### Good Task Example
-```markdown
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, name fields
-  - Add email validation (RFC 5322 format)
-  - Add password validation (8+ chars, mixed case, numbers)
-  - Write unit tests for valid/invalid scenarios
-  - _Requirements: 1.2, 2.1_
-```
-
-### Poor Task Example
-```markdown
-- [ ] 2.1 Build user stuff
-  - Make user things work
-  - _Requirements: 1.2_
-```
-
-### Task Scope Guidelines
-
-**Appropriate:** 2-4 hours of focused work
-
-**Too Large:**
-```markdown
-- [ ] 1.1 Implement complete user management system
-```
-
-**Too Small:**
-```markdown
-- [ ] 1.1 Add semicolon to line 42
-```
-
-**Just Right:**
-```markdown
-- [ ] 1.1 Create User model with validation methods
-```
-
-## Dependency Management
-
-### Types of Dependencies
-
-**Technical Dependencies:**
-```markdown
-- [ ] 1.1 Create database connection ← Foundation
-- [ ] 2.1 Create User model ← Depends on 1.1
-- [ ] 3.1 Create UserService ← Depends on 2.1
-```
-
-**Logical Dependencies:**
-```markdown
-- [ ] 1.1 User registration ← Must exist first
-- [ ] 2.1 User login ← Depends on 1.1
-- [ ] 3.1 Password reset ← Depends on 2.1
-```
-
-### Handling Circular Dependencies
-
-**Problem:**
-```
-UserService needs AuthService
-AuthService needs UserService
-```
-
-**Solution - Interface Extraction:**
-```markdown
-- [ ] 1.1 Create IUserService and IAuthService interfaces
-- [ ] 1.2 Implement UserService using IAuthService
-- [ ] 1.3 Implement AuthService using IUserService
-- [ ] 1.4 Wire up dependency injection
-```
-
-## Complete Example
+务实地结合各种方法。
 
 ```markdown
-# Implementation Plan: User Authentication
-
-- [ ] 1. Set up authentication foundation
-- [ ] 1.1 Create project structure and interfaces
-  - Set up directory structure for auth, models, API
-  - Define TypeScript interfaces for User, Session, AuthRequest
-  - Configure Jest for testing
-  - _Requirements: 1.1_
-
-- [ ] 1.2 Set up database and migrations
-  - Configure database connection
-  - Create user and session tables
-  - Set up test database
-  - _Requirements: 1.1, 2.1_
-
-- [ ] 2. Implement core data models
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, profile fields
-  - Add email format validation
-  - Add password strength validation (8+ chars)
-  - Write unit tests for all validation rules
-  - _Requirements: 1.2, 2.1_
-
-- [ ] 2.2 Create Session model
-  - Implement Session class with token, expiration
-  - Add session validation logic
-  - Write unit tests for session management
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 3. Create authentication services
-- [ ] 3.1 Implement registration service
-  - Create UserService with register method
-  - Add password hashing with bcrypt
-  - Implement duplicate email checking
-  - Write unit tests for registration
-  - _Requirements: 1.2_
-
-- [ ] 3.2 Implement login service
-  - Add login method with password verification
-  - Implement JWT token generation
-  - Create refresh token rotation
-  - Write unit tests for login flow
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 4. Create API endpoints
-- [ ] 4.1 Implement registration endpoint
-  - Create POST /auth/register endpoint
-  - Add request validation middleware
-  - Implement error responses
-  - Write integration tests
-  - _Requirements: 1.2, 2.3_
-
-- [ ] 4.2 Implement login endpoint
-  - Create POST /auth/login endpoint
-  - Add authentication middleware
-  - Implement logout functionality
-  - Write integration tests
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 5. Integration and security
-- [ ] 5.1 Add security middleware
-  - Implement rate limiting
-  - Add CORS configuration
-  - Create JWT validation middleware
-  - Write security tests
-  - _Requirements: 4.1, 2.3_
-
-- [ ] 5.2 End-to-end testing
-  - Create complete auth flow tests
-  - Test error scenarios
-  - Validate security measures
-  - _Requirements: 1.2, 4.1_
+1. 最小基础（核心接口）
+2. 高风险/高价值功能切片
+3. 根据需要扩展基础
+4. 额外的功能切片
+5. 集成和润色
 ```
 
-## Quality Checklist
+## 任务类别
 
-Before finalizing tasks:
+### 基础任务
+```markdown
+- [ ] 1. 设置项目基础
+- [ ] 1.1 创建项目结构和接口
+  - 设置目录结构
+  - 为核心类型定义 TypeScript 接口
+  - 配置测试框架
+  - _需求：1.1_
+```
 
-**Completeness:**
-- [ ] All design components have tasks
-- [ ] All requirements are addressed
-- [ ] Testing tasks included throughout
-- [ ] Integration tasks connect components
+### 数据层任务
+```markdown
+- [ ] 2. 实施数据层
+- [ ] 2.1 创建核心数据模型
+  - 实施带验证的 User 模型
+  - 添加数据库迁移
+  - 为验证编写单元测试
+  - _需求：2.1, 2.2_
+```
 
-**Clarity:**
-- [ ] Each task has specific objective
-- [ ] Files/components specified
-- [ ] Requirements referenced
-- [ ] Completion criteria clear
+### 业务逻辑任务
+```markdown
+- [ ] 3. 实施业务逻辑
+- [ ] 3.1 创建认证服务
+  - 实施注册逻辑
+  - 添加密码哈希
+  - 创建会话管理
+  - 编写单元测试
+  - _需求：1.2, 4.1_
+```
 
-**Sequencing:**
-- [ ] Dependencies respected
-- [ ] Foundation before features
-- [ ] Core before optional
-- [ ] Integration after components
+### API 任务
+```markdown
+- [ ] 4. 实施 API 层
+- [ ] 4.1 创建用户端点
+  - 实施 POST /users 端点
+  - 添加请求验证
+  - 编写集成测试
+  - _需求：1.2, 2.3_
+```
 
-**Feasibility:**
-- [ ] Tasks are 2-4 hours each
-- [ ] Can be completed independently
-- [ ] No external blockers
-- [ ] Complexity increases gradually
+### 集成任务
+```markdown
+- [ ] 5. 集成和测试
+- [ ] 5.1 连接组件
+  - 将服务连接到 API 层
+  - 实施中间件
+  - 添加端到端测试
+  - _需求：5.1_
+```
 
-## Common Pitfalls
+## 编写有效任务
 
-1. **Tasks too abstract:** "Implement user management" vs specific actions
-2. **Missing dependencies:** Tasks that can't be completed in sequence
-3. **Non-coding tasks:** Include only implementation activities
-4. **Monolithic tasks:** Break into 2-4 hour increments
-5. **Missing tests:** Include testing in each task
+### 好的任务示例
+```markdown
+- [ ] 2.1 创建带验证的 User 模型
+  - 实施包含电子邮件、密码、名称字段的 User 类
+  - 添加电子邮件验证（RFC 5322 格式）
+  - 添加密码验证（8+ 字符，混合大小写，数字）
+  - 为有效/无效场景编写单元测试
+  - _需求：1.2, 2.1_
+```
 
-## Task Execution Tips
+### 差的任务示例
+```markdown
+- [ ] 2.1 构建用户相关内容
+  - 让用户功能工作
+  - _需求：1.2_
+```
 
-**Before starting a task:**
-1. Read task details thoroughly
-2. Review referenced requirements
-3. Check dependencies are complete
-4. Plan implementation approach
+### 任务范围指南
 
-**During implementation:**
-1. Mark task as in-progress
-2. Write tests alongside code
-3. Test continuously
-4. Document as you go
+**合适：** 2-4 小时的专注工作
 
-**Before marking complete:**
-1. All tests pass
-2. Requirements validated
-3. Code reviewed
-4. Documentation updated
+**太大：**
+```markdown
+- [ ] 1.1 实施完整的用户管理系统
+```
 
-## Next Steps
+**太小：**
+```markdown
+- [ ] 1.1 在第 42 行添加分号
+```
 
-After completing task breakdown:
-1. Review task list with team
-2. Assign tasks to developers
-3. Begin implementation in sequence
-4. Track progress by marking tasks complete
-5. Update tasks if implementation reveals gaps
+**正好：**
+```markdown
+- [ ] 1.1 创建带验证方法的 User 模型
+```
+
+## 依赖管理
+
+### 依赖类型
+
+**技术依赖：**
+```markdown
+- [ ] 1.1 创建数据库连接 ← 基础
+- [ ] 2.1 创建 User 模型 ← 依赖于 1.1
+- [ ] 3.1 创建 UserService ← 依赖于 2.1
+```
+
+**逻辑依赖：**
+```markdown
+- [ ] 1.1 用户注册 ← 必须首先存在
+- [ ] 2.1 用户登录 ← 依赖于 1.1
+- [ ] 3.1 密码重置 ← 依赖于 2.1
+```
+
+### 处理循环依赖
+
+**问题：**
+```
+UserService 需要 AuthService
+AuthService 需要 UserService
+```
+
+**解决方案 - 接口提取：**
+```markdown
+- [ ] 1.1 创建 IUserService 和 IAuthService 接口
+- [ ] 1.2 使用 IAuthService 实施 UserService
+- [ ] 1.3 使用 IUserService 实施 AuthService
+- [ ] 1.4 连接依赖注入
+```
+
+## 完整示例
+
+```markdown
+# 实施计划：用户认证
+
+- [ ] 1. 设置认证基础
+- [ ] 1.1 创建项目结构和接口
+  - 设置 auth, models, API 的目录结构
+  - 定义 User, Session, AuthRequest 的 TypeScript 接口
+  - 配置 Jest用于测试
+  - _需求：1.1_
+
+- [ ] 1.2 设置数据库和迁移
+  - 配置数据库连接
+  - 创建用户和会话表
+  - 设置测试数据库
+  - _需求：1.1, 2.1_
+
+- [ ] 2. 实施核心数据模型
+- [ ] 2.1 创建带验证的 User 模型
+  - 实施包含电子邮件、密码、个人资料字段的 User 类
+  - 添加电子邮件格式验证
+  - 添加密码强度验证（8+ 字符）
+  - 为所有验证规则编写单元测试
+  - _需求：1.2, 2.1_
+
+- [ ] 2.2 创建 Session 模型
+  - 实施包含令牌、过期的 Session 类
+  - 添加会话验证逻辑
+  - 为会话管理编写单元测试
+  - _需求：1.2, 4.1_
+
+- [ ] 3. 创建认证服务
+- [ ] 3.1 实施注册服务
+  - 创建带注册方法的 UserService
+  - 使用 bcrypt 添加密码哈希
+  - 实施重复电子邮件检查
+  - 为注册编写单元测试
+  - _需求：1.2_
+
+- [ ] 3.2 实施登录服务
+  - 添加带密码验证的登录方法
+  - 实施 JWT 令牌生成
+  - 创建刷新令牌轮换
+  - 为登录流程编写单元测试
+  - _需求：1.2, 4.1_
+
+- [ ] 4. 创建 API 端点
+- [ ] 4.1 实施注册端点
+  - 创建 POST /auth/register 端点
+  - 添加请求验证中间件
+  - 实施错误响应
+  - 编写集成测试
+  - _需求：1.2, 2.3_
+
+- [ ] 4.2 实施登录端点
+  - 创建 POST /auth/login 端点
+  - 添加认证中间件
+  - 实施注销功能
+  - 编写集成测试
+  - _需求：1.2, 4.1_
+
+- [ ] 5. 集成和安全
+- [ ] 5.1 添加安全中间件
+  - 实施速率限制
+  - 添加 CORS 配置
+  - 创建 JWT 验证中间件
+  - 编写安全测试
+  - _需求：4.1, 2.3_
+
+- [ ] 5.2 端到端测试
+  - 创建完整的认证流程测试
+  - 测试错误场景
+  - 验证安全措施
+  - _需求：1.2, 4.1_
+```
+
+## 质量检查清单
+
+在最终确定任务之前：
+
+**完整性：**
+- [ ] 所有设计组件都有任务
+- [ ] 所有需求都已解决
+- [ ] 测试任务贯穿始终
+- [ ] 集成任务连接组件
+
+**清晰度：**
+- [ ] 每个任务都有具体目标
+- [ ] 文件/组件已指定
+- [ ] 需求已引用
+- [ ] 完成标准清晰
+
+**排序：**
+- [ ] 依赖关系得到尊重
+- [ ] 基础优先于功能
+- [ ] 核心优先于可选
+- [ ] 集成在组件之后
+
+**可行性：**
+- [ ] 任务各需 2-4 小时
+- [ ] 可以独立完成
+- [ ] 无外部阻碍
+- [ ] 复杂度逐渐增加
+
+## 常见陷阱
+
+1. **任务太抽象：** “实施用户管理” vs 具体行动
+2. **缺少依赖：** 无法按顺序完成的任务
+3. **非编码任务：** 仅包含实施活动
+4. **单体任务：** 分解为 2-4 小时的增量
+5. **缺少测试：** 在每个任务中包含测试
+
+## 任务执行提示
+
+**开始任务之前：**
+1. 彻底阅读任务详情
+2. 审查引用的需求
+3. 检查依赖是否完成
+4. 规划实施方法
+
+**实施期间：**
+1. 将任务标记为进行中
+2. 边写代码边写测试
+3. 持续测试
+4. 边做边记录
+
+**标记完成之前：**
+1. 所有测试通过
+2. 需求已验证
+3. 代码已审查
+4.文档已更新
+
+## 下一步
+
+完成任务分解后：
+1. 与团队审查任务列表
+2. 将任务分配给开发人员
+3. 按顺序开始实施
+4. 通过标记任务完成来跟踪进度
+5. 如果实施揭示了差距，更新任务

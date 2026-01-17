@@ -1,6 +1,6 @@
 ---
 name: quality-assurance
-description: Comprehensive testing and validation strategies for spec-driven development. Learn phase-specific validation techniques, quality gates, and testing approaches to ensure high-quality implementation.
+description: 规范驱动开发的全面测试和验证策略。学习特定阶段的验证技术、质量门和测试方法，以确保高质量的实施。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,323 +10,323 @@ metadata:
   version: "1.0.0"
 ---
 
-# Quality Assurance
+# 质量保证 (Quality Assurance)
 
-Ensure quality throughout the spec-driven development process with validation techniques, quality gates, and testing strategies.
+通过验证技术、质量门和测试策略，确保贯穿规范驱动开发流程的质量。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use quality assurance practices when:
-- Completing any spec phase (requirements, design, tasks)
-- Transitioning between phases
-- Implementing features from specs
-- Reviewing completed work
-- Establishing team quality standards
+在以下情况下使用质量保证实践：
+- 完成任何规范阶段（需求、设计、任务）时
+- 在阶段之间转换时
+- 根据规范实施功能时
+- 审查已完成的工作时
+- 建立团队质量标准时
 
-## Core Principles
+## 核心原则
 
-1. **Requirements-Driven Testing:** Every test traces to a requirement
-2. **Phase-Appropriate Validation:** Different techniques for each phase
-3. **Continuous Quality:** Checks throughout development
-4. **Automated Where Possible:** Reduce manual effort
-5. **Fast Feedback:** Catch issues early
+1. **需求驱动测试：** 每个测试都追溯到一个需求
+2. **阶段适宜验证：** 每个阶段采用不同的技术
+3. **持续质量：** 贯穿开发的检查
+4. **尽可能自动化：** 减少人工努力
+5. **快速反馈：** 及早发现问题
 
-## Phase-Specific Validation
+## 阶段特定验证
 
-### Requirements Phase Validation
+### 需求阶段验证
 
-**Quality Checklist:**
-- [ ] All user stories have acceptance criteria
-- [ ] Requirements are unambiguous and specific
-- [ ] Each requirement can be validated/tested
-- [ ] EARS format used consistently
-- [ ] Requirements link to business objectives
-- [ ] No conflicting requirements
+**质量检查清单：**
+- [ ] 所有用户故事都有验收标准
+- [ ] 需求无歧义且具体
+- [ ] 每个需求都可验证/测试
+- [ ] 只有一致地使用 EARS 格式
+- [ ] 需求链接到业务目标
+- [ ] 没有相互矛盾的需求
 
-**Review Process:**
-1. **Self Review:** Author checks completeness
-2. **Stakeholder Review:** Business validates requirements
-3. **Technical Review:** Team assesses feasibility
-4. **Approval:** Formal sign-off before design
+**审查流程：**
+1. **自我审查：** 作者检查完整性
+2. **利益相关者审查：** 业务验证需求
+3. **技术审查：** 团队评估可行性
+4. **批准：** 设计前的正式签署
 
-**Validation Techniques:**
-- **Scenario Walkthroughs:** Step through user journeys
-- **Edge Case Analysis:** Identify boundary conditions
-- **Conflict Detection:** Check for contradictions
-- **Completeness Analysis:** Ensure all needs covered
+**验证技术：**
+- **场景演练：** 逐步执行用户旅程
+- **边缘情况分析：** 识别边界条件
+- **冲突检测：** 检查矛盾
+- **完整性分析：** 确保所有需求被覆盖
 
-### Design Phase Validation
+### 设计阶段验证
 
-**Quality Checklist:**
-- [ ] Design addresses all requirements
-- [ ] Scalability considerations documented
-- [ ] Maintainability assessed
-- [ ] Security addressed
-- [ ] Performance requirements considered
-- [ ] External integrations defined
+**质量检查清单：**
+- [ ] 设计解决了所有需求
+- [ ] 记录了可扩展性考虑
+- [ ] 评估了可维护性
+- [ ] 解决了安全问题
+- [ ] 考虑了性能需求
+- [ ] 定义了外部集成
 
-**Review Process:**
-1. **Architecture Review:** Senior team validates design
-2. **Security Review:** Security implications assessed
-3. **Performance Review:** Performance characteristics evaluated
-4. **Integration Review:** External dependencies validated
+**审查流程：**
+1. **架构审查：** 高级团队验证设计
+2. **安全审查：** 评估安全隐患
+3. **性能审查：** 评估性能特征
+4. **集成审查：** 验证外部依赖
 
-**Validation Techniques:**
-- **Design Walkthroughs:** Step through system interactions
-- **Threat Modeling:** Identify security vulnerabilities
-- **Performance Modeling:** Estimate system performance
-- **Dependency Analysis:** Map external requirements
+**验证技术：**
+- **设计演练：** 逐步执行系统交互
+- **威胁建模：** 识别安全漏洞
+- **性能建模：** 估算系统性能
+- **依赖分析：** 映射外部需求
 
-### Tasks Phase Validation
+### 任务阶段验证
 
-**Quality Checklist:**
-- [ ] Each task has clear deliverables
-- [ ] Task sequence is logical
-- [ ] All design elements covered
-- [ ] Each task can be validated
-- [ ] Tasks appropriately sized (2-4 hours)
-- [ ] Dependencies clearly defined
+**质量检查清单：**
+- [ ] 每个任务都有明确的可交付成果
+- [ ] 任务顺序逻辑合理
+- [ ] 覆盖了所有设计元素
+- [ ] 每个任务都可验证
+- [ ] 任务大小适宜（2-4 小时）
+- [ ] 依赖关系定义清晰
 
-**Review Process:**
-1. **Completeness Review:** All design elements have tasks
-2. **Sequencing Review:** Task order is logical
-3. **Scope Review:** Tasks are appropriately sized
-4. **Dependency Review:** Dependencies clear
+**审查流程：**
+1. **完整性审查：** 所有设计元素都有任务
+2. **排序审查：** 任务顺序逻辑合理
+3. **范围审查：** 任务大小适宜
+4. **依赖审查：** 依赖关系清晰
 
-## Quality Gates
+## 质量门
 
-### Requirements Phase Exit Criteria
-- [ ] All user stories follow proper format
-- [ ] Acceptance criteria use EARS format
-- [ ] Requirements are testable and measurable
-- [ ] No conflicting requirements
-- [ ] Stakeholders have approved
-- [ ] Edge cases documented
+### 需求阶段退出标准
+- [ ] 所有用户故事遵循正确格式
+- [ ] 验收标准使用 EARS 格式
+- [ ] 需求可测试且可衡量
+- [ ] 没有相互矛盾的需求
+- [ ] 利益相关者已批准
+- [ ] 边缘情况已记录
 
-### Design Phase Exit Criteria
-- [ ] Architecture addresses all requirements
-- [ ] Non-functional requirements addressed
-- [ ] External dependencies identified
-- [ ] Data models clearly defined
-- [ ] Error handling documented
-- [ ] Security considerations addressed
-- [ ] Technical review completed
+### 设计阶段退出标准
+- [ ] 架构解决了所有需求
+- [ ] 非功能性需求已解决
+- [ ] 外部依赖已识别
+- [ ] 数据模型定义清晰
+- [ ] 错误处理已记录
+- [ ] 安全考虑已解决
+- [ ] 技术审查已完成
 
-### Tasks Phase Exit Criteria
-- [ ] All design elements have tasks
-- [ ] Tasks properly sequenced
-- [ ] Each task is actionable
-- [ ] Requirements references included
-- [ ] Test approach defined
-- [ ] Task breakdown reviewed
+### 任务阶段退出标准
+- [ ] 所有设计元素都有任务
+- [ ] 任务排序正确
+- [ ] 每个任务都可操作
+- [ ] 包含需求引用
+- [ ] 测试方法已定义
+- [ ] 任务分解已审查
 
-### Task-Level Quality Gates
+### 任务级质量门
 
-**Before Starting:**
-- [ ] Task requirements understood
-- [ ] Test strategy defined
-- [ ] Dependencies available
-- [ ] Environment ready
+**开始之前：**
+- [ ] 任务需求已理解
+- [ ] 测试策略已定义
+- [ ] 依赖项可用
+- [ ] 环境就绪
 
-**During Implementation:**
-- [ ] Code follows standards
-- [ ] Tests written alongside code
-- [ ] Coverage meets thresholds (80%+)
-- [ ] No critical vulnerabilities
+**实施期间：**
+- [ ] 代码遵循标准
+- [ ] 测试与代码一起编写
+- [ ] 覆盖率达到阈值 (80%+)
+- [ ] 无严重漏洞
 
-**Before Marking Complete:**
-- [ ] All tests pass
-- [ ] Code review completed
-- [ ] Documentation updated
-- [ ] Requirements validated
+**标记完成之前：**
+- [ ] 所有测试通过
+- [ ] 代码审查已完成
+- [ ] 文档已更新
+- [ ] 需求已验证
 
-## Testing Strategies
+## 测试策略
 
-### Test Pyramid
+### 测试金字塔
 
 ```
        /\
-      /  \     E2E Tests (10%)
-     /____\    Integration Tests (20%)
+      /  \     E2E 测试 (10%)
+     /____\    集成测试 (20%)
     /      \
-   /________\   Unit Tests (70%)
+   /________\   单元测试 (70%)
 ```
 
-### Unit Testing
-- Fast execution (< 1 second per test)
-- Test individual functions/classes
-- Mock external dependencies
-- Target 80%+ coverage
+### 单元测试
+- 快速执行（每测试 < 1 秒）
+- 测试单个函数/类
+- 模拟外部依赖
+- 目标 80%+ 覆盖率
 
-### Integration Testing
-- Test component interactions
-- Use real dependencies where practical
-- Validate API contracts
-- Test critical workflows
+### 集成测试
+- 测试组件交互
+- 在实际可行的情况下使用真实依赖
+- 验证 API 契约
+- 测试关键工作流
 
-### End-to-End Testing
-- Test complete user journeys
-- Production-like environment
-- Focus on critical business flows
-- Minimal but comprehensive
+### 端到端测试
+- 测试完整的用户旅程
+- 类生产环境
+- 关注关键业务流程
+- 最小化但全面
 
-### Test-Driven Development
+### 测试驱动开发
 
-For each task:
-1. **Write tests first** based on acceptance criteria
-2. **Run tests** - verify they fail (red)
-3. **Write code** - minimal to pass tests (green)
-4. **Refactor** - improve while keeping tests green
-5. **Validate** - ensure requirements satisfied
+对于每个任务：
+1. **先写测试** 基于验收标准
+2. **运行测试** - 验证它们失败（红）
+3. **编写代码** - 最小化通过测试（绿）
+4. **重构** - 在保持测试通过的同时改进
+5. **验证** - 确保需求满足
 
-## Quality Metrics
+## 质量指标
 
-### Code Quality
-- **Line Coverage:** % of code lines executed
-- **Branch Coverage:** % of code branches tested
-- **Cyclomatic Complexity:** Code complexity
-- **Technical Debt:** Accumulated issues
+### 代码质量
+- **行覆盖率：** 执行的代码行百分比
+- **分支覆盖率：** 测试的代码分支百分比
+- **圈复杂度：** 代码复杂度
+- **技术债务：** 累积的问题
 
-### Testing Effectiveness
-- **Test Pass Rate:** % of tests passing
-- **Execution Time:** Time to run tests
-- **Defect Detection Rate:** Bugs found by tests vs production
-- **Test Maintenance:** Time spent maintaining tests
+### 测试有效性
+- **测试通过率：** 通过的测试百分比
+- **执行时间：** 运行测试的时间
+- **缺陷检出率：** 测试发现的错误 vs 生产环境
+- **测试维护：** 维护测试花费的时间
 
-## Common Quality Issues
+## 常见质量问题
 
-### Flaky Tests
-**Symptoms:** Tests pass/fail inconsistently
-**Solutions:**
-- Identify timing dependencies
-- Use proper wait conditions
-- Isolate test data
-- Fix race conditions
+### 不稳定的测试
+**症状：** 测试不一致地通过/失败
+**解决方案：**
+- 识别时间依赖
+- 使用适当的等待条件
+- 隔离测试数据
+- 修复竞争条件
 
-### Slow Test Suites
-**Symptoms:** Tests take too long
-**Solutions:**
-- Parallelize execution
-- Optimize database operations
-- Use test doubles for external services
-- Profile and optimize slow tests
+### 缓慢的测试套件
+**症状：** 测试花费太长时间
+**解决方案：**
+- 并行执行
+- 优化数据库操作
+- 为外部服务使用测试替身
+- 分析并优化慢速测试
 
-### Low Coverage
-**Symptoms:** Insufficient code coverage
-**Solutions:**
-- Add tests for uncovered paths
-- Focus on critical business logic
-- Use mutation testing
-- Set coverage gates in CI
+### 低覆盖率
+**症状：** 代码覆盖率不足
+**解决方案：**
+- 为未覆盖的路径添加测试
+- 关注关键业务逻辑
+- 使用变异测试
+- 在 CI 中设置覆盖率门槛
 
-### Test Maintenance Burden
-**Symptoms:** Tests require frequent updates
-**Solutions:**
-- Improve test design
-- Use page object patterns for UI
-- Reduce coupling to implementation
-- Regular test refactoring
+### 测试维护负担
+**症状：** 测试需要频繁更新
+**解决方案：**
+- 改进测试设计
+- 为 UI 使用页面对象模式
+- 减少与实施的耦合
+- 定期测试重构
 
-## Validation Checklists
+## 验证检查清单
 
-### Requirements Validation
+### 需求验证
 ```markdown
-## Requirements Review
+## 需求审查
 
-**Completeness:**
-- [ ] All user roles addressed
-- [ ] Happy path scenarios covered
-- [ ] Edge cases documented
-- [ ] Error cases handled
-- [ ] Business rules captured
+**完整性：**
+- [ ] 所有用户角色已解决
+- [ ] 快乐路径场景已覆盖
+- [ ] 边缘情况已记录
+- [ ] 错误情况已处理
+- [ ] 业务规则已捕获
 
-**Clarity:**
-- [ ] Precise language used
-- [ ] No ambiguous terms
-- [ ] Technical jargon avoided
-- [ ] Behaviors are specific
+**清晰度：**
+- [ ] 使用精确语言
+- [ ] 无歧义词语
+- [ ] 避免技术术语
+- [ ] 行为具体
 
-**Testability:**
-- [ ] Each requirement verifiable
-- [ ] Success criteria observable
-- [ ] Inputs/outputs specified
+**可测试性：**
+- [ ] 每个需求可验证
+- [ ] 成功标准可观察
+- [ ] 输入/输出已指定
 ```
 
-### Design Validation
+### 设计验证
 ```markdown
-## Design Review
+## 设计审查
 
-**Architecture:**
-- [ ] Requirements addressed
-- [ ] Components well-defined
-- [ ] Interfaces specified
-- [ ] Data flow documented
+**架构：**
+- [ ] 需求已解决
+- [ ] 组件定义良好
+- [ ] 接口已指定
+- [ ] 数据流已记录
 
-**Quality Attributes:**
-- [ ] Performance considered
-- [ ] Security addressed
-- [ ] Scalability planned
-- [ ] Maintainability assessed
+**质量属性：**
+- [ ] 性能已考虑
+- [ ] 安全已解决
+- [ ] 可扩展性已规划
+- [ ] 可维护性已评估
 
-**Risks:**
-- [ ] Single points of failure identified
-- [ ] Bottlenecks documented
-- [ ] Mitigations planned
+**风险：**
+- [ ] 单点故障已识别
+- [ ] 瓶颈已记录
+- [ ] 缓解措施已规划
 ```
 
-### Implementation Validation
+### 实施验证
 ```markdown
-## Implementation Review
+## 实施审查
 
-**Code Quality:**
-- [ ] Follows standards
-- [ ] Well-documented
-- [ ] Tests included
-- [ ] No security issues
+**代码质量：**
+- [ ] 遵循标准
+- [ ] 记录良好
+- [ ] 包含测试
+- [ ] 无安全问题
 
-**Requirements:**
-- [ ] All criteria met
-- [ ] Edge cases handled
-- [ ] Error handling complete
+**需求：**
+- [ ] 所有标准满足
+- [ ] 边缘情况已处理
+- [ ] 错误处理完整
 
-**Integration:**
-- [ ] Works with existing code
-- [ ] APIs functioning
-- [ ] Performance acceptable
+**集成：**
+- [ ] 与现有代码工作
+- [ ] API 功能正常
+- [ ] 性能可接受
 ```
 
-## Best Practices
+## 最佳实践
 
-### Testing Best Practices
-1. Write tests first when possible
-2. Each test verifies one thing
-3. Use descriptive test names
-4. Maintain test independence
-5. Keep tests up-to-date
+### 测试最佳实践
+1. 尽可能先写测试
+2. 每个测试验证一件事
+3. 使用描述性的测试名称
+4. 保持测试独立性
+5. 保持测试最新
 
-### Quality Assurance Best Practices
-1. Find issues early (shift left)
-2. Automate everything possible
-3. Use metrics to drive improvements
-4. Make quality everyone's responsibility
-5. Continuous learning and improvement
+### 质量保证最佳实践
+1. 尽早发现问题（左移）
+2. 尽可能自动化一切
+3. 使用指标推动改进
+4. 让质量成为每个人的责任
+5. 持续学习和改进
 
-### Process Integration
-1. Link tests to requirements
-2. Provide quick feedback
-3. Focus testing on high-risk areas
-4. Keep documentation current
-5. Integrate tools with workflow
+### 流程集成
+1. 将测试链接到需求
+2. 提供快速反馈
+3. 关注高风险区域的测试
+4. 保持文档最新
+5. 将工具与工作流集成
 
-## Quick Reference
+## 快速参考
 
-**Phase Transition Questions:**
-- Requirements → Design: "Does design address all requirements?"
-- Design → Tasks: "Do tasks cover all design elements?"
-- Tasks → Implementation: "Does code satisfy task specifications?"
+**阶段转换问题：**
+- 需求 → 设计：“设计是否解决了所有需求？”
+- 设计 → 任务：“任务是否覆盖了所有设计元素？”
+- 任务 → 实施：“代码是否满足任务规范？”
 
-**Quality Gate Questions:**
-- "Is this testable and measurable?"
-- "Have we considered what could go wrong?"
-- "Would another developer understand this?"
-- "Does this meet our standards?"
+**质量门问题：**
+- “这是可测试和可衡量的吗？”
+- “我们是否考虑了可能出什么问题？”
+- “其他开发人员能理解这个吗？”
+- “这符合我们的标准吗？”

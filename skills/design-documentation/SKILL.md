@@ -1,6 +1,6 @@
 ---
 name: design-documentation
-description: Transform approved requirements into comprehensive technical designs. Define system architecture, component interactions, data models, and interfaces to create a blueprint for implementation.
+description: 将已批准的需求转化为全面的技术设计。定义系统架构、组件交互、数据模型和接口，为实施创建蓝图。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,132 +10,132 @@ metadata:
   version: "1.0.0"
 ---
 
-# Design Documentation
+# 设计文档 (Design Documentation)
 
-Create technical blueprints that bridge requirements and implementation. This skill teaches how to document architecture decisions, component design, and system interactions.
+创建连接需求与实施的技术蓝图。此技能教授如何记录架构决策、组件设计和系统交互。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use design documentation when:
-- Requirements phase is complete and approved
-- You need to plan technical implementation
-- Multiple developers will work on the feature
-- Architecture decisions need documentation
-- The feature involves complex integrations
+在以下情况下使用设计文档：
+- 需求阶段已完成并获批准
+- 你需要规划技术实施
+- 多名开发人员将开发此功能
+- 架构决策需要记录
+- 功能涉及复杂的集成
 
-## Design Document Structure
+## 设计文档结构
 
-### Standard Template
-
-```markdown
-# Design Document: [Feature Name]
-
-## Overview
-[High-level summary of the feature and approach]
-
-## Architecture
-[System architecture and component overview]
-
-## Components and Interfaces
-[Detailed component descriptions and interactions]
-
-## Data Models
-[Data structures and relationships]
-
-## Error Handling
-[Error scenarios and response strategies]
-
-## Testing Strategy
-[Testing approach and quality assurance]
-```
-
-## Step-by-Step Process
-
-### Step 1: Requirements Analysis
-
-Before designing, ensure you understand:
-- All functional requirements
-- Non-functional requirements (performance, security, scalability)
-- Constraints (technology stack, timeline, resources)
-- Integration points with existing systems
-
-**Analysis Questions:**
-- What does the system need to do?
-- What are the performance expectations?
-- What existing code/systems does this touch?
-- What are the security requirements?
-- What could go wrong?
-
-### Step 2: Research and Context Building
-
-Identify areas needing research:
-- Technology choices and alternatives
-- Third-party integrations and APIs
-- Best practices for similar systems
-- Security and compliance considerations
-
-**Research Documentation:**
-```markdown
-## Research Findings
-
-### [Topic]
-**Sources:** [Links/references]
-**Key Insights:**
-- [Finding 1]
-- [Finding 2]
-**Impact on Design:** [How this affects our approach]
-```
-
-### Step 3: Define System Architecture
-
-Document the high-level structure:
+### 标准模板
 
 ```markdown
-## Architecture
+# 设计文档：[功能名称]
 
-### System Overview
-[How the overall system works]
+## 概述
+[功能和方法的高层总结]
 
-### Component Architecture
-[Major components and their responsibilities]
+## 架构
+[系统架构和组件概览]
 
-### Data Flow
-[How information moves through the system]
+## 组件与接口
+[详细的组件描述和交互]
 
-### Technology Decisions
-[Key technology choices and rationale]
+## 数据模型
+[数据结构和关系]
+
+## 错误处理
+[错误场景和响应策略]
+
+## 测试策略
+[测试方法和质量保证]
 ```
 
-**Architecture Diagram (Mermaid):**
+## 分步流程
+
+### 第一步：需求分析
+
+在设计之前，确保你理解：
+- 所有功能性需求
+- 非功能性需求（性能、安全、可扩展性）
+- 约束（技术栈、时间线、资源）
+- 与现有系统的集成点
+
+**分析问题：**
+- 系统需要做什么？
+- 性能预期是什么？
+- 这涉及哪些现有代码/系统？
+- 安全需求是什么？
+- 会出什么问题？
+
+### 第二步：研究和上下文构建
+
+识别需要研究的领域：
+- 技术选择和替代方案
+- 第三方集成和 API
+- 类似系统的最佳实践
+- 安全和合规性考虑
+
+**研究文档：**
+```markdown
+## 研究发现
+
+### [主题]
+**来源：** [链接/参考]
+**关键见解：**
+- [发现 1]
+- [发现 2]
+**对设计的影响：** [这如何影响我们的方法]
+```
+
+### 第三步：定义系统架构
+
+记录高层结构：
+
+```markdown
+## 架构
+
+### 系统概览
+[整个系统如何工作]
+
+### 组件架构
+[主要组件及其职责]
+
+### 数据流
+[信息如何在系统中移动]
+
+### 技术决策
+[关键技术选择和理由]
+```
+
+**架构图 (Mermaid)：**
 ```mermaid
 graph TD
-    A[Client] --> B[API Gateway]
-    B --> C[Auth Service]
-    B --> D[Feature Service]
-    D --> E[Database]
-    D --> F[Cache]
+    A[客户端] --> B[API 网关]
+    B --> C[认证服务]
+    B --> D[功能服务]
+    D --> E[数据库]
+    D --> F[缓存]
 ```
 
-### Step 4: Design Components and Interfaces
+### 第四步：设计组件和接口
 
-For each major component:
+对于每个主要组件：
 
 ```markdown
-## Components and Interfaces
+## 组件与接口
 
-### [Component Name]
-**Purpose:** [What this component does]
+### [组件名称]
+**目的：** [此组件做什么]
 
-**Responsibilities:**
-- [Responsibility 1]
-- [Responsibility 2]
+**职责：**
+- [职责 1]
+- [职责 2]
 
-**Interfaces:**
-- Input: [What it receives]
-- Output: [What it produces]
-- Dependencies: [What it requires]
+**接口：**
+- 输入：[它接收什么]
+- 输出：[它产生什么]
+- 依赖：[它需要什么]
 
-**API Definition:**
+**API 定义：**
 ```typescript
 interface ComponentName {
   method(input: InputType): Promise<OutputType>;
@@ -143,231 +143,231 @@ interface ComponentName {
 ```
 ```
 
-### Step 5: Define Data Models
+### 第五步：定义数据模型
 
-Document all data structures:
+记录所有数据结构：
 
 ```markdown
-## Data Models
+## 数据模型
 
-### [Entity Name]
-**Purpose:** [What this entity represents]
+### [实体名称]
+**目的：** [此实体代表什么]
 
-**Properties:**
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| id | string | Yes | Unique identifier |
-| name | string | Yes | Display name |
-| createdAt | Date | Yes | Creation timestamp |
+**属性：**
+| 字段 | 类型 | 必填 | 描述 |
+|------|------|----------|-------------|
+| id | string | 是 | 唯一标识符 |
+| name | string | 是 | 显示名称 |
+| createdAt | Date | 是 | 创建时间戳 |
 
-**Validation Rules:**
-- [Rule 1]
-- [Rule 2]
+**验证规则：**
+- [规则 1]
+- [规则 2]
 
-**Relationships:**
-- [Relationship to other entities]
+**关系：**
+- [与其他实体的关系]
 
-**Example:**
+**示例：**
 ```json
 {
   "id": "abc123",
-  "name": "Example",
+  "name": "示例",
   "createdAt": "2024-01-15T10:30:00Z"
 }
 ```
 ```
 
-### Step 6: Plan Error Handling
+### 第六步：规划错误处理
 
-Document error scenarios:
+记录错误场景：
 
 ```markdown
-## Error Handling
+## 错误处理
 
-### Error Categories
-1. **Validation Errors:** Invalid user input
-2. **Authentication Errors:** Unauthorized access
-3. **External Service Errors:** Third-party failures
-4. **System Errors:** Internal failures
+### 错误类别
+1. **验证错误：** 无效的用户输入
+2. **认证错误：** 未授权访问
+3. **外部服务错误：** 第三方故障
+4. **系统错误：** 内部故障
 
-### Error Response Strategy
+### 错误响应策略
 
-| Error Type | HTTP Code | User Message | System Action |
+| 错误类型 | HTTP 代码 | 用户消息 | 系统操作 |
 |------------|-----------|--------------|---------------|
-| Validation | 400 | Specific field error | Log, return details |
-| Auth | 401 | "Please log in" | Redirect to login |
-| Not Found | 404 | "Resource not found" | Log, return error |
-| Server | 500 | "Something went wrong" | Log, alert, retry |
+| 验证 | 400 | 具体字段错误 | 记录日志，返回详情 |
+| 认证 | 401 | “请登录” | 重定向到登录 |
+| 未找到 | 404 | “资源未找到” | 记录日志，返回错误 |
+| 服务器 | 500 | “出错了” | 记录日志，报警，重试 |
 
-### Recovery Mechanisms
-- [Retry strategies]
-- [Fallback behaviors]
-- [Circuit breaker patterns]
+### 恢复机制
+- [重试策略]
+- [回退行为]
+- [熔断模式]
 ```
 
-### Step 7: Define Testing Strategy
+### 第七步：定义测试策略
 
 ```markdown
-## Testing Strategy
+## 测试策略
 
-### Unit Testing
-- **Coverage Target:** 80%+
-- **Focus Areas:** [Critical business logic]
-- **Mocking Strategy:** [What to mock]
+### 单元测试
+- **覆盖率目标：** 80%+
+- **重点区域：** [关键业务逻辑]
+- **模拟策略：** [模拟什么]
 
-### Integration Testing
-- **Scope:** [Component interactions to test]
-- **Environment:** [Test environment setup]
-- **Data Strategy:** [Test data approach]
+### 集成测试
+- **范围：** [要测试的组件交互]
+- **环境：** [测试环境设置]
+- **数据策略：** [测试数据方法]
 
-### End-to-End Testing
-- **Critical Paths:** [User journeys to test]
-- **Tools:** [Testing tools]
+### 端到端测试
+- **关键路径：** [要测试的用户旅程]
+- **工具：** [测试工具]
 
-### Performance Testing
-- **Load Targets:** [Expected load]
-- **Benchmarks:** [Performance requirements]
+### 性能测试
+- **负载目标：** [预期负载]
+- **基准：** [性能需求]
 ```
 
-## Decision Documentation
+## 决策文档
 
-Document key decisions using this template:
+使用此模板记录关键决策：
 
 ```markdown
-### Decision: [Brief Title]
+### 决策：[简短标题]
 
-**Context:** [Situation requiring a decision]
+**背景：** [需要决策的情况]
 
-**Options Considered:**
+**考虑的选项：**
 
-**Option 1: [Name]**
-- Pros: [Benefits]
-- Cons: [Drawbacks]
-- Effort: [Low/Medium/High]
+**选项 1：[名称]**
+- 优点：[好处]
+- 缺点：[坏处]
+- 工作量：[低/中/高]
 
-**Option 2: [Name]**
-- Pros: [Benefits]
-- Cons: [Drawbacks]
-- Effort: [Low/Medium/High]
+**选项 2：[名称]**
+- 优点：[好处]
+- 缺点：[坏处]
+- 工作量：[低/中/高]
 
-**Decision:** [Chosen option]
+**决策：** [选定的选项]
 
-**Rationale:** [Why this option was selected]
+**理由：** [为什么选择此选项]
 
-**Implications:** [What this means for implementation]
+**影响：** [这对实施意味着什么]
 ```
 
-## Common Design Decisions
+## 常见设计决策
 
-### API Design
+### API 设计
 ```markdown
-### Decision: API Architecture
+### 决策：API 架构
 
-**Options:**
-1. **REST API** - Standard HTTP methods, well-understood
-2. **GraphQL** - Flexible queries, single endpoint
-3. **RPC-style** - Direct operation mapping
+**选项：**
+1. **REST API** - 标准 HTTP 方法，易于理解
+2. **GraphQL** - 灵活查询，单端点
+3. **RPC 风格** - 直接操作映射
 
-**Decision:** REST API
-**Rationale:** Standard CRUD operations, team familiarity, good tooling support
+**决策：** REST API
+**理由：** 标准 CRUD 操作，团队熟悉，工具支持好
 ```
 
-### Data Storage
+### 数据存储
 ```markdown
-### Decision: Database Choice
+### 决策：数据库选择
 
-**Options:**
-1. **PostgreSQL** - ACID compliance, complex queries
-2. **MongoDB** - Schema flexibility, horizontal scaling
-3. **Redis** - High performance, limited queries
+**选项：**
+1. **PostgreSQL** - ACID 合规，复杂查询
+2. **MongoDB** - 模式灵活，水平扩展
+3. **Redis** - 高性能，查询有限
 
-**Decision:** PostgreSQL with JSON columns
-**Rationale:** Data consistency needs + flexibility for user preferences
+**决策：** PostgreSQL 带 JSON 列
+**理由：** 数据一致性需求 + 用户偏好灵活性
 ```
 
-### Authentication
+### 认证
 ```markdown
-### Decision: Authentication Strategy
+### 决策：认证策略
 
-**Options:**
-1. **Session-based** - Server-controlled, simple
-2. **JWT tokens** - Stateless, scalable
-3. **OAuth 2.0** - External provider, no password management
+**选项：**
+1. **基于会话** - 服务器控制，简单
+2. **JWT 令牌** - 无状态，可扩展
+3. **OAuth 2.0** - 外部提供商，无需密码管理
 
-**Decision:** JWT with refresh token rotation
-**Rationale:** Scalability requirements, API-first architecture
+**决策：** JWT 带刷新令牌轮换
+**理由：** 可扩展性需求，API 优先架构
 ```
 
-## Quality Checklist
+## 质量检查清单
 
-Before finalizing design:
+在最终确定设计之前：
 
-**Completeness:**
-- [ ] All requirements addressed in design
-- [ ] Major system components defined
-- [ ] Data models cover all entities
-- [ ] Error handling covers expected failures
-- [ ] Testing strategy addresses all layers
+**完整性：**
+- [ ] 设计中解决了所有需求
+- [ ] 主要系统组件已定义
+- [ ] 数据模型涵盖所有实体
+- [ ] 错误处理涵盖预期的故障
+- [ ] 测试策略解决所有层级
 
-**Clarity:**
-- [ ] Design decisions clearly explained
-- [ ] Component responsibilities well-defined
-- [ ] Interfaces between components specified
-- [ ] Technical choices include rationale
+**清晰度：**
+- [ ] 设计决策解释清楚
+- [ ] 组件职责定义明确
+- [ ] 组件之间的接口已指定
+- [ ] 技术选择包含理由
 
-**Feasibility:**
-- [ ] Design is technically achievable
-- [ ] Performance requirements can be met
-- [ ] Security requirements addressed
-- [ ] Implementation complexity reasonable
+**可行性：**
+- [ ] 设计在技术上可实现
+- [ ] 可以满足性能需求
+- [ ] 安全需求已解决
+- [ ] 实施复杂度合理
 
-**Traceability:**
-- [ ] Design elements map to requirements
-- [ ] All requirements covered by design
-- [ ] Testing validates requirement fulfillment
+**可追溯性：**
+- [ ] 设计元素映射到需求
+- [ ] 设计涵盖所有需求
+- [ ] 测试验证需求实现
 
-## Common Pitfalls
+## 常见陷阱
 
-1. **Over-Engineering:** Design for current requirements, not hypothetical futures
-2. **Under-Specified Interfaces:** Define clear component boundaries
-3. **Ignoring Non-Functional Requirements:** Address performance, security, scalability
-4. **Technology-First Design:** Let requirements drive technology choices
-5. **Insufficient Error Handling:** Plan for failures, not just happy paths
+1. **过度设计：** 为当前需求设计，而不是假设的未来
+2. **接口规范不足：** 定义清晰的组件边界
+3. **忽略非功能性需求：** 解决性能、安全、可扩展性
+4. **技术优先设计：** 让需求驱动技术选择
+5. **错误处理不足：** 规划故障，而不仅仅是快乐路径
 
-## Example: User Profile Design
+## 示例：用户资料设计
 
 ```markdown
-# Design Document: User Profile Management
+# 设计文档：用户资料管理
 
-## Overview
-Enable users to view and edit their profile information, including personal details, preferences, and profile picture.
+## 概述
+允许用户查看和编辑其资料信息，包括个人详情、偏好设置和头像。
 
-## Architecture
+## 架构
 
-### Component Architecture
+### 组件架构
 ```
 ┌─────────────┐     ┌──────────────┐     ┌─────────────┐
-│   Client    │────▶│  Profile API │────▶│  Database   │
+│    客户端    │────▶│  资料 API    │────▶│   数据库    │
 └─────────────┘     └──────────────┘     └─────────────┘
                            │
                            ▼
                     ┌──────────────┐
-                    │ Image Store  │
+                    │   图片存储    │
                     └──────────────┘
 ```
 
-### Technology Stack
-- API: Node.js with Express
-- Database: PostgreSQL
-- Image Storage: S3-compatible object storage
-- Cache: Redis for session data
+### 技术栈
+- API：Node.js 带 Express
+- 数据库：PostgreSQL
+- 图片存储：S3 兼容对象存储
+- 缓存：Redis 用于会话数据
 
-## Components
+## 组件
 
 ### ProfileService
-**Purpose:** Manage user profile CRUD operations
+**目的：** 管理用户资料 CRUD 操作
 
-**Interface:**
+**接口：**
 ```typescript
 interface ProfileService {
   getProfile(userId: string): Promise<UserProfile>;
@@ -377,38 +377,38 @@ interface ProfileService {
 }
 ```
 
-## Data Models
+## 数据模型
 
 ### UserProfile
-| Field | Type | Required | Validation |
+| 字段 | 类型 | 必填 | 验证 |
 |-------|------|----------|------------|
-| id | UUID | Yes | Auto-generated |
-| email | string | Yes | Valid email format |
-| displayName | string | Yes | 2-50 characters |
-| bio | string | No | Max 500 characters |
-| avatarUrl | string | No | Valid URL |
-| preferences | JSON | No | Valid JSON object |
-| updatedAt | timestamp | Yes | Auto-updated |
+| id | UUID | 是 | 自动生成 |
+| email | string | 是 | 有效邮箱格式 |
+| displayName | string | 是 | 2-50 个字符 |
+| bio | string | 否 | 最大 500 个字符 |
+| avatarUrl | string | 否 | 有效 URL |
+| preferences | JSON | 否 | 有效 JSON 对象 |
+| updatedAt | timestamp | 是 | 自动更新 |
 
-## Error Handling
+## 错误处理
 
-| Scenario | Response | Action |
+| 场景 | 响应 | 操作 |
 |----------|----------|--------|
-| Profile not found | 404 | Return error message |
-| Invalid update data | 400 | Return validation errors |
-| Image too large | 413 | Return size limit error |
-| Unauthorized | 401 | Redirect to login |
+| 资料未找到 | 404 | 返回错误消息 |
+| 更新数据无效 | 400 | 返回验证错误 |
+| 图片太大 | 413 | 返回大小限制错误 |
+| 未授权 | 401 | 重定向到登录 |
 
-## Testing Strategy
-- Unit tests for validation logic
-- Integration tests for API endpoints
-- E2E test for profile edit flow
+## 测试策略
+- 验证逻辑的单元测试
+- API 端点的集成测试
+- 资料编辑流程的 E2E 测试
 ```
 
-## Next Steps
+## 下一步
 
-After completing design:
-1. Get design review and approval
-2. Move to Task Planning phase
-3. Break design into implementation tasks
-4. Begin systematic implementation
+完成设计后：
+1. 获得设计评审和批准
+2. 进入任务规划阶段
+3. 将设计分解为实施任务
+4. 开始系统化实施

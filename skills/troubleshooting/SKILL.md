@@ -1,6 +1,6 @@
 ---
 name: troubleshooting
-description: Diagnose and resolve common issues during spec-driven development and implementation. Learn strategies for handling spec-reality divergence, dependency blocks, unclear requirements, and other execution challenges.
+description: 在规范驱动开发和实施过程中诊断和解决常见问题。学习处理规范与现实分歧、依赖阻塞、需求不明确以及其他执行挑战的策略。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,415 +10,415 @@ metadata:
   version: "1.0.0"
 ---
 
-# Troubleshooting
+# 故障排除 (Troubleshooting)
 
-Diagnose and resolve common problems that arise during spec-driven development and feature implementation.
+诊断和解决规范驱动开发和功能实施过程中出现的常见问题。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use troubleshooting strategies when:
-- Implementation doesn't match spec expectations
-- Tasks are blocked by dependencies
-- Requirements are unclear during coding
-- Tests are failing or hard to write
-- Performance doesn't meet requirements
-- Integration problems occur
+在以下情况下使用故障排除策略：
+- 实施与规范预期不符
+- 任务被依赖关系阻塞
+- 编码过程中需求不明确
+- 测试失败或难以编写
+- 性能不符合需求
+- 发生集成问题
 
-## Issue 1: Spec and Reality Diverge
+## 问题 1：规范与现实分歧
 
-### Symptoms
-- Code structure doesn't match spec assumptions
-- APIs are unavailable or deprecated
-- Performance differs from expectations
-- Integration points work differently than specified
+### 症状
+- 代码结构不匹配规范假设
+- API 不可用或已弃用
+- 性能与预期不同
+- 集成点的工作方式与指定不同
 
-### Resolution
+### 解决
 
-**Immediate Actions:**
-1. Document the gap exactly
-2. Assess impact (minor detail vs fundamental issue)
-3. Stop implementing until you understand implications
+**立即行动：**
+1. 准确记录差距
+2. 评估影响（小细节 vs 根本问题）
+3. 停止实施，直到你理解其含义
 
-**Resolution Options:**
+**解决选项：**
 
-**Option 1: Update Spec (Minor Deviations)**
+**选项 1：更新规范（轻微偏差）**
 ```
-If difference is minor and doesn't affect requirements:
-1. Update design section with actual approach
-2. Adjust affected tasks
-3. Document why change was needed
-4. Continue implementation
-```
-
-**Option 2: Redesign (Major Deviations)**
-```
-If core assumptions are wrong:
-1. Return to design phase
-2. Incorporate new understanding
-3. Re-validate against requirements
-4. Create new task breakdown
-5. Restart with corrected plan
+如果差异很小且不影响需求：
+1. 用实际方法更新设计部分
+2. 调整受影响的任务
+3. 记录需要更改的原因
+4. 继续实施
 ```
 
-**Option 3: Adjust Requirements (Fundamental Issues)**
+**选项 2：重新设计（主要偏差）**
 ```
-If requirements can't be met as stated:
-1. Document why requirements aren't achievable
-2. Propose alternative approach
-3. Get stakeholder approval
-4. Update entire spec
-5. Restart process
-```
-
-### Prevention
-- Validate assumptions with code exploration during design
-- Prototype risky integrations before finalizing spec
-- Include technical spikes in task breakdown
-
-## Issue 2: Task Dependencies Block Progress
-
-### Symptoms
-- Can't complete task without later features
-- Multiple tasks need same file changes
-- Tests need features not yet built
-- Circular dependencies between tasks
-
-### Resolution
-
-**Strategy 1: Reorder Tasks**
-```
-If dependency was missed in planning:
-1. Identify the prerequisite task
-2. Complete it first
-3. Return to blocked task
-4. Update task sequence for future
+如果核心假设错误：
+1. 返回设计阶段
+2. 纳入新的理解
+3. 根据需求重新验证
+4. 创建新的任务分解
+5. 使用修正后的计划重新开始
 ```
 
-**Strategy 2: Split Tasks**
+**选项 3：调整需求（根本问题）**
 ```
-If task is too large:
-1. Break blocked task into smaller pieces
-2. Complete parts that aren't blocked
-3. Queue dependent parts for later
-4. Update task breakdown
-```
-
-**Strategy 3: Use Mocking/Stubbing**
-```
-If dependency is complex:
-1. Create minimal stub/mock of dependency
-2. Complete current task against stub
-3. Replace stub when real dependency ready
-4. Add integration testing task
+如果需求按现状无法满足：
+1. 记录为何需求无法实现
+2. 提出替代方法
+3. 获得利益相关者批准
+4. 更新整个规范
+5. 重新开始流程
 ```
 
-**Strategy 4: Parallel Development**
+### 预防
+- 在设计期间通过代码探索验证假设
+- 在最终确定规范之前制作风险集成原型
+- 在任务分解中包含技术探针
+
+## 问题 2：任务依赖阻塞进度
+
+### 症状
+- 无法在没有后续功能的情况下完成任务
+- 多个任务需要相同的文件更改
+- 测试需要尚未构建的功能
+- 任务之间存在循环依赖
+
+### 解决
+
+**策略 1：重新排序任务**
 ```
-If dependency is in progress:
-1. Define clear interface/contract
-2. Implement against interface
-3. Test with mock implementation
-4. Integrate when dependency completes
-```
-
-### Prevention
-- Map dependencies explicitly during task planning
-- Order tasks to minimize blocking
-- Identify tasks that can be parallelized
-
-## Issue 3: Requirements Unclear During Implementation
-
-### Symptoms
-- Multiple valid interpretations
-- Edge cases not addressed
-- Conflicting requirements discovered
-- UX details missing
-
-### Resolution
-
-**Step 1: Analyze the Ambiguity**
-- What exactly is unclear?
-- What are possible interpretations?
-- What's the impact of each?
-- Is this common or edge case?
-
-**Step 2: Propose Solution**
-- What's most consistent with existing requirements?
-- What aligns with user needs?
-- What's technically simplest?
-- Make recommendation with rationale
-
-**Step 3: Get Clarification**
-- Update requirements with clarification
-- Update acceptance criteria if needed
-- Document decision rationale
-- Proceed with implementation
-
-**Step 4: Update Tasks**
-- Adjust current task if needed
-- Add new tasks if solution is complex
-- Update testing tasks
-
-### Prevention
-- Probe for edge cases during requirements phase
-- Use examples to clarify requirements
-- Review requirements with developers before design
-
-## Issue 4: Technical Debt Creates Friction
-
-### Symptoms
-- Need to refactor before adding feature
-- Tests are brittle or missing
-- Code is tightly coupled
-- No clear extension points
-
-### Resolution
-
-**Strategy 1: Refactor-First**
-```
-If refactoring is bounded and low-risk:
-1. Create refactoring tasks separate from feature
-2. Get approval for additional work
-3. Complete refactoring with tests
-4. Proceed with feature
+如果在规划中遗漏了依赖：
+1. 识别先决任务
+2. 首先完成它
+3. 返回受阻任务
+4. 更新未来的任务顺序
 ```
 
-**Strategy 2: Parallel Track**
+**策略 2：拆分任务**
 ```
-If refactoring is extensive:
-1. Implement feature with workarounds
-2. Create separate refactoring initiative
-3. Document technical debt created
-4. Plan future cleanup
-```
-
-**Strategy 3: Incremental Improvement**
-```
-If refactoring can be done in pieces:
-1. Refactor only what you touch
-2. Leave code better than you found it
-3. Add tests for refactored areas
-4. Continue feature implementation
+如果任务太大：
+1. 将受阻任务分解为更小的部分
+2. 完成未受阻的部分
+3. 将依赖部分排队待后
+4. 更新任务分解
 ```
 
-### Prevention
-- Assess existing code quality during design
-- Include refactoring tasks when needed
-- Set realistic timelines accounting for debt
+**策略 3：使用模拟/存根**
+```
+如果依赖很复杂：
+1. 创建依赖的最小存根/模拟
+2. 针对存根完成当前任务
+3. 当真实依赖准备好时替换存根
+4. 添加集成测试任务
+```
 
-## Issue 5: Tests Failing or Hard to Write
+**策略 4：并行开发**
+```
+如果依赖正在进行中：
+1. 定义清晰的接口/契约
+2. 针对接口实施
+3. 使用模拟实现进行测试
+4. 当依赖完成时集成
+```
 
-### Symptoms
-- Tests fail randomly (flaky)
-- Setup code is complex
-- Mocking is complicated
-- Tests take too long
+### 预防
+- 在任务规划期间明确映射依赖关系
+- 排序任务以最小化阻塞
+- 识别可以并行的任务
 
-### Resolution
+## 问题 3：实施过程中需求不明确
 
-**For Tightly Coupled Code:**
-- Extract interfaces for dependencies
-- Use dependency injection
-- Create test fixtures/factories
-- Implement test doubles
+### 症状
+- 多种有效解释
+- 未解决边缘情况
+- 发现冲突的需求
+- UX 细节缺失
 
-**For Complex Setup:**
-- Create reusable test utilities
-- Use test builders/factories
-- Implement setup helpers
-- Share fixtures across tests
+### 解决
 
-**For Flaky Tests:**
-- Remove timing dependencies
-- Eliminate global state
-- Mock external dependencies
-- Use deterministic test data
+**第一步：分析歧义**
+- 究竟什么不清楚？
+- 有哪些可能的解释？
+- 每个的影响是什么？
+- 这是常见情况还是边缘情况？
 
-**For Slow Tests:**
-- Use test doubles for expensive operations
-- Parallelize test execution
-- Optimize database setup/teardown
-- Cache expensive setups
+**第二步：提出解决方案**
+- 什么与现有需求最一致？
+- 什么符合用户需求？
+- 技术上最简单的是什么？
+- 提出建议并说明理由
 
-### Prevention
-- Design for testability during design phase
-- Include test strategy in design document
-- Write tests alongside implementation
+**第三步：获得澄清**
+- 用澄清更新需求
+- 如果需要，更新验收标准
+- 记录决策理由
+- 继续实施
 
-## Issue 6: Performance Problems
+**第四步：更新任务**
+- 如果需要，调整当前任务
+- 如果解决方案复杂，添加新任务
+- 更新测试任务
 
-### Symptoms
-- Slow response times
-- High memory usage
-- Database query issues
-- Excessive network calls
+### 预防
+- 在需求阶段探查边缘情况
+- 使用示例澄清需求
+- 在设计之前与开发人员一起审查需求
 
-### Resolution
+## 问题 4：技术债务造成摩擦
 
-**Step 1: Measure**
-- Profile the code
-- Identify bottlenecks
-- Quantify the gap
-- Establish baseline
+### 症状
+- 添加功能前需要重构
+- 测试脆弱或缺失
+- 代码紧密耦合
+- 没有清晰的扩展点
 
-**Step 2: Analyze**
-- Algorithmic complexity?
-- Database inefficiency?
-- Network latency?
-- Resource contention?
+### 解决
 
-**Step 3: Optimize**
-- Target biggest bottleneck first
-- Make one change at a time
-- Measure after each change
-- Document optimizations
+**策略 1：重构优先**
+```
+如果重构有限且低风险：
+1. 创建与功能分开的重构任务
+2. 获得额外工作的批准
+3. 完成包含测试的重构
+4. 继续功能开发
+```
 
-**Step 4: Validate**
-- Verify requirements met
-- Check no regressions
-- Add performance tests
-- Document characteristics
+**策略 2：并行轨道**
+```
+如果重构广泛：
+1. 使用变通方法实施功能
+2. 创建单独的重构计划
+3. 记录产生的技术债务
+4. 规划未来清理
+```
 
-**Common Fixes:**
-- Database: Add indexes, optimize queries, implement caching
-- Algorithm: Better data structures, reduce complexity, lazy loading
-- Network: Batch requests, compression, reduce payload size
+**策略 3：增量改进**
+```
+如果重构可以分片进行：
+1. 只重构你接触的部分
+2. 让代码比你发现时更好
+3. 为重构区域添加测试
+4. 继续功能实施
+```
 
-### Prevention
-- Include performance requirements in spec
-- Design with performance in mind
-- Profile early and often
+### 预防
+- 在设计期间评估现有代码质量
+- 需要时包含重构任务
+- 设定考虑债务的现实时间表
+ 
+## 问题 5：测试失败或难以编写
 
-## Issue 7: Integration Problems
+### 症状
+- 测试随机失败（不稳定）
+- 设置代码复杂
+- 模拟很复杂
+- 测试耗时太长
 
-### Symptoms
-- Works locally, fails in integration
-- Timing issues in production
-- Data format mismatches
-- Auth failures
+### 解决
 
-### Resolution
+**对于紧密耦合的代码：**
+- 为依赖提取接口
+- 使用依赖注入
+- 创建测试夹具/工厂
+- 实施测试替身
 
-**Step 1: Isolate Problem**
-- Does it work in isolation?
-- Which integration point fails?
-- Consistent or intermittent?
-- What's different in integration environment?
+**对于复杂设置：**
+- 创建可重用的测试工具
+- 使用测试构建器/工厂
+- 实施设置助手
+- 跨测试共享夹具
 
-**Step 2: Verify Contracts**
-- Check API specifications
-- Validate data formats
-- Verify authentication flow
-- Review error responses
+**对于不稳定的测试：**
+- 移除时间依赖
+- 消除全局状态
+- 模拟外部依赖
+- 使用确定性测试数据
 
-**Step 3: Test Integration Points**
-- Test each integration separately
-- Use integration test environment
-- Verify error handling
-- Check timeout behavior
+**对于慢速测试：**
+- 为昂贵操作使用测试替身
+- 并行化测试执行
+- 优化数据库设置/拆卸
+- 缓存昂贵的设置
 
-**Step 4: Fix and Validate**
-- Implement fix
-- Add integration tests
-- Verify in integration environment
-- Update spec if assumptions wrong
+### 预防
+- 在设计阶段为可测试性设计
+- 在设计文档中包含测试策略
+- 边实施边写测试
 
-**Common Issues:**
-- Configuration differences (URLs, credentials)
-- Data format issues (dates, encoding, nulls)
-- Timing issues (race conditions, timeouts)
+## 问题 6：性能问题
 
-### Prevention
-- Test in integration environment early
-- Document integration requirements clearly
-- Include integration tests in task breakdown
+### 症状
+- 响应时间慢
+- 内存使用率高
+- 数据库查询问题
+- 过多的网络调用
 
-## Issue 8: Scope Creep During Implementation
+### 解决
 
-### Symptoms
-- "While I'm here, I should also..."
-- "It would be easy to add..."
-- Tasks taking longer than estimated
-- Feature complexity growing
+**第一步：测量**
+- 分析代码
+- 识别瓶颈
+- 量化差距
+- 建立基线
 
-### Resolution
+**第二步：分析**
+- 算法复杂度？
+- 数据库低效？
+- 网络延迟？
+- 资源争用？
 
-**Step 1: Recognize It**
-- Notice when going beyond spec
-- Identify additions vs requirements
-- Assess if it's scope creep
+**第三步：优化**
+- 首先针对最大的瓶颈
+- 一次只做一个更改
+- 每次更改后测量
+- 记录优化
 
-**Step 2: Evaluate**
-- Is it required for current requirements?
-- Is it a bug fix or enhancement?
-- Cost of doing now vs later?
+**第四步：验证**
+- 验证需求是否满足
+- 检查无回归
+- 添加性能测试
+- 记录特征
 
-**Step 3: Decide**
+**常见修复：**
+- 数据库：添加索引，优化查询，实施缓存
+- 算法：更好的数据结构，降低复杂度，延迟加载
+- 网络：批量请求，压缩，减小有效负载大小
 
-**Option A: Required for Current Feature**
-- Update spec with new requirement
-- Add to current work
-- Adjust timeline
+### 预防
+- 在规范中包含性能需求
+- 设计时考虑性能
+-及早并经常分析
 
-**Option B: Nice to Have**
-- Document as future enhancement
-- Complete current spec first
-- Create separate spec later
+## 问题 7：集成问题
 
-**Option C: Out of Scope**
-- Note as explicitly excluded
-- Create future spec if valuable
-- Stay focused on current work
+### 症状
+- 本地工作，集成失败
+- 生产中的时间问题
+- 数据格式不匹配
+- 认证失败
 
-### Red Flags
-- "Just one more feature"
-- "While we're changing this..."
-- Refactoring beyond what's needed
-- Gold-plating solutions
+### 解决
 
-### Prevention
-- Clear requirements and acceptance criteria
-- Regular review against spec
-- Time-box implementation tasks
+**第一步：隔离问题**
+- 它在隔离状态下工作吗？
+- 哪个集成点失败？
+- 一致还是间歇性？
+- 集成环境中有什么不同？
 
-## Debugging Strategies
+**第二步：验证契约**
+- 检查 API 规范
+- 验证数据格式
+- 验证认证流程
+- 审查错误响应
 
-### Rubber Duck Debugging
-Explain the problem out loud. Often the explanation reveals the solution.
+**第三步：测试集成点**
+- 单独测试每个集成
+- 使用集成测试环境
+- 验证错误处理
+- 检查超时行为
 
-### Binary Search
-Isolate by dividing code in half repeatedly until you find the issue.
+**第四步：修复和验证**
+- 实施修复
+- 添加集成测试
+- 在集成环境中验证
+- 如果假设错误，更新规范
 
-### Strategic Logging
-Add logging to understand code flow and data transformations.
+**常见问题：**
+- 配置差异（URL，凭据）
+- 数据格式问题（日期，编码，空值）
+- 时间问题（竞争条件，超时）
 
-### Minimal Reproduction
-Create smallest test case that reproduces the issue.
+### 预防
+- 及早在集成环境中测试
+- 清晰记录集成需求
+- 在任务分解中包含集成测试
 
-### Compare Working vs Broken
-Find similar working code and compare differences.
+## 问题 8：实施期间范围蔓延
 
-## When to Update the Spec
+### 症状
+- “既然我在这里，我也应该...”
+- “添加...很容易”
+- 任务花费时间超过估计
+- 功能复杂度增加
 
-**Always Update When:**
-- Design assumptions were wrong
-- Requirements need clarification
-- Tasks need reordering
-- New edge cases discovered
-- Technical approach changes
+### 解决
 
-**Document:**
-- Why changes were made
-- When they were made
-- Impact on timeline
-- Alternatives considered
+**第一步：识别它**
+- 注意何时超出规范
+- 识别添加 vs 需求
+- 评估是否为范围蔓延
 
-## Getting Unstuck
+**第二步：评估**
+- 当前需求需要吗？
+- 是错误修复还是增强？
+- 现在做 vs 以后做的成本？
 
-When truly blocked:
-1. **Take a break** - Solution often comes when you step away
-2. **Review the spec** - Re-read requirements and design
-3. **Ask for help** - Get a second pair of eyes
-4. **Simplify** - Solve a simpler version first
-5. **Prototype** - Try multiple approaches quickly
-6. **Go back a phase** - Maybe the spec needs work
+**第三步：决定**
+
+**选项 A：当前功能需要**
+- 用新需求更新规范
+- 添加到当前工作
+- 调整时间表
+
+**选项 B：锦上添花**
+- 记录为未来增强
+- 先完成当前规范
+- 稍后创建单独的规范
+
+**选项 C：超出范围**
+- 注意为明确排除
+- 如果有价值，创建未来规范
+- 保持专注于当前工作
+
+### 危险信号
+- “再加一个功能”
+- “当我们改变这个时...”
+- 超出需要的重构
+- 镀金解决方案
+
+### 预防
+- 清晰的需求和验收标准
+- 定期对照规范审查
+- 为实施任务设定时间框
+
+## 调试策略
+
+### 橡皮鸭调试
+大声解释问题。通常解释会揭示解决方案。
+
+### 二分查找
+通过反复将代码减半来隔离问题，直到找到问题。
+
+### 战略日志
+添加日志以了解代码流和数据转换。
+
+### 最小复现
+创建复现问题的最小测试用例。
+
+### 比较工作 vs 损坏
+找到类似的工作代码并比较差异。
+
+## 何时更新规范
+
+**始终更新当：**
+- 设计假设错误
+- 需求需要澄清
+- 任务需要重新排序
+- 发现新的边缘情况
+- 技术方法改变
+
+**记录：**
+- 为何更改
+- 何时更改
+- 对时间表的影响
+- 考虑的替代方案
+
+## 摆脱困境
+
+当真正受阻时：
+1. **休息一下** - 解决方案常在你离开时出现
+2. **审查规范** - 重读需求和设计
+3. **寻求帮助** - 找第二双眼睛
+4. **简化** - 先解决更简单的版本
+5. **原型** - 快速尝试多种方法
+6. **回退一个阶段** - 也许规范需要工作

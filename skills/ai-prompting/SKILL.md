@@ -1,6 +1,6 @@
 ---
 name: ai-prompting
-description: Effective communication strategies for AI-assisted development. Learn context-first prompting, phased interactions, iterative refinement, and validation techniques to get better results from Claude and other AI coding assistants.
+description: AI 辅助开发的有效沟通策略。学习上下文优先提示、分阶段交互、迭代改进和验证技术，以便从 Claude 和其他 AI 编码助手那里获得更好的结果。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,383 +10,383 @@ metadata:
   version: "1.0.0"
 ---
 
-# AI Prompting Strategies
+# AI 提示策略 (AI Prompting Strategies)
 
-Master the art of communicating with AI coding assistants to get better results faster. These strategies are optimized for spec-driven development but apply broadly to AI collaboration.
+掌握与 AI 编码助手沟通的艺术，以便更快地获得更好的结果。这些策略针对规范驱动开发进行了优化，但也广泛适用于 AI 协作。
 
-## When to Use This Skill
+## 何时使用此技能
 
-Use these prompting strategies when:
-- Working with Claude Code, Cursor, or other AI assistants
-- Creating specs through AI collaboration
-- Getting inconsistent or low-quality AI responses
-- Need to improve AI output accuracy
-- Want faster iteration cycles
+在以下情况下使用这些提示策略：
+- 使用 Claude Code, Cursor 或其他 AI 助手时
+- 通过 AI 协作创建规范时
+- 获得不一致或低质量的 AI 响应时
+- 需要提高 AI 输出准确性时
+- 想要更快的迭代周期时
 
-## Core Strategies
+## 核心策略
 
-### Strategy 1: Context-First Prompting
+### 策略 1：上下文优先提示
 
-Always provide sufficient context before making requests.
+在提出请求之前，始终提供足够的上下文。
 
-**Poor Approach:**
+**糟糕的方法：**
 ```
-Create requirements for a user profile feature.
-```
-
-**Better Approach:**
-```
-I'm working on a web application for a fitness tracking platform. We need to add user profile functionality where users can manage their personal information and fitness goals.
-
-Context:
-- Technology: React frontend, Node.js backend
-- User base: Health-conscious individuals, age 18-65
-- Key constraint: Must comply with GDPR for EU users
-- Integration: Will connect with existing authentication system
-
-Please help me create requirements for the user profile feature.
+为用户资料功能创建需求。
 ```
 
-**Why It Works:**
-- Provides domain context for better decisions
-- Identifies technical constraints early
-- Clarifies compliance requirements
-- Enables more relevant suggestions
-
-### Strategy 2: Phased Interaction
-
-Work through spec phases sequentially. Complete each phase before moving to the next.
-
-**Phase 1 - Requirements:**
+**更好的方法：**
 ```
-Let's start with the requirements phase for [feature name].
+我正在为一个健身跟踪平台开发 Web 应用程序。我们需要添加用户资料功能，以便用户可以管理他们的个人信息和健身目标。
 
-Current situation: [describe current state]
-Problem to solve: [describe the problem]
-Users affected: [describe user types]
-Success criteria: [how we'll know it works]
+上下文：
+- 技术：React 前端，Node.js 后端
+- 用户群：注重健康的个人，年龄 18-65 岁
+- 关键约束：必须遵守欧盟用户的 GDPR
+- 集成：将连接现有的认证系统
 
-Please help me develop comprehensive requirements using the EARS format.
+请帮助我为用户资料功能创建需求。
 ```
 
-**Phase 2 - Design (after requirements approved):**
+**为什么有效：**
+- 提供领域上下文以做出更好的决策
+- 及早识别技术约束
+- 澄清合规性需求
+- 启用更相关的建议
+
+### 策略 2：分阶段交互
+
+按顺序通过规范阶段。在进入下一阶段之前完成每个阶段。
+
+**第一阶段 - 需求：**
 ```
-Now that we have clear requirements, let's create the technical design.
+让我们从 [功能名称] 的需求阶段开始。
 
-Requirements summary: [key requirements]
-Technical context: [architecture, frameworks, patterns]
-Constraints: [performance, scalability, security]
+现状：[描述当前状态]
+要解决的问题：[描述问题]
+受影响的用户：[描述用户类型]
+成功标准：[我们如何知道它有效]
 
-Please propose a technical design that addresses these requirements.
-```
-
-**Phase 3 - Tasks (after design approved):**
-```
-With the design finalized, let's break this into implementation tasks.
-
-Design summary: [key components and interactions]
-Team context: [team size, skill levels]
-Dependencies: [what must be built first]
-
-Please create a sequenced task breakdown for implementation.
-```
-
-### Strategy 3: Iterative Refinement
-
-Treat spec development as conversation, not single requests.
-
-**Initial Request:**
-```
-Help me define requirements for email notification preferences.
+请帮助我使用 EARS 格式制定全面的需求。
 ```
 
-**Refinement Round 1:**
+**第二阶段 - 设计（需求批准后）：**
 ```
-Great start! Let's refine a few areas:
-1. For notification frequency, can we add daily digest option?
-2. How should we handle changing preferences during pending notifications?
-3. Can you elaborate on the unsubscribe requirement for GDPR compliance?
-```
+既然我们有了清晰的需求，让我们创建技术设计。
 
-**Refinement Round 2:**
-```
-Perfect. Now let's add requirements for:
-- Mobile push notifications (in addition to email)
-- Notification history (last 30 days)
-- Per-notification-type controls (not just global on/off)
+需求总结：[关键需求]
+技术上下文：[架构、框架、模式]
+约束：[性能、可扩展性、安全]
+
+请提出一个解决这些需求的技术设计。
 ```
 
-### Strategy 4: Example-Driven Prompting
-
-Provide concrete examples of what you want.
-
-**For Requirements:**
+**第三阶段 - 任务（设计批准后）：**
 ```
-I need acceptance criteria for a file upload feature. Use the EARS format like this example:
+随着设计的最终确定，让我们将其分解为实施任务。
 
-Good example from our auth feature:
-"WHEN a user enters valid credentials THEN the system SHALL authenticate within 2 seconds"
+设计总结：[关键组件和交互]
+团队上下文：[团队规模、技能水平]
+依赖关系：[必须先构建什么]
 
-Avoid vague requirements like:
-"System should handle file uploads efficiently"
-
-Focus on specific, testable criteria for:
-- File size limits
-- Supported file types
-- Upload progress indication
-- Error handling
+请为实施创建一个有序的任务分解。
 ```
 
-**For Design:**
+### 策略 3：迭代改进
+
+将规范开发视为对话，而不是单一请求。
+
+**初始请求：**
 ```
-Create a component architecture. Follow this existing pattern:
-
-[Reference existing architecture]
-
-Key elements to include:
-- Component responsibilities
-- Data flow
-- API boundaries
-- Error handling paths
+帮我定义电子邮件通知首选项的需求。
 ```
 
-### Strategy 5: Constraint-Explicit Prompting
-
-Make all constraints explicit. Don't assume AI knows your limitations.
-
+**改进第一轮：**
 ```
-Design a caching strategy for product catalog data.
-
-Explicit constraints:
-- Infrastructure: AWS with Redis, PostgreSQL
-- Performance: API response < 200ms for cached data
-- Scale: 10,000 products, 1,000 concurrent users
-- Budget: Cache cost < $100/month
-- Freshness: Updates visible within 5 minutes
-- Maintenance: 2-person ops team
-
-Flexibility allowed:
-- Cache invalidation strategy (time or event-based)
-- Cache key structure (optimize as needed)
-- Failover approach (as long as reliable)
+很好的开始！让我们改进几个领域：
+1. 关于通知频率，我们可以添加每日摘要选项吗？
+2. 我们应如何处理待处理通知期间更改首选项的情况？
+3. 您能否详细说明 GDPR 合规性的取消订阅需求？
 ```
 
-### Strategy 6: Role-Based Prompting
-
-Frame requests from specific perspectives.
-
-**Product Owner Perspective:**
+**改进第二轮：**
 ```
-As a product owner defining checkout requirements:
-- Business goals: Reduce cart abandonment
-- User value: Smooth, trustworthy purchase experience
-- Success metrics: Checkout completion rate > 80%
-
-What requirements should I capture?
+完美。现在让我们添加以下需求：
+- 移动推送通知（除电子邮件外）
+- 通知历史记录（过去 30 天）
+- 每种通知类型的控制（不仅仅是全局开启/关闭）
 ```
 
-**Technical Lead Perspective:**
+### 策略 4：示例驱动提示
+
+提供你想要的具体示例。
+
+**对于需求：**
 ```
-As tech lead designing a notification system:
-- Integrates with existing microservices
-- Handles 100k notifications/day with room to grow
-- Maintains health if notification service fails
-- Aligns with event-driven architecture
+我需要文件上传功能的验收标准。像这个例子一样使用 EARS 格式：
 
-What design approach would you recommend?
-```
+来自我们认证功能的好例子：
+“当用户输入有效凭据时，系统应在 2 秒内进行身份验证”
 
-**Developer Perspective:**
-```
-As a mid-level developer implementing this:
-- Need clear tasks (2-4 hours each)
-- Explicit dependencies between tasks
-- Guidance on testing approach
-- References to existing code patterns
+避免模糊的需求，如：
+“系统应高效处理文件上传”
 
-Can you break down the implementation accordingly?
-```
-
-### Strategy 7: Validation-Oriented Prompting
-
-Build quality checks into your prompts.
-
-**After Requirements:**
-```
-Review these requirements and check:
-1. Are all requirements testable and measurable?
-2. Have we covered error cases and edge cases?
-3. Do any requirements conflict with each other?
-4. Are there gaps in the user journey?
-5. Do requirements map to all user stories?
-
-Provide a validation summary.
+关注具体、可测试的标准：
+- 文件大小限制
+- 支持的文件类型
+- 上传进度指示
+- 错误处理
 ```
 
-**After Design:**
+**对于设计：**
 ```
-Validate this design against:
-1. Does it address all requirements?
-2. Are there single points of failure?
-3. What are the performance bottlenecks?
-4. How does it handle scale growth?
-5. What security concerns exist?
+创建组件架构。遵循此现有模式：
 
-Provide a critical review.
-```
+[引用现有架构]
 
-### Strategy 8: Trade-Off Exploration
-
-Explore options rather than seeking single answers.
-
-```
-We need real-time notifications. Compare these options:
-
-Option A: WebSocket connections
-Option B: Server-Sent Events (SSE)
-Option C: Long polling
-
-For each, evaluate:
-- Implementation complexity
-- Browser compatibility
-- Server resource usage
-- Scalability characteristics
-- Maintenance overhead
-
-Present trade-offs in a comparison table.
+要包含的关键要素：
+- 组件职责
+- 数据流
+- API 边界
+- 错误处理路径
 ```
 
-## Phase-Specific Patterns
+### 策略 5：约束明确提示
 
-### Requirements Phase Patterns
+明确所有约束。不要假设 AI 知道你的限制。
 
-**User Story Expansion:**
 ```
-I have this user story: [basic story]
+为产品目录数据设计缓存策略。
 
-Please help me:
-1. Expand with detailed acceptance criteria (EARS format)
-2. Identify edge cases and error scenarios
-3. Define non-functional requirements
-4. Suggest validation criteria
-```
+明确约束：
+- 基础设施：AWS 上的 Redis, PostgreSQL
+- 性能：缓存数据的 API 响应 < 200ms
+- 规模：10,000 种产品，1,000 并发用户
+- 预算：缓存成本 < $100/月
+- 新鲜度：5 分钟内可见更新
+- 维护：2 人运维团队
 
-**Completeness Check:**
-```
-Here are my draft requirements: [requirements]
-
-Check for completeness:
-- Are all user workflows covered?
-- Have we addressed error handling?
-- Are there accessibility requirements?
-- What about data privacy and security?
-- Have we considered mobile vs desktop?
+允许的灵活性：
+- 缓存失效策略（基于时间或事件）
+- 缓存键结构（根据需要优化）
+- 故障转移方法（只要可靠）
 ```
 
-### Design Phase Patterns
+### 策略 6：基于角色的提示
 
-**Architecture Exploration:**
+从特定角度构建请求。
+
+**产品负责人视角：**
 ```
-Given these requirements: [summary]
+作为定义结账需求的产品负责人：
+- 业务目标：减少购物车放弃率
+- 用户价值：流畅、值得信赖的购买体验
+- 成功指标：结账完成率 > 80%
 
-Propose 2-3 different architectural approaches:
-1. For each, describe components and interactions
-2. List pros and cons
-3. Identify risks and mitigations
-4. Estimate complexity
-
-Help me compare and choose.
-```
-
-**Integration Design:**
-```
-This feature integrates with: [list systems]
-
-Design the integration:
-1. Define API contracts
-2. Specify data flow and transformation
-3. Plan error handling and retries
-4. Document assumptions and dependencies
+我应该捕获哪些需求？
 ```
 
-### Tasks Phase Patterns
-
-**Task Sequencing:**
+**技术负责人视角：**
 ```
-Based on this design: [summary]
+作为设计通知系统的技术负责人：
+- 与现有微服务集成
+- 每天处理 100k 通知，并有增长空间
+- 如果通知服务失败，保持健康
+- 与事件驱动架构保持一致
 
-Create implementation tasks that:
-1. Are sequenced to minimize dependencies
-2. Enable incremental testing
-3. Separate setup, core features, and polish
-4. Include testing tasks
-5. Range from 2-4 hours each
+你会推荐什么设计方法？
 ```
 
-**Task Validation:**
+**开发人员视角：**
 ```
-Review these tasks: [task list]
+作为实施此功能的中级开发人员：
+- 需要清晰的任务（每个 2-4 小时）
+- 任务之间有明确的依赖关系
+- 测试方法指南
+- 现有代码模式的引用
 
-Verify:
-1. Can each task be completed independently?
-2. Are dependencies clearly marked?
-3. Do tasks map to design components?
-4. Are testing steps included?
-5. Is anything missing?
-```
-
-## Advanced Techniques
-
-### Specification by Example
-Provide examples of good and bad outputs to calibrate responses.
-
-### Incremental Context Building
-Start broad, add detail as AI demonstrates understanding.
-
-### Meta-Prompting
-Ask AI how to prompt it better for your specific context.
-
-### Comparative Prompting
-Present multiple versions, ask which is better and why.
-
-## Common Mistakes
-
-1. **Too little context:** AI can't read your mind
-2. **All at once:** Work in phases, not giant prompts
-3. **Accept first response:** Iterate and refine
-4. **No examples:** Show what you want
-5. **Hidden constraints:** Make limitations explicit
-6. **Skip validation:** Always verify outputs
-
-## Quick Reference
-
-**Starting a spec:**
-```
-I'm working on [project]. We need [feature].
-Context: [tech stack, constraints, users]
-Please help me develop [requirements/design/tasks].
+你能相应地分解实施吗？
 ```
 
-**Refining output:**
+### 策略 7：面向验证的提示
+
+在提示中建立质量检查。
+
+**需求之后：**
 ```
-Good progress. Let's improve:
-1. [Specific area to expand]
-2. [Missing element to add]
-3. [Clarification needed]
+审查这些需求并检查：
+1. 所有需求都是可测试和可衡量的吗？
+2. 我们是否涵盖了错误情况和边缘情况？
+3. 是否有任何需求相互冲突？
+4. 用户旅程中是否有差距？
+5. 需求是否映射到所有用户故事？
+
+提供验证摘要。
 ```
 
-**Validating output:**
+**设计之后：**
 ```
-Review this [document] and identify:
-- Missing elements
-- Ambiguities
-- Conflicts
-- Quality issues
+根据以下几点验证此设计：
+1. 它是否解决了所有需求？
+2. 是否存在单点故障？
+3. 性能瓶颈是什么？
+4. 它如何处理规模增长？
+5. 存在哪些安全问题？
+
+提供批判性审查。
 ```
 
-**Exploring options:**
+### 策略 8：权衡探索
+
+探索选项而不是寻求单一答案。
+
 ```
-Compare these approaches: [options]
-Evaluate: [criteria]
-Present trade-offs for decision-making.
+我们需要实时通知。比较这些选项：
+
+选项 A：WebSocket 连接
+选项 B：服务器发送事件 (SSE)
+选项 C：长轮询
+
+对于每一项，评估：
+- 实施复杂度
+- 浏览器兼容性
+- 服务器资源使用
+- 可扩展性特征
+- 维护开销
+
+在比较表中展示权衡。
+```
+
+## 阶段特定模式
+
+### 需求阶段模式
+
+**用户故事扩展：**
+```
+我有这个用户故事：[基本故事]
+
+请帮助我：
+1. 用详细的验收标准（EARS 格式）进行扩展
+2. 识别边缘情况和错误场景
+3. 定义非功能性需求
+4. 建议验证标准
+```
+
+**完整性检查：**
+```
+这是我的草案需求：[需求]
+
+检查完整性：
+- 是否覆盖了所有工作流？
+- 我们是否处理了错误处理？
+- 是否有无障碍需求？
+- 数据隐私和安全怎么样？
+- 我们是否考虑了移动端与桌面端？
+```
+
+### 设计阶段模式
+
+**架构探索：**
+```
+鉴于这些需求：[摘要]
+
+提出 2-3 种不同的架构方法：
+1. 对于每一种，描述组件和交互
+2. 列出优缺点
+3. 识别风险和缓解措施
+4. 估计复杂度
+
+帮我比较和选择。
+```
+
+**集成设计：**
+```
+此功能集成的系统：[系统列表]
+
+设计集成：
+1. 定义 API 契约
+2. 指定数据流和转换
+3. 规划错误处理和重试
+4. 记录假设和依赖关系
+```
+
+### 任务阶段模式
+
+**任务排序：**
+```
+基于此设计：[摘要]
+
+创建实施任务，要求：
+1. 排序以最小化依赖
+2. 启用增量测试
+3. 分离设置、核心功能和润色
+4. 包含测试任务
+5. 每个任务 2-4 小时
+```
+
+**任务验证：**
+```
+审查这些任务：[任务列表]
+
+验证：
+1. 每个任务可以独立完成吗？
+2. 依赖关系是否标记清晰？
+3. 任务是否映射到设计组件？
+4. 是否包含测试步骤？
+5. 还有什么遗漏吗？
+```
+
+##以此类推的高级技术
+
+### 示例规范
+提供好的和坏的输出示例来校准响应。
+
+### 增量上下文构建
+从广泛开始，随着 AI 展示理解而增加细节。
+
+### 元提示
+询问 AI 如何针对你的特定上下文更好地提示它。
+
+### 比较提示
+展示多个版本，询问哪一个更好以及为什么。
+
+## 常见错误
+
+1. **太少上下文：** AI 无法读懂你的心思
+2. **一次性全部：** 分阶段工作，而不是巨大的提示
+3. **接受第一个响应：** 迭代和改进
+4. **没有示例：** 展示你想要的
+5. **隐藏约束：** 明确限制
+6. **跳过验证：** 始终验证输出
+
+## 快速参考
+
+**开始规范：**
+```
+我正在做 [项目]。我们需要 [功能]。
+上下文：[技术栈，约束，用户]
+请帮助我开发 [需求/设计/任务]。
+```
+
+**改进输出：**
+```
+进展不错。让我们改进：
+1. [要扩展的具体领域]
+2. [要添加的缺失元素]
+3. [需要澄清]
+```
+
+**验证输出：**
+```
+审查此 [文档] 并识别：
+- 缺失元素
+- 歧义
+- 冲突
+- 质量问题
+```
+
+**探索选项：**
+```
+比较这些方法：[选项]
+评估：[标准]
+展示用于决策的权衡。
 ```

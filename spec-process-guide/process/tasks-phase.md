@@ -1,1080 +1,1080 @@
-# Tasks Phase Documentation
+# 任务阶段文档
 
-<!-- Navigation Metadata -->
-<!-- Phase: Tasks | Level: Detailed Guide | Prerequisites: design-phase.md -->
-<!-- Related: templates/tasks-template.md, execution/implementation-guide.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 阶段：任务 | 级别：详细指南 | 前置条件：design-phase.md -->
+<!-- 相关：templates/tasks-template.md, execution/implementation-guide.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Process Guide](README.md) → **Tasks Phase**
+**📍 你在这里：** [主指南](../../README.md) → [流程指南](README.md) → **任务阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Tasks Template](../templates/tasks-template.md) - Ready-to-use template
-- **📖 See Example:** [Simple Feature Tasks](../examples/simple-feature-spec.md#tasks-document) - Complete tasks example
-- **⚡ Execute Tasks:** [Implementation Guide](../execution/implementation-guide.md) - How to work through tasks
-- **🔄 Back to Start:** [Requirements Phase](requirements-phase.md) - Full workflow context
+## 快速导航
+- **🎯 开始：** [任务模板](../templates/tasks-template.md) - 即用型模板
+- **📖 查看示例：** [简单功能任务](../examples/simple-feature-spec.md#tasks-document) - 完整任务示例
+- **⚡ 执行任务：** [实施指南](../execution/implementation-guide.md) - 如何完成任务
+- **🔄 返回开始：** [需求阶段](requirements-phase.md) - 完整工作流上下文
 
-## Phase Navigation
-- **Previous:** [Design Phase](design-phase.md) - Must be completed first
-- **Current:** **Tasks Phase** - Break down design into actionable steps
-- **Next:** [Implementation](../execution/implementation-guide.md) - Execute the tasks
-- **Context:** [Process Overview](README.md) - Three-phase workflow
+## 阶段导航
+- **上一步：** [设计阶段](design-phase.md) - 必须首先完成
+- **当前：** **任务阶段** - 将设计分解为可操作步骤
+- **下一步：** [实施](../execution/implementation-guide.md) - 执行任务
+- **上下文：** [流程概述](README.md) - 三阶段工作流
 
 ---
 
-## Overview
+## 概述
 
-The Tasks Phase is the final phase of the spec-driven development process, transforming the approved design into a structured implementation plan consisting of discrete, actionable coding tasks. This phase serves as the bridge between planning and execution, breaking down complex system designs into manageable steps that can be executed incrementally by development teams or AI coding agents.
+任务阶段是规范驱动开发流程的最后阶段，将批准的设计转化为结构化的实施计划，由离散的、可操作的编码任务组成。该阶段作为规划与执行之间的桥梁，将复杂的系统设计分解为可由开发团队或 AI 编码代理增量执行的可管理步骤。
 
-As the third phase in the Requirements → Design → Tasks workflow, the tasks phase ensures that all the careful planning and design work translates into systematic, trackable implementation progress.
+作为需求 → 设计 → 任务工作流的第三阶段，任务阶段确保所有仔细的规划和设计工作转化为系统化的、可跟踪的实施进展。
 
-## Purpose and Goals
+## 目的和目标
 
-The tasks phase serves to:
-- Convert design components into specific coding activities
-- Sequence tasks for optimal development flow and early validation
-- Create clear, actionable prompts for implementation
-- Establish dependencies and build order between tasks
-- Enable incremental progress with testable milestones
-- Provide a roadmap for systematic feature development
+任务阶段旨在：
+- 将设计组件转化为具体的编码活动
+- 对任务进行排序以优化开发流程和早期验证
+- 为实施创建清晰、可操作的提示
+- 建立任务之间的依赖关系和构建顺序
+- 通过可测试的里程碑实现增量进展
+- 为系统化功能开发提供路线图
 
-## Step-by-Step Process
+## 分步流程
 
-### Step 1: Design Analysis and Task Identification
+### 第一步：设计分析和任务识别
 
-**Objective**: Break down the design into implementable components
+**目标**：将设计分解为可实施的组件
 
-**Process**:
-1. **Review Design Components**: Identify all system components that need to be built
-2. **Map to Code Artifacts**: Determine what files, classes, and functions need to be created
-3. **Identify Dependencies**: Understand what needs to be built before other components
-4. **Consider Testing Requirements**: Plan for test creation alongside implementation
-5. **Sequence for Early Validation**: Order tasks to validate core functionality quickly
+**流程**：
+1. **审查设计组件**：识别所有需要构建的系统组件
+2. **映射到代码工件**：确定需要创建哪些文件、类和函数
+3. **识别依赖关系**：了解在其他组件之前需要构建什么
+4. **考虑测试需求**：规划与实施并行的测试创建
+5. **为早期验证排序**：排序任务以快速验证核心功能
 
-**Task Identification Guidelines**:
-- Focus on concrete coding activities (writing, modifying, testing code)
-- Each task should produce working, testable code
-- Tasks should build incrementally on previous work
-- Avoid tasks that can't be completed by a coding agent
+**任务识别指南**：
+- 专注于具体编码活动（编写、修改、测试代码）
+- 每个任务都应产生工作的、可测试的代码
+- 任务应在之前工作的基础上增量构建
+- 避免编码代理无法完成的任务
 
-### Step 2: Task Structuring and Hierarchy
+### 第二步：任务结构化和层级
 
-**Task Organization Principles**:
-1. **Two-Level Maximum**: Use only top-level tasks and sub-tasks (avoid deep nesting)
-2. **Logical Grouping**: Group related tasks under meaningful categories
-3. **Sequential Dependencies**: Order tasks so each builds on previous work
-4. **Testable Increments**: Each task should result in testable functionality
+**任务组织原则**：
+1. **最大两级**：仅使用顶级任务和子任务（避免深层嵌套）
+2. **逻辑分组**：将相关任务归类在有意义的类别下
+3. **顺序依赖**：排序任务以便每个任务建立在之前工作基础上
+4. **可测试增量**：每个任务都应产生可测试的功能
 
-**Task Hierarchy Pattern**:
+**任务层级模式**：
 ```markdown
-- [ ] 1. [Epic/Major Component]
-- [ ] 1.1 [Specific implementation task]
-  - [Task details and requirements references]
-- [ ] 1.2 [Next specific task]
-  - [Task details and requirements references]
+- [ ] 1. [史诗/主要组件]
+- [ ] 1.1 [具体实施任务]
+  - [任务详情和需求引用]
+- [ ] 1.2 [下一个具体任务]
+  - [任务详情和需求引用]
 
-- [ ] 2. [Next Epic/Major Component]
-- [ ] 2.1 [Specific implementation task]
-  - [Task details and requirements references]
+- [ ] 2. [下一个史诗/主要组件]
+- [ ] 2.1 [具体实施任务]
+  - [任务详情和需求引用]
 ```
 
-### Step 3: Task Definition and Specification
+### 第三步：任务定义和规范
 
-**Task Specification Elements**:
-1. **Clear Objective**: What specific code needs to be written or modified
-2. **Implementation Details**: Specific files, components, or functions to create
-3. **Requirements Traceability**: Reference to specific requirements being implemented
-4. **Acceptance Criteria**: How to know the task is complete
-5. **Testing Expectations**: What tests should be written or updated
+**任务规范元素**：
+1. **清晰目标**：需要编写或修改的具体代码
+2. **实施细节**：要创建的具体文件、组件或函数
+3. **需求可追溯性**：引用正在实施的具体需求
+4. **验收标准**：如何知道任务已完成
+5. **测试期望**：应该编写或更新哪些测试
 
-**Task Description Template**:
+**任务描述模板**：
 ```markdown
-- [ ] X.Y [Task Title]
-  - [Specific implementation objective]
-  - [Files or components to create/modify]
-  - [Key functionality to implement]
-  - _Requirements: [Requirement references]_
+- [ ] X.Y [任务标题]
+  - [具体实施目标]
+  - [要创建/修改的文件或组件]
+  - [要实施的关键功能]
+  - _Requirements: [需求引用]_
 ```
 
-### Step 4: Dependency Management and Sequencing
+### 第四步：依赖管理和排序
 
-**Dependency Considerations**:
-1. **Foundation First**: Core interfaces and data models before dependent components
-2. **Bottom-Up Approach**: Lower-level utilities before higher-level features
-3. **Test-Driven Sequence**: Tests alongside or before implementation
-4. **Integration Points**: Plan for connecting components as they're built
+**依赖考虑**：
+1. **基础优先**：依赖组件之前的核心接口和数据模型
+2. **自下而上方法**：高级功能之前的底层实用程序
+3. **测试驱动顺序**：与实施并行或之前的测试
+4. **集成点**：规划组件构建时的连接
 
-**Sequencing Strategies**:
-- **Core-First**: Build essential functionality before optional features
-- **Risk-First**: Tackle uncertain or complex tasks early
-- **Value-First**: Implement high-value features that can be tested quickly
-- **Dependency-Driven**: Respect technical dependencies between components
+**排序策略**：
+- **核心优先**：在可选功能之前构建基本功能
+- **风险优先**：尽早处理不确定或复杂的任务
+- **价值优先**：实施可以快速测试的高价值功能
+- **依赖驱动**：尊重组件之间的技术依赖
 
-### Step 5: Task Validation and Refinement
+### 第五步：任务验证和完善
 
-**Task Quality Criteria**:
-1. **Actionable**: Can be executed by a coding agent without additional clarification
-2. **Specific**: Clear about what files, functions, or components to create
-3. **Testable**: Results in code that can be tested and validated
-4. **Incremental**: Builds on previous tasks without big complexity jumps
-5. **Complete**: Covers all aspects of the design that require implementation
+**任务质量标准**：
+1. **可操作**：无需额外澄清即可由编码代理执行
+2. **具体**：清楚要创建哪些文件、函数或组件
+3. **可测试**：产生可测试和验证的代码
+4. **增量**：基于之前的任务构建，没有大的复杂性跳跃
+5. **完整**：涵盖设计中需要实施的所有方面
 
-**Validation Questions**:
-- Can a developer start coding immediately from this task description?
-- Does this task produce working, testable code?
-- Are the requirements being implemented clearly identified?
-- Does this task build logically on previous tasks?
-- Is the scope appropriate (not too big, not too small)?
+**验证问题**：
+- 开发者能否从此任务描述立即开始编码？
+- 此任务是否产生工作的、可测试的代码？
+- 正在实施的需求是否已清晰识别？
+- 此任务是否逻辑地建立在之前任务之上？
+- 范围是否适当（不要太大，也不要太小）？
 
-## Task Categories and Patterns
+## 任务类别和模式
 
-### Foundation Tasks
-**Purpose**: Establish core structure and interfaces
-**Examples**:
-- Set up project structure and dependencies
-- Create core data model interfaces
-- Implement base classes and utilities
-- Set up testing framework and configuration
+### 基础任务
+**目的**：建立核心结构和接口
+**示例**：
+- 设置项目结构和依赖
+- 创建核心数据模型接口
+- 实施基类和实用程序
+- 设置测试框架和配置
 
-**Pattern**:
+**模式**：
 ```markdown
-- [ ] 1. Set up project foundation
-- [ ] 1.1 Create project structure and core interfaces
-  - Set up directory structure for models, services, and utilities
-  - Define TypeScript interfaces for core data types
-  - Create base configuration files
+- [ ] 1. 设置项目基础
+- [ ] 1.1 创建项目结构和核心接口
+  - 为模型、服务和实用程序设置目录结构
+  - 为核心数据类型定义 TypeScript 接口
+  - 创建基本配置文件
   - _Requirements: 1.1, 2.1_
 ```
 
-### Data Layer Tasks
-**Purpose**: Implement data models and persistence
-**Examples**:
-- Create data model classes with validation
-- Implement repository pattern for data access
-- Set up database connections and migrations
-- Write data access layer tests
+### 数据层任务
+**目的**：实施数据模型和持久化
+**示例**：
+- 创建带验证的数据模型类
+- 实施数据访问的存储库模式
+- 设置数据库连接和迁移
+- 编写数据访问层测试
 
-**Pattern**:
+**模式**：
 ```markdown
-- [ ] 2. Implement data layer
-- [ ] 2.1 Create core data models with validation
-  - Implement User, Document, and Settings model classes
-  - Add validation methods for data integrity
-  - Write unit tests for model validation
+- [ ] 2. 实施数据层
+- [ ] 2.1 创建带验证的核心数据模型
+  - 实施 User, Document, 和 Settings 模型类
+  - 为数据完整性添加验证方法
+  - 编写模型验证的单元测试
   - _Requirements: 2.1, 3.3_
 ```
 
-### Business Logic Tasks
-**Purpose**: Implement core feature functionality
-**Examples**:
-- Create service classes for business operations
-- Implement workflow and process logic
-- Add business rule validation
-- Write integration tests for business logic
+### 业务逻辑任务
+**目的**：实施核心功能逻辑
+**示例**：
+- 为业务操作创建服务类
+- 实施工作流和处理逻辑
+- 添加业务规则验证
+- 编写业务逻辑集成测试
 
-**Pattern**:
+**模式**：
 ```markdown
-- [ ] 3. Implement business logic
-- [ ] 3.1 Create authentication service
-  - Implement user registration and login logic
-  - Add password hashing and validation
-  - Create session management functionality
-  - Write tests for authentication flows
+- [ ] 3. 实施业务逻辑
+- [ ] 3.1 创建认证服务
+  - 实施用户注册和登录逻辑
+  - 添加密码哈希和验证
+  - 创建会话管理功能
+  - 编写认证流程测试
   - _Requirements: 1.2, 4.1_
 ```
 
-### API/Interface Tasks
-**Purpose**: Create external interfaces and endpoints
-**Examples**:
-- Implement REST API endpoints
-- Create request/response handling
-- Add input validation and error handling
-- Write API integration tests
+### API/接口任务
+**目的**：创建外部接口和端点
+**示例**：
+- 实施 REST API 端点
+- 创建请求/响应处理
+- 添加输入验证和错误处理
+- 编写 API 集成测试
 
-**Pattern**:
+**模式**：
 ```markdown
-- [ ] 4. Implement API layer
-- [ ] 4.1 Create user management endpoints
-  - Implement POST /users for registration
-  - Implement POST /auth/login for authentication
-  - Add request validation and error responses
-  - Write API endpoint tests
+- [ ] 4. 实施 API 层
+- [ ] 4.1 创建用户管理端点
+  - 实施 POST /users 用于注册
+  - 实施 POST /auth/login 用于认证
+  - 添加请求验证和错误响应
+  - 编写 API 端点测试
   - _Requirements: 1.2, 2.3_
 ```
 
-### Integration Tasks
-**Purpose**: Connect components and external systems
-**Examples**:
-- Wire up dependency injection
-- Implement external API integrations
-- Connect frontend to backend services
-- Add end-to-end integration tests
+### 集成任务
+**目的**：连接组件和外部系统
+**示例**：
+- 连接依赖注入
+- 实施外部 API 集成
+- 连接前端到后端服务
+- 添加端到端集成测试
 
-**Pattern**:
+**模式**：
 ```markdown
-- [ ] 5. Integration and wiring
-- [ ] 5.1 Connect authentication to user management
-  - Wire authentication service to user endpoints
-  - Implement middleware for protected routes
-  - Add integration tests for complete auth flow
+- [ ] 5. 集成和连接
+- [ ] 5.1 连接认证到用户管理
+  - 将认证服务连接到用户端点
+  - 为受保护路由实施中间件
+  - 为完整 auth 流程添加集成测试
   - _Requirements: 1.2, 4.1_
 ```
 
-## Task Sequencing Strategies
+## 任务排序策略
 
-### Strategy 1: Foundation-First Approach
-**Best for**: New projects, complex systems with many interdependencies
-**Sequence**:
+### 策略 1：基础优先方法
+**最适合**：新项目，具有许多相互依赖的复杂系统
+**顺序**：
 ```markdown
-1. Project setup and core interfaces
-2. Data models and validation
-3. Data access layer
-4. Business logic services
-5. API endpoints
-6. Integration and wiring
+1. 项目设置和核心接口
+2. 数据模型和验证
+3. 数据访问层
+4. 业务逻辑服务
+5. API 端点
+6. 集成和连接
 ```
 
-**Advantages**:
-- Establishes solid foundation before building features
-- Reduces rework from architectural changes
-- Clear dependency chain
+**优势**：
+- 在构建功能之前建立坚实基础
+- 减少架构更改带来的返工
+- 清晰的依赖链
 
-**Disadvantages**:
-- Longer time before visible functionality
-- Risk of over-engineering foundation
+**劣势**：
+- 可见功能前的时间较长
+- 过度工程基础的风险
 
-### Strategy 2: Feature-Slice Approach
-**Best for**: MVP development, user-facing applications, agile development
-**Sequence**:
+### 策略 2：功能切片方法
+**最适合**：MVP 开发，面向用户的应用，敏捷开发
+**顺序**：
 ```markdown
-1. Core user registration (end-to-end)
-2. User authentication (end-to-end)
-3. User profile management (end-to-end)
-4. Advanced features and optimizations
+1. 核心用户注册（端到端）
+2. 用户认证（端到端）
+3. 用户资料管理（端到端）
+4. 高级功能和优化
 ```
 
-**Advantages**:
-- Early user value delivery
-- Faster feedback cycles
-- Reduced integration risk
+**优势**：
+- 早期用户价值交付
+- 更快的反馈周期
+- 降低集成风险
 
-**Disadvantages**:
-- May require refactoring as features expand
-- Potential for technical debt
+**劣势**：
+- 随着功能扩展可能需要重构
+- 技术债务的潜力
 
-### Strategy 3: Risk-First Approach
-**Best for**: Projects with high technical uncertainty, proof-of-concepts
-**Sequence**:
+### 策略 3：风险优先方法
+**最适合**：具有高技术不确定性的项目，概念验证
+**顺序**：
 ```markdown
-1. Most uncertain/complex components
-2. External integrations and dependencies
-3. Core business logic
-4. User interface and experience
-5. Polish and optimization
+1. 最不确定/复杂的组件
+2. 外部集成和依赖
+3. 核心业务逻辑
+4. 用户界面和体验
+5. 润色和优化
 ```
 
-**Advantages**:
-- Early validation of technical feasibility
-- Reduces project risk
-- Informs architectural decisions
+**优势**：
+- 早期验证技术可行性
+- 降低项目风险
+- 告知架构决策
 
-**Disadvantages**:
-- May not deliver user value early
-- Requires strong technical expertise
+**劣势**：
+- 可能不会早期交付用户价值
+- 需要强大的技术专长
 
-### Strategy 4: Hybrid Approach
-**Best for**: Most real-world projects
-**Sequence**:
+### 策略 4：混合方法
+**最适合**：大多数现实世界项目
+**顺序**：
 ```markdown
-1. Minimal foundation (core interfaces, basic setup)
-2. High-risk/high-value feature slice
-3. Expand foundation as needed
-4. Additional feature slices
-5. Integration and polish
+1. 最小基础（核心接口，基本设置）
+2. 高风险/高价值功能切片
+3. 按需扩展基础
+4. 额外功能切片
+5. 集成和润色
 ```
 
-**Advantages**:
-- Balances risk management with early value
-- Flexible and adaptable
-- Pragmatic approach
+**优势**：
+- 平衡风险管理与早期价值
+- 灵活且适应性强
+- 务实的方法
 
-## Advanced Dependency Management Strategies
+## 高级依赖管理策略
 
-### Dependency Types and Management
+### 依赖类型和管理
 
-#### 1. Technical Dependencies
-**Definition**: Code components that must exist before others can be built
+#### 1. 技术依赖
+**定义**：在构建其他组件之前必须存在的代码组件
 
-**Examples**:
-- Database models before services that use them
-- Authentication middleware before protected endpoints
-- Configuration setup before feature implementation
+**示例**：
+- 使用它们的服务的数据库模型
+- 受保护端点的认证中间件
+- 功能实施前的配置设置
 
-**Management Strategy**:
+**管理策略**：
 ```markdown
-- [ ] 1. Core infrastructure setup
-- [ ] 1.1 Create database connection and configuration
-- [ ] 1.2 Set up authentication middleware framework
-- [ ] 1.3 Create base error handling utilities
+- [ ] 1. 核心基础设施设置
+- [ ] 1.1 创建数据库连接和配置
+- [ ] 1.2 设置认证中间件框架
+- [ ] 1.3 创建基础错误处理实用程序
 
-- [ ] 2. Foundation models (depends on 1.1)
-- [ ] 2.1 Create User model with database integration
-- [ ] 2.2 Create Session model with database integration
+- [ ] 2. 基础模型（依赖于 1.1）
+- [ ] 2.1 创建带数据库集成的 User 模型
+- [ ] 2.2 创建带数据库集成的 Session 模型
 
-- [ ] 3. Authentication services (depends on 1.2, 2.1, 2.2)
-- [ ] 3.1 Implement login service using User and Session models
+- [ ] 3. 认证服务（依赖于 1.2, 2.1, 2.2）
+- [ ] 3.1 使用 User 和 Session 模型实施登录服务
 ```
 
-#### 2. Logical Dependencies
-**Definition**: Features that build conceptually on others
+#### 2. 逻辑依赖
+**定义**：概念上建立在其他功能之上的功能
 
-**Examples**:
-- User profile editing requires user registration
-- Password reset requires user authentication
-- Advanced search requires basic search
+**示例**：
+- 用户资料编辑需要用户注册
+- 密码重置需要用户认证
+- 高级搜索需要基本搜索
 
-**Management Strategy**:
+**管理策略**：
 ```markdown
-- [ ] 1. Basic user management
-- [ ] 1.1 User registration functionality
-- [ ] 1.2 User login functionality
+- [ ] 1. 基本用户管理
+- [ ] 1.1 用户注册功能
+- [ ] 1.2 用户登录功能
 
-- [ ] 2. Extended user features (depends on 1.1, 1.2)
-- [ ] 2.1 User profile editing (requires existing users)
-- [ ] 2.2 Password reset (requires authentication system)
+- [ ] 2. 扩展用户功能（依赖于 1.1, 1.2）
+- [ ] 2.1 用户资料编辑（需要现有用户）
+- [ ] 2.2 密码重置（需要认证系统）
 ```
 
-#### 3. Data Dependencies
-**Definition**: Tasks that require specific data or state to exist
+#### 3. 数据依赖
+**定义**：需要特定数据或状态存在的任务
 
-**Examples**:
-- User dashboard requires user data
-- Reporting features require transaction data
-- Admin features require user roles
+**示例**：
+- 用户仪表板需要用户数据
+- 报告功能需要交易数据
+- 管理员功能需要用户角色
 
-**Management Strategy**:
+**管理策略**：
 ```markdown
-- [ ] 1. Data foundation
-- [ ] 1.1 Create user registration and sample data
-- [ ] 1.2 Create transaction recording system
+- [ ] 1. 数据基础
+- [ ] 1.1 创建用户注册和示例数据
+- [ ] 1.2 创建交易记录系统
 
-- [ ] 2. Data-dependent features (depends on 1.1, 1.2)
-- [ ] 2.1 User dashboard (requires user data from 1.1)
-- [ ] 2.2 Transaction reporting (requires transaction data from 1.2)
+- [ ] 2. 数据依赖功能（依赖于 1.1, 1.2）
+- [ ] 2.1 用户仪表板（需要来自 1.1 的用户数据）
+- [ ] 2.2 交易报告（需要来自 1.2 的交易数据）
 ```
 
-### Dependency Visualization Techniques
+### 依赖可视化技术
 
-#### Simple Dependency Chain
+#### 简单依赖链
 ```
-Task A → Task B → Task C → Task D
-```
-
-#### Parallel Dependencies
-```
-Task A → Task C
-Task B → Task C
+任务 A → 任务 B → 任务 C → 任务 D
 ```
 
-#### Complex Dependency Graph
+#### 并行依赖
 ```
-Task A → Task C → Task E
-Task B → Task D → Task E
-Task A → Task D
-```
-
-### Handling Circular Dependencies
-
-**Problem**: When tasks seem to depend on each other
-```
-User Service needs Auth Service
-Auth Service needs User Service
+任务 A → 任务 C
+任务 B → 任务 C
 ```
 
-**Solutions**:
+#### 复杂依赖图
+```
+任务 A → 任务 C → 任务 E
+任务 B → 任务 D → 任务 E
+任务 A → 任务 D
+```
 
-1. **Interface Extraction**:
+### 处理循环依赖
+
+**问题**：当任务似乎相互依赖时
+```
+用户服务需要认证服务
+认证服务需要用户服务
+```
+
+**解决方案**：
+
+1. **接口提取**：
 ```markdown
-- [ ] 1.1 Create IUserService and IAuthService interfaces
-- [ ] 1.2 Implement UserService using IAuthService interface
-- [ ] 1.3 Implement AuthService using IUserService interface
-- [ ] 1.4 Wire up dependency injection
+- [ ] 1.1 创建 IUserService 和 IAuthService 接口
+- [ ] 1.2 使用 IAuthService 接口实施 UserService
+- [ ] 1.3 使用 IUserService 接口实施 AuthService
+- [ ] 1.4 连接依赖注入
 ```
 
-2. **Layered Approach**:
+2. **分层方法**：
 ```markdown
-- [ ] 1.1 Create User data model and basic CRUD
-- [ ] 1.2 Create Auth service using User CRUD
-- [ ] 1.3 Enhance User service with Auth integration
+- [ ] 1.1 创建用户数据模型和基本 CRUD
+- [ ] 1.2 使用用户 CRUD 创建认证服务
+- [ ] 1.3 通过认证集成增强用户服务
 ```
 
-3. **Event-Driven Decoupling**:
+3. **事件驱动解耦**：
 ```markdown
-- [ ] 1.1 Create event system for user/auth communication
-- [ ] 1.2 Implement User service with event publishing
-- [ ] 1.3 Implement Auth service with event listening
+- [ ] 1.1 为用户/认证通信创建事件系统
+- [ ] 1.2 用事件发布实施用户服务
+- [ ] 1.3 用事件监听实施认证服务
 ```
 
-## Examples of Well-Structured Implementation Plans
+## 结构良好的实施计划示例
 
-### Example 1: User Authentication System
+### 示例 1：用户认证系统
 
 ```markdown
-# Implementation Plan
+# 实施计划
 
-- [ ] 1. Set up authentication foundation
-- [ ] 1.1 Create project structure and core interfaces
-  - Set up directory structure for auth, models, and API components
-  - Define TypeScript interfaces for User, Session, and AuthRequest types
-  - Create base configuration for environment variables
+- [ ] 1. 设置认证基础
+- [ ] 1.1 创建项目结构和核心接口
+  - 设置 auth、models 和 API 组件的目录结构
+  - 为 User, Session 和 AuthRequest 类型定义 TypeScript 接口
+  - 为环境变量创建基本配置
   - _Requirements: 1.1_
 
-- [ ] 1.2 Set up testing framework and database
-  - Configure Jest for unit and integration testing
-  - Set up test database with Docker configuration
-  - Create database migration scripts for user tables
+- [ ] 1.2 设置测试框架和数据库
+  - 为单元和集成测试配置 Jest
+  - 使用 Docker 配置设置测试数据库
+  - 为用户表创建数据库迁移脚本
   - _Requirements: 1.1, 2.1_
 
-- [ ] 2. Implement core data models
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, and profile fields
-  - Add validation methods for email format and password strength
-  - Write unit tests for User model validation
+- [ ] 2. 实施核心数据模型
+- [ ] 2.1 创建带验证的 User 模型
+  - 实施带 email、password 和 profile 字段的 User 类
+  - 为电子邮件格式和密码强度添加验证方法
+  - 编写 User 模型验证的单元测试
   - _Requirements: 1.2, 2.1_
 
-- [ ] 2.2 Implement Session model and management
-  - Create Session class for tracking user sessions
-  - Implement session creation, validation, and expiration logic
-  - Write unit tests for session management
+- [ ] 2.2 实施 Session 模型和管理
+  - 创建 Session 类用于跟踪用户会话
+  - 实施会话创建、验证和过期逻辑
+  - 编写会话管理的单元测试
   - _Requirements: 1.2, 4.1_
 
-- [ ] 3. Create authentication services
-- [ ] 3.1 Implement user registration service
-  - Create UserService with registration method
-  - Add password hashing using bcrypt
-  - Implement duplicate email checking
-  - Write unit tests for registration logic
+- [ ] 3. 创建认证服务
+- [ ] 3.1 实施用户注册服务
+  - 创建带注册方法的 UserService
+  - 使用 bcrypt 添加密码哈希
+  - 实施重复电子邮件检查
+  - 编写注册逻辑的单元测试
   - _Requirements: 1.2_
 
-- [ ] 3.2 Implement login and session service
-  - Add login method with password verification
-  - Implement JWT token generation and validation
-  - Create session management with refresh tokens
-  - Write unit tests for login and session logic
+- [ ] 3.2 实施登录和会话服务
+  - 添加带密码验证的登录方法
+  - 实施 JWT 令牌生成和验证
+  - 创建带刷新令牌的会话管理
+  - 编写登录和会话逻辑的单元测试
   - _Requirements: 1.2, 4.1_
 
-- [ ] 4. Create API endpoints
-- [ ] 4.1 Implement registration endpoint
-  - Create POST /auth/register endpoint
-  - Add request validation and error handling
-  - Implement proper HTTP status codes and responses
-  - Write integration tests for registration API
+- [ ] 4. 创建 API 端点
+- [ ] 4.1 实施注册端点
+  - 创建 POST /auth/register 端点
+  - 添加请求验证和错误处理
+  - 实施适当的 HTTP 状态代码和响应
+  - 编写注册 API 的集成测试
   - _Requirements: 1.2, 2.3_
 
-- [ ] 4.2 Implement login endpoint
-  - Create POST /auth/login endpoint
-  - Add authentication middleware for protected routes
-  - Implement logout functionality
-  - Write integration tests for login/logout API
+- [ ] 4.2 实施登录端点
+  - 创建 POST /auth/login 端点
+  - 为受保护路由添加认证中间件
+  - 实施注销功能
+  - 编写登录/注销 API 的集成测试
   - _Requirements: 1.2, 4.1_
 
-- [ ] 5. Integration and security hardening
-- [ ] 5.1 Add security middleware and rate limiting
-  - Implement rate limiting for auth endpoints
-  - Add CORS configuration and security headers
-  - Create middleware for JWT token validation
-  - Write security-focused integration tests
+- [ ] 5. 集成和安全加固
+- [ ] 5.1 添加安全中间件和速率限制
+  - 为 auth 端点实施速率限制
+  - 添加 CORS 配置和安全标头
+  - 创建用于 JWT 令牌验证的中间件
+  - 编写以安全为重点的集成测试
   - _Requirements: 4.1, 2.3_
 
-- [ ] 5.2 End-to-end integration testing
-  - Create complete user registration and login flow tests
-  - Test error scenarios and edge cases
-  - Validate security measures and token handling
+- [ ] 5.2 端到端集成测试
+  - 创建完整的用户注册和登录流程测试
+  - 测试错误场景和边缘情况
+  - 验证安全措施和令牌处理
   - _Requirements: 1.2, 4.1_
 ```
 
-### Example 2: Data Processing Pipeline
+### 示例 2：数据处理管道
 
 ```markdown
-# Implementation Plan
+# 实施计划
 
-- [ ] 1. Set up data processing foundation
-- [ ] 1.1 Create core data processing interfaces
-  - Define interfaces for DataProcessor, Validator, and Transformer
-  - Set up configuration for data sources and destinations
-  - Create error handling and logging utilities
+- [ ] 1. 设置数据处理基础
+- [ ] 1.1 创建核心数据处理接口
+  - 定义 DataProcessor, Validator 和 Transformer 接口
+  - 设置数据源和目的地的配置
+  - 创建错误处理和日志实用程序
   - _Requirements: 1.1, 3.1_
 
-- [ ] 2. Implement data validation layer
-- [ ] 2.1 Create data validation engine
-  - Implement configurable validation rules engine
-  - Add support for required fields, data types, and custom rules
-  - Create validation result reporting with detailed error messages
-  - Write unit tests for validation engine
+- [ ] 2. 实施数据验证层
+- [ ] 2.1 创建数据验证引擎
+  - 实施可配置的验证规则引擎
+  - 添加对必填字段、数据类型和自定义规则的支持
+  - 创建带有详细错误消息的验证结果报告
+  - 编写验证引擎的单元测试
   - _Requirements: 2.1, 3.2_
 
-- [ ] 3. Build data transformation pipeline
-- [ ] 3.1 Implement data transformation service
-  - Create transformation pipeline with configurable steps
-  - Add support for data mapping, filtering, and enrichment
-  - Implement error handling and partial failure recovery
-  - Write unit tests for transformation logic
+- [ ] 3. 构建数据转换管道
+- [ ] 3.1 实施数据转换服务
+  - 创建带可配置步骤的转换管道
+  - 添加对数据映射、过滤和丰富的支持
+  - 实施错误处理和部分失败恢复
+  - 编写转换逻辑的单元测试
   - _Requirements: 2.2, 3.1_
 
-- [ ] 4. Create data processing orchestrator
-- [ ] 4.1 Implement processing workflow engine
-  - Create orchestrator that coordinates validation and transformation
-  - Add support for batch and streaming processing modes
-  - Implement progress tracking and status reporting
-  - Write integration tests for complete processing workflows
+- [ ] 4. 创建数据处理协调器
+- [ ] 4.1 实施处理工作流引擎
+  - 创建协调验证和转换的协调器
+  - 添加对批处理和流处理模式的支持
+  - 实施进度跟踪和状态报告
+  - 编写完整处理工作流的集成测试
   - _Requirements: 1.1, 2.1, 2.2_
 ```
 
-### Example 3: E-commerce Product Management System
+### 示例 3：电子商务产品管理系统
 
-This example demonstrates complex dependency management and multiple sequencing strategies:
+此示例展示了复杂的依赖管理和多种排序策略：
 
 ```markdown
-# Implementation Plan
+# 实施计划
 
-- [ ] 1. Foundation and core infrastructure
-- [ ] 1.1 Set up project structure and core interfaces
-  - Create directory structure for models, services, repositories, and API layers
-  - Define TypeScript interfaces for Product, Category, Inventory, and Order types
-  - Set up configuration management for database, caching, and external services
-  - Configure testing framework with unit, integration, and e2e test support
+- [ ] 1. 基础和核心基础设施
+- [ ] 1.1 设置项目结构和核心接口
+  - 创建模型、服务、存储库和 API 层的目录结构
+  - 定义 Product, Category, Inventory 和 Order 类型的 TypeScript 接口
+  - 设置数据库、缓存和外部服务的配置管理
+  - 配置支持单元、集成和 e2e 测试的测试框架
   - _Requirements: 1.1, 1.2_
 
-- [ ] 1.2 Create database schema and migrations
-  - Design and implement database schema for products, categories, and inventory
-  - Create migration scripts for initial table creation
-  - Set up database connection pooling and transaction management
-  - Write database utility functions for common operations
+- [ ] 1.2 创建数据库模式和迁移
+  - 设计并实施产品、类别和库存的数据库模式
+  - 创建初始表创建的迁移脚本
+  - 设置数据库连接池和事务管理
+  - 编写常见操作的数据库实用函数
   - _Requirements: 2.1, 2.2_
 
-- [ ] 2. Core data models and validation (depends on 1.1, 1.2)
-- [ ] 2.1 Implement Product model with comprehensive validation
-  - Create Product class with name, description, price, SKU, and metadata fields
-  - Add validation for required fields, price ranges, and SKU uniqueness
-  - Implement product categorization and tagging functionality
-  - Write comprehensive unit tests for all validation scenarios
+- [ ] 2. 核心数据模型和验证（依赖于 1.1, 1.2）
+- [ ] 2.1 实施带全面验证的 Product 模型
+  - 创建带 name, description, price, SKU 和 metadata 字段的 Product 类
+  - 添加必填字段、价格范围和 SKU 唯一性的验证
+  - 实施产品分类和标记功能
+  - 编写涵盖所有验证场景的全面单元测试
   - _Requirements: 2.1, 2.3, 3.1_
 
-- [ ] 2.2 Implement Category model with hierarchical structure
-  - Create Category class supporting parent-child relationships
-  - Add validation for category hierarchy depth and circular references
-  - Implement category path generation and breadcrumb functionality
-  - Write unit tests for hierarchy operations and edge cases
+- [ ] 2.2 实施带层级结构的 Category 模型
+  - 创建支持父子关系的 Category 类
+  - 添加类别层级深度和循环引用的验证
+  - 实施类别路径生成和面包屑功能
+  - 编写层级操作和边缘情况的单元测试
   - _Requirements: 2.1, 3.2_
 
-- [ ] 2.3 Create Inventory model with stock tracking
-  - Implement Inventory class with stock levels, reservations, and thresholds
-  - Add validation for stock operations and negative inventory prevention
-  - Create inventory adjustment logging and audit trail functionality
-  - Write unit tests for stock operations and concurrent access scenarios
+- [ ] 2.3 实施带库存跟踪的 Inventory 模型
+  - 实施带库存水平、预订和阈值的 Inventory 类
+  - 添加库存操作和负库存防止的验证
+  - 创建库存调整日志和审计跟踪功能
+  - 编写库存操作和并发访问场景的单元测试
   - _Requirements: 2.2, 4.1_
 
-- [ ] 3. Repository layer for data access (depends on 2.1, 2.2, 2.3)
-- [ ] 3.1 Implement Product repository with advanced querying
-  - Create ProductRepository with CRUD operations and complex queries
-  - Add support for filtering by category, price range, and availability
-  - Implement full-text search functionality for product names and descriptions
-  - Write integration tests for all repository operations
+- [ ] 3. 数据访问的存储库层（依赖于 2.1, 2.2, 2.3）
+- [ ] 3.1 实施带高级查询的 Product 存储库
+  - 创建带 CRUD 操作和复杂查询的 ProductRepository
+  - 添加按类别、价格范围和可用性过滤的支持
+  - 实施产品名称和描述的全文搜索功能
+  - 编写所有存储库操作的集成测试
   - _Requirements: 3.1, 3.3_
 
-- [ ] 3.2 Implement Category repository with hierarchy operations
-  - Create CategoryRepository with tree traversal and manipulation methods
-  - Add support for finding all descendants, ancestors, and siblings
-  - Implement category reordering and hierarchy restructuring
-  - Write integration tests for hierarchy operations
+- [ ] 3.2 实施带层级操作的 Category 存储库
+  - 创建带树遍历和操作方法的 CategoryRepository
+  - 添加查找所有后代、祖先和兄弟的支持
+  - 实施类别重新排序和层级重组
+  - 编写层级操作的集成测试
   - _Requirements: 3.2_
 
-- [ ] 3.3 Create Inventory repository with concurrency handling
-  - Implement InventoryRepository with atomic stock operations
-  - Add support for bulk inventory updates and reservations
-  - Create inventory history tracking and reporting queries
-  - Write integration tests including concurrent access scenarios
+- [ ] 3.3 实施带并发处理的 Inventory 存储库
+  - 实施带原子库存操作的 InventoryRepository
+  - 添加对批量库存更新和预订的支持
+  - 创建库存历史跟踪和报告查询
+  - 编写包含并发访问场景的集成测试
   - _Requirements: 4.1, 4.2_
 
-- [ ] 4. Business logic services (depends on 3.1, 3.2, 3.3)
-- [ ] 4.1 Implement Product management service
-  - Create ProductService with business logic for product lifecycle
-  - Add support for product creation, updates, and soft deletion
-  - Implement product approval workflow and status management
-  - Write unit tests for all business logic scenarios
+- [ ] 4. 业务逻辑服务（依赖于 3.1, 3.2, 3.3）
+- [ ] 4.1 实施 Product 管理服务
+  - 创建带产品生命周期业务逻辑的 ProductService
+  - 添加对产品创建、更新和软删除的支持
+  - 实施产品审批工作流和状态管理
+  - 编写所有业务逻辑场景的单元测试
   - _Requirements: 2.1, 2.3, 5.1_
 
-- [ ] 4.2 Create Inventory management service
-  - Implement InventoryService with stock allocation and reservation logic
-  - Add support for automatic reorder point notifications
-  - Create inventory adjustment workflows with approval processes
-  - Write unit tests for inventory business rules
+- [ ] 4.2 创建 Inventory 管理服务
+  - 实施带库存分配和预订逻辑的 InventoryService
+  - 添加对自动再订货点通知的支持
+  - 创建带审批流程的库存调整工作流
+  - 编写库存业务规则的单元测试
   - _Requirements: 4.1, 4.2, 5.2_
 
-- [ ] 4.3 Implement Category management service
-  - Create CategoryService with category hierarchy management
-  - Add support for category merging, splitting, and reorganization
-  - Implement category-based product assignment and bulk operations
-  - Write unit tests for category management workflows
+- [ ] 4.3 实施 Category 管理服务
+  - 创建带类别层级管理的 CategoryService
+  - 添加对类别合并、拆分和重组的支持
+  - 实施基于类别的产品分配和批量操作
+  - 编写类别管理工作流的单元测试
   - _Requirements: 3.2, 5.1_
 
-- [ ] 5. API layer and external interfaces (depends on 4.1, 4.2, 4.3)
-- [ ] 5.1 Create Product API endpoints
-  - Implement REST endpoints for product CRUD operations
-  - Add support for product search, filtering, and pagination
-  - Create product image upload and management endpoints
-  - Write API integration tests and documentation
+- [ ] 5. API 层和外部接口（依赖于 4.1, 4.2, 4.3）
+- [ ] 5.1 创建 Product API 端点
+  - 实施产品 CRUD 操作的 REST 端点
+  - 添加对产品搜索、过滤和分页的支持
+  - 创建产品图像上传和管理端点
+  - 编写 API 集成测试和文档
   - _Requirements: 6.1, 6.2_
 
-- [ ] 5.2 Implement Inventory API endpoints
-  - Create REST endpoints for inventory queries and updates
-  - Add support for stock reservation and release operations
-  - Implement inventory reporting and analytics endpoints
-  - Write API integration tests with proper error handling
+- [ ] 5.2 实施 Inventory API 端点
+  - 创建库存查询和更新的 REST 端点
+  - 添加对库存预订和释放操作的支持
+  - 实施库存报告和分析端点
+  - 编写带适当错误处理的 API 集成测试
   - _Requirements: 6.1, 4.2_
 
-- [ ] 5.3 Create Category API endpoints
-  - Implement REST endpoints for category management
-  - Add support for category tree retrieval and manipulation
-  - Create category-based product listing endpoints
-  - Write API integration tests for hierarchy operations
+- [ ] 5.3 创建 Category API 端点
+  - 实施类别管理的 REST 端点
+  - 添加对类别树检索和操作的支持
+  - 创建基于类别的产品列表端点
+  - 编写层级操作的 API 集成测试
   - _Requirements: 6.1, 3.2_
 
-- [ ] 6. Advanced features and integrations (depends on 5.1, 5.2, 5.3)
-- [ ] 6.1 Implement product search and recommendation engine
-  - Create search service with Elasticsearch integration
-  - Add support for faceted search, auto-complete, and typo tolerance
-  - Implement basic recommendation algorithms based on categories and popularity
-  - Write integration tests for search functionality
+- [ ] 6. 高级功能和集成（依赖于 5.1, 5.2, 5.3）
+- [ ] 6.1 实施产品搜索和推荐引擎
+  - 创建带 Elasticsearch 集成的搜索服务
+  - 添加对分面搜索、自动完成和拼写错误容忍的支持
+  - 实施基于类别和流行度的基本推荐算法
+  - 编写搜索功能的集成测试
   - _Requirements: 3.3, 7.1_
 
-- [ ] 6.2 Create inventory synchronization with external systems
-  - Implement service for syncing inventory with warehouse management systems
-  - Add support for real-time inventory updates via webhooks
-  - Create conflict resolution for inventory discrepancies
-  - Write integration tests with mock external systems
+- [ ] 6.2 创建与外部系统的库存同步
+  - 实施与仓库管理系统同步库存的服务
+  - 添加通过 webhook 支持实时库存更新
+  - 创建库存差异的冲突解决
+  - 编写带模拟外部系统的集成测试
   - _Requirements: 4.3, 7.2_
 
-- [ ] 6.3 Implement caching layer for performance optimization
-  - Add Redis caching for frequently accessed product and category data
-  - Implement cache invalidation strategies for data consistency
-  - Create cache warming processes for popular products
-  - Write performance tests to validate caching effectiveness
+- [ ] 6.3 实施性能优化的缓存层
+  - 为频繁访问的产品和类别数据添加 Redis 缓存
+  - 实施数据一致性的缓存失效策略
+  - 为流行产品创建缓存预热流程
+  - 编写性能测试以验证缓存有效性
   - _Requirements: 8.1, 8.2_
 
-- [ ] 7. End-to-end integration and testing (depends on 6.1, 6.2, 6.3)
-- [ ] 7.1 Create comprehensive end-to-end test scenarios
-  - Write e2e tests for complete product lifecycle workflows
-  - Test inventory management scenarios including edge cases
-  - Validate category management and product assignment flows
-  - Create performance tests for high-load scenarios
+- [ ] 7. 端到端集成和测试（依赖于 6.1, 6.2, 6.3）
+- [ ] 7.1 创建全面的端到端测试场景
+  - 编写完整产品生命周期工作流的 e2e 测试
+  - 测试包括边缘情况的库存管理场景
+  - 验证类别管理和产品分配流程
+  - 创建高负载场景的性能测试
   - _Requirements: 5.1, 5.2, 6.1, 6.2_
 
-- [ ] 7.2 Implement monitoring and observability
-  - Add application metrics and health check endpoints
-  - Implement structured logging for all business operations
-  - Create alerting for critical inventory and system events
-  - Write tests for monitoring and alerting functionality
+- [ ] 7.2 实施监控和可观测性
+  - 添加应用程序指标和健康检查端点
+  - 为所有业务操作实施结构化日志记录
+  - 为关键库存和系统事件创建警报
+  - 编写监控和警报功能的测试
   - _Requirements: 8.3, 8.4_
 ```
 
-**Key Features of This Example**:
+**此示例的关键特征**：
 
-1. **Clear Dependency Chain**: Each major section builds on previous work
-2. **Parallel Development Opportunities**: Tasks 2.1, 2.2, 2.3 can be worked on simultaneously after 1.x is complete
-3. **Risk Management**: Core functionality (models, repositories) before advanced features
-4. **Incremental Value**: Each completed section provides working, testable functionality
-5. **Comprehensive Testing**: Unit, integration, and e2e tests throughout
-6. **Real-world Complexity**: Handles concurrency, external integrations, and performance concerns
+1. **清晰的依赖链**：每个主要部分都建立在以前的工作之上
+2. **并行开发机会**：任务 2.1, 2.2, 2.3 可以在 1.x 完成后同时进行
+3. **风险管理**：核心功能（模型、存储库）先于高级功能
+4. **增量价值**：每个完成的部分都提供可工作的、可测试的功能
+5. **全面测试**：贯穿始终的单元、集成和 e2e 测试
+6. **现实世界复杂性**：处理并发、外部集成和性能问题
 
-## Task Writing Best Practices
+## 任务编写最佳实践
 
-### Writing Effective Task Descriptions
+### 编写有效的任务描述
 
-**Good Task Example**:
+**好的任务示例**：
 ```markdown
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, name, and createdAt fields
-  - Add validation methods for email format (RFC 5322) and password strength (8+ chars, mixed case, numbers)
-  - Create unit tests covering valid/invalid email formats and password requirements
+- [ ] 2.1 创建带验证的 User 模型
+  - 实施带 email, password, name 和 createdAt 字段的 User 类
+  - 为电子邮件格式 (RFC 5322) 和密码强度（8+ 字符，混合大小写，数字）添加验证方法
+  - 创建涵盖有效/无效电子邮件格式和密码要求的单元测试
   - _Requirements: 1.2, 2.1_
 ```
 
-**Poor Task Example**:
+**糟糕的任务示例**：
 ```markdown
-- [ ] 2.1 Build user stuff
-  - Make user things work
-  - Add some validation
+- [ ] 2.1 构建用户东西
+  - 让用户东西工作
+  - 添加一些验证
   - _Requirements: 1.2_
 ```
 
-### Task Scope Guidelines
+### 任务范围指南
 
-**Appropriate Task Scope**:
-- Can be completed in 1-4 hours of focused work
-- Produces working, testable code
-- Has clear completion criteria
-- Builds incrementally on previous tasks
+**适当的任务范围**：
+- 可以在 1-4 小时的专注工作中完成
+- 产生工作的、可测试的代码
+- 具有明确的完成标准
+- 增量地建立在以前的任务之上
 
-**Too Large**:
+**太大**：
 ```markdown
-- [ ] 1.1 Implement complete user management system
+- [ ] 1.1 实施完整的用户管理系统
 ```
 
-**Too Small**:
+**太小**：
 ```markdown
-- [ ] 1.1 Add semicolon to line 42
+- [ ] 1.1 在第 42 行添加分号
 ```
 
-**Just Right**:
+**刚刚好**：
 ```markdown
-- [ ] 1.1 Create User model with validation methods
+- [ ] 1.1 创建带验证方法的 User 模型
 ```
 
-### Requirements Traceability
+### 需求可追溯性
 
-**Always Include**:
-- Reference to specific requirements being implemented
-- Clear connection between task and user value
-- Traceability for testing and validation
+**始终包含**：
+- 引用正在实施的具体需求
+- 任务与用户价值之间的清晰联系
+- 测试和验证的可追溯性
 
-**Example**:
+**示例**：
 ```markdown
-- [ ] 3.2 Implement password reset functionality
-  - Create password reset request endpoint
-  - Add email sending for reset tokens
-  - Implement secure token validation
+- [ ] 3.2 实施密码重置功能
+  - 创建密码重置请求端点
+  - 添加重置令牌的电子邮件发送
+  - 实施安全令牌验证
   - _Requirements: 1.3, 4.2_
 ```
 
-## Common Task Planning Pitfalls
+## 常见任务规划陷阱
 
-### Pitfall 1: Tasks Too Abstract
-**Problem**: "Implement user management"
-**Solution**: "Create User model with email validation and password hashing"
+### 陷阱 1：任务太抽象
+**问题**："实施用户管理"
+**解决方案**："创建带电子邮件验证和密码哈希的 User 模型"
 
-### Pitfall 2: Missing Dependencies
-**Problem**: Tasks that can't be completed because prerequisites aren't built
-**Solution**: Sequence tasks so each builds on completed work
+### 陷阱 2：缺失依赖
+**问题**：由于未构建先决条件而无法完成的任务
+**解决方案**：排序任务以便每个任务建立在已完成工作之上
 
-### Pitfall 3: Non-Coding Tasks
-**Problem**: "Deploy to production", "Get user feedback"
-**Solution**: Focus only on coding, testing, and implementation activities
+### 陷阱 3：非编码任务
+**问题**："部署到生产环境"，"获取用户反馈"
+**解决方案**：仅专注于编码、测试和实施活动
 
-### Pitfall 4: Monolithic Tasks
-**Problem**: Tasks that try to implement entire features at once
-**Solution**: Break down into smaller, incremental steps
+### 陷阱 4：单体任务
+**问题**：试图一次实施整个功能的任务
+**解决方案**：分解为更小的增量步骤
 
-### Pitfall 5: Missing Test Tasks
-**Problem**: Only implementation tasks without corresponding tests
-**Solution**: Include test creation as part of each implementation task
+### 陷阱 5：缺失测试任务
+**问题**：只有实施任务而没有相应的测试
+**解决方案**：将测试创建作为每个实施任务的一部分
 
-## Quality Checklist
+## 质量检查清单
 
-Before finalizing the task list, verify:
+在最终确定任务列表之前，验证：
 
-**Completeness**:
-- [ ] All design components are covered by implementation tasks
-- [ ] All requirements are addressed by one or more tasks
-- [ ] Testing tasks are included for all major functionality
-- [ ] Integration tasks connect all components
+**完整性**：
+- [ ] 所有设计组件都被实施任务覆盖
+- [ ] 所有需求都被一个或多个任务解决
+- [ ] 包含所有主要功能的测试任务
+- [ ] 集成任务连接所有组件
 
-**Clarity**:
-- [ ] Each task has a clear, specific objective
-- [ ] Task descriptions specify what files/components to create
-- [ ] Requirements references are included for each task
-- [ ] Completion criteria are implicit or explicit
+**清晰度**：
+- [ ] 每个任务都有清晰、具体的目标
+- [ ] 任务描述指定要创建的文件/组件
+- [ ] 每个任务包含需求引用
+- [ ] 完成标准是隐式或显式的
 
-**Sequencing**:
-- [ ] Tasks are ordered to respect dependencies
-- [ ] Early tasks establish foundation for later work
-- [ ] Core functionality is implemented before optional features
-- [ ] Integration tasks come after component implementation
+**排序**：
+- [ ] 任务排序尊重依赖关系
+- [ ] 早期任务为后续工作建立基础
+- [ ] 核心功能在可选功能之前实施
+- [ ] 集成任务在组件实施之后
 
-**Feasibility**:
-- [ ] Each task is appropriately scoped for implementation
-- [ ] Tasks can be completed by a coding agent
-- [ ] No tasks require external dependencies or manual processes
-- [ ] Task complexity increases gradually
+**可行性**：
+- [ ] 每个任务的范围适合实施
+- [ ] 任务可以由编码代理完成
+- [ ] 没有任务需要外部依赖或手动流程
+- [ ] 任务复杂性逐渐增加
 
-## Troubleshooting Task Planning Issues
+## 任务规划问题故障排除
 
-### Issue: Tasks Are Too Vague
-**Symptoms**: Developers can't start coding from task descriptions
-**Solution**: Add more specific implementation details and file/component names
+### 问题：任务太模糊
+**症状**：开发者无法根据任务描述开始编码
+**解决方案**：添加更具体的实施细节和文件/组件名称
 
-### Issue: Task Dependencies Are Unclear
-**Symptoms**: Tasks can't be completed because prerequisites are missing
-**Solution**: Review task sequence and add missing foundation tasks
+### 问题：任务依赖不明确
+**症状**：由于缺少先决条件，任务无法完成
+**解决方案**：审查任务顺序并添加遗漏的基础任务
 
-### Issue: Tasks Don't Map to Requirements
-**Symptoms**: Difficulty tracing tasks back to user value
-**Solution**: Add requirement references and validate coverage
+### 问题：任务不映射到需求
+**症状**：难以将任务追溯回用户价值
+**解决方案**：添加需求引用并验证覆盖率
 
-### Issue: Task List Is Overwhelming
-**Symptoms**: Too many tasks, unclear priorities
-**Solution**: Group related tasks and focus on core functionality first
+### 问题：任务列表令人不知所措
+**症状**：任务太多，优先级不明确
+**解决方案**：将相关任务分组并首先专注于核心功能
 
-## Task Execution Guidance
+## 任务执行指导
 
-### Preparing for Implementation
+### 准备实施
 
-Before beginning task execution, ensure you have:
+在开始执行任务之前，确保你拥有：
 
-**Context Preparation**:
-- [ ] Requirements document accessible and understood
-- [ ] Design document reviewed and internalized
-- [ ] Development environment set up and tested
-- [ ] Testing framework configured and ready
-- [ ] Version control system initialized
+**上下文准备**：
+- [ ] 需求文档可访问并已理解
+- [ ] 设计文档已审查并内化
+- [ ] 开发环境已设置并测试
+- [ ] 测试框架已配置并准备就绪
+- [ ] 版本控制系统已初始化
 
-**Task Selection Strategy**:
-1. **Start with Foundation Tasks**: Always begin with setup and core interface tasks
-2. **Follow Dependencies**: Don't skip ahead to tasks that depend on incomplete work
-3. **One Task at a Time**: Focus completely on a single task before moving to the next
-4. **Validate Before Proceeding**: Ensure each task is fully complete and tested
+**任务选择策略**：
+1. **从基础任务开始**：始终从设置和核心接口任务开始
+2. **遵循依赖关系**：不要跳到依赖于未完成工作的任务
+3. **一次一项任务**：在移动到下一个任务之前完全专注于单个任务
+4. **进行前验证**：确保每个任务完全完成并测试
 
-### Step-by-Step Task Execution Process
+### 分步任务执行流程
 
-#### Phase 1: Task Analysis
-**Before starting any task**:
-1. **Read Task Details Thoroughly**: Understand exactly what needs to be implemented
-2. **Review Requirements References**: Understand the user value being delivered
-3. **Check Dependencies**: Ensure all prerequisite tasks are complete
-4. **Plan Implementation Approach**: Decide on specific technical approach
-5. **Identify Success Criteria**: Know how you'll validate completion
+#### 阶段 1：任务分析
+**在开始任何任务之前**：
+1. **彻底阅读任务详情**：确切了解需要实施什么
+2. **审查需求引用**：了解正在交付的用户价值
+3. **检查依赖关系**：确保所有先决任务已完成
+4. **规划实施方法**：决定具体的技术方法
+5. **识别成功标准**：知道你将如何验证完成
 
-#### Phase 2: Implementation
-**During task execution**:
-1. **Update Task Status**: Mark task as "in progress" before starting
-2. **Create Tests First** (when applicable): Write failing tests that define success
-3. **Implement Incrementally**: Build functionality step by step
-4. **Test Continuously**: Validate each piece as you build it
-5. **Document as You Go**: Add comments and documentation inline
+#### 阶段 2：实施
+**在任务执行期间**：
+1. **更新任务状态**：在开始前将任务标记为"进行中"
+2. **首先创建测试**（如适用）：编写定义成功的失败测试
+3. **增量实施**：逐步构建功能
+4. **持续测试**：在构建时验证每一块
+5. **边做边记录**：以内联方式添加注释和文档
 
-#### Phase 3: Validation and Completion
-**Before marking task complete**:
-1. **Run All Tests**: Ensure new and existing tests pass
-2. **Review Against Requirements**: Verify the task delivers required functionality
-3. **Check Integration**: Ensure new code works with existing components
-4. **Code Quality Review**: Check for maintainability and best practices
-5. **Update Task Status**: Mark as complete only when fully validated
+#### 阶段 3：验证和完成
+**在标记任务完成之前**：
+1. **运行所有测试**：确保新旧测试通过
+2. **对照需求审查**：验证任务交付了所需的功能
+3. **检查集成**：确保新代码与现有组件协同工作
+4. **代码质量审查**：检查可维护性和最佳实践
+5. **更新任务状态**：仅在完全验证后标记为完成
 
-### Task Execution Best Practices
+### 任务执行最佳实践
 
-#### Working with AI Coding Agents
+#### 与 AI 编码代理合作
 
-**Effective Prompting for Task Execution**:
+**用于任务执行的有效提示**：
 ```
-I need to implement task [X.Y] from the spec. Here's the context:
+我需要实施规范中的任务 [X.Y]。这是上下文：
 
-Requirements: [Reference specific requirements]
-Design Context: [Key design decisions that affect this task]
-Task Details: [Copy task description and details]
-Dependencies: [What previous tasks this builds on]
+需求：[引用具体需求]
+设计上下文：[影响此任务的关键设计决策]
+任务详情：[复制任务描述和详情]
+依赖关系：[这建立在哪些之前的任务上]
 
-Please implement this task following the specified approach and include appropriate tests.
+请按照指定的方法实施此任务并包含适当的测试。
 ```
 
-**Iterative Development Approach**:
-1. **Start Simple**: Implement basic functionality first
-2. **Add Complexity Gradually**: Build up features incrementally
-3. **Test Each Addition**: Validate every change before proceeding
-4. **Refactor When Needed**: Improve code quality as you go
+**迭代开发方法**：
+1. **从简单开始**：首先实施基本功能
+2. **逐渐增加复杂性**：增量构建功能
+3. **测试每个添加**：在继续之前验证每个更改
+4. **需要时重构**：边做边提高代码质量
 
-#### Managing Task Dependencies
+#### 管理任务依赖
 
-**Dependency Validation Checklist**:
-- [ ] All prerequisite tasks are marked complete
-- [ ] Required interfaces and types are available
-- [ ] Necessary configuration is in place
-- [ ] Test infrastructure is ready
+**依赖验证检查清单**：
+- [ ] 所有先决任务标记为完成
+- [ ] 所需的接口和类型可用
+- [ ] 必要的配置到位
+- [ ] 测试基础设施准备就绪
 
-**Handling Blocked Tasks**:
-1. **Identify Missing Dependencies**: What specifically is blocking progress?
-2. **Check Task Sequence**: Are tasks ordered correctly?
-3. **Create Missing Foundation**: Implement minimal prerequisites if needed
-4. **Update Task Plan**: Adjust sequence if dependencies were missed
+**处理受阻任务**：
+1. **识别缺失的依赖**：具体是什么阻碍了进度？
+2. **检查任务顺序**：任务排序正确吗？
+3. **创建缺失基础**：如果需要，实施最小先决条件
+4. **更新任务计划**：如果错过依赖，调整顺序
 
-### Quality Assurance During Execution
+### 执行期间的质量保证
 
-#### Testing Strategy for Each Task
+#### 每个任务的测试策略
 
-**Unit Testing**:
-- Write tests for individual functions and methods
-- Test both happy path and error conditions
-- Aim for high code coverage on new functionality
-- Use descriptive test names that explain behavior
+**单元测试**：
+- 为单个函数和方法编写测试
+- 测试快乐路径和错误条件
+- 争取新功能的高代码覆盖率
+- 使用解释行为的描述性测试名称
 
-**Integration Testing**:
-- Test how new components work with existing code
-- Validate data flow between components
-- Test error handling across component boundaries
-- Verify configuration and setup work correctly
+**集成测试**：
+- 测试新组件如何与现有代码工作
+- 验证组件之间的数据流
+- 测试跨组件边界的错误处理
+- 验证配置和设置工作正常
 
-**Validation Testing**:
-- Test against original requirements
-- Verify user-facing functionality works as expected
-- Test edge cases and boundary conditions
-- Validate performance meets expectations
+**验证测试**：
+- 对照原始需求测试
+- 验证面向用户的功能按预期工作
+- 测试边缘情况和边界条件
+- 验证性能达到预期
 
-#### Code Quality Standards
+#### 代码质量标准
 
-**During Implementation**:
-- Follow consistent coding style and conventions
-- Add meaningful comments for complex logic
-- Use descriptive variable and function names
-- Keep functions focused and single-purpose
-- Handle errors appropriately
+**实施期间**：
+- 遵循一致的编码风格和惯例
+- 为复杂逻辑添加有意义的注释
+- 使用描述性变量和函数名称
+- 保持函数专注和单一用途
+- 恰当处理错误
 
-**Before Task Completion**:
-- Remove debugging code and console logs
-- Ensure proper error handling is in place
-- Verify no security vulnerabilities introduced
-- Check for performance implications
-- Validate accessibility requirements met
+**任务完成前**：
+- 移除调试代码和控制台日志
+- 确保适当的错误处理到位
+- 验证未引入安全漏洞
+- 检查性能影响
+- 验证满足无障碍需求
 
-### Troubleshooting Common Execution Issues
+### 常见执行问题故障排除
 
-#### Issue: Task Requirements Are Unclear
-**Symptoms**: Can't determine what exactly to implement
-**Solutions**:
-- Review the original requirements document for context
-- Check the design document for implementation guidance
-- Look at related tasks for patterns and consistency
-- Break down the task into smaller, clearer sub-steps
+#### 问题：任务需求不明确
+**症状**：无法确定确切要实施什么
+**解决方案**：
+- 审查原始需求文档以获取上下文
+- 检查设计文档以获取实施指导
+- 查看相关任务以寻找模式和一致性
+- 将任务分解为更小、更清晰的子步骤
 
-#### Issue: Dependencies Are Missing
-**Symptoms**: Can't complete task due to missing prerequisites
-**Solutions**:
-- Review previous tasks to ensure they're truly complete
-- Identify minimal implementation needed to unblock progress
-- Consider if task sequence needs adjustment
-- Implement temporary stubs if necessary
+#### 问题：缺失依赖
+**症状**：由于缺少先决条件无法完成任务
+**解决方案**：
+- 审查之前的任务以确保它们真正完成
+- 识别解除阻塞所需的最小实施
+- 考虑是否需要调整任务顺序
+- 必时实施临时存根
 
-#### Issue: Tests Are Failing
-**Symptoms**: New or existing tests break during implementation
-**Solutions**:
-- Understand why tests are failing before fixing them
-- Ensure new functionality doesn't break existing behavior
-- Update tests if requirements have legitimately changed
-- Add new tests to cover edge cases discovered
+#### 问题：测试失败
+**症状**：新旧测试在实施期间中断
+**解决方案**：
+- 在修复之前理解为何测试失败
+- 确保新功能不破坏现有行为
+- 如果需求合理更改，更新测试
+- 添加新测试以覆盖发现的边缘情况
 
-#### Issue: Task Scope Creep
-**Symptoms**: Implementation becomes much larger than expected
-**Solutions**:
-- Review original task scope and stick to it
-- Identify what can be deferred to later tasks
-- Break large tasks into smaller, manageable pieces
-- Focus on minimum viable implementation first
+#### 问题：任务范围蔓延
+**症状**：实施变得比预期大得多
+**解决方案**：
+- 审查原始任务范围并坚持它
+- 识别可以推迟到后续任务的内容
+- 将大任务分解为更小、可管理的块
+- 首先专注于最小可行实施
 
-### Progress Tracking and Communication
+### 进度跟踪和沟通
 
-#### Task Status Management
+#### 任务状态管理
 
-**Status Definitions**:
-- **Not Started**: Task hasn't been begun
-- **In Progress**: Actively working on implementation
-- **Blocked**: Cannot proceed due to dependencies or issues
-- **Review**: Implementation complete, awaiting validation
-- **Complete**: Fully implemented, tested, and validated
+**状态定义**：
+- **未开始**：任务尚未开始
+- **进行中**：积极致力于实施
+- **受阻**：由于依赖或问题无法继续
+- **审查**：实施完成，等待验证
+- **完成**：完全实施、测试并验证
 
-**Status Update Guidelines**:
-- Update status when beginning work on a task
-- Add comments when tasks are blocked or delayed
-- Mark complete only when all acceptance criteria are met
-- Include brief notes about implementation decisions
+**状态更新指南**：
+- 开始任务工作时更新状态
+- 当任务受阻或延迟时添加评论
+- 仅当所有验收标准满足时标记完成
+- 包含关于实施决策的简短说明
 
-#### Documentation During Execution
+#### 执行期间的文档
 
-**Implementation Notes**:
-- Record key technical decisions made during implementation
-- Document any deviations from original task plan
-- Note any issues encountered and how they were resolved
-- Update design documentation if implementation reveals gaps
+**实施说明**：
+- 记录实施期间做出的关键技术决策
+- 记录与原始任务计划的任何偏差
+- 注意遇到的任何问题及其解决方法
+- 如果实施揭示差距，更新设计文档
 
-**Knowledge Transfer**:
-- Write clear commit messages explaining changes
-- Add inline documentation for complex logic
-- Update README files with new setup or usage instructions
-- Create examples or demos for new functionality
+**知识转移**：
+- 编写解释更改的清晰提交消息
+- 为复杂逻辑添加内联文档
+- 用新的设置或使用说明更新 README 文件
+- 为新功能创建示例或演示
 
-### Adapting the Process
+### 适应流程
 
-#### Customizing for Different Project Types
+#### 为不同项目类型定制
 
-**Small Projects**:
-- Combine related tasks for efficiency
-- Focus on essential functionality first
-- Use simpler testing strategies
-- Prioritize working software over extensive documentation
+**小型项目**：
+- 为了效率合并相关任务
+- 首先专注于基本功能
+- 使用更简单的测试策略
+- 优先考虑可工作的软件而非大量文档
 
-**Large Projects**:
-- Maintain strict task boundaries
-- Implement comprehensive testing at each step
-- Focus on maintainability and extensibility
-- Document architectural decisions thoroughly
+**大型项目**：
+- 保持严格的任务边界
+- 在每一步实施全面测试
+- 专注于可维护性和可扩展性
+- 彻底记录架构决策
 
-**Team Projects**:
-- Coordinate task assignments to avoid conflicts
-- Establish code review processes
-- Use consistent coding standards across team
-- Communicate progress and blockers regularly
+**团队项目**：
+- 协调任务分配以避免冲突
+- 建立代码审查流程
+- 在团队中使用一致的编码标准
+- 定期沟通进度和阻碍
 
-#### Handling Implementation Challenges
+#### 处理实施挑战
 
-**When Tasks Take Longer Than Expected**:
-1. Assess if scope has grown beyond original intent
-2. Identify if additional sub-tasks are needed
-3. Consider if task should be split into smaller pieces
-4. Update estimates for remaining tasks based on learnings
+**当任务花费比预期更长的时间**：
+1. 评估范围是否超出原始意图
+2. 识别是否需要额外的子任务
+3. 考虑任务是否应拆分为更小的部分
+4. 根据经验更新剩余任务的估算
 
-**When Requirements Change During Implementation**:
-1. Stop current work and assess impact
-2. Update requirements and design documents first
-3. Revise affected tasks in the implementation plan
-4. Communicate changes to stakeholders
-5. Resume implementation with updated context
+**实施期间需求变更**：
+1. 停止当前工作并评估影响
+2. 首先更新需求和设计文档
+3. 修改实施计划中受影响的任务
+4. 向利益相关者传达变更
+5. 带着更新的上下文恢复实施
 
-**When Technical Blockers Arise**:
-1. Document the specific technical challenge
-2. Research potential solutions and alternatives
-3. Consider if design needs to be adjusted
-4. Implement minimal viable solution to maintain progress
-5. Plan for optimization in later tasks if needed
+**当出现技术阻碍时**：
+1. 记录具体技术挑战
+2. 研究潜在解决方案和替代方案
+3. 考虑设计是否需要调整
+4. 实施最小可行解决方案以保持进度
+5. 如果需要，在后续任务中规划优化
 
-## Integration with Spec-Driven Development Workflow
+## 与规范驱动开发工作流的集成
 
-### Connection to Previous Phases
+### 连接到先前阶段
 
-**From Requirements Phase**:
-- Each task should trace back to specific requirements
-- User value should be clear for every implementation task
-- Acceptance criteria inform task completion validation
+**从需求阶段**：
+- 每个任务应追溯回具体需求
+- 每个实施任务的用户价值应清晰
+- 验收标准通知任务完成验证
 
-**From Design Phase**:
-- Task structure follows architectural decisions
-- Implementation approach aligns with design patterns
-- Component boundaries respect design interfaces
+**从设计阶段**：
+- 任务结构遵循架构决策
+- 实施方法与设计模式一致
+- 组件边界尊重设计接口
 
-### Feedback to Earlier Phases
+### 对早期阶段的反馈
 
-**When Implementation Reveals Issues**:
-- Update design document if architecture needs adjustment
-- Clarify requirements if user needs are misunderstood
-- Revise task plan if dependencies were missed
+**当实施揭示问题时**：
+- 如果架构需要调整，更新设计文档
+- 如果被误解，澄清需求
+- 如果错过依赖，修改任务计划
 
-**Continuous Improvement**:
-- Document lessons learned during implementation
-- Update task planning process based on execution experience
-- Refine estimation accuracy for future projects
+**持续改进**：
+- 记录实施期间的经验教训
+- 根据执行经验更新任务规划流程
+- 提高未来项目的估算准确性
 
-## Next Steps
+## 下一步
 
-Once tasks are complete and approved:
-1. **Begin Implementation**: Start executing tasks in sequence using the guidance above
-2. **Track Progress**: Update task status as work is completed
-3. **Maintain Quality**: Follow testing and validation practices throughout
-4. **Stay Flexible**: Adjust tasks if implementation reveals issues
-5. **Validate Against Requirements**: Ensure completed tasks satisfy original requirements
-6. **Document Learnings**: Capture insights for future spec-driven development
+一旦任务完成并获批：
+1. **开始实施**：使用上述指导按顺序开始执行任务
+2. **跟踪进度**：随着工作完成更新任务状态
+3. **保持质量**：全程遵循测试和验证实践
+4. **保持灵活**：如果实施揭示问题，调整任务
+5. **对照需求验证**：确保完成的任务满足原始需求
+6. **记录经验**：捕获对未来规范驱动开发的见解
 
-The tasks phase provides the roadmap for systematic implementation, breaking down complex designs into manageable, actionable steps that lead to successful feature delivery. With proper execution guidance, teams can maintain quality and momentum throughout the implementation process.
+任务阶段提供了系统化实施的路线图，将复杂设计分解为导致成功功能交付的可管理、可操作步骤。通过适当的执行指导，团队可以在整个实施过程中保持质量和动力。

@@ -1,132 +1,132 @@
-# Design Template
+# 设计模板
 
-<!-- Navigation Metadata -->
-<!-- Template: Design | Level: Template | Prerequisites: requirements-template.md -->
-<!-- Related: process/design-phase.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
+<!-- 导航元数据 -->
+<!-- 模板：设计 | 级别：模板 | 前置条件：requirements-template.md -->
+<!-- 相关：process/design-phase.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Templates](README.md) → **Design Template**
+**📍 你在这里：** [主指南](../../README.md) → [模板](README.md) → **设计模板**
 
-## Quick Navigation
-- **📚 Learn Process:** [Design Phase Guide](../process/design-phase.md) - How to use this template
-- **📖 See Example:** [Complex System Design](../examples/complex-system-spec.md#design-document) - Template in action
-- **🧠 Decision Help:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How to make design choices
-- **➡️ Next Template:** [Tasks Template](tasks-template.md) - After design is done
+## 快速导航
+- **📚 学习流程：** [设计阶段指南](../process/design-phase.md) - 如何使用此模板
+- **📖 查看示例：** [复杂系统设计](../examples/complex-system-spec.md#design-document) - 实际中的模板
+- **🧠 决策帮助：** [决策框架](../ai-reasoning/decision-frameworks.md) - 如何做出设计选择
+- **➡️ 下一个模板：** [任务模板](tasks-template.md) - 设计完成后
 
 ---
 
-Use this template to create comprehensive design documents that translate requirements into technical specifications.
+使用此模板创建全面的设计文档，将需求转化为技术规范。
 
-## Document Information
+## 文档信息
 
-- **Feature Name**: [Your Feature Name]
-- **Version**: 1.0
-- **Date**: [Current Date]
-- **Author**: [Your Name]
-- **Reviewers**: [List technical reviewers]
-- **Related Documents**: [Link to requirements document]
+- **功能名称**：[你的功能名称]
+- **版本**：1.0
+- **日期**：[当前日期]
+- **作者**：[你的名字]
+- **审查人**：[列出技术审查人]
+- **相关文档**：[链接到需求文档]
 
-## Overview
+## 概述
 
-[Provide a high-level summary of the design approach. Explain how this design addresses the requirements and fits into the overall system architecture. Keep this section concise but comprehensive.]
+[提供设计方法的概要总结。解释此设计如何解决需求并适应整体系统架构。保持此部分简洁但全面。]
 
-### Design Goals
-- [Primary goal 1]
-- [Primary goal 2]
-- [Primary goal 3]
+### 设计目标
+- [主要目标 1]
+- [主要目标 2]
+- [主要目标 3]
 
-### Key Design Decisions
-- [Decision 1 and rationale]
-- [Decision 2 and rationale]
-- [Decision 3 and rationale]
+### 关键设计决策
+- [决策 1 及理由]
+- [决策 2 及理由]
+- [决策 3 及理由]
 
-## Architecture
+## 架构
 
-### System Context
-[Describe how this feature fits into the broader system. Include external dependencies and integration points.]
+### 系统上下文
+[描述此功能如何适应更广泛的系统。包含外部依赖和集成点。]
 
 ```mermaid
 graph TB
-    A[External System 1] --> B[Your Feature]
-    B --> C[Internal System 1]
-    B --> D[Internal System 2]
-    E[External System 2] --> B
+    A[外部系统 1] --> B[你的功能]
+    B --> C[内部系统 1]
+    B --> D[内部系统 2]
+    E[外部系统 2] --> B
 ```
 
-### High-Level Architecture
-[Describe the overall architectural approach and major components.]
+### 高级架构
+[描述整体架构方法和主要组件。]
 
 ```mermaid
 graph LR
-    A[Component 1] --> B[Component 2]
-    B --> C[Component 3]
-    C --> D[Component 4]
+    A[组件 1] --> B[组件 2]
+    B --> C[组件 3]
+    C --> D[组件 4]
 ```
 
-### Technology Stack
-| Layer | Technology | Rationale |
-|-------|------------|-----------|
-| Frontend | [Technology] | [Why chosen] |
-| Backend | [Technology] | [Why chosen] |
-| Database | [Technology] | [Why chosen] |
-| Infrastructure | [Technology] | [Why chosen] |
+### 技术栈
+| 层 | 技术 | 理由 |
+|----|------|------|
+| 前端 | [技术] | [为何选择] |
+| 后端 | [技术] | [为何选择] |
+| 数据库 | [技术] | [为何选择] |
+| 基础设施 | [技术] | [为何选择] |
 
-## Components and Interfaces
+## 组件和接口
 
-### Component 1: [Component Name]
+### 组件 1：[组件名称]
 
-**Purpose**: [What this component does]
+**目的**：[此组件做什么]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
-- [Responsibility 3]
+**职责**：
+- [职责 1]
+- [职责 2]
+- [职责 3]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**：
+- **输入**：[它接收什么]
+- **输出**：[它产生什么]
+- **依赖**：[它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施说明**：
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-### Component 2: [Component Name]
+### 组件 2：[组件名称]
 
-**Purpose**: [What this component does]
+**目的**：[此组件做什么]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
+**职责**：
+- [职责 1]
+- [职责 2]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**：
+- **输入**：[它接收什么]
+- **输出**：[它产生什么]
+- **依赖**：[它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施说明**：
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-### Component 3: [Component Name]
+### 组件 3：[组件名称]
 
-**Purpose**: [What this component does]
+**目的**：[此组件做什么]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
+**职责**：
+- [职责 1]
+- [职责 2]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**：
+- **输入**：[它接收什么]
+- **输出**：[它产生什么]
+- **依赖**：[它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施说明**：
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-## Data Models
+## 数据模型
 
-### Entity 1: [Entity Name]
+### 实体 1：[实体名称]
 
 ```typescript
 interface EntityName {
@@ -139,14 +139,14 @@ interface EntityName {
 }
 ```
 
-**Validation Rules**:
-- [Validation rule 1]
-- [Validation rule 2]
+**验证规则**：
+- [验证规则 1]
+- [验证规则 2]
 
-**Relationships**:
-- [Relationship to other entities]
+**关系**：
+- [与其他实体的关系]
 
-### Entity 2: [Entity Name]
+### 实体 2：[实体名称]
 
 ```typescript
 interface EntityName {
@@ -157,14 +157,14 @@ interface EntityName {
 }
 ```
 
-**Validation Rules**:
-- [Validation rule 1]
-- [Validation rule 2]
+**验证规则**：
+- [验证规则 1]
+- [验证规则 2]
 
-**Relationships**:
-- [Relationship to other entities]
+**关系**：
+- [与其他实体的关系]
 
-### Data Flow
+### 数据流
 
 ```mermaid
 sequenceDiagram
@@ -181,14 +181,14 @@ sequenceDiagram
     Frontend-->>User: Update
 ```
 
-## API Design
+## API 设计
 
-### Endpoint 1: [Endpoint Name]
+### 端点 1：[端点名称]
 
-**Method**: `POST`  
-**Path**: `/api/v1/[resource]`
+**方法**：`POST`  
+**路径**：`/api/v1/[resource]`
 
-**Request**:
+**请求**：
 ```json
 {
   "property1": "string",
@@ -197,7 +197,7 @@ sequenceDiagram
 }
 ```
 
-**Response**:
+**响应**：
 ```json
 {
   "id": "string",
@@ -207,21 +207,21 @@ sequenceDiagram
 }
 ```
 
-**Error Responses**:
-- `400 Bad Request`: [When this occurs]
-- `401 Unauthorized`: [When this occurs]
-- `404 Not Found`: [When this occurs]
+**错误响应**：
+- `400 Bad Request`：[何时发生]
+- `401 Unauthorized`：[何时发生]
+- `404 Not Found`：[何时发生]
 
-### Endpoint 2: [Endpoint Name]
+### 端点 2：[端点名称]
 
-**Method**: `GET`  
-**Path**: `/api/v1/[resource]/{id}`
+**方法**：`GET`  
+**路径**：`/api/v1/[resource]/{id}`
 
-**Parameters**:
-- `id` (path): [Description]
-- `include` (query, optional): [Description]
+**参数**：
+- `id` (路径)：[描述]
+- `include` (查询，可选)：[描述]
 
-**Response**:
+**响应**：
 ```json
 {
   "id": "string",
@@ -230,38 +230,38 @@ sequenceDiagram
 }
 ```
 
-## Security Considerations
+## 安全考虑
 
-### Authentication
-- [Authentication method and implementation]
-- [Token management approach]
+### 认证
+- [认证方法和实施]
+- [令牌管理方法]
 
-### Authorization
-- [Authorization model and rules]
-- [Permission checking strategy]
+### 授权
+- [授权模型和规则]
+- [权限检查策略]
 
-### Data Protection
-- [Data encryption approach]
-- [PII handling procedures]
-- [Data retention policies]
+### 数据保护
+- [数据加密方法]
+- [PII 处理程序]
+- [数据保留策略]
 
-### Input Validation
-- [Validation strategies]
-- [Sanitization procedures]
-- [Rate limiting approach]
+### 输入验证
+- [验证策略]
+- [清理程序]
+- [速率限制方法]
 
-## Error Handling
+## 错误处理
 
-### Error Categories
-| Category | HTTP Status | Description | User Action |
-|----------|-------------|-------------|-------------|
-| Validation | 400 | Invalid input data | Fix input and retry |
-| Authentication | 401 | Invalid credentials | Re-authenticate |
-| Authorization | 403 | Insufficient permissions | Contact administrator |
-| Not Found | 404 | Resource doesn't exist | Check resource identifier |
-| Server Error | 500 | Internal system error | Retry later or contact support |
+### 错误类别
+| 类别 | HTTP 状态 | 描述 | 用户操作 |
+|------|-----------|------|----------|
+| 验证 | 400 | 无效输入数据 | 修复输入并重试 |
+| 认证 | 401 | 无效凭证 | 重新认证 |
+| 授权 | 403 | 权限不足 | 联系管理员 |
+| 未找到 | 404 | 资源不存在 | 检查资源标识符 |
+| 服务器错误 | 500 | 内部系统错误 | 稍后重试或联系支持 |
 
-### Error Response Format
+### 错误响应格式
 ```json
 {
   "error": {
@@ -276,157 +276,157 @@ sequenceDiagram
 }
 ```
 
-### Logging Strategy
-- **Error Logs**: [What gets logged for errors]
-- **Audit Logs**: [What gets logged for auditing]
-- **Performance Logs**: [What gets logged for monitoring]
+### 日志策略
+- **错误日志**：[记录什么错误]
+- **审计日志**：[记录什么审计]
+- **性能日志**：[记录什么监控]
 
-## Performance Considerations
+## 性能考虑
 
-### Expected Load
-- **Concurrent Users**: [Number]
-- **Requests per Second**: [Number]
-- **Data Volume**: [Size/Growth rate]
+### 预期负载
+- **并发用户**：[数量]
+- **每秒请求数**：[数量]
+- **数据量**：[大小/增长率]
 
-### Performance Requirements
-- **Response Time**: [Target response times]
-- **Throughput**: [Target throughput]
-- **Availability**: [Uptime requirements]
+### 性能需求
+- **响应时间**：[目标响应时间]
+- **吞吐量**：[目标吞吐量]
+- **可用性**：[正常运行时间要求]
 
-### Optimization Strategies
-- [Caching strategy]
-- [Database optimization approach]
-- [CDN usage]
-- [Load balancing approach]
+### 优化策略
+- [缓存策略]
+- [数据库优化方法]
+- [CDN 使用]
+- [负载均衡方法]
 
-### Monitoring and Metrics
-- [Key performance indicators]
-- [Monitoring tools and dashboards]
-- [Alert thresholds]
+### 监控和指标
+- [关键绩效指标]
+- [监控工具和仪表板]
+- [警报阈值]
 
-## Testing Strategy
+## 测试策略
 
-### Unit Testing
-- **Coverage Target**: [Percentage]
-- **Testing Framework**: [Framework name]
-- **Key Test Areas**: [Critical functionality to test]
+### 单元测试
+- **覆盖率目标**：[百分比]
+- **测试框架**：[框架名称]
+- **关键测试领域**：[要测试的关键功能]
 
-### Integration Testing
-- **API Testing**: [Approach and tools]
-- **Database Testing**: [Approach and tools]
-- **External Service Testing**: [Mocking strategy]
+### 集成测试
+- **API 测试**：[方法和工具]
+- **数据库测试**：[方法和工具]
+- **外部服务测试**：[模拟策略]
 
-### End-to-End Testing
-- **User Scenarios**: [Key user journeys to test]
-- **Testing Tools**: [E2E testing framework]
-- **Test Environment**: [Environment setup]
+### 端到端测试
+- **用户场景**：[要测试的关键用户旅程]
+- **测试工具**：[E2E 测试框架]
+- **测试环境**：[环境设置]
 
-### Performance Testing
-- **Load Testing**: [Approach and tools]
-- **Stress Testing**: [Limits to test]
-- **Monitoring**: [Performance metrics to track]
+### 性能测试
+- **负载测试**：[方法和工具]
+- **压力测试**：[要测试的极限]
+- **监控**：[要跟踪的性能指标]
 
-## Deployment and Operations
+## 部署和运维
 
-### Deployment Strategy
-- [Deployment approach (blue-green, rolling, etc.)]
-- [Environment progression]
-- [Rollback procedures]
+### 部署策略
+- [部署方法（蓝绿、滚动等）]
+- [环境推进]
+- [回滚程序]
 
-### Configuration Management
-- [Configuration approach]
-- [Environment-specific settings]
-- [Secret management]
+### 配置管理
+- [配置方法]
+- [特定环境设置]
+- [机密管理]
 
-### Monitoring and Alerting
-- [Health checks]
-- [Key metrics to monitor]
-- [Alert conditions and escalation]
+### 监控和警报
+- [健康检查]
+- [要监控的关键指标]
+- [警报条件和升级]
 
-### Maintenance Procedures
-- [Regular maintenance tasks]
-- [Backup and recovery procedures]
-- [Update and patching strategy]
+### 维护程序
+- [定期维护任务]
+- [备份和恢复程序]
+- [更新和补丁策略]
 
-## Migration and Compatibility
+## 迁移和兼容性
 
-### Data Migration
-- [Migration strategy if applicable]
-- [Data transformation requirements]
-- [Rollback procedures]
+### 数据迁移
+- [迁移策略（如果适用）]
+- [数据转换需求]
+- [回滚程序]
 
-### Backward Compatibility
-- [API versioning strategy]
-- [Breaking change procedures]
-- [Deprecation timeline]
+### 向后兼容性
+- [API 版本控制策略]
+- [破坏性更改程序]
+- [弃用时间表]
 
-### Integration Impact
-- [Impact on existing systems]
-- [Required changes to dependent systems]
-- [Communication plan for changes]
-
----
-
-## Design Review Checklist
-
-Use this checklist to validate your design document:
-
-### Architecture
-- [ ] High-level architecture is clearly described
-- [ ] Component responsibilities are well-defined
-- [ ] Interfaces between components are specified
-- [ ] Technology choices are justified
-
-### Requirements Alignment
-- [ ] Design addresses all functional requirements
-- [ ] Non-functional requirements are considered
-- [ ] Success criteria can be met with this design
-- [ ] Constraints and assumptions are addressed
-
-### Technical Quality
-- [ ] Design follows established patterns and principles
-- [ ] Security considerations are addressed
-- [ ] Performance requirements are considered
-- [ ] Error handling is comprehensive
-
-### Implementation Readiness
-- [ ] Design provides sufficient detail for implementation
-- [ ] Data models are complete and validated
-- [ ] API specifications are detailed
-- [ ] Testing strategy is comprehensive
-
-### Maintainability
-- [ ] Design supports future extensibility
-- [ ] Components are loosely coupled
-- [ ] Configuration is externalized
-- [ ] Monitoring and observability are included
+### 集成影响
+- [对现有系统的影响]
+- [依赖系统所需的更改]
+- [变更沟通计划]
 
 ---
 
-## Design Patterns Reference
+## 设计审查检查清单
 
-### Common Patterns to Consider
+使用此检查清单验证你的设计文档：
 
-**Creational Patterns**:
-- Factory: When you need to create objects without specifying exact classes
-- Builder: When constructing complex objects step by step
-- Singleton: When you need exactly one instance of a class
+### 架构
+- [ ] 高级架构描述清晰
+- [ ] 组件职责定义明确
+- [ ] 组件之间的接口已指定
+- [ ] 技术选择有正当理由
 
-**Structural Patterns**:
-- Adapter: When integrating incompatible interfaces
-- Decorator: When adding behavior without altering structure
-- Facade: When simplifying complex subsystem interfaces
+### 需求一致性
+- [ ] 设计解决了所有功能性需求
+- [ ] 考虑了非功能性需求
+- [ ] 成功标准可以通过此设计满足
+- [ ] 约束和假设已解决
 
-**Behavioral Patterns**:
-- Observer: When objects need to be notified of state changes
-- Strategy: When you need to switch between algorithms
-- Command: When you need to parameterize objects with operations
+### 技术质量
+- [ ] 设计遵循既定的模式和原则
+- [ ] 解决了安全考虑
+- [ ] 考虑了性能需求
+- [ ] 错误处理全面
 
-**Architectural Patterns**:
-- MVC/MVP/MVVM: For separating presentation from business logic
-- Repository: For abstracting data access logic
-- Unit of Work: For maintaining consistency across multiple operations
+### 实施准备就绪
+- [ ] 设计为实施提供了足够的细节
+- [ ] 数据模型完整且已验证
+- [ ] API 规范详细
+- [ ] 测试策略全面
+
+### 可维护性
+- [ ] 设计支持未来的可扩展性
+- [ ] 组件是松耦合的
+- [ ] 配置已外部化
+- [ ] 包含监控和可观测性
 
 ---
 
-[← Requirements Template](requirements-template.md) | [Tasks Template →](tasks-template.md)
+## 设计模式参考
+
+### 常见模式考虑
+
+**创建型模式**：
+- 工厂 (Factory)：当你需要创建对象而不指定确切类时
+- 建造者 (Builder)：当逐步构建复杂对象时
+- 单例 (Singleton)：当你需要确切的一个类实例时
+
+**结构型模式**：
+- 适配器 (Adapter)：当集成不兼容的接口时
+- 装饰器 (Decorator)：当在不改变结构的情况下添加行为时
+- 外观 (Facade)：当简化复杂子系统接口时
+
+**行为型模式**：
+- 观察者 (Observer)：当对象需要被通知状态更改时
+- 策略 (Strategy)：当你需要在算法之间切换时
+- 命令 (Command)：当你需要用操作参数化对象时
+
+**架构模式**：
+- MVC/MVP/MVVM：用于分离展示与业务逻辑
+- 存储库 (Repository)：用于抽象数据访问逻辑
+- 工作单元 (Unit of Work)：用于跨多个操作保持一致性
+
+---
+
+[← 需求模板](requirements-template.md) | [任务模板 →](tasks-template.md)

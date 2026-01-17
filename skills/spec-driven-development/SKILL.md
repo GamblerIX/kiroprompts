@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: Systematic three-phase approach to feature development using Requirements, Design, and Tasks phases. Transforms vague feature ideas into well-defined, implementable solutions that reduce ambiguity, improve quality, and enable effective AI collaboration.
+description: 系统的三阶段功能开发方法，使用需求、设计和任务阶段。将模糊的功能想法转化为定义明确、可实施的解决方案，从而减少歧义，提高质量，并实现有效的 AI 协作。
 license: MIT
 compatibility: Claude Code, Cursor, VS Code, Windsurf
 metadata:
@@ -10,181 +10,181 @@ metadata:
   version: "1.0.0"
 ---
 
-# Spec-Driven Development
+# 规范驱动开发 (Spec-Driven Development)
 
-A comprehensive methodology for systematic software feature development that ensures quality, maintainability, and successful delivery through structured planning.
+一种用于系统化软件功能开发的综合方法论，通过结构化规划确保质量、可维护性和成功交付。
 
-## When to Use This Skill
+## 何时使用此技能
 
-**Ideal scenarios:**
-- Complex features with multiple components, integrations, or user interactions
-- High-stakes projects where rework costs are significant
-- Team collaboration requiring shared understanding
-- AI-assisted development where clear structure improves output quality
-- Knowledge preservation for future maintainers
+**理想场景：**
+- 具有多个组件、集成或用户交互的复杂功能
+- 返工成本高昂的高风险项目
+- 需要共识的团队协作
+- 清晰结构能提高输出质量的 AI 辅助开发
+- 为未来的维护者保留知识
 
-**Less suitable:**
-- Simple bug fixes with obvious solutions
-- Experimental prototypes for rapid iteration
-- Time-critical hotfixes requiring immediate action
-- Well-established patterns with minimal ambiguity
+**不太适合：**
+- 解决方案显而易见的简单错误修复
+- 用于快速迭代的实验性原型
+- 需要立即采取行动的时间紧迫的热修复
+- 极少歧义的成熟模式
 
-## The Three-Phase Workflow
+## 三阶段工作流
 
-### Phase 1: Requirements Gathering
+### 第一阶段：需求收集
 
-**Purpose:** Transform vague feature ideas into clear, testable requirements
+**目的：** 将模糊的功能想法转化为清晰、可测试的需求
 
-**Process:**
-1. Capture user stories expressing value and purpose
-2. Define acceptance criteria using EARS format (Easy Approach to Requirements Syntax)
-3. Identify edge cases and constraints
-4. Validate completeness and feasibility
+**流程：**
+1. 捕获表达价值和目的的用户故事
+2. 使用 EARS 格式（简单的需求语法方法）定义验收标准
+3. 识别边缘情况和约束
+4. 验证完整性和可行性
 
-**EARS Format Patterns:**
+**EARS 格式模式：**
 ```
-WHEN [event] THEN [system] SHALL [response]
-IF [precondition] THEN [system] SHALL [response]
-WHEN [event] AND [condition] THEN [system] SHALL [response]
+当 [事件] 时 [系统] 应 [响应]
+如果 [前置条件] 则 [系统] 应 [响应]
+当 [事件] 且 [条件] 时 [系统] 应 [响应]
 ```
 
-**Example:**
+**示例：**
 ```markdown
-**User Story:** As a new user, I want to create an account, so that I can access personalized features.
+**用户故事：** 作为一个新用户，我想要创建一个账户，以便我可以访问个性化功能。
 
-**Acceptance Criteria:**
-1. WHEN user provides valid email and password THEN system SHALL create new account
-2. WHEN user provides existing email THEN system SHALL display "email already registered" error
-3. WHEN user provides password shorter than 8 characters THEN system SHALL display "password too short" error
-4. WHEN account creation succeeds THEN system SHALL send confirmation email
+**验收标准：**
+1. 当用户提供有效的电子邮件和密码时，系统应创建新账户
+2. 当用户提供现有的电子邮件时，系统应显示“电子邮件已注册”错误
+3. 当用户提供短于 8 个字符的密码时，系统应显示“密码太短”错误
+4. 当账户创建成功时，系统应发送确认电子邮件
 ```
 
-### Phase 2: Design Documentation
+### 第二阶段：设计文档
 
-**Purpose:** Create a comprehensive technical plan for implementation
+**目的：** 创建全面的实施技术计划
 
-**Process:**
-1. Research technical approaches and constraints
-2. Define system architecture and component interactions
-3. Specify data models and interfaces
-4. Plan error handling and testing strategies
+**流程：**
+1. 研究技术方法和约束
+2. 定义系统架构和组件交互
+3. 指定数据模型和接口
+4. 规划错误处理和测试策略
 
-**Design Document Structure:**
+**设计文档结构：**
 ```markdown
-## Overview
-[High-level summary of approach]
+## 概述
+[方法的高层总结]
 
-## Architecture
-[System components and their relationships]
+## 架构
+[系统组件及其关系]
 
-## Components and Interfaces
-[Detailed component descriptions]
+## 组件与接口
+[详细的组件描述]
 
-## Data Models
-[Data structures and validation rules]
+## 数据模型
+[数据结构和验证规则]
 
-## Error Handling
-[Error scenarios and response strategies]
+## 错误处理
+[错误场景和响应策略]
 
-## Testing Strategy
-[Testing approach for different layers]
+## 测试策略
+[不同层级的测试方法]
 ```
 
-**Decision Documentation:**
+**决策文档：**
 ```markdown
-### Decision: [Title]
-**Context:** [Situation requiring decision]
-**Options Considered:**
-1. [Option 1] - Pros: [benefits] / Cons: [drawbacks]
-2. [Option 2] - Pros: [benefits] / Cons: [drawbacks]
-**Decision:** [Chosen option]
-**Rationale:** [Why this was selected]
+### 决策：[标题]
+**背景：** [需要做出决策的情况]
+**考虑的选项：**
+1. [选项 1] - 优点：[好处] / 缺点：[坏处]
+2. [选项 2] - 优点：[好处] / 缺点：[坏处]
+**决策：** [选定的选项]
+**理由：** [为什么选择这个]
 ```
 
-### Phase 3: Task Planning
+### 第三阶段：任务规划
 
-**Purpose:** Break design into actionable, sequential implementation steps
+**目的：** 将设计分解为可操作的、顺序的实施步骤
 
-**Process:**
-1. Convert design elements into specific coding tasks
-2. Sequence tasks to enable incremental progress
-3. Define clear objectives and completion criteria
-4. Reference requirements for traceability
+**流程：**
+1. 将设计元素转换为具体的编码任务
+2. 对任务进行排序以实现增量进展
+3. 定义明确的目标和完成标准
+4. 引用需求以实现可追溯性
 
-**Task Structure:**
+**任务结构：**
 ```markdown
-- [ ] 1. [Epic/Major Component]
-- [ ] 1.1 [Specific implementation task]
-  - [Implementation details]
-  - [Files/components to create]
-  - _Requirements: [Requirement references]_
+- [ ] 1. [史诗/主要组件]
+- [ ] 1.1 [具体的实施任务]
+  - [实施细节]
+  - [要创建的文件/组件]
+  - _需求：[需求引用]_
 ```
 
-**Task Sequencing Strategies:**
-- **Foundation-First:** Core interfaces before dependent components
-- **Feature-Slice:** End-to-end vertical slices for early validation
-- **Risk-First:** Tackle uncertain areas early
-- **Hybrid:** Combine approaches based on project needs
+**任务排序策略：**
+- **基础优先：** 在依赖组件之前先完成核心接口
+- **功能切片：** 用于早期验证的端到端垂直切片
+- **风险优先：** 及早处理不确定领域
+- **混合：** 根据项目需求结合多种方法
 
-## Quality Checklists
+## 质量检查清单
 
-### Requirements Checklist
-- [ ] All user roles identified and addressed
-- [ ] Normal, edge, and error cases covered
-- [ ] Requirements are testable and measurable
-- [ ] No conflicting requirements
-- [ ] EARS format used consistently
+### 需求检查清单
+- [ ] 所有用户角色都已识别并处理
+- [ ] 正常、边缘和错误情况都已覆盖
+- [ ] 需求是可测试和可衡量的
+- [ ] 没有相互冲突的需求
+- [ ] 一致使用 EARS 格式
 
-### Design Checklist
-- [ ] All requirements addressed in design
-- [ ] Component responsibilities well-defined
-- [ ] Interfaces between components specified
-- [ ] Error handling covers expected failures
-- [ ] Security considerations addressed
+### 设计检查清单
+- [ ] 设计中解决了所有需求
+- [ ] 组件职责定义明确
+- [ ] 组件之间的接口已指定
+- [ ] 错误处理覆盖了预期的故障
+- [ ] 安全考虑已处理
 
-### Tasks Checklist
-- [ ] All design components have implementation tasks
-- [ ] Tasks ordered to respect dependencies
-- [ ] Each task produces testable code
-- [ ] Requirements references included
-- [ ] Scope is appropriate (2-4 hours each)
+### 任务检查清单
+- [ ] 所有设计组件都有实施任务
+- [ ] 任务排序尊重依赖关系
+- [ ] 每个任务都产生可测试的代码
+- [ ] 包含需求引用
+- [ ] 范围适当（每个 2-4 小时）
 
-## Integration with AI Workflows
+## 与 AI 工作流集成
 
-**For Claude Code / AI Assistants:**
+**对于 Claude Code / AI 助手：**
 
-1. **Start with context:** Provide project background, constraints, and goals
-2. **Work in phases:** Complete requirements before design, design before tasks
-3. **Iterate:** Refine outputs through conversation rather than single requests
-4. **Validate:** Ask AI to review outputs against checklists
-5. **Trace:** Maintain links between requirements, design, and tasks
+1. **从上下文开始：** 提供项目背景、约束和目标
+2. **分阶段工作：** 在设计之前完成需求，在任务之前完成设计
+3. **迭代：** 通过对话完善输出，而不是单次请求
+4. **验证：** 要求 AI 根据检查清单审查输出
+5. **追踪：** 保持需求、设计和任务之间的链接
 
-**Example prompt for starting a spec:**
+**开始规范的示例提示：**
 ```
-I'm working on [project context]. We need to add [feature description].
+我正在处理 [项目上下文]。我们需要添加 [功能描述]。
 
-Context:
-- Technology: [stack]
-- Users: [target audience]
-- Constraints: [key limitations]
+上下文：
+- 技术：[技术栈]
+- 用户：[目标受众]
+- 约束：[关键限制]
 
-Please help me develop requirements using the EARS format, starting with user stories and acceptance criteria.
+请帮助我使用 EARS 格式开发需求，从用户故事和验收标准开始。
 ```
 
-## Common Pitfalls to Avoid
+## 常见陷阱避免
 
-1. **Skipping phases:** Each phase builds on the previous; shortcuts create problems
-2. **Vague requirements:** "System should be fast" vs specific, measurable criteria
-3. **Implementation details in requirements:** Focus on what, not how
-4. **Over-engineering design:** Solve current requirements, not hypothetical future ones
-5. **Monolithic tasks:** Break down into 2-4 hour increments
-6. **Missing error cases:** Always consider what happens when things go wrong
+1. **跳过阶段：** 每个阶段都建立在主要阶段之上；走捷径会制造问题
+2. **模糊的需求：** “系统应该很快” vs 具体、可衡量的标准
+3. **需求中的实施细节：** 关注是什么，而不是怎么做
+4. **过度设计：** 解决当前需求，而不是假设的未来需求
+5. **单体任务：** 分解为 2-4 小时的增量
+6. **缺少错误案例：** 始终考虑出错时会发生什么
 
-## Next Steps
+## 下一步
 
-After completing a spec:
-1. Begin implementation following task sequence
-2. Track progress by marking tasks complete
-3. Update spec if implementation reveals gaps
-4. Validate completed work against requirements
-5. Document learnings for future specs
+在完成规范后：
+1. 按照任务顺序开始实施
+2. 通过标记任务完成来跟踪进度
+3. 如果实施揭示了差距，更新规范
+4. 根据需求验证完成的工作
+5. 记录经验教训以供未来规范使用

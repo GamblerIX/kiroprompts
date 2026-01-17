@@ -1,348 +1,348 @@
-# Standards and Methodology References
+# 标准和方法论参考
 
-<!-- Navigation Metadata -->
-<!-- Resource: Standards | Level: Reference | Prerequisites: None -->
-<!-- Related: process/requirements-phase.md, templates/requirements-template.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 资源：标准 | 级别：参考 | 前置条件：无 -->
+<!-- 相关：process/requirements-phase.md, templates/requirements-template.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../../README.md) → [Resources](README.md) → **Standards**
+**📍 您所在位置：** [主指南](../../README.md) → [资源](README.md) → **标准**
 
-## Quick Navigation
-- **📋 Apply EARS:** [Requirements Phase](../process/requirements-phase.md) - Use EARS format in practice
-- **📝 Use Template:** [Requirements Template](../templates/requirements-template.md) - EARS-formatted template
-- **📖 See Examples:** [Simple Feature Specs](../examples/simple-feature-spec.md) - EARS in action
-- **🔧 More Tools:** [Tools & Resources](tools.md) - Additional helpful resources
+## 快速导航
+- **📋 应用 EARS：** [需求阶段](../process/requirements-phase.md) - 在实践中使用 EARS 格式
+- **📝 使用模板：** [需求模板](../templates/requirements-template.md) - EARS 格式的模板
+- **📖 查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - EARS 实际应用
+- **🔧 更多工具：** [工具与资源](tools.md) - 其他有用的资源
 
 ---
 
-This section provides detailed information about industry standards, methodologies, and best practices that inform the spec-driven development approach.
+本节提供有关告知规范驱动开发方法的行业标准、方法论和最佳实践的详细信息。
 
 ## EARS (Easy Approach to Requirements Syntax)
 
-EARS is a structured approach to writing requirements that makes them clear, testable, and unambiguous. It uses specific keywords to define different types of requirements.
+EARS 是一种结构化的需求编写方法，使需求清晰、可测试且无歧义。它使用特定关键词定义不同类型的需求。
 
-### EARS Keywords and Structure
+### EARS 关键词和结构
 
-#### WHEN (Event-driven requirements)
-Used for requirements triggered by specific events or conditions.
+#### WHEN (事件驱动需求)
+用于由特定事件或条件触发的需求。
 
-**Format:** `WHEN [event/trigger] THEN [system] SHALL [response]`
+**格式：** `WHEN [事件/触发器] THEN [系统] SHALL [响应]`
 
-**Examples:**
-- WHEN a user clicks the "Save" button THEN the system SHALL validate all form fields
-- WHEN a file upload exceeds 10MB THEN the system SHALL display an error message
-- WHEN a user session expires THEN the system SHALL redirect to the login page
+**示例：**
+- WHEN 用户点击"保存"按钮 THEN 系统 SHALL 验证所有表单字段
+- WHEN 文件上传超过 10MB THEN 系统 SHALL 显示错误消息
+- WHEN 用户会话过期 THEN 系统 SHALL 重定向到登录页面
 
-#### IF (State-driven requirements)
-Used for requirements that depend on specific system states or conditions.
+#### IF (状态驱动需求)
+用于依赖于特定系统状态或条件的需求。
 
-**Format:** `IF [condition] THEN [system] SHALL [response]`
+**格式：** `IF [条件] THEN [系统] SHALL [响应]`
 
-**Examples:**
-- IF a user is not authenticated THEN the system SHALL deny access to protected resources
-- IF the database connection fails THEN the system SHALL display a maintenance message
-- IF a user has admin privileges THEN the system SHALL show the admin panel
+**示例：**
+- IF 用户未认证 THEN 系统 SHALL 拒绝访问受保护资源
+- IF 数据库连接失败 THEN 系统 SHALL 显示维护消息
+- IF 用户拥有管理员权限 THEN 系统 SHALL 显示管理面板
 
-#### WHILE (Continuous requirements)
-Used for requirements that must be maintained during ongoing operations.
+#### WHILE (持续需求)
+用于必须在持续操作期间维持的需求。
 
-**Format:** `WHILE [condition] [system] SHALL [continuous behavior]`
+**格式：** `WHILE [条件] [系统] SHALL [持续行为]`
 
-**Examples:**
-- WHILE a file is uploading the system SHALL display a progress indicator
-- WHILE a user is typing the system SHALL provide real-time validation feedback
-- WHILE the system is processing a request the system SHALL prevent duplicate submissions
+**示例：**
+- WHILE 文件正在上传 系统 SHALL 显示进度指示器
+- WHILE 用户正在输入 系统 SHALL 提供实时验证反馈
+- WHILE 系统正在处理请求 系统 SHALL 防止重复提交
 
-#### WHERE (Optional requirements)
-Used for requirements that apply only in specific contexts or locations.
+#### WHERE (可选需求)
+用于仅适用于特定上下文或位置的需求。
 
-**Format:** `WHERE [location/context] [system] SHALL [behavior]`
+**格式：** `WHERE [位置/上下文] [系统] SHALL [行为]`
 
-**Examples:**
-- WHERE the user is on a mobile device the system SHALL use responsive layout
-- WHERE the application runs in production mode the system SHALL log errors to external service
-- WHERE multiple users edit simultaneously the system SHALL handle conflicts gracefully
+**示例：**
+- WHERE 用户在移动设备上 系统 SHALL 使用响应式布局
+- WHERE 应用程序在生产模式运行 系统 SHALL 将错误记录到外部服务
+- WHERE 多个用户同时编辑 系统 SHALL 优雅地处理冲突
 
-### EARS Best Practices
+### EARS 最佳实践
 
-1. **Use Active Voice**: Write requirements using active voice for clarity
-2. **Be Specific**: Avoid vague terms like "user-friendly" or "fast"
-3. **One Requirement Per Statement**: Each EARS statement should contain exactly one requirement
-4. **Testable Outcomes**: Every requirement should be verifiable through testing
-5. **Consistent Terminology**: Use the same terms throughout all requirements
+1. **使用主动语态**：使用主动语态编写需求以保持清晰
+2. **具体**：避免像"用户友好"或"快"这样的模糊术语
+3. **每个语句一个需求**：每个 EARS 语句应包含确切的一个需求
+4. **可测试结果**：每个需求应可通过测试验证
+5. **一致的术语**：在所有需求中使用相同的术语
 
-### EARS Anti-Patterns to Avoid
+### 要避免的 EARS 反模式
 
-- **Compound Requirements**: Avoid multiple SHALL statements in one requirement
-- **Vague Conditions**: Don't use unclear triggers like "when appropriate"
-- **Implementation Details**: Focus on what, not how
-- **Untestable Requirements**: Avoid subjective terms that can't be measured
+- **复合需求**：避免在一个需求中使用多个 SHALL 语句
+- **模糊条件**：不要使用像"适当时"这样不明确的触发器
+- **实施细节**：关注是什么，而不是如何做
+- **不可测试的需求**：避免无法衡量的主观术语
 
-## Industry Standards for Requirements Engineering
+## 需求工程行业标准
 
-### IEEE 830 - Software Requirements Specifications
+### IEEE 830 - 软件需求规格说明
 
-IEEE 830 provides guidelines for writing software requirements specifications (SRS). Key principles include:
+IEEE 830 提供了编写软件需求规格说明 (SRS) 的指南。关键原则包括：
 
-#### Characteristics of Good Requirements
-- **Correct**: Accurately describes the intended functionality
-- **Unambiguous**: Has only one interpretation
-- **Complete**: Includes all necessary information
-- **Consistent**: No conflicts with other requirements
-- **Ranked**: Prioritized by importance and stability
-- **Verifiable**: Can be tested or inspected
-- **Modifiable**: Can be changed without excessive impact
-- **Traceable**: Can be linked to design and implementation
+#### 良好需求的特征
+- **正确**：准确描述预期的功能
+- **无歧义**：只有一种解释
+- **完整**：包含所有必要信息
+- **一致**：与其他需求无冲突
+- **分级**：按重要性和稳定性排序
+- **可验证**：可以测试或检查
+- **可修改**：可以在没有过度影响的情况下更改
+- **可追溯**：可以链接到设计和实施
 
-#### SRS Document Structure
-1. Introduction (Purpose, Scope, Definitions)
-2. Overall Description (Product Perspective, Functions, User Characteristics)
-3. Specific Requirements (Functional, Non-functional, Interface)
-4. Appendices (Supporting Information)
+#### SRS 文档结构
+1. 简介（目的、范围、定义）
+2. 总体描述（产品视角、功能、用户特征）
+3. 具体需求（功能性、非功能性、接口）
+4. 附录（支持信息）
 
-### ISO/IEC 25010 - Quality Requirements
+### ISO/IEC 25010 - 质量要求
 
-ISO/IEC 25010 defines quality characteristics for systems and software:
+ISO/IEC 25010 定义了系统和软件的质量特征：
 
-#### Functional Suitability
-- **Functional Completeness**: All specified functions are present
-- **Functional Correctness**: Functions provide correct results
-- **Functional Appropriateness**: Functions facilitate specified tasks
+#### 功能适用性
+- **功能完整性**：所有指定功能都存在
+- **功能正确性**：功能提供正确结果
+- **功能适当性**：功能促进指定任务
 
-#### Performance Efficiency
-- **Time Behavior**: Response times and processing speeds
-- **Resource Utilization**: CPU, memory, storage usage
-- **Capacity**: Maximum limits and scalability
+#### 性能效率
+- **时间行为**：响应时间和处理速度
+- **资源利用**：CPU、内存、存储使用
+- **容量**：最大限制和可扩展性
 
-#### Compatibility
-- **Co-existence**: Can operate with other systems
-- **Interoperability**: Can exchange and use information
+#### 兼容性
+- **共存性**：可以与其他系统一起运行
+- **互操作性**：可以交换和使用信息
 
-#### Usability
-- **Appropriateness Recognizability**: Users can recognize suitability
-- **Learnability**: Easy to learn and understand
-- **Operability**: Easy to operate and control
-- **User Error Protection**: Protects against user errors
-- **User Interface Aesthetics**: Pleasing user interface
-- **Accessibility**: Usable by people with disabilities
+#### 易用性
+- **适当性识别**：用户可以识别适用性
+- **易学性**：易于学习和理解
+- **易操作性**：易于操作和控制
+- **用户错误保护**：防止用户错误
+- **用户界面美学**：令人愉悦的用户界面
+- **无障碍性**：残障人士可用
 
-#### Reliability
-- **Maturity**: Meets reliability needs under normal operation
-- **Availability**: Operational when required
-- **Fault Tolerance**: Operates despite hardware/software faults
-- **Recoverability**: Can recover from failures
+#### 可靠性
+- **成熟度**：满足正常操作下的可靠性需求
+- **可用性**：需要时可操作
+- **容错性**：尽管有硬件/软件故障仍可操作
+- **可恢复性**：可以从故障中恢复
 
-#### Security
-- **Confidentiality**: Ensures data access only by authorized users
-- **Integrity**: Prevents unauthorized modification
-- **Non-repudiation**: Proves actions or events have taken place
-- **Accountability**: Traces actions to entities
-- **Authenticity**: Proves identity of subjects or resources
+#### 安全性
+- **机密性**：确保仅授权用户访问数据
+- **完整性**：防止未授权修改
+- **不可否认性**：证明行动或事件已发生
+- **问责制**：将行动追溯到实体
+- **真实性**：证明主体或资源的身份
 
-#### Maintainability
-- **Modularity**: Composed of discrete components
-- **Reusability**: Assets can be used in other systems
-- **Analysability**: Easy to assess impact of changes
-- **Modifiability**: Can be modified without defects
-- **Testability**: Test criteria can be established
+#### 可维护性
+- **模块化**：由离散组件组成
+- **可重用性**：资产可用于其他系统
+- **可分析性**：易于评估变更影响
+- **可修改性**：可以在没有缺陷的情况下修改
+- **可测试性**：可以建立测试标准
 
-#### Portability
-- **Adaptability**: Can be adapted to different environments
-- **Installability**: Can be installed in specified environments
-- **Replaceability**: Can replace other software for same purpose
+#### 可移植性
+- **适应性**：可以适应不同环境
+- **可安装性**：可以在指定环境中安装
+- **可替换性**：可以替换同一目的的其他软件
 
-## System Design and Architecture Best Practices
+## 系统设计和架构最佳实践
 
-### Architectural Principles
+### 架构原则
 
-#### SOLID Principles
-- **Single Responsibility**: Each module has one reason to change
-- **Open/Closed**: Open for extension, closed for modification
-- **Liskov Substitution**: Subtypes must be substitutable for base types
-- **Interface Segregation**: Clients shouldn't depend on unused interfaces
-- **Dependency Inversion**: Depend on abstractions, not concretions
+#### SOLID 原则
+- **单一职责**：每个模块有一个改变的理由
+- **开/闭**：对扩展开放，对修改关闭
+- **里氏替换**：子类型必须可替换基类型
+- **接口隔离**：客户端不应依赖未使用的接口
+- **依赖倒置**：依赖抽象，而非具体实现
 
-#### Design Patterns
-- **Creational**: Factory, Builder, Singleton
-- **Structural**: Adapter, Decorator, Facade
-- **Behavioral**: Observer, Strategy, Command
+#### 设计模式
+- **创建型**：工厂、建造者、单例
+- **结构型**：适配器、装饰器、外观
+- **行为型**：观察者、策略、命令
 
-#### Architectural Styles
-- **Layered Architecture**: Separation of concerns through layers
-- **Microservices**: Distributed system of small, independent services
-- **Event-Driven**: Components communicate through events
-- **Hexagonal**: Isolates core logic from external concerns
+#### 架构风格
+- **分层架构**：通过层分离关注点
+- **微服务**：小型独立服务的分布式系统
+- **事件驱动**：组件通过事件通信
+- **六边形**：将核心逻辑与外部关注点隔离
 
-### System Design Methodologies
+### 系统设计方法论
 
-#### Domain-Driven Design (DDD)
-- **Ubiquitous Language**: Shared vocabulary between technical and domain experts
-- **Bounded Contexts**: Clear boundaries around domain models
-- **Aggregates**: Consistency boundaries for business rules
-- **Domain Events**: Capture important business occurrences
+#### 领域驱动设计 (DDD)
+- **通用语言**：技术专家和领域专家之间的共享词汇
+- **限界上下文**：领域模型周围的清晰边界
+- **聚合**：业务规则的一致性边界
+- **领域事件**：捕获重要的业务发生
 
-#### Clean Architecture
-- **Independence**: Framework, database, and UI independent
-- **Testability**: Business rules can be tested without external elements
-- **UI Independence**: UI can change without changing business rules
-- **Database Independence**: Business rules not bound to database
+#### 清洁架构 (Clean Architecture)
+- **独立性**：框架、数据库和 UI 独立
+- **可测试性**：无需外部元素即可测试业务规则
+- **UI 独立性**：UI 可以在不改变业务规则的情况下更改
+- **数据库独立性**：业务规则不绑定到数据库
 
-#### Twelve-Factor App
-1. **Codebase**: One codebase tracked in revision control
-2. **Dependencies**: Explicitly declare and isolate dependencies
-3. **Config**: Store config in the environment
-4. **Backing Services**: Treat backing services as attached resources
-5. **Build, Release, Run**: Strictly separate build and run stages
-6. **Processes**: Execute as one or more stateless processes
-7. **Port Binding**: Export services via port binding
-8. **Concurrency**: Scale out via the process model
-9. **Disposability**: Maximize robustness with fast startup and graceful shutdown
-10. **Dev/Prod Parity**: Keep development, staging, and production as similar as possible
-11. **Logs**: Treat logs as event streams
-12. **Admin Processes**: Run admin/management tasks as one-off processes
+#### 十二要素应用 (Twelve-Factor App)
+1. **基准代码**：在版本控制中跟踪一份准代码
+2. **依赖**：显式声明和隔离依赖
+3. **配置**：在环境中存储配置
+4. **后端服务**：把后端服务当作附加资源
+5. **构建，发布，运行**：严格分离构建和运行阶段
+6. **进程**：以一个或多个无状态进程运行应用
+7. **端口绑定**：通过端口绑定导出服务
+8. **并发**：通过进程模型进行扩展
+9. **易处理性**：快速启动和优雅终止可最大化健壮性
+10. **开发环境与线上环境等价**：尽可能的保持开发，预发布，线上环境相同
+11. **日志**：把日志当作事件流
+12. **管理进程**：后台管理任务当作一次性进程运行
 
-## Requirements Engineering Methodologies
+## 需求工程方法论
 
-### Agile Requirements Engineering
+### 敏捷需求工程
 
-#### User Stories
-**Format:** `As a [role], I want [feature], so that [benefit]`
+#### 用户故事
+**格式：** `作为 [角色]，我想要 [功能]，以便 [益处]`
 
-**Characteristics:**
-- **Independent**: Can be developed separately
-- **Negotiable**: Details can be discussed and refined
-- **Valuable**: Provides value to users or business
-- **Estimable**: Can be sized for planning
-- **Small**: Can be completed in one iteration
-- **Testable**: Has clear acceptance criteria
+**特征：**
+- **独立**：可以分开开发
+- **可协商**：细节可以讨论和细化
+- **有价值**：为用户或业务提供价值
+- **可估算**：可以为规划确定大小
+- **小**：可以在一次迭代中完成
+- **可测试**：有明确的验收标准
 
-#### Acceptance Criteria
-- Define when a user story is complete
-- Written in Given-When-Then format or EARS format
-- Should be testable and specific
-- Agreed upon by team and stakeholders
+#### 验收标准
+- 定义用户故事何时完成
+- 以 Given-When-Then 格式或 EARS 格式编写
+- 应可测试且具体
+- 团队和利益相关者达成一致
 
-### Behavior-Driven Development (BDD)
+### 行为驱动开发 (BDD)
 
-#### Gherkin Syntax
+#### Gherkin 语法
 ```gherkin
-Feature: User Authentication
-  As a user
-  I want to log into the system
-  So that I can access my personal data
+Feature: 用户认证
+  作为用户
+  我想要登录系统
+  以便我可以访问我的个人数据
 
-  Scenario: Successful login
-    Given I am on the login page
-    When I enter valid credentials
-    Then I should be redirected to the dashboard
+  Scenario: 成功登录
+    Given 我在登录页面
+    When 我输入有效凭证
+    Then 我应该被重定到仪表板
 ```
 
-#### BDD Process
-1. **Discovery**: Explore and understand requirements
-2. **Formulation**: Document examples and scenarios
-3. **Automation**: Create executable specifications
+#### BDD 流程
+1. **发现**：探索并理解需求
+2. **制定**：记录示例和场景
+3. **自动化**：创建可执行规范
 
-### Model-Based Requirements Engineering
+### 基于模型的需求工程
 
-#### Use Case Modeling
-- **Actors**: External entities that interact with the system
-- **Use Cases**: Specific interactions or functions
-- **Relationships**: Include, extend, and generalization
+#### 用例建模
+- **参与者**：与系统交互的外部实体
+- **用例**：具体的交互或功能
+- **关系**：包含、扩展和泛化
 
-#### Requirements Modeling Techniques
-- **Entity-Relationship Diagrams**: Data relationships
-- **State Diagrams**: System behavior over time
-- **Sequence Diagrams**: Interaction between components
-- **Activity Diagrams**: Workflow and process flow
+#### 需求建模技术
+- **实体关系图**：数据关系
+- **状态图**：随时间变化的系统行为
+- **序列图**：组件之间的交互
+- **活动图**：工作流和流程流
 
-## Quality Assurance Standards
+## 质量保证标准
 
-### Testing Standards
+### 测试标准
 
-#### ISO/IEC/IEEE 29119 - Software Testing
-- **Test Planning**: Strategy and approach
-- **Test Design**: Test cases and procedures
-- **Test Execution**: Running tests and recording results
-- **Test Monitoring**: Progress tracking and reporting
+#### ISO/IEC/IEEE 29119 - 软件测试
+- **测试计划**：策略和方法
+- **测试设计**：测试用例和程序
+- **测试执行**：运行测试并记录结果
+- **测试监控**：进度跟踪和报告
 
-#### Test-Driven Development (TDD)
-1. **Red**: Write a failing test
-2. **Green**: Write minimal code to pass
-3. **Refactor**: Improve code while keeping tests green
+#### 测试驱动开发 (TDD)
+1. **红**：编写一个失败的测试
+2. **绿**：编写最少的代码以通过
+3. **重构**：在保持测试通过的同时改进代码
 
-### Code Quality Standards
+### 代码质量标准
 
-#### Clean Code Principles
-- **Meaningful Names**: Use intention-revealing names
-- **Small Functions**: Functions should do one thing well
-- **Comments**: Code should be self-documenting
-- **Error Handling**: Handle errors gracefully
-- **Formatting**: Consistent code formatting
+#### 清洁代码原则
+- **有意义的名称**：使用揭示意图的名称
+- **小函数**：函数应该做好一件事
+- **注释**：代码应该是自文档化的
+- **错误处理**：优雅地处理错误
+- **格式化**：一致的代码格式
 
-#### Code Review Standards
-- **Functionality**: Does the code do what it's supposed to do?
-- **Design**: Is the code well-designed and appropriate?
-- **Complexity**: Is the code more complex than it needs to be?
-- **Tests**: Does the code have correct and well-designed tests?
-- **Naming**: Are names clear and appropriate?
-- **Comments**: Are comments clear and useful?
+#### 代码审查标准
+- **功能性**：代码是否做它应该做的事？
+- **设计**：代码设计是否良好且适当？
+- **复杂性**：代码是否比需要的更复杂？
+- **测试**：代码是否有正确且设计良好的测试？
+- **命名**：名称是否清晰且适当？
+- **注释**：注释是否清晰且有用？
 
-## Documentation Standards
+## 文档标准
 
-### Technical Writing Best Practices
+### 技术写作最佳实践
 
-#### Structure and Organization
-- **Logical Flow**: Information presented in logical order
-- **Consistent Format**: Uniform structure across documents
-- **Clear Headings**: Descriptive section and subsection titles
-- **Cross-References**: Links between related information
+#### 结构和组织
+- **逻辑流**：以逻辑顺序呈现信息
+- **一致的格式**：跨文档的统一结构
+- **清晰的标题**：描述性的章节标题
+- **交叉引用**：相关信息之间的链接
 
-#### Writing Style
-- **Active Voice**: Use active voice for clarity
-- **Concise Language**: Eliminate unnecessary words
-- **Consistent Terminology**: Use same terms throughout
-- **Audience Awareness**: Write for your intended audience
+#### 写作风格
+- **主动语态**：使用主动语态以保持清晰
+- **简洁语言**：消除不必要的词语
+- **一致的术语**：始终使用相同的术语
+- **受众意识**：为你的预期受众写作
 
-### Documentation Types
+### 文档类型
 
-#### API Documentation
-- **Endpoint Descriptions**: Clear explanation of each endpoint
-- **Request/Response Examples**: Sample inputs and outputs
-- **Error Codes**: Comprehensive error handling information
-- **Authentication**: Security requirements and implementation
+#### API 文档
+- **端点描述**：每个端点的清晰解释
+- **请求/响应示例**：输入和输出示例
+- **错误代码**：全面的错误处理信息
+- **认证**：安全需求和实施
 
-#### User Documentation
-- **Getting Started**: Quick start guides and tutorials
-- **Feature Guides**: Detailed explanations of functionality
-- **Troubleshooting**: Common issues and solutions
-- **FAQ**: Frequently asked questions and answers
-
----
-
-## References and Further Reading
-
-### Standards Organizations
-- **IEEE** (Institute of Electrical and Electronics Engineers): [ieee.org](https://www.ieee.org)
-- **ISO** (International Organization for Standardization): [iso.org](https://www.iso.org)
-- **W3C** (World Wide Web Consortium): [w3.org](https://www.w3.org)
-
-### Requirements Engineering Resources
-- "Software Requirements" by Karl Wiegers and Joy Beatty
-- "Writing Effective Use Cases" by Alistair Cockburn
-- "User Stories Applied" by Mike Cohn
-- "Specification by Example" by Gojko Adzic
-
-### System Design Resources
-- "Clean Architecture" by Robert C. Martin
-- "Domain-Driven Design" by Eric Evans
-- "Building Microservices" by Sam Newman
-- "System Design Interview" by Alex Xu
-
-### Quality Assurance Resources
-- "Clean Code" by Robert C. Martin
-- "The Art of Software Testing" by Glenford Myers
-- "Continuous Delivery" by Jez Humble and David Farley
-- "Release It!" by Michael Nygard
+#### 用户文档
+- **入门**：快速开始指南和教程
+- **功能指南**：功能的详细解释
+- **故障排除**：常见问题和解决方案
+- **FAQ**：常见问题解答
 
 ---
 
-[← Back to Resources](README.md) | [Tools and Templates →](../templates/README.md)
+## 参考资料和延伸阅读
+
+### 标准组织
+- **IEEE** (电气和电子工程师协会)：[ieee.org](https://www.ieee.org)
+- **ISO** (国际标准化组织)：[iso.org](https://www.iso.org)
+- **W3C** (万维网联盟)：[w3.org](https://www.w3.org)
+
+### 需求工程资源
+- "Software Requirements" - Karl Wiegers 和 Joy Beatty
+- "Writing Effective Use Cases" - Alistair Cockburn
+- "User Stories Applied" - Mike Cohn
+- "Specification by Example" - Gojko Adzic
+
+### 系统设计资源
+- "Clean Architecture" - Robert C. Martin
+- "Domain-Driven Design" - Eric Evans
+- "Building Microservices" - Sam Newman
+- "System Design Interview" - Alex Xu
+
+### 质量保证资源
+- "Clean Code" - Robert C. Martin
+- "The Art of Software Testing" - Glenford Myers
+- "Continuous Delivery" - Jez Humble 和 David Farley
+- "Release It!" - Michael Nygard
+
+---
+
+[← 返回资源](README.md) | [工具和模板 →](../templates/README.md)
