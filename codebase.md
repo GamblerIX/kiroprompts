@@ -80,7 +80,7 @@ This is a binary file of the type: Image
 ## 数据模型
 
 ### 文档结构模型
-\`\`\`
+```
 SpecGuide/
 ├── README.md (导航与概述)
 ├── methodology/
@@ -116,7 +116,7 @@ SpecGuide/
     ├── requirements-template.md
     ├── design-template.md
     └── tasks-template.md
-\`\`\`
+```
 
 ### 内容组织模型
 每个主要部分都将遵循一致的结构：
@@ -1778,348 +1778,349 @@ ACID 合规性       |     5      |    3    |   2
 # spec-process-guide/examples/case-studies.md
 
 ```md
-# Case Studies: Troubleshooting and Pitfalls
+# 案例研究：故障排除与常见陷阱
 
-<!-- Navigation Metadata -->
-<!-- Example: Case Studies | Level: Troubleshooting | Prerequisites: simple-feature-spec.md -->
-<!-- Related: process/README.md, prompting/best-practices.md, execution/troubleshooting.md -->
+<!-- 导航元数据 -->
+<!-- 示例：案例研究 | 级别：故障排除 | 前置要求：simple-feature-spec.md -->
+<!-- 相关内容：process/README.md, prompting/best-practices.md, execution/troubleshooting.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Examples](README.md) → **Case Studies**
+**📍 你在这里：** [主指南](../README.md) → [示例](README.md) → **案例研究**
 
-## Quick Navigation
-- **📖 Learn Basics:** [Simple Feature Specs](simple-feature-spec.md) - See good examples first
-- **📋 Process Help:** [Process Guide](../process/README.md) - Avoid pitfalls with systematic approach
-- **💬 Better Prompting:** [Best Practices](../prompting/best-practices.md) - Communicate more effectively
-- **⚡ Execution Issues:** [Troubleshooting Guide](../execution/troubleshooting.md) - Fix implementation problems
+## 快速导航
+- **📖 学习基础：** [简单功能规范](simple-feature-spec.md) - 先查看优秀示例
+- **📋 流程帮助：** [流程指南](../process/README.md) - 通过系统化方法避免陷阱
+- **💬 更好的提示词：** [最佳实践](../prompting/best-practices.md) - 更有效地沟通
+- **⚡ 执行问题：** [故障排除指南](../execution/troubleshooting.md) - 解决实施问题
 
 ---
 
-This section documents common mistakes, failed approaches, and lessons learned from real-world spec-driven development experiences. Learning from these pitfalls can help you avoid similar issues and recover when problems arise.
+本章节记录了在实际的规范驱动开发过程中遇到的常见错误、失败的方法以及经验教训。学习这些陷阱可以帮助你避免类似的问题，并在出现问题时及时补救。
 
-## Common Pitfalls and How to Avoid Them
+## 常见陷阱及如何避免
 
-### Requirements Phase Pitfalls
+### 需求阶段陷阱
 
-#### Pitfall 1: Vague or Ambiguous Requirements
+#### 陷阱 1：含糊不清或模棱两可的需求
 
-**What Went Wrong:**
-A team specified a requirement as "The system should be fast and user-friendly." This led to disagreements during implementation about what constituted acceptable performance and usability.
+**问题描述：**
+一个团队将需求规定为“系统应该既快又好用”。这导致在实施过程中对于什么是可接受的性能和易用性产生了分歧。
 
-**Example of Poor Requirement:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a user, I want the application to be fast, so that I have a good experience.
+**糟糕的需求示例：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名用户，我想让应用程序运行得很快，以便获得良好的体验。
 
-#### Acceptance Criteria
-1. WHEN using the application THEN it should be fast
-2. WHEN navigating THEN it should be responsive
-\`\`\`
+#### 验收标准
+1. 当使用应用程序时，它应该很快。
+2. 当进行导航时，它应该是响应及时的。
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a user, I want page loads to complete quickly, so that I can accomplish my tasks efficiently.
+**正确的做法：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名用户，我希望页面加载能迅速完成，以便我能高效地完成任务。
 
-#### Acceptance Criteria
-1. WHEN loading the main dashboard THEN the page SHALL render within 2 seconds
-2. WHEN clicking navigation links THEN the new page SHALL load within 1.5 seconds
-3. WHEN submitting forms THEN the system SHALL provide feedback within 500ms
-4. IF network conditions are poor THEN the system SHALL show loading indicators after 1 second
-\`\`\`
+#### 验收标准
+1. 当加载主仪表盘时，页面 SHALL 在 2 秒内渲染完成。
+2. 当点击导航链接时，新页面 SHALL 在 1.5 秒内加载。
+3. 当提交表单时，系统 SHALL 在 500 毫秒内提供反馈。
+4. 如果网络状况较差，系统 SHALL 在 1 秒后显示加载指示器。
+```
 
-**Recovery Strategy:**
-- Stop implementation and return to requirements clarification
-- Define specific, measurable criteria for all subjective terms
-- Get stakeholder agreement on concrete metrics
-- Update the requirements document before proceeding
+**恢复策略：**
+- 停止实施，返回需求澄清阶段。
+- 为所有主观术语定义具体的、可衡量的标准。
+- 与利益相关者就具体的指标达成一致。
+- 在继续进行之前更新需求文档。
 
-#### Pitfall 2: Missing Edge Cases and Error Scenarios
+#### 陷阱 2：缺失边缘情况和错误场景
 
-**What Went Wrong:**
-A user authentication system was specified without considering password reset, account lockout, or concurrent login scenarios. This led to security vulnerabilities and poor user experience.
+**问题描述：**
+一个用户身份验证系统的规范没有考虑密码重置、账户锁定或并发登录场景。这导致了安全漏洞和糟糕的用户体验。
 
-**Example of Incomplete Requirements:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a user, I want to log in with email and password, so that I can access my account.
+**不完整的需求示例：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名用户，我想通过电子邮件和密码登录，以便访问我的账户。
 
-#### Acceptance Criteria
-1. WHEN providing correct credentials THEN the system SHALL authenticate the user
-2. WHEN providing incorrect credentials THEN the system SHALL show an error
-\`\`\`
+#### 验收标准
+1. 当提供正确的凭据时，系统 SHALL 对用户进行身份验证。
+2. 当提供错误的凭据时，系统 SHALL 显示错误。
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a user, I want to log in securely with email and password, so that I can access my account while maintaining security.
+**正确的做法：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名用户，我想通过电子邮件和密码安全地登录，以便在保持安全的同时访问我的账户。
 
-#### Acceptance Criteria
-1. WHEN providing correct credentials THEN the system SHALL authenticate and create a session
-2. WHEN providing incorrect credentials THEN the system SHALL show a generic error message
-3. WHEN failing login 5 times THEN the system SHALL temporarily lock the account for 15 minutes
-4. WHEN already logged in elsewhere THEN the system SHALL handle concurrent sessions appropriately
-5. IF the account is locked THEN the system SHALL provide password reset options
-6. WHEN the session expires THEN the system SHALL require re-authentication
-\`\`\`
+#### 验收标准
+1. 当提供正确的凭据时，系统 SHALL 进行身份验证并创建会话。
+2. 当提供错误的凭据时，系统 SHALL 显示通用的错误消息。
+3. 当登录失败 5 次时，系统 SHALL 临时锁定账户 15 分钟。
+4. 当已经在其他地方登录时，系统 SHALL 适当地处理并发会话。
+5. 如果账户被锁定，系统 SHALL 提供密码重置选项。
+6. 当会话过期时，系统 SHALL 要求重新进行身份验证。
+```
 
-**Recovery Strategy:**
-- Conduct a systematic review of all failure scenarios
-- Consider the "unhappy path" for every user story
-- Add security and edge case requirements
-- Review with security experts if handling sensitive data
+**恢复策略：**
+- 对所有失败情景进行系统性审查。
+- 为每个用户故事考虑“非正常路径”。
+- 添加安全性和边缘情况需求。
+- 如果处理敏感数据，请咨询安全专家。
 
-#### Pitfall 3: Technology-Specific Requirements
+#### 陷阱 3：特定于技术的需求
 
-**What Went Wrong:**
-Requirements specified "The system must use React and Node.js" instead of focusing on functional needs. This limited design flexibility and made the spec less reusable.
+**问题描述：**
+需求规定“系统必须使用 React 和 Node.js”，而不是专注于功能需求。这限制了设计的灵活性，并降低了规范的可重用性。
 
-**Example of Technology-Coupled Requirements:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a developer, I want to use React for the frontend, so that the UI is interactive.
+**与技术耦合的需求示例：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名开发人员，我想在前端使用 React，以便 UI 具有交互性。
 
-#### Acceptance Criteria
-1. WHEN building the UI THEN it SHALL use React components
-2. WHEN handling state THEN it SHALL use Redux
-\`\`\`
+#### 验收标准
+1. 在构建 UI 时，它 SHALL 使用 React 组件。
+2. 在处理状态时，它 SHALL 使用 Redux。
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-### Requirement 1
-**User Story:** As a user, I want an interactive web interface, so that I can efficiently manage my data.
+**正确的做法：**
+```markdown
+### 需求 1
+**用户故事：** 作为一名用户，我想要一个具有交互性的 Web 界面，以便高效地管理我的数据。
 
-#### Acceptance Criteria
-1. WHEN interacting with forms THEN changes SHALL be reflected immediately without page refresh
-2. WHEN data updates THEN the interface SHALL update automatically
-3. WHEN using the interface THEN it SHALL work on modern web browsers
-4. IF JavaScript is disabled THEN core functionality SHALL still be accessible
-\`\`\`
+#### 验收标准
+1. 在与表单交互时，更改 SHALL 立即反映而无需刷新页面。
+2. 当数据更新时，界面 SHALL 自动更新。
+3. 在使用界面时，它 SHALL 能够在现代 Web 浏览器中运行。
+4. 如果禁用了 JavaScript，核心功能 SHALL 仍然可以访问。
+```
 
-**Recovery Strategy:**
-- Separate functional requirements from implementation choices
-- Move technology decisions to the design phase
-- Focus requirements on user value and business outcomes
-- Allow design phase to evaluate technology options
+**恢复策略：**
+- 将功能需求与实施选择分开。
+- 将技术决策移至设计阶段。
+- 将需求重点放在用户价值和业务成果上。
+- 允许设计阶段评估各种技术方案。
 
-### Design Phase Pitfalls
+### 设计阶段陷阱
 
-#### Pitfall 4: Over-Engineering from the Start
+#### 陷阱 4：从一开始就过度设计
 
-**What Went Wrong:**
-A simple content management feature was designed with microservices, event sourcing, and complex caching layers before understanding actual usage patterns.
+**问题描述：**
+一个简单的内容管理功能在了解实际使用模式之前，就采用了微服务、事件溯源和复杂的缓存层进行设计。
 
-**Example of Over-Engineered Design:**
-\`\`\`markdown
-## Architecture
-The content management system will use:
-- 5 microservices with separate databases
-- Event sourcing for all data changes
-- Redis cluster for distributed caching
-- Message queues for all inter-service communication
-- Elasticsearch for content search
-\`\`\`
+**过度设计的示例：**
+```markdown
+## 架构
+内容管理系统将使用：
+- 5 个具有独立数据库的微服务
+- 对所有数据更改使用事件溯源
+- 使用 Redis 集群进行分布式缓存
+- 所有微服务间通信均使用消息队列
+- 使用 Elasticsearch 进行内容搜索
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-## Architecture
-The content management system will start with:
-- Single service with clear module boundaries
-- Traditional database with proper indexing
-- Simple caching for frequently accessed content
-- Direct API calls between modules
-- Database full-text search initially
+**正确的做法：**
+```markdown
+## 架构
+内容管理系统将从以下开始：
+- 具有清晰模块边界的单一服务
+- 带有适当索引的传统数据库
+- 为频繁访问的内容提供简单的缓存
+- 模块间直接进行 API 调用
+- 初始阶段使用数据库全文搜索
 
-## Future Scaling Considerations
-- Module boundaries designed to support future service extraction
-- Database schema designed to support event sourcing if needed
-- Caching layer abstracted to support distributed caching
-- API design supports future microservices architecture
-\`\`\`
+## 未来扩展考量
+- 模块边界旨在支持未来的服务提取。
+- 数据库模式旨在支持未来的事件溯源（如果需要）。
+- 缓存层采用了抽象设计，以支持未来的分布式缓存。
+- API 设计支持未来的微服务架构。
+```
 
-**Recovery Strategy:**
-- Start with the simplest design that meets requirements
-- Design for future scalability without implementing it initially
-- Plan clear upgrade paths for when complexity is needed
-- Focus on solving current problems, not hypothetical future ones
+**恢复策略：**
+- 从满足需求的最简单设计开始。
+- 为未来的可扩展性进行设计，但初始阶段不予实施。
+- 规划清晰的升级路径，以备需要增加复杂性时使用。
+- 专注于解决当前的问题，而不是假设的未来问题。
 
-#### Pitfall 5: Insufficient Error Handling Design
+#### 陷阱 5：错误处理设计不足
 
-**What Went Wrong:**
-A payment processing system design focused on the happy path but didn't adequately plan for network failures, timeout scenarios, or partial payment states.
+**问题描述：**
+一个支付处理系统的设计只专注于正常路径，但没有充分规划网络故障、超时场景或部分支付状态。
 
-**Example of Incomplete Error Handling:**
-\`\`\`markdown
-## Payment Processing Flow
-1. Validate payment information
-2. Charge payment method
-3. Update order status
-4. Send confirmation email
-\`\`\`
+**不完整的错误处理示例：**
+```markdown
+## 支付处理流程
+1. 验证支付信息
+2. 扣除支付款项
+3. 更新订单状态
+4. 发送确认电子邮件
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-## Payment Processing Flow
+**正确的做法：**
+```markdown
+## 支付处理流程
 
-### Happy Path
-1. Validate payment information
-2. Charge payment method
-3. Update order status
-4. Send confirmation email
+### 正常路径
+1. 验证支付信息
+2. 扣除支付款项
+3. 更新订单状态
+4. 发送确认电子邮件
 
-### Error Scenarios
-- **Validation Failure**: Return specific field errors, log attempt
-- **Payment Declined**: Store attempt, offer alternative payment methods
-- **Network Timeout**: Implement retry with exponential backoff
-- **Partial Charge**: Implement idempotency keys, reconciliation process
-- **Database Failure**: Queue status updates, implement eventual consistency
-- **Email Failure**: Queue email for retry, don't fail the payment
+### 错误场景
+- **验证失败**：返回具体的字段错误，并记录尝试。
+- **支付被拒绝**：存储尝试记录，提供备选支付方式。
+- **网络超时**：实施指数退避的重试机制。
+- **部分扣款**：实施幂等键和对账流程。
+- **数据库故障**：将状态更新加入队列，实施最终一致性。
+- **邮件发送失败**：将邮件加入重试队列，不要导致支付流程失败。
 
-### Recovery Mechanisms
-- Automatic retry for transient failures
-- Manual reconciliation tools for payment discrepancies
-- Customer service tools for payment issue resolution
-- Monitoring and alerting for payment system health
-\`\`\`
+### 恢复机制
+- 针对瞬时故障的自动重试。
+- 针对支付差异的手动对账工具。
+- 针对支付问题的客户服务解决工具。
+- 对支付系统健康状况的监控和警报。
+```
 
-**Recovery Strategy:**
-- Map out all possible failure points in the system
-- Design specific handling for each type of failure
-- Implement monitoring and alerting for error conditions
-- Create manual recovery procedures for complex failures
+**恢复策略：**
+- 勾画出系统中所有可能的故障点。
+- 为每种类型的故障设计特定的处理方案。
+- 针对错误情况实施监控和警报。
+- 为复杂的故障创建手动恢复程序。
 
-#### Pitfall 6: Ignoring Non-Functional Requirements
+#### 陷阱 6：忽视非功能性需求
 
-**What Went Wrong:**
-A data processing system was designed without considering performance, security, or scalability requirements, leading to production issues.
+**问题描述：**
+一个数据处理系统的设计没有考虑性能、安全或可扩展性需求，导致了生产环境的问题。
 
-**Example of Missing Non-Functional Considerations:**
-\`\`\`markdown
-## Data Processing Design
-The system will:
-- Read data from CSV files
-- Transform data according to business rules
-- Store results in database
-\`\`\`
+**缺失非功能性考量的示例：**
+```markdown
+## 数据处理设计
+系统将：
+- 从 CSV 文件读取数据
+- 根据业务规则转换数据
+- 将结果存储在数据库中
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-## Data Processing Design
+**正确的做法：**
+```markdown
+## 数据处理设计
 
-### Functional Design
-- Read data from CSV files with configurable batch sizes
-- Transform data using pluggable business rule engine
-- Store results with transaction management
+### 功能设计
+- 从 CSV 文件读取数据，且批处理大小可配置。
+- 使用可插拔的业务规则引擎转换数据。
+- 通过事务管理存储结果。
 
-### Non-Functional Design
-- **Performance**: Process 10,000 records per minute minimum
-- **Scalability**: Support horizontal scaling for larger datasets
-- **Security**: Encrypt data at rest and in transit
-- **Reliability**: Implement checkpointing for recovery from failures
-- **Monitoring**: Track processing metrics and error rates
-- **Maintainability**: Support hot-swapping of business rules
-\`\`\`
+### 非功能设计
+- **性能**：每分钟至少处理 10,000 条记录。
+- **可扩展性**：支持水平扩展以处理更大型的数据集。
+- **安全性**：在存储和传输过程中对数据进行加密。
+- **可靠性**：实施检查点以从故障中恢复。
+- **监控**：跟踪处理指标和错误率。
+- **可维护性**：支持业务规则的热插拔。
+```
 
-**Recovery Strategy:**
-- Review requirements for implicit non-functional needs
-- Add performance, security, and scalability considerations
-- Design monitoring and observability from the start
-- Plan for operational concerns like deployment and maintenance
+**恢复策略：**
+- 审查需求中隐含的非功能性需求。
+- 增加性能、安全性和可扩展性考量。
+- 从一开始就设计监控和可观测性。
+- 规划运维关注点，如部署和维护。
 
-### Tasks Phase Pitfalls
+### 任务阶段陷阱
 
-#### Pitfall 7: Tasks Too Large or Vague
+#### 陷阱 7：任务过大或含糊不清
 
-**What Went Wrong:**
-Implementation tasks were defined as "Implement user management" and "Build the API," leading to unclear progress tracking and difficulty estimating work.
+**问题描述：**
+实施任务被定义为“实施用户管理”和“构建 API”，导致进度跟踪不清晰且难以估算工作量。
 
-**Example of Poor Task Definition:**
-\`\`\`markdown
-- [ ] 1. Implement user management
-  - Build all user-related functionality
-  - _Requirements: 1.1, 1.2, 1.3, 2.1, 2.2_
+**糟糕的任务定义示例：**
+```markdown
+- [ ] 1. 实施用户管理
+  - 构建所有与用户相关的功能
+  - _关联需求：1.1, 1.2, 1.3, 2.1, 2.2_
 
-- [ ] 2. Build the API
-  - Create REST endpoints for all features
-  - _Requirements: 3.1, 3.2, 4.1_
-\`\`\`
+- [ ] 2. 构建 API
+  - 为所有功能创建 REST 端点
+  - _关联需求：3.1, 3.2, 4.1_
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-- [ ] 1. Create user data model and validation
-  - Implement User interface with TypeScript types
-  - Create email validation with regex pattern
-  - Add password strength validation (8+ chars, mixed case, numbers)
-  - Write unit tests for validation functions
-  - _Requirements: 1.1, 1.2_
+**正确的做法：**
+```markdown
+- [ ] 1. 创建用户数据模型和验证
+  - 使用 TypeScript 类型实施用户接口
+  - 使用正则表达式模式创建电子邮件验证
+  - 增加密码强度验证（8 个以上字符，混合大小写，数字）
+  - 为验证函数编写单元测试
+  - _关联需求：1.1, 1.2_
 
-- [ ] 2. Implement user registration endpoint
-  - Create POST /api/users endpoint with request validation
-  - Add duplicate email checking with appropriate error response
-  - Implement password hashing using bcrypt
-  - Write integration tests for registration flow
-  - _Requirements: 1.1, 1.3_
+- [ ] 2. 实施用户注册端点
+  - 创建带有请求验证的 POST /api/users 端点
+  - 增加重复电子邮件检查，并返回适当的错误响应
+  - 使用 bcrypt 实施密码哈希
+  - 为注册流程编写集成测试
+  - _关联需求：1.1, 1.3_
 
-- [ ] 3. Build user authentication endpoint
-  - Create POST /api/auth/login endpoint
-  - Implement credential verification and JWT token generation
-  - Add rate limiting for login attempts
-  - Write integration tests for authentication flow
-  - _Requirements: 2.1, 2.2_
-\`\`\`
+- [ ] 3. 构建用户身份验证端点
+  - 创建 POST /api/auth/login 端点
+  - 实施凭据验证和 JWT 令牌生成
+  - 为登录尝试增加速率限制
+  - 为身份验证流程编写集成测试
+  - _关联需求：2.1, 2.2_
+```
 
-**Recovery Strategy:**
-- Break large tasks into specific, testable units
-- Each task should be completable in 1-2 days maximum
-- Include specific deliverables and acceptance criteria
-- Reference specific requirements for each task
+**恢复策略：**
+- 将大型任务分解为具体的、可测试的单元。
+- 每个任务应最多能在 1-2 天内完成。
+- 包含具体的可交付成果和验收标准。
+- 为每个任务引用具体的需求。
 
-#### Pitfall 8: Missing Dependencies and Sequencing
+#### 陷阱 8：缺失依赖关系和排序
 
-**What Went Wrong:**
-Tasks were defined without considering dependencies, leading to blocked work and inefficient development flow.
+**问题描述：**
+任务定义时没有考虑依赖关系，导致工作受阻和开发流程效率低下。
 
-**Example of Poor Task Sequencing:**
-\`\`\`markdown
-- [ ] 1. Build user interface components
-- [ ] 2. Implement API endpoints
-- [ ] 3. Create database schema
-- [ ] 4. Set up authentication middleware
-\`\`\`
+**糟糕的任务排序示例：**
+```markdown
+- [ ] 1. 构建用户界面组件
+- [ ] 2. 实施 API 端点
+- [ ] 3. 创建数据库模式
+- [ ] 4. 设置身份验证中间件
+```
 
-**What Should Have Been Done:**
-\`\`\`markdown
-- [ ] 1. Set up project infrastructure
-  - Create database schema and migrations
-  - Set up development environment and dependencies
-  - Configure testing framework
-  - _Requirements: Foundation for all other tasks_
+**正确的做法：**
+```markdown
+- [ ] 1. 设置项目基础设施
+  - 创建数据库模式和迁移
+  - 设置开发环境和依赖项
+  - 配置测试框架
+  - _关联需求：作为所有其他任务的基础_
 
-- [ ] 2. Implement core data models
-  - Create User model with validation
-  - Implement database repository layer
-  - Write unit tests for data models
-  - _Requirements: 1.1, 1.2_
+- [ ] 2. 实施核心数据模型
+  - 创建带有验证功能的用户模型
+  - 实施数据库存储库 (Repository) 层
+  - 为数据模型编写单元测试
+  - _关联需求：1.1, 1.2_
 
-- [ ] 3. Build authentication services
-  - Implement password hashing and verification
-  - Create JWT token generation and validation
-  - Write unit tests for authentication logic
-  - _Requirements: 2.1, 2.2_
+- [ ] 3. 构建身份验证服务
+  - 实施密码哈希和验证
+  - 创建 JWT 令牌生成和验证
+  - 为身份验证逻辑编写单元测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 4. Create API endpoints
-  - Build user registration endpoint using authentication services
-  - Implement login endpoint with token generation
-  - Add authentication middleware for protected routes
-  - Write integration tests for complete API flows
-  - _Requirements: 1.1, 2.1, 3.1_
+- [ ] 4. 创建 API 端点
+  - 使用身份验证服务构建用户注册端点
+  - 实施带有令牌生成的登录端点
+  - 为受保护的路由添加身份验证中间件
+  - 为完整的 API 流程编写集成测试
+  - _关联需求：1.1, 2.1, 3.1_
 
-- [ ] 5. Build user interface components
-  - Create registration form with validation
-  - Implement login form with error handling
-  - Add authenticated user dashboard
-  - Write component tests and user interaction tests
-  - _Requirements: 3.2, 3.3_
-\`\`\`
+- [ ] 5. 构建用户界面组件
+  - 创建带有验证功能的注册表单
+  - 实施带有错误处理功能的登录表单
+  - 增加已认证用户仪表盘
+  - 编写组件测试和用户交互测试
+  - _关联需求：3.2, 3.3_
+```
+
 
 **恢复策略：**
 - 梳理任务之间的依赖关系
@@ -2133,7 +2134,7 @@ Tasks were defined without considering dependencies, leading to blocked work and
 任务只关注功能实现而没有充分的测试，导致在开发后期才发现漏洞。
 
 **测试较少的任务示例：**
-\`\`\`markdown
+```markdown
 - [ ] 1. 实现用户注册
   - 创建注册表单
   - 添加后端验证
@@ -2145,10 +2146,10 @@ Tasks were defined without considering dependencies, leading to blocked work and
   - 验证凭据
   - 创建用户会话
   - _需求：2.1_
-\`\`\`
+```
 
 **正确的做法：**
-\`\`\`markdown
+```markdown
 - [ ] 1. 实现具有全面测试的用户注册
   - 创建带有验证规则的 User 模型
   - 为 User 模型验证的边缘情况编写单元测试
@@ -2166,7 +2167,7 @@ Tasks were defined without considering dependencies, leading to blocked work and
   - 构建具有正确错误处理能力的登录表单
   - 为登录用户旅程和安全措施编写端到端测试
   - _需求：2.1_
-\`\`\`
+```
 
 **恢复策略：**
 - 为每个实现任务增加测试要求
@@ -2337,108 +2338,108 @@ Tasks were defined without considering dependencies, leading to blocked work and
 
 ---
 
-[← Complex System Examples](complex-system-spec.md) | [Back to Examples Overview](README.md)
+[← 复杂系统示例](complex-system-spec.md) | [返回示例概览](README.md)
 ```
 
 # spec-process-guide/examples/complex-system-spec.md
 
-```md
-# Complex System Spec Examples
+````md
+# 复杂系统规范示例
 
-<!-- Navigation Metadata -->
-<!-- Example: Complex Systems | Level: Advanced Examples | Prerequisites: simple-feature-spec.md -->
-<!-- Related: ai-reasoning/decision-frameworks.md, process/design-phase.md, templates/design-template.md -->
+<!-- 导航元数据 -->
+<!-- 示例：复杂系统 | 级别：高级示例 | 前置要求：simple-feature-spec.md -->
+<!-- 相关内容：ai-reasoning/decision-frameworks.md, process/design-phase.md, templates/design-template.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Examples](README.md) → **Complex System Specs**
+**📍 你在这里：** [主指南](../README.md) → [示例](README.md) → **复杂系统规范**
 
-## Quick Navigation
-- **🎯 Start Simple:** [Simple Feature Specs](simple-feature-spec.md) - Learn with basic examples first
-- **🧠 Decision Help:** [AI Decision Frameworks](../ai-reasoning/decision-frameworks.md) - Handle complex choices
-- **📋 Design Process:** [Design Phase Guide](../process/design-phase.md) - Systematic approach to complexity
-- **📝 Design Template:** [Design Template](../templates/design-template.md) - Structure for complex designs
+## 快速导航
+- **🎯 从简单开始：** [简单功能规范](simple-feature-spec.md) - 先通过基础示例学习
+- **🧠 决策帮助：** [AI 决策框架](../ai-reasoning/decision-frameworks.md) - 处理复杂选择
+- **📋 设计流程：** [设计阶段指南](../process/design-phase.md) - 系统化处理复杂性的方法
+- **📝 设计模板：** [设计模板](../templates/design-template.md) - 复杂设计的结构
 
 ---
 
-This section demonstrates how to apply the spec-driven methodology to larger, more complex systems. These examples show how to handle complexity, break down large features into manageable components, and coordinate multiple interconnected parts.
+本章节展示了如何将规范驱动方法论应用于更大型、更复杂的系统。这些示例说明了如何处理复杂性、如何将大型功能拆分为可管理的组件，以及如何协调多个相互关联的部分。
 
-## Example 1: Multi-Service API Architecture
+## 示例 1：多服务 API 架构
 
-### Overview
-A comprehensive API system that handles user management, content delivery, and real-time notifications across multiple microservices. This example demonstrates how to spec a distributed system with multiple components and complex interactions.
+### 概览
+这是一个综合性的 API 系统，跨多个微服务处理用户管理、内容交付和实时通知。本示例展示了如何针对具有多个组件和复杂交互的分布式系统制定规范。
 
-### Complete Spec Documents
+### 完整规范文档
 
-#### Requirements Document
+#### 需求文档
 
-\`\`\`markdown
-# Multi-Service API Architecture - Requirements
+```markdown
+# 多服务 API 架构 - 需求文档
 
-## Introduction
-This feature implements a scalable API architecture consisting of multiple microservices that handle user management, content operations, and real-time notifications. The system must support high availability, horizontal scaling, and consistent data management across services.
+## 简介
+该功能实现了一个可扩展的 API 架构，由多个处理用户管理、内容操作和实时通知的微服务组成。系统必须支持高可用性、水平扩展以及跨服务的一致性数据管理。
 
-## Requirements
+## 需求
 
-### Requirement 1
-**User Story:** As a system architect, I want a distributed API architecture, so that the system can scale independently and maintain high availability.
+### 需求 1
+**用户故事：** 作为一名系统架构师，我想要一个分布式的 API 架构，以便系统可以独立扩展并保持高可用性。
 
-#### Acceptance Criteria
-1. WHEN the system receives requests THEN it SHALL route them to appropriate microservices
-2. WHEN a service fails THEN the system SHALL continue operating with degraded functionality
-3. WHEN load increases THEN individual services SHALL scale independently
-4. IF services need to communicate THEN they SHALL use well-defined APIs and messaging
+#### 验收标准
+1. 当系统收到请求时，它 SHALL 将其路由到适当的微服务。
+2. 当某个服务发生故障时，系统 SHALL 以降级的功能继续运行。
+3. 当负载增加时，各个服务 SHALL 能够独立扩展。
+4. 如果服务之间需要通信，它们 SHALL 使用定义良好的 API 和消息传递。
 
-### Requirement 2
-**User Story:** As a developer, I want consistent data management across services, so that data integrity is maintained in the distributed system.
+### 需求 2
+**用户故事：** 作为一名开发人员，我希望跨服务保持一致的数据管理，以便在分布式系统中维护数据完整性。
 
-#### Acceptance Criteria
-1. WHEN data is modified in one service THEN related services SHALL be notified of changes
-2. WHEN transactions span multiple services THEN the system SHALL ensure data consistency
-3. WHEN services are temporarily unavailable THEN data operations SHALL be queued and retried
-4. IF data conflicts occur THEN the system SHALL have resolution strategies
+#### 验收标准
+1. 当一个服务中的数据被修改时，相关服务 SHALL 收到更改通知。
+2. 当事务跨越多个服务时，系统 SHALL 确保数据一致性。
+3. 当服务暂时不可用时，数据操作 SHALL 被加入队列并重试。
+4. 如果发生数据冲突，系统 SHALL 拥有冲突解决策略。
 
-### Requirement 3
-**User Story:** As an API consumer, I want unified access to all services, so that I can interact with the system through a single interface.
+### 需求 3
+**用户故事：** 作为一名 API 使用者，我希望能够统一访问所有服务，以便通过单一接口与系统交互。
 
-#### Acceptance Criteria
-1. WHEN making API requests THEN clients SHALL use a single entry point
-2. WHEN services change internally THEN the external API SHALL remain stable
-3. WHEN authentication is required THEN it SHALL work consistently across all services
-4. IF rate limiting is needed THEN it SHALL be applied uniformly across the API
+#### 验收标准
+1. 在发出 API 请求时，客户端 SHALL 使用单一入口点。
+2. 当内部服务发生变化时，外部 API SHALL 保持稳定。
+3. 当需要身份验证时，它 SHALL 在所有服务中保持一致。
+4. 如果需要速率限制，它 SHALL 统一应用于整个 API。
 
-### Requirement 4
-**User Story:** As a system administrator, I want comprehensive monitoring and observability, so that I can maintain system health and performance.
+### 需求 4
+**用户故事：** 作为一名 system administrator，我需要全面的监控和可观测性，以便维护系统的健康和性能。
 
-#### Acceptance Criteria
-1. WHEN services are running THEN the system SHALL provide health checks and metrics
-2. WHEN errors occur THEN they SHALL be logged and traced across service boundaries
-3. WHEN performance degrades THEN alerts SHALL be triggered with actionable information
-4. IF debugging is needed THEN distributed traces SHALL be available for request flows
-\`\`\`
+#### 验收标准
+1. 当服务运行时，系统 SHALL 提供健康检查和指标。
+2. 当发生错误时，它们 SHALL 跨服务边界被记录和追踪。
+3. 当性能下降时，SHALL 触发带有可操作信息的警报。
+4. 如果需要调试，分布式的追踪记录 SHALL 对请求流可用。
+```
 
-#### Design Document
+#### 设计文档
 
-\`\`\`markdown
-# Multi-Service API Architecture - Design
+```markdown
+# 多服务 API 架构 - 设计文档
 
-## Overview
-The system will be implemented using a microservices architecture with an API Gateway for unified access, event-driven communication between services, and shared infrastructure for cross-cutting concerns like authentication, logging, and monitoring.
+## 概览
+系统将采用微服务架构实施，通过 API 网关实现统一访问，服务之间采用事件驱动的通信方式，并使用共享基础设施处理如身份验证、日志记录和监控等横向关注点。
 
-## Architecture
+## 架构
 
-### High-Level Architecture
-\`\`\`mermaid
+### 高层架构
+```mermaid
 graph TB
-    Client[Client Applications] --> Gateway[API Gateway]
-    Gateway --> Auth[Auth Service]
-    Gateway --> User[User Service]
-    Gateway --> Content[Content Service]
-    Gateway --> Notification[Notification Service]
+    Client[客户端应用] --> Gateway[API 网关]
+    Gateway --> Auth[身份验证服务]
+    Gateway --> User[用户服务]
+    Gateway --> Content[内容服务]
+    Gateway --> Notification[通知服务]
     
-    User --> UserDB[(User Database)]
-    Content --> ContentDB[(Content Database)]
-    Notification --> NotificationDB[(Notification Database)]
+    User --> UserDB[(用户数据库)]
+    Content --> ContentDB[(内容数据库)]
+    Notification --> NotificationDB[(通知数据库)]
     
-    User --> EventBus[Event Bus]
+    User --> EventBus[事件总线]
     Content --> EventBus
     Notification --> EventBus
     
@@ -2446,77 +2447,77 @@ graph TB
     EventBus --> Content
     EventBus --> Notification
     
-    Gateway --> Cache[Redis Cache]
+    Gateway --> Cache[Redis 缓存]
     Auth --> Cache
     
-    subgraph Monitoring
-        Logs[Centralized Logging]
-        Metrics[Metrics Collection]
-        Tracing[Distributed Tracing]
+    subgraph 监控
+        Logs[集中式日志]
+        Metrics[指标收集]
+        Tracing[分布式追踪]
     end
     
     User --> Logs
     Content --> Logs
     Notification --> Logs
     Gateway --> Logs
-\`\`\`
+```
 
-## Components and Interfaces
+## 组件与接口
 
-### API Gateway
-- **Purpose**: Single entry point, routing, authentication, rate limiting
-- **Technology**: Kong/Nginx with custom plugins
-- **Responsibilities**: Request routing, SSL termination, CORS, rate limiting
+### API 网关
+- **用途**：单一入口点、路由、身份验证、速率限制
+- **技术**：带有自定义插件的 Kong/Nginx
+- **职责**：请求路由、SSL 终止、CORS、速率限制
 
-### Core Services
+### 核心服务
 
-#### User Service
-\`\`\`typescript
+#### 用户服务
+```typescript
 interface UserService {
-  // User management
+  // 用户管理
   createUser(userData: CreateUserRequest): Promise<User>;
   getUserById(id: string): Promise<User>;
   updateUser(id: string, updates: UpdateUserRequest): Promise<User>;
   deleteUser(id: string): Promise<void>;
   
-  // Authentication integration
+  // 身份验证集成
   validateUserCredentials(email: string, password: string): Promise<AuthResult>;
   updateUserProfile(id: string, profile: ProfileData): Promise<User>;
 }
-\`\`\`
+```
 
-#### Content Service
-\`\`\`typescript
+#### 内容服务
+```typescript
 interface ContentService {
-  // Content operations
+  // 内容操作
   createContent(authorId: string, content: CreateContentRequest): Promise<Content>;
   getContent(id: string): Promise<Content>;
   updateContent(id: string, updates: UpdateContentRequest): Promise<Content>;
   deleteContent(id: string): Promise<void>;
   
-  // Content discovery
+  // 内容发现
   searchContent(query: SearchQuery): Promise<ContentSearchResult>;
   getContentByAuthor(authorId: string): Promise<Content[]>;
   getFeedForUser(userId: string): Promise<Content[]>;
 }
-\`\`\`
+```
 
-#### Notification Service
-\`\`\`typescript
+#### 通知服务
+```typescript
 interface NotificationService {
-  // Notification management
+  // 通知管理
   createNotification(notification: CreateNotificationRequest): Promise<Notification>;
   getNotificationsForUser(userId: string): Promise<Notification[]>;
   markNotificationAsRead(id: string): Promise<void>;
   
-  // Real-time delivery
+  // 实时交付
   subscribeToNotifications(userId: string): Promise<WebSocketConnection>;
   sendRealTimeNotification(userId: string, notification: Notification): Promise<void>;
 }
-\`\`\`
+```
 
-### Event-Driven Communication
-\`\`\`typescript
+### 事件驱动通信
+```typescript
 interface EventBus {
   publish(event: DomainEvent): Promise<void>;
   subscribe(eventType: string, handler: EventHandler): Promise<void>;
@@ -2531,385 +2532,386 @@ interface DomainEvent {
   timestamp: Date;
   version: number;
 }
-\`\`\`
+```
 
-## Data Models
+## 数据模型
 
-### Service Data Isolation
-- Each service owns its data and database
-- No direct database access between services
-- Data synchronization through events
-- Eventual consistency model
+### 服务数据隔离
+- 每个服务拥有其自己的数据和数据库
+- 服务之间禁止直接访问数据库
+- 通过事件进行数据同步
+- 最终一致性模型
 
-### Shared Data Patterns
-- **User Identity**: Shared user ID across services
-- **Content References**: Content IDs used in notifications
-- **Event Sourcing**: Domain events for audit and replay
+### 共享数据模式
+- **用户身份**：跨服务共享用户 ID
+- **内容引用**：通知中使用的内容 ID
+- **事件溯源**：用于审计和重放的领域事件
 
-## Error Handling
+## 错误处理
 
-### Circuit Breaker Pattern
-- Prevent cascade failures between services
-- Automatic recovery and health checking
-- Configurable failure thresholds
+### 熔断模式
+- 防止服务之间的级联故障
+- 自动恢复和健康检查
+- 可配置的失败阈值
 
-### Retry and Timeout Strategies
-- Exponential backoff for transient failures
-- Service-specific timeout configurations
-- Dead letter queues for failed events
+### 重试与超时策略
+- 针对瞬时故障采用指数退避算法
+- 特定于服务的超时配置
+- 针对失败事件的死信队列
 
-### Graceful Degradation
-- Core functionality continues when non-critical services fail
-- Cached responses when services are unavailable
-- User-friendly error messages for service outages
+### 优雅降级
+- 当非关键服务故障时，核心功能继续运行
+- 当服务不可用时，使用缓存的响应
+- 针对服务停机提供用户友好的错误消息
 
-## Testing Strategy
+## 测试策略
 
-### Service-Level Testing
-- Unit tests for business logic within each service
-- Integration tests for database and external dependencies
-- Contract testing between services
+### 服务层级测试
+- 每个服务内部业务逻辑的单元测试
+- 针对数据库和外部依赖项的集成测试
+- 服务之间的契约测试
 
-### System-Level Testing
-- End-to-end tests for complete user workflows
-- Load testing for scalability validation
-- Chaos engineering for resilience testing
+### 系统层级测试
+- 针对完整用户工作流的端到端测试
+- 验证可扩展性的压力测试
+- 验证韧性的混沌工程测试
 
-### Monitoring and Observability
-- Health checks for each service endpoint
-- Distributed tracing for request flows
-- Business metrics and alerting
-\`\`\`
+### 监控与可观测性
+- 每个服务端点的健康检查
+- 请求流的分布式追踪
+- 业务指标与警报
+```
 
-#### Tasks Document
 
-\`\`\`markdown
-# Multi-Service API Architecture - Implementation Plan
+#### 实施计划文档
 
-- [ ] 1. Set up development infrastructure and tooling
-  - Create Docker Compose setup for local development
-  - Set up CI/CD pipeline with service-specific builds
-  - Configure shared development tools (linting, testing, documentation)
-  - Create infrastructure-as-code templates for deployment
-  - _Requirements: 1.1, 4.1_
+```markdown
+# 多服务 API 架构 - 实施计划
 
-- [ ] 2. Implement shared libraries and utilities
-- [ ] 2.1 Create common data models and interfaces
-  - Define shared TypeScript interfaces for cross-service communication
-  - Implement common error types and response formats
-  - Create validation schemas for API contracts
-  - Write unit tests for shared utilities
-  - _Requirements: 2.1, 3.2_
+- [ ] 1. 设置开发基础设施和工具
+  - 为本地开发创建 Docker Compose 配置
+  - 建立带有特定于服务构建的 CI/CD 流水线
+  - 配置共享开发工具（代码规范检查、测试、文档）
+  - 创建用于部署的基础设施即代码模板
+  - _关联需求：1.1, 4.1_
 
-- [ ] 2.2 Build event bus infrastructure
-  - Implement event publishing and subscription interfaces
-  - Create event serialization and deserialization utilities
-  - Add event versioning and backward compatibility support
-  - Write integration tests for event bus functionality
-  - _Requirements: 2.1, 2.2_
+- [ ] 2. 实施共享库和实用程序
+- [ ] 2.1 创建通用数据模型和接口
+  - 定义用于跨服务通信的共享 TypeScript 接口
+  - 实施通用的错误类型和响应格式
+  - 为 API 契约创建验证模式
+  - 为共享实用程序编写单元测试
+  - _关联需求：2.1, 3.2_
 
-- [ ] 2.3 Create authentication and authorization library
-  - Implement JWT token validation middleware
-  - Create role-based access control utilities
-  - Add service-to-service authentication mechanisms
-  - Write security tests for authentication flows
-  - _Requirements: 3.3_
+- [ ] 2.2 构建事件总线基础设施
+  - 实施事件发布和订阅接口
+  - 创建事件序列化和反序列化实用程序
+  - 增加事件版本控制和向后兼容支持
+  - 为事件总线功能编写集成测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 3. Build User Service
-- [ ] 3.1 Implement user data model and repository
-  - Create User entity with validation and business rules
-  - Implement database schema and migrations
-  - Build repository pattern for user data access
-  - Write unit tests for user model and repository
-  - _Requirements: 1.1, 2.1_
+- [ ] 2.3 创建身份验证和授权库
+  - 实施 JWT 令牌验证中间件
+  - 创建基于角色的访问控制实用程序
+  - 增加服务间身份验证机制
+  - 为身份验证流程编写安全测试
+  - _关联需求：3.3_
 
-- [ ] 3.2 Create user management API endpoints
-  - Implement CRUD operations for user management
-  - Add user profile management functionality
-  - Create user search and filtering capabilities
-  - Write integration tests for user API endpoints
-  - _Requirements: 1.1, 3.1_
+- [ ] 3. 构建用户服务
+- [ ] 3.1 实施用户数据模型和存储库
+  - 创建带有验证和业务规则的用户实体
+  - 实施数据库模式和迁移
+  - 为用户数据访问构建存储库模式
+  - 为用户模型和存储库编写单元测试
+  - _关联需求：1.1, 2.1_
 
-- [ ] 3.3 Add user event publishing
-  - Implement user lifecycle events (created, updated, deleted)
-  - Add event publishing for profile changes
-  - Create event handlers for user-related notifications
-  - Write tests for event publishing and handling
-  - _Requirements: 2.1, 2.2_
+- [ ] 3.2 创建用户管理 API 端点
+  - 实施用户管理的 CRUD 操作
+  - 增加用户个人资料管理功能
+  - 创建用户搜索和过滤功能
+  - 为用户 API 端点编写集成测试
+  - _关联需求：1.1, 3.1_
 
-- [ ] 4. Build Content Service
-- [ ] 4.1 Implement content data model and storage
-  - Create Content entity with metadata and relationships
-  - Design database schema for content storage and indexing
-  - Implement content repository with search capabilities
-  - Write unit tests for content model and repository
-  - _Requirements: 1.1, 2.1_
+- [ ] 3.3 增加用户事件发布
+  - 实施用户生命周期事件（创建、更新、删除）
+  - 为个人资料更改增加事件发布
+  - 为用户相关通知创建事件处理程序
+  - 编写事件发布和处理的测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 4.2 Create content management API
-  - Implement content CRUD operations with authorization
-  - Add content search and filtering functionality
-  - Create content feed generation for users
-  - Write integration tests for content API endpoints
-  - _Requirements: 1.1, 3.1_
+- [ ] 4. 构建内容服务
+- [ ] 4.1 实施内容数据模型和存储
+  - 创建带有元数据和关系的内容实体
+  - 为内容存储和索引设计数据库模式
+  - 实施具有搜索功能的内容存储库
+  - 为内容模型和存储库编写单元测试
+  - _关联需求：1.1, 2.1_
 
-- [ ] 4.3 Add content event handling
-  - Implement content lifecycle events
-  - Add event handlers for user changes affecting content
-  - Create content recommendation event processing
-  - Write tests for content event flows
-  - _Requirements: 2.1, 2.2_
+- [ ] 4.2 创建内容管理 API
+  - 实施带授权的内容 CRUD 操作
+  - 增加内容搜索和过滤功能
+  - 为用户创建内容 Feed 生成
+  - 为内容 API 端点编写集成测试
+  - _关联需求：1.1, 3.1_
 
-- [ ] 5. Build Notification Service
-- [ ] 5.1 Implement notification data model and delivery
-  - Create Notification entity with delivery status tracking
-  - Design database schema for notification storage
-  - Implement notification repository with user filtering
-  - Write unit tests for notification model and repository
-  - _Requirements: 1.1, 2.1_
+- [ ] 4.3 增加内容事件处理
+  - 实施内容生命周期事件
+  - 增加影响内容的用户更改事件处理程序
+  - 创建内容推荐事件处理
+  - 为内容事件流编写测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 5.2 Create real-time notification system
-  - Implement WebSocket server for real-time delivery
-  - Add notification subscription and unsubscription logic
-  - Create notification formatting and templating system
-  - Write integration tests for real-time notification delivery
-  - _Requirements: 1.1, 3.1_
+- [ ] 5. 构建通知服务
+- [ ] 5.1 实施通知数据模型和交付
+  - 创建带有交付状态跟踪的通知实体
+  - 为通知存储设计数据库模式
+  - 实施带用户过滤功能的通知存储库
+  - 为通知模型和存储库编写单元测试
+  - _关联需求：1.1, 2.1_
 
-- [ ] 5.3 Add notification event processing
-  - Implement event handlers for user and content changes
-  - Add notification generation rules and business logic
-  - Create notification delivery retry mechanisms
-  - Write tests for notification event processing
-  - _Requirements: 2.1, 2.2_
+- [ ] 5.2 创建实时通知系统
+  - 为实时交付实施 WebSocket 服务器
+  - 增加通知订阅和退订逻辑
+  - 创建通知格式化和模板系统
+  - 为实时通知交付编写集成测试
+  - _关联需求：1.1, 3.1_
 
-- [ ] 6. Implement API Gateway
-- [ ] 6.1 Set up gateway routing and middleware
-  - Configure API Gateway with service routing rules
-  - Implement authentication middleware for all routes
-  - Add rate limiting and request validation middleware
-  - Write integration tests for gateway functionality
-  - _Requirements: 3.1, 3.2, 3.3_
+- [ ] 5.3 增加通知事件处理
+  - 实施用户和内容更改的事件处理程序
+  - 增加通知生成规则和业务逻辑
+  - 创建通知交付重试机制
+  - 为通知事件处理编写测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 6.2 Add gateway monitoring and logging
-  - Implement request/response logging with correlation IDs
-  - Add performance metrics collection for all routes
-  - Create health check endpoints for service monitoring
-  - Write tests for monitoring and logging functionality
-  - _Requirements: 4.1, 4.2_
+- [ ] 6. 实施 API 网关
+- [ ] 6.1 设置网关路由和中间件
+  - 为 API 网关配置服务路由规则
+  - 为所有路由实施身份验证中间件
+  - 增加速率限制和请求验证中间件
+  - 为网关功能编写集成测试
+  - _关联需求：3.1, 3.2, 3.3_
 
-- [ ] 7. Implement cross-cutting concerns
-- [ ] 7.1 Add distributed tracing
-  - Implement tracing middleware for all services
-  - Add trace correlation across service boundaries
-  - Create trace visualization and analysis tools
-  - Write tests for tracing functionality
-  - _Requirements: 4.2, 4.4_
+- [ ] 6.2 增加网关监控和日志记录
+  - 实施带有关联 ID 的请求/响应日志
+  - 为所有路由增加性能指标收集
+  - 为服务监控创建健康检查端点
+  - 为监控和日志功能编写测试
+  - _关联需求：4.1, 4.2_
 
-- [ ] 7.2 Create centralized logging system
-  - Implement structured logging across all services
-  - Add log aggregation and centralized storage
-  - Create log analysis and alerting rules
-  - Write tests for logging system functionality
-  - _Requirements: 4.2, 4.3_
+- [ ] 7. 实施横向关注点
+- [ ] 7.1 增加分布式追踪
+  - 为所有服务实施追踪中间件
+  - 增加跨服务边界的追踪关联
+  - 创建追踪可视化和分析工具
+  - 为追踪功能编写测试
+  - _关联需求：4.2, 4.4_
 
-- [ ] 8. Add resilience and error handling
-- [ ] 8.1 Implement circuit breaker pattern
-  - Add circuit breaker middleware for service-to-service calls
-  - Create configurable failure thresholds and recovery logic
-  - Implement fallback mechanisms for service failures
-  - Write tests for circuit breaker functionality
-  - _Requirements: 1.2, 2.3_
+- [ ] 7.2 创建集中式日志系统
+  - 在所有服务中实施结构化日志
+  - 增加日志聚合和集中存储
+  - 创建日志分析和警报规则
+  - 为日志系统功能编写测试
+  - _关联需求：4.2, 4.3_
 
-- [ ] 8.2 Create retry and timeout mechanisms
-  - Implement exponential backoff for transient failures
-  - Add configurable timeout settings for all service calls
-  - Create dead letter queues for failed event processing
-  - Write tests for retry and timeout behavior
-  - _Requirements: 1.2, 2.3_
+- [ ] 8. 增加韧性和错误处理
+- [ ] 8.1 实施熔断模式
+  - 为服务间调用增加熔断中间件
+  - 创建可配置的失败阈值和恢复逻辑
+  - 为服务故障实施回退机制
+  - 为熔断功能编写测试
+  - _关联需求：1.2, 2.3_
 
-- [ ] 9. Build monitoring and alerting system
-- [ ] 9.1 Implement health checks and metrics
-  - Create comprehensive health check endpoints for all services
-  - Add business and technical metrics collection
-  - Implement service dependency health monitoring
-  - Write tests for health check and metrics functionality
-  - _Requirements: 4.1, 4.3_
+- [ ] 8.2 创建重试和超时机制
+  - 为瞬时故障实施指数退避算法
+  - 为所有服务调用增加可配置的超时设置
+  - 为失败的事件处理创建死信队列
+  - 为重试和超时行为编写测试
+  - _关联需求：1.2, 2.3_
 
-- [ ] 9.2 Create alerting and notification system
-  - Implement alerting rules for critical system events
-  - Add escalation policies for different types of alerts
-  - Create dashboard for system monitoring and visualization
-  - Write tests for alerting system functionality
-  - _Requirements: 4.3, 4.4_
+- [ ] 9. 构建监控和警报系统
+- [ ] 9.1 实施健康检查和指标
+  - 为所有服务创建综合健康检查端点
+  - 增加业务和技术指标收集
+  - 实施服务依赖项健康监控
+  - 为健康检查和指标功能编写测试
+  - _关联需求：4.1, 4.3_
 
-- [ ] 10. Integration testing and deployment
-- [ ] 10.1 Create end-to-end test suite
-  - Implement complete user workflow tests across all services
-  - Add load testing for system scalability validation
-  - Create chaos engineering tests for resilience validation
-  - Write performance benchmarks for system optimization
-  - _Requirements: 1.1, 1.2, 1.3_
+- [ ] 9.2 创建警报和通知系统
+  - 为关键系统事件实施警报规则
+  - 为不同类型的警报增加升级策略
+  - 创建用于系统监控和可视化的仪表盘
+  - 为警报系统功能编写测试
+  - _关联需求：4.3, 4.4_
 
-- [ ] 10.2 Set up production deployment pipeline
-  - Create deployment scripts and infrastructure automation
-  - Implement blue-green deployment strategy for zero-downtime updates
-  - Add database migration and rollback procedures
-  - Write deployment validation and rollback tests
-  - _Requirements: 1.1, 1.3_
-\`\`\`
+- [ ] 10. 集成测试与部署
+- [ ] 10.1 创建端到端测试套件
+  - 在所有服务中实施完整的用户工作流测试
+  - 增加负载测试以验证系统扩展性
+  - 创建混沌工程测试以验证韧性
+  - 编写性能基准以进行系统优化
+  - _关联需求：1.1, 1.2, 1.3_
 
-### Key Decision Commentary
+- [ ] 10.2 设置生产部署流水线
+  - 创建部署脚本和基础设施自动化
+  - 实施蓝绿部署策略以实现零停机更新
+  - 增加数据库迁移和回滚程序
+  - 编写部署验证和回滚测试
+  - _关联需求：1.1, 1.3_
+```
 
-#### Why Microservices Architecture?
-- **Scalability**: Each service can scale independently based on demand
-- **Technology Diversity**: Different services can use optimal technologies
-- **Team Autonomy**: Teams can develop and deploy services independently
-- **Fault Isolation**: Failures in one service don't bring down the entire system
 
-#### Event-Driven Communication Strategy
-- **Loose Coupling**: Services don't need direct knowledge of each other
-- **Scalability**: Asynchronous processing handles high loads better
-- **Resilience**: Events can be queued and retried if services are unavailable
-- **Auditability**: Event log provides complete system activity history
+### 关键决策分析
 
-#### API Gateway Benefits
-- **Single Entry Point**: Simplifies client integration and security
-- **Cross-Cutting Concerns**: Centralized authentication, rate limiting, logging
-- **Service Evolution**: Internal service changes don't affect external API
-- **Monitoring**: Centralized point for API metrics and observability
+#### 为什么选择微服务架构？
+- **可扩展性**：每个服务可以根据需求独立扩展。
+- **技术多样性**：不同的服务可以使用最适合的技术。
+- **团队自治**：各团队可以独立开发和部署服务。
+- **故障隔离**：单个服务的故障不会导致整个系统崩溃。
 
-### Implementation Notes
+#### 事件驱动通信策略
+- **松耦合**：服务不需要直接了解对方。
+- **可扩展性**：异步处理能更好地应对高负载。
+- **韧性**：如果服务不可用，事件可以被加入队列并重试。
+- **可审计性**：事件日志提供了完整的系统活动历史。
 
-This complex system results in multiple service repositories:
-- `api-gateway/` - Gateway configuration and custom middleware
-- `user-service/` - User management microservice
-- `content-service/` - Content management microservice  
-- `notification-service/` - Real-time notification microservice
-- `shared-libs/` - Common utilities and interfaces
-- `infrastructure/` - Docker, Kubernetes, and deployment configurations
-- `monitoring/` - Logging, metrics, and alerting configurations
+#### API 网关的优势
+- **单一入口点**：简化了客户端集成和安全性。
+- **横向关注点**：集中处理身份验证、速率限制、日志记录。
+- **服务演进**：内部服务的变化不会影响外部 API。
+- **监控**：作为 API 指标和可观测性的集中点。
 
-### Lessons Learned
+### 实施笔记
 
-**What Worked Well:**
-- Starting with shared interfaces prevented integration issues later
-- Event-driven architecture provided excellent decoupling
-- Comprehensive monitoring was essential for debugging distributed issues
-- Infrastructure-as-code made deployment and scaling much easier
+这个复杂的系统会产生多个服务存储库：
+- `api-gateway/` - 网关配置和自定义中间件
+- `user-service/` - 用户管理微服务
+- `content-service/` - 内容管理微服务  
+- `notification-service/` - 实时通知微服务
+- `shared-libs/` - 通用实用程序和接口
+- `infrastructure/` - Docker、Kubernetes 和部署配置
+- `monitoring/` - 日志、指标和警报配置
 
-**What Could Be Improved:**
-- Data consistency requirements could have been more specific
-- Service discovery and configuration management needed more attention
-- Security requirements for service-to-service communication were underspecified
-- Performance requirements should have included specific latency targets
+### 经验教训
+
+**做得好的地方：**
+- 从共享接口开始，防止了后期的集成问题。
+- 事件驱动架构提供了极佳的解耦效果。
+- 全面的监控对于调试分布式问题至关重要。
+- 基础设施即代码使部署和扩展变得简单得多。
+
+**可以改进的地方：**
+- 数据一致性需求可以更加具体。
+- 服务发现和配置管理需要更多关注。
+- 服务间通信的安全需求说明不足。
+- 性能需求应包含具体的延迟目标。
 
 ---
 
 ## Example 2: Real-Time Data Processing Pipeline
+### 概览
+一个高吞吐量的数据处理系统，负责摄取流式数据，经过多个阶段的处理，并将结果输出到各种目的地。本示例展示了如何针对具有复杂数据流和实时处理要求的系统制定规范。
 
-### Overview
-A high-throughput data processing system that ingests streaming data, processes it through multiple stages, and outputs results to various destinations. This example demonstrates how to spec a system with complex data flows and real-time processing requirements.
+### 完整规范文档
 
-### Complete Spec Documents
+#### 需求文档
 
-#### Requirements Document
+```markdown
+# 实时数据处理流水线 - 需求文档
 
-\`\`\`markdown
-# Real-Time Data Processing Pipeline - Requirements
+## 简介
+该功能实现了一个可扩展的实时数据处理流水线，能够摄取海量流式数据，应用转换和分析，并以低延迟和高可靠性将处理后的结果交付给多个输出目的地。
 
-## Introduction
-This feature implements a scalable real-time data processing pipeline that can ingest high-volume streaming data, apply transformations and analytics, and deliver processed results to multiple output destinations with low latency and high reliability.
+## 需求
 
-## Requirements
+### 需求 1
+**用户故事：** 作为一名数据工程师，我需要一个高吞吐量的数据摄取系统，以便实时处理海量流式数据。
 
-### Requirement 1
-**User Story:** As a data engineer, I want a high-throughput data ingestion system, so that I can process large volumes of streaming data in real-time.
+#### 验收标准
+1. 当数据流到达时，系统 SHALL 每秒至少摄取 100,000 个事件。
+2. 当摄取负载变化时，系统 SHALL 自动扩展以处理流量高峰。
+3. 当数据源暂时不可用时，系统 SHALL 缓冲并重试摄取。
+4. 如果数据格式无效，系统 SHALL 记录错误并继续处理有效数据。
 
-#### Acceptance Criteria
-1. WHEN data streams arrive THEN the system SHALL ingest at least 100,000 events per second
-2. WHEN ingestion load varies THEN the system SHALL auto-scale to handle traffic spikes
-3. WHEN data sources are temporarily unavailable THEN the system SHALL buffer and retry ingestion
-4. IF data format is invalid THEN the system SHALL log errors and continue processing valid data
+### 需求 2
+**用户故事：** 作为一名数据分析师，我需要可配置的数据转换，以便将原始数据处理为有意义的洞察。
 
-### Requirement 2
-**User Story:** As a data analyst, I want configurable data transformations, so that I can process raw data into meaningful insights.
+#### 验收标准
+1. 在处理数据时，系统 SHALL 应用可配置的转换规则。
+2. 当转换失败时，系统 SHALL 优雅地处理错误并继续处理。
+3. 当需要新的转换逻辑时，其 SHALL 能够在不导致系统停机的情况下进行部署。
+4. 如果检测到数据质量问题，系统 SHALL 标记并隔离有问题的数据。
 
-#### Acceptance Criteria
-1. WHEN processing data THEN the system SHALL apply configurable transformation rules
-2. WHEN transformations fail THEN the system SHALL handle errors gracefully and continue processing
-3. WHEN new transformation logic is needed THEN it SHALL be deployable without system downtime
-4. IF data quality issues are detected THEN the system SHALL flag and quarantine problematic data
+### 需求 3
+**用户故事：** 作为一名业务用户，我需要实时分析和聚合，以便根据当前数据做出及时决策。
 
-### Requirement 3
-**User Story:** As a business user, I want real-time analytics and aggregations, so that I can make timely decisions based on current data.
+#### 验收标准
+1. 在处理数据时，系统 SHALL 在 5 秒内计算实时聚合。
+2. 当分析结果准备就绪时，其 SHALL 通过多个输出渠道可用。
+3. 当需要历史数据时，系统 SHALL 保持可配置的保留期。
+4. 如果分析计算失败，系统 SHALL 重试并在持续失败时发出警报。
 
-#### Acceptance Criteria
-1. WHEN data is processed THEN the system SHALL compute real-time aggregations within 5 seconds
-2. WHEN analytics results are ready THEN they SHALL be available through multiple output channels
-3. WHEN historical data is needed THEN the system SHALL maintain configurable retention periods
-4. IF analytics computations fail THEN the system SHALL retry and alert on persistent failures
+### 需求 4
+**用户故事：** 作为一名系统管理员，我需要全面的监控和警报，以便确保流水线的可靠性和性能。
 
-### Requirement 4
-**User Story:** As a system administrator, I want comprehensive monitoring and alerting, so that I can ensure pipeline reliability and performance.
+#### 验收标准
+1. 当流水线运行时，系统 SHALL 提供关于吞吐量和延迟的实时指标。
+2. 当发生错误时，其 SHALL 带有足够的调试上下文被记录。
+3. 当性能下降时，SHALL 触发带有可操作信息的警报。
+4. 如果发生数据丢失，系统 SHALL 立即检测并报告该问题。
+```
 
-#### Acceptance Criteria
-1. WHEN the pipeline is running THEN the system SHALL provide real-time metrics on throughput and latency
-2. WHEN errors occur THEN they SHALL be logged with sufficient context for debugging
-3. WHEN performance degrades THEN alerts SHALL be triggered with actionable information
-4. IF data loss occurs THEN the system SHALL detect and report the issue immediately
-\`\`\`
+#### 设计文档
 
-#### Design Document
+```markdown
+# 实时数据处理流水线 - 设计文档
 
-\`\`\`markdown
-# Real-Time Data Processing Pipeline - Design
+## 概览
+该流水线将使用流处理架构实施，采用 Apache Kafka 进行数据摄取，Apache Flink 进行实时处理，以及多个输出连接器进行数据交付。系统将支持水平扩展和容错。
 
-## Overview
-The pipeline will be implemented using a stream processing architecture with Apache Kafka for data ingestion, Apache Flink for real-time processing, and multiple output connectors for data delivery. The system will support horizontal scaling and fault tolerance.
+## 架构
 
-## Architecture
-
-### Data Flow Architecture
-\`\`\`mermaid
+### 数据流架构
+```mermaid
 graph LR
-    Sources[Data Sources] --> Ingestion[Data Ingestion Layer]
-    Ingestion --> Buffer[Message Buffer/Kafka]
-    Buffer --> Processing[Stream Processing Engine]
-    Processing --> Analytics[Real-time Analytics]
-    Processing --> Transform[Data Transformation]
-    Analytics --> Outputs[Output Destinations]
+    Sources[数据源] --> Ingestion[数据摄取层]
+    Ingestion --> Buffer[消息缓冲/Kafka]
+    Buffer --> Processing[流处理引擎]
+    Processing --> Analytics[实时分析]
+    Processing --> Transform[数据转换]
+    Analytics --> Outputs[输出目的地]
     Transform --> Outputs
     
-    subgraph Processing Engine
-        Validate[Data Validation]
-        Enrich[Data Enrichment]
-        Aggregate[Real-time Aggregation]
-        Filter[Data Filtering]
+    subgraph 处理引擎
+        Validate[数据验证]
+        Enrich[数据富化]
+        Aggregate[实时聚合]
+        Filter[数据过滤]
     end
     
-    subgraph Outputs
-        Database[(Database)]
+    subgraph 输出
+        Database[(数据库)]
         API[REST API]
         Webhook[Webhooks]
-        Files[File Storage]
+        Files[文件存储]
     end
     
-    subgraph Monitoring
-        Metrics[Metrics Collection]
-        Logging[Centralized Logging]
-        Alerting[Alert Manager]
+    subgraph 监控
+        Metrics[指标收集]
+        Logging[集中式日志]
+        Alerting[警报管理器]
     end
-\`\`\`
+```
 
-## Components and Interfaces
+## 组件与接口
 
-### Data Ingestion Layer
-\`\`\`typescript
+### 数据摄取层
+```typescript
 interface DataIngestionService {
-  // Data ingestion
+  // 数据摄取
   ingestData(source: DataSource, data: RawDataEvent[]): Promise<IngestionResult>;
   registerDataSource(source: DataSourceConfig): Promise<void>;
   
-  // Health and monitoring
+  // 健康与监控
   getIngestionMetrics(): Promise<IngestionMetrics>;
   getSourceStatus(sourceId: string): Promise<SourceStatus>;
 }
@@ -2921,17 +2923,17 @@ interface RawDataEvent {
   payload: any;
   metadata?: Record<string, any>;
 }
-\`\`\`
+```
 
-### Stream Processing Engine
-\`\`\`typescript
+### 流处理引擎
+```typescript
 interface StreamProcessor {
-  // Processing pipeline
+  // 处理流水线
   processStream(inputStream: DataStream): DataStream;
   addTransformation(transformation: TransformationFunction): void;
   addAggregation(aggregation: AggregationFunction): void;
   
-  // Pipeline management
+  // 流水线管理
   startProcessing(): Promise<void>;
   stopProcessing(): Promise<void>;
   getProcessingMetrics(): Promise<ProcessingMetrics>;
@@ -2942,16 +2944,16 @@ interface TransformationFunction {
   transform(event: ProcessedDataEvent): ProcessedDataEvent | null;
   validate(event: ProcessedDataEvent): ValidationResult;
 }
-\`\`\`
+```
 
-### Output Management
-\`\`\`typescript
+### 输出管理
+```typescript
 interface OutputManager {
-  // Output destinations
+  // 输出目的地
   registerOutput(output: OutputDestination): Promise<void>;
   sendToOutput(destination: string, data: ProcessedDataEvent[]): Promise<void>;
   
-  // Delivery management
+  // 交付管理
   retryFailedDeliveries(): Promise<void>;
   getDeliveryMetrics(): Promise<DeliveryMetrics>;
 }
@@ -2962,12 +2964,12 @@ interface OutputDestination {
   config: OutputConfig;
   retryPolicy: RetryPolicy;
 }
-\`\`\`
+```
 
-## Data Models
+## 数据模型
 
-### Event Data Model
-\`\`\`typescript
+### 事件数据模型
+```typescript
 interface ProcessedDataEvent {
   id: string;
   originalId: string;
@@ -2986,10 +2988,10 @@ interface EventMetadata {
   validationResults: ValidationResult[];
   enrichmentData?: Record<string, any>;
 }
-\`\`\`
+```
 
-### Configuration Models
-\`\`\`typescript
+### 配置模型
+```typescript
 interface PipelineConfig {
   ingestion: IngestionConfig;
   processing: ProcessingConfig;
@@ -3003,423 +3005,426 @@ interface ProcessingConfig {
   errorHandling: ErrorHandlingConfig;
   scalingPolicy: ScalingPolicy;
 }
-\`\`\`
+```
 
-## Error Handling
+## 错误处理
 
-### Fault Tolerance Strategies
-- **At-least-once Processing**: Ensure no data loss during processing
-- **Checkpointing**: Regular state snapshots for recovery
-- **Dead Letter Queues**: Isolate problematic events for manual review
-- **Circuit Breakers**: Prevent cascade failures in output destinations
+### 容错策略
+- **至少一次处理**：确保处理过程中无数据丢失。
+- **检查点（Checkpointing）**：定期生成状态快照以便恢复。
+- **死信队列**：隔离有问题的事件以便人工评审。
+- **熔断器**：防止输出目的地的级联故障。
 
-### Data Quality Management
-- **Schema Validation**: Ensure data conforms to expected structure
-- **Data Profiling**: Monitor data quality metrics over time
-- **Anomaly Detection**: Identify unusual patterns in data streams
-- **Quarantine System**: Isolate low-quality data for investigation
+### 数据质量管理
+- **模式验证（Schema Validation）**：确保数据符合预期结构。
+- **数据剖析**：随时间监控数据质量指标。
+- **异常检测**：识别数据流中的异常模式。
+- **隔离系统**：隔离低质量数据以供调查。
 
-## Testing Strategy
+## 测试策略
 
-### Stream Processing Testing
-- Unit tests for individual transformation functions
-- Integration tests for complete processing pipelines
-- Load testing for throughput and latency requirements
-- Chaos testing for fault tolerance validation
+### 流处理测试
+- 针对单个转换函数的单元测试。
+- 完整处理流水线的集成测试。
+- 针对吞吐量和延迟要求的压力测试。
+- 验证容错能力的混沌测试。
 
-### Data Quality Testing
-- Schema validation testing with various data formats
-- Data lineage testing to ensure traceability
-- Performance testing under various load conditions
-- Recovery testing for system failures
-\`\`\`
+### 数据质量测试
+- 针对各种数据格式的模式验证测试。
+- 数据血缘测试以确保可追溯性。
+- 在各种负载条件下的性能测试。
+- 针对系统故障的恢复测试。
+```
 
 #### Tasks Document
 
-\`\`\`markdown
-# Real-Time Data Processing Pipeline - Implementation Plan
+#### 实施计划文档
 
-- [ ] 1. Set up streaming infrastructure foundation
-  - Set up Apache Kafka cluster for message buffering
-  - Configure Apache Flink cluster for stream processing
-  - Create Docker Compose setup for local development
-  - Set up monitoring infrastructure (Prometheus, Grafana)
-  - _Requirements: 1.1, 4.1_
+```markdown
+# 实时数据处理流水线 - 实施计划
 
-- [ ] 2. Implement data ingestion layer
-- [ ] 2.1 Create data source connectors
-  - Implement HTTP/REST API ingestion endpoint
-  - Create file-based data source connector (CSV, JSON)
-  - Add database change data capture (CDC) connector
-  - Write unit tests for all connector implementations
-  - _Requirements: 1.1, 1.4_
+- [ ] 1. 设置流式基础设施基础
+  - 为消息缓冲设置 Apache Kafka 集群
+  - 为流处理配置 Apache Flink 集群
+  - 为本地开发创建 Docker Compose 配置
+  - 设置监控基础设施（Prometheus, Grafana）
+  - _关联需求：1.1, 4.1_
 
-- [ ] 2.2 Build ingestion service with buffering
-  - Implement Kafka producer for data buffering
-  - Add data source registration and management
-  - Create ingestion rate limiting and backpressure handling
-  - Write integration tests for ingestion service
-  - _Requirements: 1.1, 1.2, 1.3_
+- [ ] 2. 实施数据摄取层
+- [ ] 2.1 创建数据源连接器
+  - 实施 HTTP/REST API 摄取端点
+  - 创建基于文件的数据源连接器（CSV, JSON）
+  - 增加数据库变更数据捕获 (CDC) 连接器
+  - 为所有连接器实施编写单元测试
+  - _关联需求：1.1, 1.4_
 
-- [ ] 2.3 Add ingestion monitoring and metrics
-  - Implement throughput and latency metrics collection
-  - Add data source health monitoring
-  - Create alerting for ingestion failures and bottlenecks
-  - Write tests for monitoring functionality
-  - _Requirements: 4.1, 4.2_
+- [ ] 2.2 构建带有缓冲功能的摄取服务
+  - 为数据缓冲实施 Kafka 生产者（Producer）
+  - 增加数据源注册和管理
+  - 创建摄取速率限制和背压（Backpressure）处理
+  - 为摄取服务编写集成测试
+  - _关联需求：1.1, 1.2, 1.3_
 
-- [ ] 3. Build stream processing engine
-- [ ] 3.1 Implement core processing framework
-  - Create Flink job framework for stream processing
-  - Implement event deserialization and schema validation
-  - Add processing pipeline orchestration
-  - Write unit tests for processing framework
-  - _Requirements: 2.1, 2.4_
+- [ ] 2.3 增加摄取监控和指标
+  - 实施吞吐量和延迟指标收集
+  - 增加数据源健康监控
+  - 为摄取失败和瓶颈创建警报
+  - 为监控功能编写测试
+  - _关联需求：4.1, 4.2_
 
-- [ ] 3.2 Create data transformation system
-  - Implement configurable transformation functions
-  - Add data enrichment capabilities with external lookups
-  - Create data filtering and routing logic
-  - Write unit tests for transformation functions
-  - _Requirements: 2.1, 2.2, 2.3_
+- [ ] 3. 构建流处理引擎
+- [ ] 3.1 实施核心处理框架
+  - 为流处理创建 Flink 作业框架
+  - 实施事件反序列化和模式验证
+  - 增加处理流水线编排
+  - 为处理框架编写单元测试
+  - _关联需求：2.1, 2.4_
 
-- [ ] 3.3 Build real-time aggregation engine
-  - Implement windowed aggregations (tumbling, sliding, session)
-  - Add stateful processing for complex event patterns
-  - Create aggregation result publishing to output topics
-  - Write integration tests for aggregation functionality
-  - _Requirements: 3.1, 3.2_
+- [ ] 3.2 创建数据转换系统
+  - 实施可配置的转换函数
+  - 通过外部查询增加数据富化能力
+  - 创建数据过滤和路由逻辑
+  - 为转换函数编写单元测试
+  - _关联需求：2.1, 2.2, 2.3_
 
-- [ ] 4. Implement data quality and validation
-- [ ] 4.1 Create data validation framework
-  - Implement schema validation for incoming events
-  - Add data quality scoring and profiling
-  - Create anomaly detection for unusual data patterns
-  - Write unit tests for validation logic
-  - _Requirements: 2.4, 4.4_
+- [ ] 3.3 构建实时聚合引擎
+  - 实施窗口聚合（滚动窗口、滑动窗口、会话窗口）
+  - 为复杂事件模式增加状态化处理
+  - 创建向输出主题发布聚合结果的功能
+  - 为聚合功能编写集成测试
+  - _关联需求：3.1, 3.2_
 
-- [ ] 4.2 Build error handling and recovery
-  - Implement dead letter queue for invalid data
-  - Add automatic retry mechanisms for transient failures
-  - Create data quarantine system for quality issues
-  - Write tests for error handling scenarios
-  - _Requirements: 1.4, 2.2, 4.4_
+- [ ] 4. 实施数据质量和验证
+- [ ] 4.1 创建数据验证框架
+  - 为传入事件实施模式验证
+  - 增加数据质量评分和剖析
+  - 为异常数据模式创建异常检测
+  - 为验证逻辑编写单元测试
+  - _关联需求：2.4, 4.4_
 
-- [ ] 5. Create output management system
-- [ ] 5.1 Implement output destination connectors
-  - Create database output connector with batch writing
-  - Implement REST API output connector with retry logic
-  - Add webhook output connector for real-time notifications
-  - Write integration tests for all output connectors
-  - _Requirements: 3.2, 3.3_
+- [ ] 4.2 构建错误处理和恢复
+  - 为无效数据实施死信队列
+  - 为瞬时故障增加自动重试机制
+  - 为质量问题创建数据隔离（Quarantine）系统
+  - 为错误处理场景编写测试
+  - _关联需求：1.4, 2.2, 4.4_
 
-- [ ] 5.2 Build delivery management and reliability
-  - Implement delivery confirmation and retry policies
-  - Add output destination health monitoring
-  - Create delivery metrics and success rate tracking
-  - Write tests for delivery reliability features
-  - _Requirements: 3.2, 4.4_
+- [ ] 5. 创建输出管理系统
+- [ ] 5.1 实施输出目的地连接器
+  - 创建带批量写入功能的数据库输出连接器
+  - 实施带重试逻辑的 REST API 输出连接器
+  - 为实时通知增加 Webhook 输出连接器
+  - 为所有输出连接器编写集成测试
+  - _关联需求：3.2, 3.3_
 
-- [ ] 6. Add real-time analytics capabilities
-- [ ] 6.1 Implement analytics computation engine
-  - Create real-time dashboard data computation
-  - Add trend analysis and pattern detection
-  - Implement alerting based on analytics results
-  - Write unit tests for analytics computations
-  - _Requirements: 3.1, 3.4_
+- [ ] 5.2 构建交付管理和可靠性
+  - 实施交付确认和重试策略
+  - 增加输出目的地健康监控
+  - 创建交付指标和成功率跟踪
+  - 为交付可靠性功能编写测试
+  - _关联需求：3.2, 4.4_
 
-- [ ] 6.2 Build analytics data storage and retrieval
-  - Implement time-series database integration
-  - Add analytics query API for dashboard consumption
-  - Create data retention and archival policies
-  - Write integration tests for analytics storage
-  - _Requirements: 3.2, 3.3_
+- [ ] 6. 增加实时分析能力
+- [ ] 6.1 实施分析计算引擎
+  - 创建实时仪表盘数据计算
+  - 增加趋势分析和模式检测
+  - 实施基于分析结果的警报
+  - 为分析计算编写单元测试
+  - _关联需求：3.1, 3.4_
 
-- [ ] 7. Implement comprehensive monitoring
-- [ ] 7.1 Create pipeline metrics and observability
-  - Implement end-to-end latency tracking
-  - Add throughput metrics for each pipeline stage
-  - Create data lineage tracking and visualization
-  - Write tests for metrics collection accuracy
-  - _Requirements: 4.1, 4.2_
+- [ ] 6.2 构建分析数据存储和检索
+  - 实施时序数据库集成
+  - 增加用于仪表盘消耗的分析查询 API
+  - 创建数据保留和归档策略
+  - 为分析存储编写集成测试
+  - _关联需求：3.2, 3.3_
 
-- [ ] 7.2 Build alerting and notification system
-  - Implement threshold-based alerting for key metrics
-  - Add anomaly detection alerts for unusual patterns
-  - Create escalation policies for critical issues
-  - Write tests for alerting system functionality
-  - _Requirements: 4.3, 4.4_
+- [ ] 7. 实施全面监控
+- [ ] 7.1 创建流水线指标和可观测性
+  - 实施端到端延迟跟踪
+  - 为流水线的每个阶段增加吞吐量指标
+  - 创建数据血缘跟踪和可视化
+  - 为指标收集的准确性编写测试
+  - _关联需求：4.1, 4.2_
 
-- [ ] 8. Add scalability and performance optimization
-- [ ] 8.1 Implement auto-scaling mechanisms
-  - Create horizontal scaling policies for Flink jobs
-  - Add Kafka partition scaling based on throughput
-  - Implement resource utilization monitoring
-  - Write load tests to validate scaling behavior
-  - _Requirements: 1.2, 1.1_
+- [ ] 7.2 构建警报和通知系统
+  - 为关键指标实施基于阈值的警报
+  - 为异常模式增加异常检测警报
+  - 为关键问题创建升级策略
+  - 为警报系统功能编写测试
+  - _关联需求：4.3, 4.4_
 
-- [ ] 8.2 Optimize processing performance
-  - Implement processing parallelization strategies
-  - Add memory and CPU optimization for transformations
-  - Create performance benchmarking and profiling tools
-  - Write performance tests for optimization validation
-  - _Requirements: 1.1, 3.1_
+- [ ] 8. 增加可扩展性和性能优化
+- [ ] 8.1 实施自动扩展机制
+  - 为 Flink 作业创建水平扩展策略
+  - 增加基于吞吐量的 Kafka 分区扩展
+  - 实施资源利用率监控
+  - 编写压力测试以验证扩展行为
+  - _关联需求：1.2, 1.1_
 
-- [ ] 9. Build configuration and deployment system
-- [ ] 9.1 Create pipeline configuration management
-  - Implement dynamic configuration updates without downtime
-  - Add configuration validation and testing framework
-  - Create configuration versioning and rollback capabilities
-  - Write tests for configuration management functionality
-  - _Requirements: 2.3, 2.1_
+- [ ] 8.2 优化处理性能
+  - 实施处理并行化策略
+  - 为转换操作增加内存和 CPU 优化
+  - 创建性能基准和剖析工具
+  - 编写性能测试以验证优化效果
+  - _关联需求：1.1, 3.1_
 
-- [ ] 9.2 Set up deployment and operations
-  - Create Kubernetes deployment manifests for all components
-  - Implement blue-green deployment for zero-downtime updates
-  - Add backup and disaster recovery procedures
-  - Write deployment validation and rollback tests
-  - _Requirements: 1.2, 4.1_
+- [ ] 9. 构建配置和部署系统
+- [ ] 9.1 创建流水线配置管理
+  - 在不导致停机的情况下实施动态配置更新
+  - 增加配置验证和测试框架
+  - 创建配置版本控制和回滚能力
+  - 为配置管理功能编写测试
+  - _关联需求：2.3, 2.1_
 
-- [ ] 10. Integration testing and validation
-- [ ] 10.1 Create end-to-end testing suite
-  - Implement complete data flow testing from ingestion to output
-  - Add load testing for throughput requirements validation
-  - Create chaos engineering tests for fault tolerance
-  - Write data quality and accuracy validation tests
-  - _Requirements: 1.1, 2.1, 3.1, 4.1_
+- [ ] 9.2 设置部署和运营
+  - 为所有组件创建 Kubernetes 部署清单
+  - 实施蓝绿部署以实现零停机更新
+  - 增加备份和灾难恢复程序
+  - 编写部署验证和回滚测试
+  - _关联需求：1.2, 4.1_
 
-- [ ] 10.2 Build operational runbooks and documentation
-  - Create troubleshooting guides for common issues
-  - Add operational procedures for scaling and maintenance
-  - Implement system health dashboards and monitoring guides
-  - Write comprehensive system documentation and architecture guides
-  - _Requirements: 4.2, 4.3_
-\`\`\`
+- [ ] 10. 集成测试与验证
+- [ ] 10.1 创建端到端测试套件
+  - 实施从摄取到输出的完整数据流测试
+  - 增加压力测试以进行吞吐量需求验证
+  - 创建混沌工程测试以验证容错能力
+  - 编写数据质量和准确性验证测试
+  - _关联需求：1.1, 2.1, 3.1, 4.1_
 
-### Key Decision Commentary
-
-#### Why Apache Kafka + Apache Flink?
-- **Kafka**: Proven scalability for high-throughput data ingestion and buffering
-- **Flink**: Excellent stream processing capabilities with exactly-once semantics
-- **Ecosystem**: Rich connector ecosystem for various data sources and sinks
-- **Community**: Strong open-source community and enterprise support
-
-#### Stream Processing vs Batch Processing
-- **Real-time Requirements**: Business needs require sub-5-second processing latency
-- **Continuous Data**: Streaming data sources require continuous processing
-- **Resource Efficiency**: Stream processing uses resources more efficiently than frequent batch jobs
-- **Scalability**: Stream processing scales better with data volume increases
-
-### Implementation Notes
-
-This complex pipeline results in multiple specialized components:
-- `ingestion-service/` - Data ingestion and source management
-- `stream-processor/` - Flink jobs and transformation logic
-- `output-manager/` - Output destination management and delivery
-- `analytics-engine/` - Real-time analytics computation
-- `monitoring/` - Comprehensive observability stack
-- `infrastructure/` - Kafka, Flink, and Kubernetes configurations
-- `config-management/` - Dynamic configuration system
-
-### Lessons Learned
-
-**What Worked Well:**
-- Separating ingestion, processing, and output concerns improved maintainability
-- Comprehensive monitoring was crucial for debugging distributed processing issues
-- Schema validation early in the pipeline prevented downstream problems
-- Auto-scaling policies handled traffic spikes effectively
-
-**What Could Be Improved:**
-- Data retention requirements needed more specific business input
-- Security requirements for data encryption and access control were underspecified
-- Cost optimization strategies should have been considered earlier
-- Disaster recovery procedures needed more detailed planning
-
----
-
-## Usage Guidelines
-
-### When to Use Complex System Examples
-
-**Multi-Service API Architecture** is ideal for:
-- Learning how to break down large systems into manageable services
-- Understanding distributed system challenges and solutions
-- Seeing how to coordinate multiple teams and codebases
-- Planning systems that need independent scaling and deployment
-
-**Real-Time Data Processing Pipeline** is perfect for:
-- Understanding high-throughput system requirements
-- Learning about stream processing and real-time analytics
-- Seeing how to handle data quality and reliability at scale
-- Planning systems with complex data transformation needs
-
-### Adapting Complex Examples
-
-Both examples can be adapted for different scales and requirements:
-- **Start Simple**: Begin with fewer services/stages and add complexity gradually
-- **Technology Substitution**: Replace specific technologies while keeping architectural patterns
-- **Scale Adjustment**: Modify throughput and latency requirements based on actual needs
-- **Domain Adaptation**: Apply the same patterns to different business domains
-
-### Key Takeaways for Complex Systems
-
-1. **Break Down Complexity**: Large systems become manageable when broken into well-defined components
-2. **Define Clear Interfaces**: Service boundaries and data contracts are crucial for coordination
-3. **Plan for Failure**: Complex systems will have failures - design for resilience from the start
-4. **Monitor Everything**: Observability is essential for understanding and debugging distributed systems
-5. **Iterate and Evolve**: Start with core functionality and add complexity incrementally
-
----
-
-[← Simple Feature Examples](simple-feature-spec.md) | [Case Studies →](case-studies.md)
+- [ ] 10.2 构建运营手册和文档
+  - 为常见问题创建故障排除指南
+  - 增加用于扩展和维护的运营程序
+  - 实施系统健康仪表盘和监控指南
+  - 编写全面的系统文档和架构指南
+  - _关联需求：4.2, 4.3_
 ```
+
+
+### 关键决策分析
+
+#### 为什么选择 Apache Kafka + Apache Flink？
+- **Kafka**：在高吞吐量数据摄取和缓冲方面具有久经考验的可扩展性。
+- **Flink**：具有卓越的流处理能力，支持精确一次（exactly-once）语义。
+- **生态系统**：拥有丰富的连接器生态系统，支持各种数据源和汇总点。
+- **社区**：强大的开源社区和企业支持。
+
+#### 流处理 vs 批处理
+- **实时性要求**：业务需求要求处理延迟低于 5 秒。
+- **持续数据**：流式数据源需要进行持续处理。
+- **资源效率**：流处理比频繁的批处理作业能更高效地利用资源。
+- **可扩展性**：流处理在应对数据量增加时具有更好的扩展性。
+
+### 实施笔记
+
+这个复杂的流水线由多个专门组件构成的：
+- `ingestion-service/` - 数据摄取和源管理
+- `stream-processor/` - Flink 作业和转换逻辑
+- `output-manager/` - 输出目的地管理和交付
+- `analytics-engine/` - 实时分析计算
+- `monitoring/` - 全面的可观测性技术栈
+- `infrastructure/` - Kafka, Flink 和 Kubernetes 配置
+- `config-management/` - 动态配置系统
+
+### 经验教训
+
+**做得好的地方：**
+- 将摄取、处理和输出关注点分离，提高了可维护性。
+- 全面的监控对于调试分布式处理问题至关重要。
+- 在流水线早期进行模式验证，防止了下游问题的产生。
+- 自动扩展策略有效地处理了流量高峰。
+
+**可以改进的地方：**
+- 数据保留需求需要更多具体的业务输入。
+- 数据加密和访问控制的安全性需求说明不足。
+- 应在更早阶段考虑成本优化策略。
+- 灾难恢复程序需要更详细的规划。
+
+---
+
+## 使用指南
+
+### 何时使用复杂系统示例
+
+**多服务 API 架构** 适用于：
+- 学习如何将大型系统拆分为可管理的各服务。
+- 理解分布式系统的挑战和解决方案。
+- 了解如何协调多个团队和代码库。
+- 规划需要独立扩展和部署的系统。
+
+**实时数据处理流水线** 非常适合：
+- 理解高吞吐量系统的要求。
+- 学习流处理和实时分析。
+- 了解如何在大规模环境下处理数据质量和可靠性。
+- 规划具有复杂数据转换需求的系统。
+
+### 改编复杂示例
+
+这两个示例都可以根据不同的规模和需求进行改编：
+- **从简单开始**：先从较少的服务/阶段开始，逐步增加复杂性。
+- **技术替代**：在保持架构模式的同时，替换具体的技术组件。
+- **规模调整**：根据实际需要修改吞吐量和延迟要求。
+- **领域适配**：将相同的模式应用于不同的业务领域。
+
+### 复杂系统的关键要点
+
+1. **分解复杂性**：当大型系统被分解为定义良好的组件时，它们就会变得易于管理。
+2. **定义清晰的接口**：服务边界和数据契约对于协调至关重要。
+3. **为失败而设计**：复杂系统必然会发生故障——从一开始就要针对韧性进行设计。
+4. **监控一切**：可观测性对于理解和调试分布式系统至关重要。
+5. **迭代与演进**：从核心功能开始，循序渐进地增加复杂性。
+
+---
+
+[← 简单功能示例](simple-feature-spec.md) | [案例研究 →](case-studies.md)
+````
 
 # spec-process-guide/examples/README.md
 
-```md
-# Examples
+````md
+# 示例
 
-<!-- Navigation Metadata -->
-<!-- Section: Examples | Level: Reference | Prerequisites: methodology/README.md -->
-<!-- Related: templates/README.md, process/README.md, ai-reasoning/examples.md -->
+<!-- 导航元数据 -->
+<!-- 章节：示例 | 级别：参考 | 前置要求：methodology/README.md -->
+<!-- 相关内容：templates/README.md, process/README.md, ai-reasoning/examples.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Examples**
+**📍 你在这里：** [主指南](../README.md) → **示例**
 
-## Quick Navigation
-- **Learn First:** [Methodology Overview](../methodology/README.md) - Understand the foundation
-- **Get Templates:** [Ready-to-Use Templates](../templates/README.md) - Start your own specs
-- **Follow Process:** [Process Guide](../process/README.md) - Step-by-step instructions
-- **AI Insights:** [AI Reasoning Examples](../ai-reasoning/examples.md) - See decision-making in action
-
----
-
-Real-world case studies and complete spec examples showing the methodology in action.
-
-## In This Section
-
-- **[Simple Feature Specs](simple-feature-spec.md)** - Complete examples for basic features
-- **[Complex System Specs](complex-system-spec.md)** - Large-scale system development examples  
-- **[Case Studies](case-studies.md)** - Success stories and lessons learned
-- **[Troubleshooting & Pitfalls](troubleshooting-pitfalls.md)** - Common mistakes and recovery strategies
-
-## Learning from Examples
-
-Each example includes:
-- **Complete Spec Trilogy** - Requirements, Design, and Tasks documents
-- **Decision Commentary** - Explanation of key choices and trade-offs
-- **Implementation Notes** - How the spec translated to actual code
-- **Lessons Learned** - What worked well and what could be improved
-
-## Example Categories
-
-### Simple Features
-- User authentication system
-- Data validation component
-- API endpoint creation
-- Form handling logic
-
-### Complex Systems
-- Multi-service API architecture
-- Data processing pipeline
-- Real-time notification system
-- Content management platform
-
-### Domain-Specific Examples
-- E-commerce checkout flow
-- Financial transaction processing
-- Healthcare data management
-- Educational content delivery
+## 快速导航
+- **先学习：** [方法论概览](../methodology/README.md) - 了解基础
+- **获取模板：** [现成模板](../templates/README.md) - 开始编写你自己的规范
+- **遵循流程：** [流程指南](../process/README.md) - 分步说明
+- **AI 洞察：** [AI 推理示例](../ai-reasoning/examples.md) - 查看决策过程的实际运作
 
 ---
 
-[← Back to Main Guide](../README.md) | [Start with Simple Examples →](simple-feature-spec.md)
-```
+展示方法论实际运作的真实案例研究和完整的规范示例。
+
+## 本章节内容
+
+- **[简单功能规范](simple-feature-spec.md)** - 基础功能的完整示例
+- **[复杂系统规范](complex-system-spec.md)** - 大规模系统开发示例
+- **[案例研究](case-studies.md)** - 成功案例和经验教训
+- **[故障排除与常见陷阱](troubleshooting-pitfalls.md)** - 常见错误和恢复策略
+
+## 从示例中学习
+
+每个示例都包含：
+- **完整的规范三部曲** - 需求文档、设计文档和实施计划文档
+- **决策分析** - 关键选择和权衡的解释
+- **实施笔记** - 规范如何转化为实际代码
+- **经验教训** - 做得好的地方以及可以改进的地方
+
+## 示例类别
+
+### 简单功能
+- 用户身份验证系统
+- 数据验证组件
+- API 端点创建
+- 表单处理逻辑
+
+### 复杂系统
+- 多服务 API 架构
+- 数据处理流水线
+- 实时通知系统
+- 内容管理平台
+
+### 特定领域示例
+- 电子商务结账流程
+- 金融交易处理
+- 医疗数据管理
+- 教育内容交付
+
+---
+
+[← 返回主指南](../README.md) | [从简单示例开始 →](simple-feature-spec.md)
+````
 
 # spec-process-guide/examples/simple-feature-spec.md
 
-```md
-# Simple Feature Spec Examples
+````md
+# 简单功能规范示例
 
-<!-- Navigation Metadata -->
-<!-- Example: Simple Features | Level: Complete Examples | Prerequisites: methodology/README.md -->
-<!-- Related: templates/README.md, process/README.md, complex-system-spec.md -->
+<!-- 导航元数据 -->
+<!-- 示例：简单功能 | 级别：完整示例 | 前置要求：methodology/README.md -->
+<!-- 相关内容：templates/README.md, process/README.md, complex-system-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Examples](README.md) → **Simple Feature Specs**
+**📍 你在这里：** [主指南](../README.md) → [示例](README.md) → **简单功能规范**
 
-## Quick Navigation
-- **📚 Learn First:** [Methodology Overview](../methodology/README.md) - Understand the foundation
-- **📝 Use Templates:** [Templates](../templates/README.md) - Create your own specs
-- **📋 Follow Process:** [Process Guide](../process/README.md) - Step-by-step instructions
-- **🏗️ Complex Examples:** [Complex System Specs](complex-system-spec.md) - More advanced examples
+## 快速导航
+- **📚 先学习：** [方法论概览](../methodology/README.md) - 了解基础
+- **📝 使用模板：** [模板](../templates/README.md) - 创建你自己的规范
+- **📋 遵循流程：** [流程指南](../process/README.md) - 分步说明
+- **🏗️ 复杂示例：** [复杂系统规范](complex-system-spec.md) - 更高级的示例
 
 ---
 
-This section provides complete spec examples for basic features, demonstrating how the three-phase methodology works in practice. Each example includes the full requirements, design, and tasks documents along with commentary explaining key decisions.
+本章节为基础功能提供了完整的规范示例，展示了三阶段方法论在实践中是如何运作的。每个示例都包含完整的需求文档、设计文档和实施计划文档，以及解释关键决策的分析。
 
-## Example 1: User Authentication System
+## 示例 1：用户身份验证系统
 
-### Overview
-A basic user authentication system that allows users to register, login, and manage their sessions. This example demonstrates how to spec a foundational feature that many applications require.
+### 概览
+一个基础的用户身份验证系统，允许用户进行注册、登录和管理他们的会话。本示例展示了如何针对许多应用程序所需的各项基础功能制定规范。
 
 ### Complete Spec Documents
 
-#### Requirements Document
+#### 需求文档
 
-\`\`\`markdown
-# User Authentication System - Requirements
+```markdown
+# 用户身份验证系统 - 需求文档
 
-## Introduction
-This feature implements a secure user authentication system that allows users to create accounts, log in securely, and maintain authenticated sessions. The system will handle user registration, login validation, session management, and basic security measures.
+## 简介
+该功能实现了一个安全的用户身份验证系统，允许用户创建账户、安全登录并维护已验证的会话。系统将处理用户注册、登录验证、会话管理以及基础安全措施。
 
-## Requirements
+## 需求
 
-### Requirement 1
-**User Story:** As a new user, I want to create an account with email and password, so that I can access the application's protected features.
+### 需求 1
+**用户故事：** 作为新用户，我希望使用电子邮件和密码创建账户，以便访问应用程序受保护的功能。
 
-#### Acceptance Criteria
-1. WHEN a user provides valid email and password THEN the system SHALL create a new user account
-2. WHEN a user provides an email that already exists THEN the system SHALL return an appropriate error message
-3. WHEN a user provides invalid email format THEN the system SHALL validate and reject the input
-4. WHEN a user provides a weak password THEN the system SHALL enforce password strength requirements
+#### 验收标准
+1. 当用户提供有效的电子邮件和密码时，系统 SHALL 创建一个新的用户账户。
+2. 当用户提供的电子邮件已存在时，系统 SHALL 返回相应的错误消息。
+3. 当用户提供的电子邮件格式无效时，系统 SHALL 验证并拒绝该输入。
+4. 当用户提供的密码强度较弱时，系统 SHALL 强制执行密码强度要求。
 
-### Requirement 2
-**User Story:** As a registered user, I want to log in with my credentials, so that I can access my account and protected features.
+### 需求 2
+**用户故事：** 作为注册用户，我希望使用我的凭据登录，以便访问我的账户和受保护的功能。
 
-#### Acceptance Criteria
-1. WHEN a user provides correct email and password THEN the system SHALL authenticate and create a session
-2. WHEN a user provides incorrect credentials THEN the system SHALL return an authentication error
-3. WHEN a user attempts multiple failed logins THEN the system SHALL implement rate limiting
-4. IF a user is already logged in THEN the system SHALL handle existing session appropriately
+#### 验收标准
+1. 当用户提供正确的电子邮件和密码时，系统 SHALL 进行身份验证并创建一个会话。
+2. 当用户提供错误的凭据时，系统 SHALL 返回身份验证错误。
+3. 当用户多次尝试登录失败时，系统 SHALL 实施速率限制。
+4. 如果用户已经登录，系统 SHALL 妥善处理现有会话。
 
-### Requirement 3
-**User Story:** As a logged-in user, I want my session to be maintained securely, so that I don't have to re-authenticate frequently while staying secure.
+### 需求 3
+**用户故事：** 作为已登录用户，我希望我的会话能被安全地维持，这样我就不必频繁重新验证，同时保持安全性。
 
-#### Acceptance Criteria
-1. WHEN a user successfully logs in THEN the system SHALL create a secure session token
-2. WHEN a user makes authenticated requests THEN the system SHALL validate the session token
-3. WHEN a session expires THEN the system SHALL require re-authentication
-4. WHEN a user logs out THEN the system SHALL invalidate the session token
-\`\`\`
+#### 验收标准
+1. 当用户成功登录时，系统 SHALL 创建一个安全的会话令牌（Token）。
+2. 当用户发起经过身份验证的请求时，系统 SHALL 验证该会话令牌。
+3. 当会话过期时，系统 SHALL 要求重新验证身份。
+4. 当用户注销时，系统 SHALL 使相应的会话令牌失效。
+```
 
-#### Design Document
+#### 设计文档
 
-\`\`\`markdown
-# User Authentication System - Design
+```markdown
+# 用户身份验证系统 - 设计文档
 
-## Overview
-The authentication system will be implemented using JWT tokens for stateless authentication, with secure password hashing using bcrypt. The system will include registration, login, session validation, and logout functionality with appropriate security measures.
+## 概览
+该身份验证系统将使用 JWT 令牌进行无状态身份验证，并使用 bcrypt 进行安全的密码哈希。系统将包括注册、登录、会话验证和注销功能，并配备相应的安全措施。
 
-## Architecture
-- **Authentication Service**: Core business logic for user management
-- **Password Service**: Secure password hashing and validation
-- **Token Service**: JWT token generation and validation
-- **User Repository**: Data access layer for user storage
-- **Authentication Middleware**: Request validation for protected routes
+## 架构
+- **身份验证服务 (Authentication Service)**：用户管理的核心业务逻辑。
+- **密码服务 (Password Service)**：安全的密码哈希和验证。
+- **令牌服务 (Token Service)**：JWT 令牌的生成和验证。
+- **用户仓库 (User Repository)**：用于用户存储的数据访问层。
+- **身份验证中间件 (Authentication Middleware)**：用于受保护路由的请求验证。
 
-## Components and Interfaces
+## 组件与接口
 
-### User Model
-\`\`\`typescript
+### 用户模型
+```typescript
 interface User {
   id: string;
   email: string;
@@ -3427,222 +3432,222 @@ interface User {
   createdAt: Date;
   lastLoginAt?: Date;
 }
-\`\`\`
+```
 
-### Authentication Service
-\`\`\`typescript
+### 身份验证服务
+```typescript
 interface AuthService {
   register(email: string, password: string): Promise<User>;
   login(email: string, password: string): Promise<{ user: User; token: string }>;
   validateToken(token: string): Promise<User>;
   logout(token: string): Promise<void>;
 }
-\`\`\`
+```
 
-## Data Models
-- **User Storage**: Database table with indexed email field
-- **Session Management**: JWT tokens with expiration
-- **Rate Limiting**: In-memory or Redis-based attempt tracking
+## 数据模型
+- **用户存储**：带索引 email 字段的数据库表。
+- **会话管理**：带过期时间的 JWT 令牌。
+- **速率限制**：基于内存或 Redis 的尝试次数跟踪。
 
-## Error Handling
-- Input validation errors (400 Bad Request)
-- Authentication failures (401 Unauthorized)
-- Rate limiting (429 Too Many Requests)
-- Server errors (500 Internal Server Error)
+## 错误处理
+- 输入验证错误 (400 Bad Request)
+- 身份验证失败 (401 Unauthorized)
+- 速率限制 (429 Too Many Requests)
+- 服务器错误 (500 Internal Server Error)
 
-## Testing Strategy
-- Unit tests for each service component
-- Integration tests for complete authentication flows
-- Security testing for common vulnerabilities
-- Performance testing for concurrent authentication requests
-\`\`\`
+## 测试策略
+- 每个服务组件的单元测试。
+- 完整身份验证流程的集成测试。
+- 针对常见漏洞的安全性测试。
+- 并发身份验证请求的性能测试。
+```
 
-#### Tasks Document
+#### 实施计划文档
 
-\`\`\`markdown
-# User Authentication System - Implementation Plan
+```markdown
+# 用户身份验证系统 - 实施计划
 
-- [ ] 1. Set up project structure and dependencies
-  - Create authentication module directory structure
-  - Install required dependencies (bcrypt, jsonwebtoken, validation library)
-  - Set up TypeScript interfaces and types
-  - _Requirements: 1.1, 2.1, 3.1_
+- [ ] 1. 设置项目结构和依赖项
+  - 创建身份验证模块目录结构
+  - 安装所需依赖项（bcrypt, jsonwebtoken, 验证库）
+  - 设置 TypeScript 接口和类型
+  - _关联需求：1.1, 2.1, 3.1_
 
-- [ ] 2. Implement User model and validation
-  - Create User interface and data model
-  - Implement email validation with regex patterns
-  - Create password strength validation (min length, complexity)
-  - Write unit tests for validation functions
-  - _Requirements: 1.1, 1.3, 1.4_
+- [ ] 2. 实施用户模型和验证
+  - 创建用户接口和数据模型
+  - 使用正则模式实施电子邮件验证
+  - 创建密码强度验证（最小长度、复杂度要求）
+  - 为验证函数编写单元测试
+  - _关联需求：1.1, 1.3, 1.4_
 
-- [ ] 3. Create password security service
-  - Implement password hashing using bcrypt with appropriate salt rounds
-  - Create password comparison function for login validation
-  - Write unit tests for password hashing and verification
-  - _Requirements: 1.1, 2.1_
+- [ ] 3. 创建密码安全服务
+  - 使用 bcrypt 实施密码哈希并设置适当的盐（Salt）轮数
+  - 创建用于登录验证的密码比较函数
+  - 为密码哈希及验证编写单元测试
+  - _关联需求：1.1, 2.1_
 
-- [ ] 4. Build JWT token service
-  - Implement token generation with user payload and expiration
-  - Create token validation and decoding functionality
-  - Add token blacklisting capability for logout
-  - Write unit tests for token operations
-  - _Requirements: 2.1, 3.1, 3.2, 3.4_
+- [ ] 4. 构建 JWT 令牌服务
+  - 实施包含用户有效负载和过期时间的令牌生成功能
+  - 创建令牌验证和解码功能
+  - 为注销功能增加令牌黑名单能力
+  - 为令牌操作编写单元测试
+  - _关联需求：2.1, 3.1, 3.2, 3.4_
 
-- [ ] 5. Implement user repository layer
-  - Create database schema and migration for users table
-  - Implement CRUD operations for user management
-  - Add email uniqueness constraint and indexing
-  - Write integration tests for database operations
-  - _Requirements: 1.1, 1.2, 2.1_
+- [ ] 5. 实施用户仓库层
+  - 为用户表创建数据库模式和迁移脚本
+  - 实施用户管理的 CRUD 操作
+  - 增加电子邮件唯一性约束和索引
+  - 为数据库操作编写集成测试
+  - _关联需求：1.1, 1.2, 2.1_
 
-- [ ] 6. Build authentication service
-  - Implement user registration with validation and password hashing
-  - Create login functionality with credential verification
-  - Add session validation for protected routes
-  - Implement logout with token invalidation
-  - Write comprehensive unit tests for all authentication flows
-  - _Requirements: 1.1, 1.2, 2.1, 2.2, 3.1, 3.4_
+- [ ] 6. 构建身份验证服务
+  - 实施带验证和密码哈希的用户注册功能
+  - 创建带凭据核对的登录功能
+  - 为受保护路由增加会话验证
+  - 实施带令牌失效功能的注销操作
+  - 为所有身份验证流程编写全面的单元测试
+  - _关联需求：1.1, 1.2, 2.1, 2.2, 3.1, 3.4_
 
-- [ ] 7. Create authentication middleware
-  - Build middleware to validate JWT tokens on protected routes
-  - Implement proper error handling and response formatting
-  - Add request context with authenticated user information
-  - Write integration tests for middleware functionality
-  - _Requirements: 3.1, 3.2_
+- [ ] 7. 创建身份验证中间件
+  - 构建用于在受保护路由上验证 JWT 令牌的中间件
+  - 实施适当的错误处理和响应格式化
+  - 增加包含已验证用户信息的请求上下文
+  - 为中间件功能编写集成测试
+  - _关联需求：3.1, 3.2_
 
-- [ ] 8. Implement rate limiting and security measures
-  - Add rate limiting for login attempts per IP/email
-  - Implement account lockout after multiple failed attempts
-  - Create security headers and CORS configuration
-  - Write tests for security measures
-  - _Requirements: 2.3_
+- [ ] 8. 实施速率限制和安全措施
+  - 为每个 IP/电子邮件的登录尝试增加速率限制
+  - 实施多次尝试失败后的账户锁定功能
+  - 创建安全标头和 CORS 配置
+  - 为安全措施编写测试
+  - _关联需求：2.3_
 
-- [ ] 9. Create API endpoints and integration
-  - Build REST endpoints for registration, login, and logout
-  - Implement proper HTTP status codes and error responses
-  - Add request/response validation and sanitization
-  - Write end-to-end API tests
-  - _Requirements: 1.1, 2.1, 3.4_
+- [ ] 9. 创建 API 端点和集成
+  - 为注册、登录和注销构建 REST 端点
+  - 实施适当的 HTTP 状态码和错误响应
+  - 增加请求/响应的验证和清理（Sanitization）
+  - 编写端到端 API 测试
+  - _关联需求：1.1, 2.1, 3.4_
 
-- [ ] 10. Add monitoring and logging
-  - Implement structured logging for authentication events
-  - Add metrics for login success/failure rates
-  - Create alerts for suspicious authentication patterns
-  - Write tests for logging functionality
-  - _Requirements: 2.3_
-\`\`\`
+- [ ] 10. 增加监控和日志记录
+  - 为身份验证事件实施结构化日志记录
+  - 为登录成功/失败率增加指标
+  - 为可疑的身份验证模式创建警报
+  - 为日志记录功能编写测试
+  - _关联需求：2.3_
+```
 
-### Key Decision Commentary
+### 关键决策分析
 
-#### Why JWT Tokens?
-- **Stateless**: No server-side session storage required
-- **Scalable**: Works well in distributed systems
-- **Standard**: Well-established security practices
-- **Flexible**: Can include custom claims and expiration
+#### 为什么选择 JWT 令牌？
+- **无状态**：不需要服务器端会话存储。
+- **可扩展**：在分布式系统中表现良好。
+- **标准**：具有完善的安全实践。
+- **灵活**：可以包含自定义声明（Claims）和过期时间。
 
-#### Why bcrypt for Password Hashing?
-- **Adaptive**: Can increase difficulty as hardware improves
-- **Salt Built-in**: Automatic salt generation prevents rainbow table attacks
-- **Battle-tested**: Widely used and audited security library
-- **Configurable**: Adjustable work factor for security/performance balance
+#### 为什么使用 bcrypt 进行密码哈希？
+- **自适应**：可以随着硬件性能的提升增加计算难度。
+- **内置盐（Salt）**：自动生成盐，防止彩虹表攻击。
+- **经受考验**：被广泛使用且经过审计的安全库。
+- **可配置**：可调整的工作因子，平衡安全性和性能。
 
-#### Database Design Decisions
-- **Email as Username**: Simpler for users, natural unique identifier
-- **Separate Password Hash**: Never store plain text passwords
-- **Timestamps**: Track account creation and last login for analytics
-- **Indexing**: Email field indexed for fast lookup during login
+#### 数据库设计决策
+- **以电子邮件作为用户名**：对用户而言更简单，且是天然的唯一标识符。
+- **分离密码哈希**：绝不存储明文密码。
+- **时间戳**：追踪账户创建和最后登录时间，用于分析。
+- **索引**：对电子邮件字段建立索引，以便在登录时快速查找。
 
-### Implementation Notes
+### 实施笔记
 
-This spec translates to approximately 8-10 TypeScript files:
-- `models/User.ts` - Data model and interfaces
-- `services/AuthService.ts` - Core authentication logic
-- `services/PasswordService.ts` - Password hashing utilities
-- `services/TokenService.ts` - JWT token management
-- `repositories/UserRepository.ts` - Database operations
-- `middleware/AuthMiddleware.ts` - Request authentication
-- `controllers/AuthController.ts` - HTTP endpoint handlers
-- `routes/auth.ts` - Route definitions
-- `__tests__/` - Comprehensive test suite
+该规范转化为大约 8-10 个 TypeScript 文件：
+- `models/User.ts` - 数据模型和接口
+- `services/AuthService.ts` - 核心身份验证逻辑
+- `services/PasswordService.ts` - 密码哈希实用程序
+- `services/TokenService.ts` - JWT 令牌管理
+- `repositories/UserRepository.ts` - 数据库操作
+- `middleware/AuthMiddleware.ts` - 请求身份验证
+- `controllers/AuthController.ts` - HTTP 端点处理程序
+- `routes/auth.ts` - 路由定义
+- `__tests__/` - 全面的测试套件
 
-### Lessons Learned
+### 经验教训
 
-**What Worked Well:**
-- Breaking down authentication into discrete services made testing easier
-- Starting with clear interfaces helped maintain consistency
-- Security considerations were addressed systematically
+**做得好的地方：**
+- 将身份验证分解为离散的服务使得测试更加容易。
+- 从清晰的接口开始有助于保持一致性。
+- 安全性考虑得到了系统的处理。
 
-**What Could Be Improved:**
-- Could have included more specific error message requirements
-- Rate limiting strategy could be more detailed in design phase
-- Password reset functionality was not included but often needed
+**可以改进的地方：**
+- 本可以包含更具体的错误消息需求。
+- 速率限制策略在设计阶段可以说明得更详细。
+- 密码重置功能未包含在内，但通常是需要的。
 
 ---
 
-## Example 2: Data Validation Component
+## 示例 2：数据验证组件
 
-### Overview
-A reusable data validation component that can validate different types of input data with customizable rules. This example shows how to spec a utility component that will be used across multiple features.
+### 概览
+这是一个可复用的数据验证组件，可以根据自定义规则验证不同类型的输入数据。本示例展示了如何针对一个将在多个功能中使用的通用组件制定规范。
 
-### Complete Spec Documents
+### 完整规范文档
 
-#### Requirements Document
+#### 需求文档
 
-\`\`\`markdown
-# Data Validation Component - Requirements
+```markdown
+# 数据验证组件 - 需求文档
 
-## Introduction
-This feature implements a flexible data validation component that can validate various types of input data against configurable rules. The component will support common validation patterns, custom validation functions, and provide clear error messaging for failed validations.
+## 简介
+本功能实现了一个灵活的数据验证组件，可以根据可配置的规则验证各种类型的输入数据。该组件将支持常见的验证模式、自定义验证函数，并为验证失败提供清晰的错误消息。
 
-## Requirements
+## 需求
 
-### Requirement 1
-**User Story:** As a developer, I want a validation component that can validate common data types, so that I can ensure data integrity across my application.
+### 需求 1
+**用户故事：** 作为一名开发人员，我想要一个能够验证常见数据类型的验证组件，以便确保整个应用程序的数据完整性。
 
-#### Acceptance Criteria
-1. WHEN validating string data THEN the system SHALL support length, pattern, and format validations
-2. WHEN validating numeric data THEN the system SHALL support range, precision, and type validations
-3. WHEN validating email addresses THEN the system SHALL use standard email format validation
-4. WHEN validating dates THEN the system SHALL support format and range validations
+#### 验收标准
+1. 当验证字符串数据时，系统 SHALL 支持长度、模式和格式验证。
+2. 当验证数值数据时，系统 SHALL 支持范围、精度和类型验证。
+3. 当验证电子邮件地址时，系统 SHALL 使用标准的电子邮件格式验证。
+4. 当验证日期时，系统 SHALL 支持格式和范围验证。
 
-### Requirement 2
-**User Story:** As a developer, I want to define custom validation rules, so that I can validate domain-specific data requirements.
+### 需求 2
+**用户故事：** 作为一名开发人员，我想要定义自定义验证规则，以便验证特定领域的数据需求。
 
-#### Acceptance Criteria
-1. WHEN defining custom validators THEN the system SHALL accept custom validation functions
-2. WHEN combining multiple validators THEN the system SHALL support validation chains
-3. WHEN validation fails THEN the system SHALL provide specific error messages
-4. IF validation passes THEN the system SHALL return the validated data
+#### 验收标准
+1. 当定义自定义验证器时，系统 SHALL 接收自定义验证函数。
+2. 当组合多个验证器时，系统 SHALL 支持验证链（validation chains）。
+3. 当验证失败时，系统 SHALL 提供具体的错误消息。
+4. 如果验证通过，系统 SHALL 返回经过验证的数据。
 
-### Requirement 3
-**User Story:** As a developer, I want clear validation error messages, so that I can provide meaningful feedback to users.
+### 需求 3
+**用户故事：** 作为一名开发人员，我想要清晰的验证错误消息，以便向用户提供有意义的反馈。
 
-#### Acceptance Criteria
-1. WHEN validation fails THEN the system SHALL return descriptive error messages
-2. WHEN multiple validations fail THEN the system SHALL collect all error messages
-3. WHEN displaying errors THEN the system SHALL identify which field failed validation
-4. IF custom error messages are provided THEN the system SHALL use them instead of defaults
-\`\`\`
+#### 验收标准
+1. 当验证失败时，系统 SHALL 返回描述性的错误消息。
+2. 当多个验证失败时，系统 SHALL 收集所有错误消息。
+3. 当显示错误时，系统 SHALL 识别哪个字段验证失败。
+4. 如果提供了自定义错误消息，系统 SHALL 使用它们而不是默认消息。
+```
 
-#### Design Document
+#### 设计文档
 
-\`\`\`markdown
-# Data Validation Component - Design
+```markdown
+# 数据验证组件 - 设计文档
 
-## Overview
-The validation component will be implemented as a composable validation system that supports both built-in validators and custom validation functions. It will use a fluent API for chaining validators and provide detailed error reporting.
+## 概述
+数据验证组件将实现为一个可组合的验证系统，支持内置验证器和自定义验证函数。它将使用链式 API（fluent API）进行验证器链接，并提供详细的错误报告。
 
-## Architecture
-- **Validator Interface**: Common interface for all validation functions
-- **Built-in Validators**: Pre-defined validators for common use cases
-- **Validation Chain**: Composable validation pipeline
-- **Error Collector**: Aggregates and formats validation errors
-- **Schema Validator**: Validates complex objects with multiple fields
+## 架构
+- **验证器接口（Validator Interface）**：所有验证函数的通用接口。
+- **内置验证器**：针对常见用例的预定义验证器。
+- **验证链（Validation Chain）**：可组合的验证流水线。
+- **错误收集器（Error Collector）**：汇总并格式化验证错误。
+- **模式验证器（Schema Validator）**：验证具有多个字段的复杂对象。
 
-## Components and Interfaces
+## 组件与接口
 
-### Core Validator Interface
-\`\`\`typescript
+### 核心验证器接口
+```typescript
 interface Validator<T> {
   validate(value: T): ValidationResult;
   withMessage(message: string): Validator<T>;
@@ -3653,10 +3658,10 @@ interface ValidationResult {
   errors: string[];
   value?: any;
 }
-\`\`\`
+```
 
-### Validation Chain
-\`\`\`typescript
+### 验证链
+```typescript
 interface ValidationChain<T> {
   required(): ValidationChain<T>;
   string(): ValidationChain<string>;
@@ -3668,3926 +3673,3924 @@ interface ValidationChain<T> {
   custom(validator: (value: T) => boolean): ValidationChain<T>;
   validate(value: T): ValidationResult;
 }
-\`\`\`
+```
 
-## Data Models
-- **Validation Rules**: Configuration objects for different validation types
-- **Error Messages**: Localized error message templates
-- **Schema Definitions**: Object validation schemas with field-level rules
+## 数据模型
+- **验证规则**：针对不同验证类型的配置对象。
+- **错误消息**：本地化的错误消息模板。
+- **模式定义**：带有字段级规则的对象验证模式（Schemas）。
 
-## Error Handling
-- Validation errors collected and formatted consistently
-- Support for custom error messages and internationalization
-- Field-level error mapping for form validation
-- Graceful handling of invalid input types
+## 错误处理
+- 验证错误将被一致地收集和格式化。
+- 支持自定义错误消息和国际化（i18n）。
+- 针对表单验证的字段级错误映射。
+- 妥善处理无效的输入类型。
 
-## Testing Strategy
-- Unit tests for each built-in validator
-- Integration tests for validation chains
-- Edge case testing for boundary conditions
-- Performance testing for large data sets
-\`\`\`
+## 测试策略
+- 针对每个内置验证器的单元测试。
+- 针对验证链的集成测试。
+- 针对边界条件的边缘案例测试。
+- 针对大数据集的性能测试。
+```
 
-#### Tasks Document
+#### 实施计划文档
 
-\`\`\`markdown
-# Data Validation Component - Implementation Plan
+```markdown
+# 数据验证组件 - 实施计划
 
-- [ ] 1. Set up validation component structure
-  - Create validation module directory and core interfaces
-  - Define TypeScript types for validators and results
-  - Set up testing framework and initial test structure
-  - _Requirements: 1.1, 2.1, 3.1_
+- [ ] 1. 设置验证组件结构
+  - 创建验证模块目录和核心接口
+  - 为验证器和结果定义 TypeScript 类型
+  - 设置测试框架和初始测试结构
+  - _关联需求：1.1, 2.1, 3.1_
 
-- [ ] 2. Implement core validation interfaces
-  - Create base Validator interface and ValidationResult type
-  - Implement ValidationChain class with fluent API
-  - Create error collection and formatting utilities
-  - Write unit tests for core interfaces
-  - _Requirements: 2.1, 2.2, 3.1, 3.2_
+- [ ] 2. 实施核心验证接口
+  - 创建基础 Validator 接口和 ValidationResult 类型
+  - 实现具有链式 API 的 ValidationChain 类
+  - 创建错误收集和格式化实用程序
+  - 为核心接口编写单元测试
+  - _关联需求：2.1, 2.2, 3.1, 3.2_
 
-- [ ] 3. Build built-in string validators
-  - Implement required, minLength, maxLength validators
-  - Create pattern matching validator with regex support
-  - Add email format validation with comprehensive regex
-  - Write unit tests for all string validators
-  - _Requirements: 1.1, 1.3_
+- [ ] 3. 构建内置字符串验证器
+  - 实施必填（required）、最小长度（minLength）、最大长度（maxLength）验证器
+  - 创建支持正则表达式的模式匹配（pattern）验证器
+  - 增加带有全面正则表达式的电子邮件格式验证
+  - 为所有字符串验证器编写单元测试
+  - _关联需求：1.1, 1.3_
 
-- [ ] 4. Create numeric validators
-  - Implement number type validation and conversion
-  - Add min, max, and range validation functions
-  - Create precision and decimal place validators
-  - Write unit tests for numeric validation edge cases
-  - _Requirements: 1.2_
+- [ ] 4. 创建数值验证器
+  - 实施数值类型验证和转换
+  - 增加最小值、最大值和范围验证函数
+  - 创建精度和小数位数验证器
+  - 为数值验证的边缘案例编写单元测试
+  - _关联需求：1.2_
 
-- [ ] 5. Implement date and time validators
-  - Create date format validation and parsing
-  - Add date range validators (before, after, between)
-  - Implement time format validation
-  - Write unit tests for various date formats and edge cases
-  - _Requirements: 1.4_
+- [ ] 5. 实施日期和时间验证器
+  - 创建日期格式验证和解析
+  - 增加日期范围验证器（在...之前、在...之后、在...之间）
+  - 实施时间格式验证
+  - 为各种日期格式和边缘案例编写单元测试
+  - _关联需求：1.4_
 
-- [ ] 6. Build custom validation support
-  - Implement custom validator function interface
-  - Create validation chain composition for multiple validators
-  - Add conditional validation support
-  - Write unit tests for custom validator integration
-  - _Requirements: 2.1, 2.2_
+- [ ] 6. 构建自定义验证支持
+  - 实施自定义验证器函数接口
+  - 为多个验证器创建验证链组合
+  - 增加条件验证支持
+  - 为自定义验证器集成编写单元测试
+  - _关联需求：2.1, 2.2_
 
-- [ ] 7. Create error message system
-  - Implement default error message templates
-  - Add support for custom error messages per validator
-  - Create error message interpolation for dynamic values
-  - Write tests for error message generation and formatting
-  - _Requirements: 3.1, 3.2, 3.4_
+- [ ] 7. 创建错误消息系统
+  - 实施默认错误消息模板
+  - 为每个验证器增加自定义错误消息支持
+  - 创建动态值的错误消息插值功能
+  - 为错误消息生成和格式化编写测试
+  - _关联需求：3.1, 3.2, 3.4_
 
-- [ ] 8. Build object schema validation
-  - Create schema definition interface for complex objects
-  - Implement field-level validation with error mapping
-  - Add nested object validation support
-  - Write integration tests for complete object validation
-  - _Requirements: 2.2, 3.3_
+- [ ] 8. 构建对象模式验证
+  - 为复杂对象创建模式定义接口
+  - 实施带有错误映射的字段级验证
+  - 增加嵌套对象验证支持
+  - 为完整的对象验证编写集成测试
+  - _关联需求：2.2, 3.3_
 
-- [ ] 9. Add validation utilities and helpers
-  - Create validation result aggregation utilities
-  - Implement validation middleware for common frameworks
-  - Add form validation helpers and integration examples
-  - Write comprehensive integration tests
-  - _Requirements: 2.2, 3.3_
+- [ ] 9. 增加验证实用程序和助手函数
+  - 创建验证结果聚合工具
+  - 为常用框架实施验证中间件
+  - 增加表单验证助手和集成示例
+  - 编写全面的集成测试
+  - _关联需求：2.2, 3.3_
 
-- [ ] 10. Performance optimization and finalization
-  - Optimize validation chains for performance
-  - Add caching for compiled regex patterns
-  - Create comprehensive documentation and usage examples
-  - Write performance tests and benchmarks
-  - _Requirements: 1.1, 2.1, 3.1_
-\`\`\`
+- [ ] 10. 性能优化与完成
+  - 针对性能优化验证链
+  - 为编译后的正则表达式增加缓存
+  - 创建全面的文档和使用示例
+  - 编写性能测试和基准测试
+  - _关联需求：1.1, 2.1, 3.1_
+```
 
-### Key Decision Commentary
+### 关键决策分析
 
-#### Why Fluent API Design?
-- **Developer Experience**: Intuitive chaining syntax
-- **Composability**: Easy to combine multiple validators
-- **Readability**: Validation rules read like natural language
-- **Flexibility**: Can add new validators without breaking existing code
+#### 为什么采用链式 API 设计？
+- **开发者体验**：直观的链式调用语法。
+- **可组合性**：易于组合多个验证器。
+- **可读性**：验证规则读起来像自然语言。
+- **灵活性**：可以在不破坏现有代码的情况下增加新的验证器。
 
-#### Error Collection Strategy
-- **Comprehensive**: Collect all validation errors, not just the first
-- **Structured**: Consistent error format across all validators
-- **Customizable**: Allow custom error messages for better UX
-- **Localizable**: Support for internationalization
+#### 错误收集策略
+- **全面性**：收集所有验证错误，而不仅仅是第一个。
+- **结构化**：跨所有验证器保持一致的错误格式。
+- **可定制**：允许自定义错误消息以提供更好的用户体验。
+- **可本地化**：支持国际化。
 
-### Implementation Notes
+### 实施笔记
 
-This spec results in a modular validation library:
-- `core/Validator.ts` - Base interfaces and types
-- `core/ValidationChain.ts` - Fluent API implementation
-- `validators/StringValidators.ts` - String validation functions
-- `validators/NumberValidators.ts` - Numeric validation functions
-- `validators/DateValidators.ts` - Date/time validation functions
-- `utils/ErrorCollector.ts` - Error aggregation utilities
-- `schema/ObjectValidator.ts` - Complex object validation
-- `__tests__/` - Comprehensive test coverage
+该规范最终转化为一个模块化的验证库：
+- `core/Validator.ts` - 基础接口和类型
+- `core/ValidationChain.ts` - 链式 API 实现
+- `validators/StringValidators.ts` - 字符串验证函数
+- `validators/NumberValidators.ts` - 数值验证函数
+- `validators/DateValidators.ts` - 日期/时间验证函数
+- `utils/ErrorCollector.ts` - 错误聚合实用程序
+- `schema/ObjectValidator.ts` - 复杂对象验证
+- `__tests__/` - 全面的测试覆盖
 
-### Lessons Learned
+### 经验教训
 
-**What Worked Well:**
-- Fluent API made the component very developer-friendly
-- Separating built-in and custom validators provided good flexibility
-- Comprehensive error collection improved debugging experience
+**做得好的地方：**
+- 链式 API 使得组件对开发人员非常友好。
+- 将内置验证器和自定义验证器分离提供了良好的灵活性。
+- 全面的错误收集改进了调试体验。
 
-**What Could Be Improved:**
-- Could have specified performance requirements more clearly
-- Async validation support wasn't considered but might be needed
-- Integration with popular form libraries could be more detailed
-
----
-
-## Usage Guidelines
-
-### When to Use These Examples
-
-**User Authentication Example** is ideal for:
-- Learning how to spec security-critical features
-- Understanding how to break down complex business logic
-- Seeing how security requirements translate to implementation tasks
-
-**Data Validation Example** is perfect for:
-- Understanding utility component specification
-- Learning how to design reusable, composable systems
-- Seeing how developer experience requirements drive design decisions
-
-### Adapting These Examples
-
-Both examples can be adapted for different contexts:
-- **Technology Stack**: Replace specific technologies while keeping the structure
-- **Complexity Level**: Add or remove features based on project needs
-- **Domain Requirements**: Modify business rules while maintaining the process
-- **Integration Needs**: Adjust interfaces based on existing system architecture
+**可以改进的地方：**
+- 本可以更清晰地说明性能需求。
+- 未考虑异步验证支持，但可能需要。
+- 与流行的表单库的集成可以说明得更详细。
 
 ---
 
-[← Back to Examples Overview](README.md) | [Complex System Examples →](complex-system-spec.md)
+## 使用指南
+
+### 何时使用这些示例
+
+**用户身份验证示例** 非常适用于：
+- 学习如何针对安全关键功能制定规范。
+- 理解如何分解复杂的业务逻辑。
+- 查看安全需求如何转化为实施任务。
+
+**数据验证示例** 非常适用于：
+- 理解实用程序组件的规范制定。
+- 学习如何设计可复用、可组合的系统。
+- 查看开发者体验需求如何驱动设计决策。
+
+### 适配这些示例
+
+这两个示例都可以针对不同的上下文进行适配：
+- **技术栈**：在保持结构的同时替换具体的技术。
+- **复杂度级别**：根据项目需求增加或减少功能。
+- **领域需求**：在保持流程的同时修改业务规则。
+- **集成需求**：根据现有系统架构调整接口。
+
+---
+
+[← 返回示例概览](README.md) | [查看复杂系统示例 →](complex-system-spec.md)
 ```
 
 # spec-process-guide/examples/troubleshooting-pitfalls.md
 
 ```md
-# Troubleshooting and Common Pitfalls
+# 故障排除与常见陷阱
 
-<!-- Navigation Metadata -->
-<!-- Example: Troubleshooting | Level: Problem Solving | Prerequisites: process/README.md -->
-<!-- Related: prompting/best-practices.md, execution/troubleshooting.md, case-studies.md -->
+<!-- 导航元数据 -->
+<!-- 示例：故障排除 | 级别：问题解决 | 前置要求：process/README.md -->
+<!-- 相关内容：prompting/best-practices.md, execution/troubleshooting.md, case-studies.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Examples](README.md) → **Troubleshooting & Pitfalls**
+**📍 你在这里：** [主指南](../README.md) → [示例](README.md) → **故障排除与陷阱**
 
-## Quick Navigation
-- **📋 Learn Process:** [Process Guide](../process/README.md) - Avoid pitfalls with systematic approach
-- **💬 Better Communication:** [Prompting Best Practices](../prompting/best-practices.md) - Prevent misunderstandings
-- **⚡ Implementation Issues:** [Execution Troubleshooting](../execution/troubleshooting.md) - Fix coding problems
-- **📖 Real Examples:** [Case Studies](case-studies.md) - Learn from actual failures
+## 快速导航
+- **📋 学习流程：** [流程指南](../process/README.md) - 通过系统化方法避免陷阱
+- **💬 更好的沟通：** [提示词最佳实践](../prompting/best-practices.md) - 防止误解
+- **⚡ 实施问题：** [执行故障排除](../execution/troubleshooting.md) - 解决编码问题
+- **📖 真实案例：** [案例研究](case-studies.md) - 从实际失败中学习
 
 ---
 
-A comprehensive guide to avoiding common mistakes in spec-driven development and recovering when things go wrong.
-
-## Common Pitfalls by Phase
-
-### Requirements Phase Pitfalls
-
-#### 1. Vague or Ambiguous Requirements
-
-**The Problem:**
-\`\`\`markdown
-# BAD EXAMPLE
-- User should be able to manage their data
-- System should be fast and reliable
-- Interface should be user-friendly
-\`\`\`
-
-**Why It Fails:**
-- No measurable criteria
-- Subjective terms without definition
-- Missing specific user actions
-
-**The Solution:**
-\`\`\`markdown
-# GOOD EXAMPLE
-**User Story:** As a registered user, I want to edit my profile information, so that I can keep my account details current.
-
-#### Acceptance Criteria
-1. WHEN a user clicks "Edit Profile" THEN the system SHALL display an editable form with current profile data
-2. WHEN a user submits valid profile changes THEN the system SHALL save the changes within 2 seconds
-3. WHEN a user enters invalid data THEN the system SHALL display specific error messages within the form
-\`\`\`
-
-**Recovery Strategy:**
-- Review each requirement and ask "How would I test this?"
-- Convert subjective terms to measurable criteria
-- Add specific user actions and system responses
-
-#### 2. Requirements Scope Creep During Initial Phase
-
-**The Problem:**
-Starting with "simple user login" and ending up with "complete user management system with roles, permissions, audit logging, and social authentication."
-
-**Why It Fails:**
-- Loses focus on core functionality
-- Makes design phase overwhelming
-- Creates unrealistic implementation timeline
-
-**The Solution:**
-- Define a clear boundary for the current spec
-- Document "future enhancements" separately
-- Use the "could/should/must" prioritization framework
-
-**Recovery Strategy:**
-\`\`\`markdown
-## Current Spec Scope (MUST HAVE)
-- Basic email/password authentication
-- User session management
-- Password reset functionality
-
-## Future Enhancements (COULD HAVE)
-- Social login integration
-- Role-based permissions
-- Audit logging
-\`\`\`
-
-#### 3. Missing Error and Edge Cases
-
-**The Problem:**
-Only documenting the "happy path" scenarios.
-
-**Common Missing Cases:**
-- Network failures
-- Invalid input handling
-- Concurrent user actions
-- System resource limitations
-
-**The Solution:**
-For each requirement, explicitly consider:
-- What happens when this fails?
-- What are the boundary conditions?
-- How should the system behave under stress?
-
-### Design Phase Pitfalls
-
-#### 1. Over-Engineering the Initial Design
-
-**The Problem:**
-\`\`\`markdown
-# BAD EXAMPLE - Too Complex for Initial Implementation
-## Architecture
-- Microservices with event sourcing
-- CQRS pattern implementation
-- Distributed caching layer
-- Message queue system
-- API gateway with rate limiting
-\`\`\`
-
-**Why It Fails:**
-- Adds unnecessary complexity
-- Makes implementation tasks overwhelming
-- Increases chance of implementation failure
-
-**The Solution:**
-\`\`\`markdown
-# GOOD EXAMPLE - Appropriate for Requirements
-## Architecture
-- Single service with clear module separation
-- Direct database access with connection pooling
-- RESTful API endpoints
-- Simple authentication middleware
-\`\`\`
-
-**Recovery Strategy:**
-- Review each design decision against actual requirements
-- Ask "What's the simplest solution that meets the requirements?"
-- Document complex features as "future architectural evolution"
-
-#### 2. Insufficient Technical Research
-
-**The Problem:**
-Making design decisions without understanding:
-- Available libraries and frameworks
-- Performance characteristics
-- Integration requirements
-- Deployment constraints
-
-**Warning Signs:**
-- Design assumes capabilities that don't exist
-- No consideration of technical limitations
-- Missing integration details
-
-**The Solution:**
-- Research key technical decisions during design phase
-- Validate assumptions with proof-of-concept code
-- Document technical constraints and their impact
-
-#### 3. Design-Implementation Gap
-
-**The Problem:**
-Creating designs that are theoretically sound but practically difficult to implement.
-
-**Common Issues:**
-- Complex data relationships without clear implementation path
-- Assumed libraries or services that don't exist
-- Performance requirements without implementation strategy
-
-**Recovery Strategy:**
-- Review design with implementation feasibility in mind
-- Break complex components into simpler, implementable pieces
-- Add implementation notes for complex design decisions
-
-### Tasks Phase Pitfalls
-
-#### 1. Tasks Too Large or Vague
-
-**The Problem:**
-\`\`\`markdown
-# BAD EXAMPLE
-- [ ] Implement user authentication system
-- [ ] Create database layer
-- [ ] Build API endpoints
-\`\`\`
-
-**Why It Fails:**
-- No clear completion criteria
-- Too much work for single task
-- Unclear dependencies
-
-**The Solution:**
-\`\`\`markdown
-# GOOD EXAMPLE
-- [ ] 1.1 Create User model with validation
-  - Implement User class with email, password fields
-  - Add email format validation
-  - Add password strength requirements
-  - Write unit tests for User model validation
-  - _Requirements: 1.2, 2.1_
-
-- [ ] 1.2 Implement password hashing utilities
-  - Create password hashing function using bcrypt
-  - Create password verification function
-  - Write unit tests for password utilities
-  - _Requirements: 1.2, 3.1_
-\`\`\`
-
-**Recovery Strategy:**
-- Break large tasks into 2-4 hour implementation chunks
-- Add specific deliverables and test criteria
-- Ensure each task has clear completion definition
-
-#### 2. Missing Task Dependencies
-
-**The Problem:**
-Tasks that can't be implemented because prerequisite work isn't complete.
-
-**Example:**
-\`\`\`markdown
-- [ ] 2.1 Implement user login endpoint
-- [ ] 2.2 Add authentication middleware
-- [ ] 1.1 Create User model  # Should come first!
-\`\`\`
-
-**The Solution:**
-- Review task sequence for logical dependencies
-- Ensure foundational components are implemented first
-- Use task numbering that reflects implementation order
-
-#### 3. No Integration or End-to-End Tasks
-
-**The Problem:**
-All tasks focus on individual components without connecting them together.
-
-**Missing Elements:**
-- Integration between components
-- End-to-end workflow testing
-- System-level validation
-
-**The Solution:**
-Always include integration tasks:
-\`\`\`markdown
-- [ ] 5.1 Integrate authentication with API endpoints
-- [ ] 5.2 Create end-to-end user registration flow
-- [ ] 5.3 Test complete login/logout workflow
-\`\`\`
-
-## Process-Level Pitfalls
-
-### 1. Skipping User Approval Between Phases
-
-**The Problem:**
-Moving from Requirements → Design → Tasks without user validation at each step.
-
-**Why It Fails:**
-- Compounds errors across phases
-- User discovers issues too late to fix efficiently
-- Implementation doesn't match user expectations
-
-**Recovery Strategy:**
-- Always get explicit approval before moving to next phase
-- If issues are discovered later, return to the appropriate phase
-- Don't try to fix fundamental issues during implementation
-
-### 2. Treating Specs as Immutable
-
-**The Problem:**
-Refusing to update requirements or design when implementation reveals issues.
-
-**Better Approach:**
-- Specs are living documents that can be updated
-- Implementation insights should inform spec improvements
-- Document changes and rationale for future reference
-
-### 3. Perfectionism Paralysis
-
-**The Problem:**
-Spending too much time perfecting requirements or design instead of moving forward.
-
-**Warning Signs:**
-- Multiple revisions without significant improvement
-- Analysis paralysis on minor decisions
-- Avoiding implementation phase
-
-**Recovery Strategy:**
-- Set time limits for each phase
-- Aim for "good enough" rather than perfect
-- Remember that implementation will reveal areas for improvement
-
-## Recovery Strategies
-
-### When Requirements Are Fundamentally Flawed
-
-**Symptoms:**
-- Design phase reveals major gaps
-- Requirements conflict with each other
-- User feedback indicates misunderstanding
-
-**Recovery Steps:**
-1. Stop current phase work
-2. Return to requirements with specific issues identified
-3. Focus revision on problem areas only
-4. Get explicit approval before proceeding
-
-### When Design Doesn't Support Requirements
-
-**Symptoms:**
-- Tasks phase reveals implementation impossibility
-- Design complexity far exceeds requirement complexity
-- Missing critical system components
-
-**Recovery Steps:**
-1. Identify specific design-requirement mismatches
-2. Revise design to address gaps
-3. Simplify over-engineered components
-4. Validate revised design against all requirements
-
-### When Tasks Are Unimplementable
-
-**Symptoms:**
-- Tasks require non-existent capabilities
-- Task dependencies are circular or unclear
-- Individual tasks are too large or vague
-
-**Recovery Steps:**
-1. Review tasks against design and requirements
-2. Break down large tasks into implementable chunks
-3. Reorder tasks to respect dependencies
-4. Add missing integration and testing tasks
-
-## Prevention Strategies
-
-### Requirements Phase Prevention
-- Use EARS format consistently
-- Include error cases and edge conditions
-- Get specific examples for each requirement
-- Validate requirements with potential users
-
-### Design Phase Prevention
-- Research technical decisions during design
-- Keep initial design simple and extensible
-- Document assumptions and constraints
-- Validate design against requirements frequently
-
-### Tasks Phase Prevention
-- Ensure each task is 2-4 hours of work
-- Include testing and integration tasks
-- Sequence tasks by dependency order
-- Reference specific requirements for each task
-
-## Warning Signs to Watch For
-
-### Early Warning Signs
-- Difficulty explaining requirements to others
-- Design decisions made without research
-- Tasks that seem overwhelming or unclear
-- Resistance to moving between phases
-
-### Critical Warning Signs
-- Multiple failed attempts at same phase
-- Growing complexity without added value
-- Implementation consistently failing
-- User confusion about spec content
-
-## When to Start Over
-
-Sometimes the best recovery strategy is to restart with lessons learned:
-
-**Consider Restarting When:**
-- Fundamental misunderstanding of user needs
-- Technical approach is completely wrong
-- Spec has become too complex to follow
-- More time spent on fixes than forward progress
-
-**How to Restart Effectively:**
-1. Document lessons learned from failed attempt
-2. Identify the root cause of failure
-3. Start with simplified scope
-4. Apply prevention strategies from the beginning
+这份综合指南旨在帮助你避免规范驱动开发中的常见错误，并在出现问题时进行恢复。
+
+## 各阶段常见陷阱
+
+### 需求阶段陷阱
+
+#### 1. 模糊或有歧义的需求
+
+**问题：**
+```markdown
+# 错误示例
+- 用户应该能够管理他们的数据
+- 系统应该快速且可靠
+- 界面应该是用户友好的
+```
+
+**为什么会失败：**
+- 没有可衡量的标准。
+- 使用了未定义的描述性词汇。
+- 缺少具体的用户操作。
+
+**解决方案：**
+```markdown
+# 正确示例
+**用户故事：** 作为注册用户，我想要编辑我的个人资料信息，以便保持我的账户详情为最新状态。
+
+#### 验收标准
+1. 当用户点击“编辑资料”时，系统 SHALL 显示一个包含当前资料数据的可编辑表单。
+2. 当用户提交有效的资料更改时，系统 SHALL 在 2 秒内保存更改。
+3. 当用户输入无效数据时，系统 SHALL 在表单内显示具体的错误消息。
+```
+
+**恢复策略：**
+- 审查每项需求，并询问“我该如何测试它？”
+- 将主观词汇转换为可衡量的标准。
+- 增加具体的用户操作和系统响应。
+
+#### 2. 在初始阶段需求范围蔓延
+
+**问题：**
+从“简单的用户登录”开始，最后变成了“带有角色、权限、审计日志和社交登录的完整用户管理系统”。
+
+**为什么会失败：**
+- 失去对核心功能的关注。
+- 使设计阶段变得不堪重负。
+- 制造了不切实际的实施时间线。
+
+**解决方案：**
+- 为当前规范定义清晰的边界。
+- 将“未来增强功能”另行记录。
+- 使用“必须/应该/可以（must/should/could）”优先级框架。
+
+**恢复策略：**
+```markdown
+## 当前规范范围（必须实现）
+- 基础电子邮件/密码身份验证
+- 用户会话管理
+- 密码重置功能
+
+## 未来增强功能（可以实现）
+- 社交登录集成
+- 基于角色的权限
+- 审计日志
+```
+
+#### 3. 遗漏错误和边缘案例
+
+**问题：**
+只记录“理想路径（happy path）”场景。
+
+**常见的遗漏案例：**
+- 网络故障。
+- 无效输入处理。
+- 并发用户操作。
+- 系统资源限制。
+
+**解决方案：**
+针对每项需求，明确考虑：
+- 当失败时会发生什么？
+- 边界条件是什么？
+- 系统在压力下应该如何表现？
+
+### 设计阶段陷阱
+
+#### 1. 初始设计过度工程化
+
+**问题：**
+```markdown
+# 错误示例 - 对初始实施而言过于复杂
+## 架构
+- 带有事件溯源（event sourcing）的微服务
+- CQRS 模式实现
+- 分布式缓存层
+- 消息队列系统
+- 带有速率限制的 API 网关
+```
+
+**为什么会失败：**
+- 增加了不必要的复杂度。
+- 使实施任务变得不堪重负。
+- 增加了实施失败的可能性。
+
+**解决方案：**
+```markdown
+# 正确示例 - 适配需求的架构
+## 架构
+- 带有清晰模块划分的单一服务
+- 带有连接池的直接数据库访问
+- RESTful API 端点
+- 简单的身份验证中间件
+```
+
+**恢复策略：**
+- 根据实际需求审查每个设计决策。
+- 询问“满足需求的、最简单的解决方案是什么？”
+- 将复杂功能记录为“未来的架构演进”。
+
+#### 2. 技术调研不足
+
+**问题：**
+在不了解以下内容的情况下做出设计决策：
+- 可用的库和框架。
+- 性能特性。
+- 集成需求。
+- 部署约束。
+
+**警告信号：**
+- 设计假设了不存在的能力。
+- 未考虑技术限制。
+- 缺少集成细节。
+
+**解决方案：**
+- 在设计阶段对关键技术决策进行调研。
+- 通过概念验证（PoC）代码验证假设。
+- 记录技术约束及其影响。
+
+#### 3. 设计与实施脱节
+
+**问题：**
+创建了理论上合理但实际难以实施的设计。
+
+**常见问题：**
+- 复杂的数据关系，且没有清晰的实施路径。
+- 假设了不存在的库或服务。
+- 有性能需求但没有实施策略。
+
+**恢复策略：**
+- 结合实施可行性审查设计。
+- 将复杂组件分解为更简单的、可实施的部分。
+- 为复杂的设计决策增加实施笔记。
+
+### 任务阶段陷阱
+
+#### 1. 任务过大或太模糊
+
+**问题：**
+```markdown
+# 错误示例
+- [ ] 实现用户身份验证系统
+- [ ] 创建数据库层
+- [ ] 构建 API 端点
+```
+
+**为什么会失败：**
+- 没有清晰的完成标准。
+- 单个任务工作量太大。
+- 依赖关系不明确。
+
+**解决方案：**
+```markdown
+# 正确示例
+- [ ] 1.1 创建带有验证的用户模型
+  - 实现具有电子邮件、密码字段的 User 类
+  - 增加电子邮件格式验证
+  - 增加密码强度要求
+  - 为用户模型验证编写单元测试
+  - _关联需求：1.2, 2.1_
+
+- [ ] 1.2 实施密码哈希实用程序
+  - 使用 bcrypt 创建密码哈希函数
+  - 创建密码验证函数
+  - 为密码实用程序编写单元测试
+  - _关联需求：1.2, 3.1_
+```
+
+**恢复策略：**
+- 将大型任务分解为 2-4 小时的实施块。
+- 增加具体的交付物和测试标准。
+- 确保每个任务都有清晰的完成定义。
+
+#### 2. 遗漏任务依赖关系
+
+**问题：**
+由于前置工作未完成而无法实施的任务。
+
+**示例：**
+```markdown
+- [ ] 2.1 实施用户登录端点
+- [ ] 2.2 增加身份验证中间件
+- [ ] 1.1 创建用户模型  # 应该先做这个！
+```
+
+**解决方案：**
+- 审查任务序列中的逻辑依赖关系。
+- 确保先实施基础组件。
+- 使用反映实施顺序的任务编号。
+
+#### 3. 缺少集成或端到端任务
+
+**问题：**
+所有任务都集中在单个组件上，而没有将它们连接在一起。
+
+**缺失元素：**
+- 组件间的集成。
+- 端到端工作流测试。
+- 系统级验证。
+
+**解决方案：**
+始终包含集成任务：
+```markdown
+- [ ] 5.1 将身份验证与 API 端点集成
+- [ ] 5.2 创建端到端用户注册流程
+- [ ] 5.3 测试完整的登录/注销工作流
+```
+
+## 流程级陷阱
+
+### 1. 阶段之间跳过用户审批
+
+**问题：**
+在每个步骤都没有用户确认的情况下，直接从 需求 → 设计 → 任务。
+
+**为什么会失败：**
+- 跨阶段累积错误。
+- 用户发现问题太晚，难以高效修复。
+- 实施结果不符合用户预期。
+
+**恢复策略：**
+- 在进入下一阶段前，始终获得明确的审批。
+- 如果后来发现了问题，请返回到相应的阶段。
+- 不要尝试在实施期间修复根本性问题。
+
+### 2. 将规范视为不可更改的
+
+**问题：**
+当实施揭示出问题时，拒绝更新需求或设计。
+
+**更好的方法：**
+- 规范是可以更新的活文档。
+- 实施过程中的见解应该反馈到规范的改进中。
+- 记录更改及其原因方案，以供未来参考。
+
+### 3. 完美主义瘫痪
+
+**问题：**
+在完善需求或设计上花费过多时间，而不是向前推进。
+
+**警告信号：**
+- 多次修订但没有显著改进。
+- 在次要决策上陷入分析瘫痪。
+- 逃避实施阶段。
+
+**恢复策略：**
+- 为每个阶段设置时间限制。
+- 以“足够好”为目标，而不是追求完美。
+- 记住，实施过程会揭示需要改进的地方。
+
+## 恢复策略
+
+### 当需求存在根本性缺陷时
+
+**征兆：**
+- 设计阶段发现重大空白。
+- 需求之间相互冲突。
+- 用户反馈表明存在误解。
+
+**恢复步骤：**
+1. 停止当前阶段的工作。
+2. 带着已识别的具体问题返回需求阶段。
+3. 仅针对问题区域进行修订。
+4. 在继续前获得明确的审批。
+
+### 当设计不支持需求时
+
+**征兆：**
+- 任务阶段发现无法实施。
+- 设计复杂度远超需求复杂度。
+- 遗漏了关键系统组件。
+
+**恢复步骤：**
+1. 识别具体的设计-需求不匹配。
+2. 修订设计以填补空白。
+3. 简化过度工程化的组件。
+4. 针对所有需求验证修订后的设计。
+
+### 当任务无法实施时
+
+**征兆：**
+- 任务要求不存在的能力。
+- 任务依赖关系循环或不清晰。
+- 单个任务过大或过模糊。
+
+**恢复步骤：**
+1. 根据设计和需求审查任务。
+2. 将大型任务分解为可实施的块。
+3. 重新排序任务以尊重依赖关系。
+4. 增加缺失的集成和测试任务。
+
+## 预防策略
+
+### 需求阶段预防
+- 一致地使用 EARS 格式。
+- 包含错误案例和边缘条件。
+- 为每项需求获取具体示例。
+- 与潜在用户验证需求。
+
+### 设计阶段预防
+- 在设计期间调研技术决策。
+- 保持初始设计简单且可扩展。
+- 记录假设和约束。
+- 经常根据需求验证设计。
+
+### 任务阶段预防
+- 确保每个任务为 2-4 小时的工作量。
+- 包含测试和集成任务。
+- 按依赖顺序排列任务。
+- 为每个任务引用具体需求。
+
+## 需警惕的信号
+
+### 早期警告信号
+- 难以向他人解释需求。
+- 未经调研就做出的设计决策。
+- 任务看起来令人不知所措或不清晰。
+- 抗拒在阶段之间移动。
+
+### 关键警告信号
+- 同一阶段多次尝试失败。
+- 复杂度增加但没有增加价值。
+- 实施持续失败。
+- 用户对规范内容感到困惑。
+
+## 何时该重新开始
+
+有时最好的恢复策略是带着吸取的教训重新开始：
+
+**在以下情况下考虑重新开始：**
+- 对用户需求存在根本性误解。
+- 技术方案完全错误。
+- 规范已经变得过于复杂而无法遵循。
+- 在修复上花费的时间超过了向前推进的时间。
+
+**如何高效地重新开始：**
+1. 记录失败尝试的教训。
+2. 识别失败的根本原因。
+3. 从简化的范围开始。
+4. 从头开始应用预防策略。
 
 ---
 
-[← Back to Examples](README.md) | [View Case Studies →](case-studies.md)
+[← 返回示例](README.md) | [查看案例研究 →](case-studies.md)
 ```
 
 # spec-process-guide/execution/implementation-guide.md
 
 ```md
-# Task Execution Documentation
+# 任务执行文档
 
-<!-- Navigation Metadata -->
-<!-- Execution: Implementation | Level: Detailed Guide | Prerequisites: process/tasks-phase.md -->
-<!-- Related: templates/tasks-template.md, examples/simple-feature-spec.md, quality-assurance.md -->
+<!-- 导航元数据 -->
+<!-- 执行：实施 | 级别：详细指南 | 前置要求：process/tasks-phase.md -->
+<!-- 相关内容：templates/tasks-template.md, examples/simple-feature-spec.md, quality-assurance.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Execution Guide](README.md) → **Implementation Guide**
+**📍 你在这里：** [主指南](../README.md) → [执行指南](README.md) → **实施指南**
 
-## Quick Navigation
-- **📋 Prerequisites:** [Tasks Phase](../process/tasks-phase.md) - Learn how to create implementation plans
-- **📝 Task Template:** [Tasks Template](../templates/tasks-template.md) - Structure your implementation plan
-- **📖 See Example:** [Simple Feature Tasks](../examples/simple-feature-spec.md#tasks-document) - Complete task example
-- **✅ Quality Control:** [Quality Assurance](quality-assurance.md) - Maintain code quality
+## 快速导航
+- **📋 前置要求：** [任务阶段](../process/tasks-phase.md) - 学习如何创建实施计划
+- **📝 任务模板：** [任务模板](../templates/tasks-template.md) - 结构化你的实施计划
+- **📖 查看示例：** [简单功能任务](../examples/simple-feature-spec.md#tasks-document) - 完整的任务示例
+- **✅ 质量控制：** [质量保证](quality-assurance.md) - 保持代码质量
 
 ---
 
-## Overview
+## 概览
 
-This guide provides step-by-step strategies for implementing features from completed specs, maintaining quality throughout the development process, and handling common implementation challenges.
+本指南提供了从完成的规范中实施功能的逐步策略，在整个开发过程中保持质量，并处理常见的实施挑战。
 
-## Pre-Implementation Setup
+## 实施前设置
 
-### 1. Spec Validation
-Before starting implementation, ensure your spec is complete:
+### 1. 规范验证
+在开始实施之前，确保你的规范是完整的：
 
-- **Requirements Review**: All user stories have clear acceptance criteria
-- **Design Completeness**: Architecture and components are well-defined
-- **Task Clarity**: Each task is actionable and has clear deliverables
-- **Dependency Mapping**: Task order and dependencies are understood
+- **需求审查**：所有用户故事都有清晰的验收标准
+- **设计完备性**：架构和组件定义明确
+- **任务清晰度**：每个任务都是可操作的，且有清晰的交付物
+- **依赖映射**：了解任务顺序和依赖关系
 
-### 2. Environment Preparation
-Set up your development environment:
+### 2. 环境准备
+设置你的开发环境：
 
-\`\`\`bash
-# Ensure development dependencies are installed
-# Set up testing framework
-# Configure code quality tools (linting, formatting)
-# Prepare version control branching strategy
-\`\`\`
+```bash
+# 确保安装了开发依赖
+# 设置测试框架
+# 配置代码质量工具（语法检查、格式化）
+# 准备版本控制分支策略
+```
 
-### 3. Task Prioritization
-Review the task list and identify:
-- **Critical Path**: Tasks that block other work
-- **Quick Wins**: Simple tasks that provide early validation
-- **Risk Areas**: Complex tasks that may need extra attention
-- **Integration Points**: Tasks that connect different components
+### 3. 任务优先级排序
+审查任务列表并识别：
+- **关键路径**：阻塞其他工作的任务
+- **快速获胜**：提供早期验证的简单任务
+- **风险区域**：可能需要额外关注的复杂任务
+- **集成点**：连接不同组件的任务
 
-## Task Execution Strategy
+## 任务执行策略
 
-### Single Task Focus Approach
+### 单一任务聚焦方法
 
-**Rule**: Implement one task at a time, completely, before moving to the next.
+**原则**：在移动到下一个任务之前，完全实施一个任务。
 
-#### Step 1: Task Analysis
-Before coding, analyze the current task:
+#### 第 1 步：任务分析
+在编码之前，分析当前任务：
 
-1. **Read Task Details**: Understand what needs to be built
-2. **Review Requirements**: Check which requirements this task addresses
-3. **Check Dependencies**: Ensure prerequisite tasks are complete
-4. **Plan Implementation**: Outline your approach before coding
+1. **阅读任务详情**：理解需要构建的内容
+2. **审查需求**：检查此任务解决了哪些需求
+3. **检查依赖**：确保前置任务已完成
+4. **计划实施**：在编码前勾勒出你的方法
 
-#### Step 2: Implementation Process
+#### 第 2 步：实施流程
 
-\`\`\`markdown
-For each task:
-1. Update task status to "in progress"
-2. Create/modify necessary files
-3. Write tests (if applicable)
-4. Implement functionality
-5. Validate against requirements
-6. Update task status to "complete"
-7. Commit changes with clear message
-\`\`\`
+```markdown
+针对每个任务：
+1. 将任务状态更新为“进行中”
+2. 创建/修改必要的文件
+3. 编写测试（如果适用）
+4. 实施功能
+5. 根据需求进行验证
+6. 将任务状态更新为“完成”
+7. 提交更改，附带清晰的消息
+```
 
-#### Step 3: Validation Checkpoint
-After completing each task:
-- **Functionality Test**: Does it work as specified?
-- **Requirements Check**: Are the referenced requirements satisfied?
-- **Integration Test**: Does it work with existing code?
-- **Code Quality**: Is it maintainable and well-documented?
+#### 第 3 步：验证检查点
+完成每个任务后：
+- **功能测试**：它是否按规范工作？
+- **需求检查**：引用的需求是否得到满足？
+- **集成测试**：它是否与现有代码协同工作？
+- **代码质量**：代码是否可维护且文档齐全？
 
-### Implementation Patterns
+### 实施模式
 
-#### Test-Driven Development Integration
-When tasks involve testable functionality:
+#### 测试驱动开发（TDD）集成
+当任务涉及可测试的功能时：
 
-1. **Write Tests First**: Based on acceptance criteria
-2. **Implement to Pass**: Write minimal code to satisfy tests
-3. **Refactor**: Improve code quality while maintaining tests
-4. **Validate**: Ensure all requirements are met
+1. **先写测试**：基于验收标准
+2. **实施以通过**：编写最小代码以满足测试
+3. **重构**：在保持测试通过的同时提高代码质量
+4. **验证**：确保满足所有需求
 
-#### Incremental Building
-For complex tasks:
+#### 渐进式构建
+针对复杂任务：
 
-1. **Start Simple**: Implement basic functionality first
-2. **Add Complexity**: Layer on additional features
-3. **Validate Frequently**: Test after each increment
-4. **Document Decisions**: Record any deviations from the plan
+1. **从简单开始**：首先实施基础功能
+2. **增加复杂度**：逐层增加其他功能
+3. **频繁验证**：每次增加后进行测试
+4. **记录决策**：记录任何偏离计划的情况
 
-## Quality Maintenance Strategies
+## 质量维护策略
 
-### Code Quality Gates
+### 代码质量门禁
 
-#### Before Starting Each Task
-- [ ] Understand the task requirements completely
-- [ ] Have a clear implementation plan
-- [ ] Know how you'll test the functionality
-- [ ] Understand how it fits with existing code
+#### 开始每个任务之前
+- [ ] 完全理解任务需求
+- [ ] 有清晰的实施计划
+- [ ] 知道将如何测试该功能
+- [ ] 理解它如何与现有代码适配
 
-#### During Implementation
-- [ ] Write clean, readable code
-- [ ] Add appropriate comments and documentation
-- [ ] Follow established coding standards
-- [ ] Test functionality as you build
+#### 实施期间
+- [ ] 编写整洁、可读的代码
+- [ ] 增加适当的注释和文档
+- [ ] 遵循既定的编码标准
+- [ ] 边构建边测试功能
 
-#### After Completing Each Task
-- [ ] All tests pass
-- [ ] Code meets quality standards
-- [ ] Functionality matches requirements
-- [ ] Integration with existing code works
-- [ ] Documentation is updated
+#### 完成每个任务后
+- [ ] 所有测试通过
+- [ ] 代码符合质量标准
+- [ ] 功能符合需求
+- [ ] 与现有代码的集成工作正常
+- [ ] 文档已更新
 
-### Continuous Integration Practices
+### 持续集成实践
 
-#### Version Control Strategy
-\`\`\`bash
-# Create feature branch for the spec
+#### 版本控制策略
+```bash
+# 为规范创建功能分支
 git checkout -b feature/spec-name
 
-# Commit after each completed task
+# 每个任务完成后提交
 git add .
-git commit -m "Complete task X.Y: [task description]"
+git commit -m "完成任务 X.Y: [任务描述]"
 
-# Push regularly to backup work
+# 定期推送以备份工作
 git push origin feature/spec-name
-\`\`\`
+```
 
-#### Code Review Checkpoints
-- **Self Review**: Review your own code before marking tasks complete
-- **Peer Review**: Get feedback on complex or critical tasks
-- **Architecture Review**: Validate major design decisions
-- **Final Review**: Complete review before merging
+#### 代码审查检查点
+- **自我审查**：在标记任务完成前审查自己的代码
+- **同行评审**：针对复杂或关键任务获取反馈
+- **架构审查**：验证重大设计决策
+- **最终审查**：合并前进行完整审查
 
-## Handling Implementation Challenges
+## 处理实施挑战
 
-### Common Challenge Types
+### 常见挑战类型
 
-#### 1. Requirements Ambiguity
-**Symptoms**: Unclear what to build, multiple interpretations possible
-**Solutions**:
-- Document the ambiguity clearly
-- Make reasonable assumptions and document them
-- Implement the simplest interpretation first
-- Flag for clarification with stakeholders
+#### 1. 需求模糊性
+**征兆**：不清楚要构建什么，可能存在多种解释
+**解决方案**：
+- 清晰记录模糊之处
+- 做出合理的假设并记录它们
+- 首先实施最简单的解释
+- 标记以便与利益相关者澄清
 
-#### 2. Technical Complexity
-**Symptoms**: Task seems much harder than expected
-**Solutions**:
-- Break the task into smaller sub-tasks
-- Research alternative approaches
-- Implement a simplified version first
-- Consider updating the design if needed
+#### 2. 技术复杂度
+**征兆**：任务看起来比预期困难得多
+**解决方案**：
+- 将任务分解为更小的子任务
+- 研究替代方法
+- 首先实施简化版本
+- 如果需要，考虑更新设计
 
-#### 3. Integration Issues
-**Symptoms**: New code doesn't work well with existing systems
-**Solutions**:
-- Review the design for integration points
-- Create adapter layers if needed
-- Update interfaces to accommodate new functionality
-- Consider refactoring existing code if beneficial
+#### 3. 集成问题
+**征兆**：新代码与现有系统配合不佳
+**解决方案**：
+- 审查集成点的设计
+- 如果需要，创建适配层
+- 更新接口以适应新功能
+- 如果有益，考虑重构现有代码
 
-#### 4. Performance Problems
-**Symptoms**: Implementation is too slow or resource-intensive
-**Solutions**:
-- Profile to identify bottlenecks
-- Optimize critical paths first
-- Consider algorithmic improvements
-- Document performance characteristics
+#### 4. 性能问题
+**征兆**：实施速度太慢或资源消耗太大
+**解决方案**：
+- 进行分析以识别瓶颈
+- 首先优化关键路径
+- 考虑算法改进
+- 记录性能特征
 
-### Blocker Resolution Process
+### 阻塞问题解决流程
 
-#### Step 1: Identify the Blocker
-- **Technical**: Missing knowledge, complex implementation
-- **Requirements**: Unclear specifications, conflicting needs
-- **Dependencies**: Waiting for other tasks, external systems
-- **Resources**: Missing tools, access, or information
+#### 第 1 步：识别阻塞因素
+- **技术性**：缺乏知识、实施复杂
+- **需求性**：规范不清晰、需求冲突
+- **依赖性**：等待其他任务、外部系统
+- **资源性**：缺乏工具、权限或信息
 
-#### Step 2: Document the Issue
-\`\`\`markdown
-## Blocker Report
-- **Task**: [Task number and description]
-- **Issue**: [Clear description of the problem]
-- **Impact**: [How this affects the project]
-- **Attempted Solutions**: [What you've tried]
-- **Proposed Resolution**: [Your suggested approach]
-\`\`\`
+#### 第 2 步：记录问题
+```markdown
+## 阻塞报告
+- **任务**：[任务编号和描述]
+- **问题**：[问题的清晰描述]
+- **影响**：[这如何影响项目]
+- **尝试过的解决方案**：[你尝试过的方法]
+- **建议的解决方案**：[你建议的方法]
+```
 
-#### Step 3: Resolution Strategies
-- **Research**: Look for solutions, best practices, examples
-- **Simplify**: Reduce scope or complexity temporarily
-- **Workaround**: Implement alternative approach
-- **Escalate**: Get help from team members or stakeholders
+#### 第 3 步：解决策略
+- **研究**：寻找解决方案、最佳实践、示例
+- **简化**：暂时减少范围或复杂度
+- **规避**：实施替代方法
+- **升级**：从团队成员或利益相关者那里获得帮助
 
-#### Step 4: Update Documentation
-- Record the resolution in project documentation
-- Update the spec if the solution changes the design
-- Share learnings with the team
+#### 第 4 步：更新文档
+- 在项目文档中记录解决方案
+- 如果解决方案改变了设计，更新规范
+- 与团队分享经验教训
 
-## Progress Tracking and Communication
+## 进度追踪与沟通
 
-### Task Status Management
-Keep task status current:
-- **Not Started**: Task hasn't been begun
-- **In Progress**: Actively working on the task
-- **Blocked**: Cannot proceed due to external factors
-- **Complete**: Task fully implemented and validated
+### 任务状态管理
+保持任务状态为最新：
+- **未开始**：任务尚未开始
+- **进行中**：正在积极处理任务
+- **已阻塞**：由于外部因素无法继续
+- **已完成**：任务已完全实施并验证
 
-### Progress Reporting
-Regular updates should include:
-- **Completed Tasks**: What's been finished
-- **Current Focus**: What you're working on now
-- **Upcoming Work**: Next tasks in the queue
-- **Blockers**: Any issues preventing progress
-- **Timeline**: Expected completion dates
+### 进度报告
+定期更新应包括：
+- **已完成任务**：已完成的内容
+- **当前关注点**：你现在正在处理的内容
+- **即将开展的工作**：排队中的下一个任务
+- **阻塞因素**：任何妨碍进度的因素
+- **时间线**：预期完成日期
 
-### Documentation Updates
-As you implement:
-- **Code Comments**: Explain complex logic and decisions
-- **README Updates**: Keep setup and usage instructions current
-- **Architecture Notes**: Document any design changes
-- **Lessons Learned**: Record insights for future projects
+### 文档更新
+在实施时：
+- **代码注释**：解释复杂的逻辑和决策
+- **README 更新**：保持设置和使用说明为最新
+- **架构笔记**：记录任何设计更改
+- **经验教训**：为未来的项目记录见解
 
-## Adaptation and Flexibility
+## 适配与灵活性
 
-### When to Deviate from the Plan
+### 何时偏离计划
 
-#### Acceptable Deviations
-- **Better Technical Solution**: Found a superior approach
-- **Simplified Implementation**: Can achieve the same result more easily
-- **Performance Optimization**: Discovered efficiency improvements
-- **Code Reuse**: Can leverage existing components
+#### 可接受的偏差
+- **更好的技术方案**：找到了更优的方法
+- **简化的实施**：可以更容易地实现相同的结果
+- **性能优化**：发现了效率改进
+- **代码复用**：可以利用现有组件
 
-#### Process for Changes
-1. **Document the Proposed Change**: Why and what will be different
-2. **Assess Impact**: How does this affect other tasks or requirements
-3. **Update Documentation**: Modify spec documents if needed
-4. **Communicate**: Inform stakeholders of significant changes
-5. **Validate**: Ensure requirements are still met
+#### 更改流程
+1. **记录建议的更改**：为什么更改以及会有什么不同
+2. **评估影响**：这如何影响其他任务或需求
+3. **更新文档**：如果需要，修改规范文档
+4. **沟通**：向利益相关者通报重大更改
+5. **验证**：确保需求仍然得到满足
 
-### Iterative Improvement
-- **Retrospectives**: Regular review of what's working and what isn't
-- **Process Refinement**: Adjust approach based on experience
-- **Tool Evaluation**: Consider better tools or techniques
-- **Knowledge Sharing**: Document insights for future projects
+### 迭代改进
+- **回顾**：定期审查哪些有效，哪些无效
+- **流程细化**：根据经验调整方法
+- **工具评估**：考虑更好的工具或技术
+- **知识共享**：为未来的项目记录见解
 
-## Success Metrics
+## 成功指标
 
-### Task-Level Success
-- **Functionality**: Feature works as specified
-- **Quality**: Code meets standards and is maintainable
-- **Testing**: Appropriate tests are in place and passing
-- **Documentation**: Implementation is properly documented
+### 任务级成功
+- **功能性**：功能按规范工作
+- **质量**：代码符合标准且可维护
+- **测试**：适当的测试已就位且通过
+- **文档**：实施情况已妥善记录
 
-### Project-Level Success
-- **Requirements Satisfaction**: All acceptance criteria are met
-- **Timeline Adherence**: Project completed within expected timeframe
-- **Quality Standards**: Code quality metrics are satisfied
-- **Stakeholder Satisfaction**: Delivered feature meets user needs
+### 项目级成功
+- **需求满足度**：满足所有验收标准
+- **时间线遵循度**：项目在预期时间内完成
+- **质量标准**：满足代码质量指标
+- **利益相关者满意度**：交付的功能满足用户需求
 
 ---
 
-[← Back to Execution Guide](README.md) | [Quality Assurance →](quality-assurance.md)
+[← 返回执行指南](README.md) | [质量保证 →](quality-assurance.md)
 ```
 
 # spec-process-guide/execution/quality-assurance.md
 
 ```md
-# Quality Assurance and Testing Strategies
+# 质量保证与测试策略
 
-## Overview
+## 概览
 
-This document outlines comprehensive testing approaches for spec-driven development, validation techniques for each phase of the process, and quality gates to ensure high-quality implementation.
+本文档概述了规范驱动开发的全面测试方法、流程各阶段的验证技术以及确保高质量实施的质量门禁。
 
-## Testing Philosophy for Spec-Driven Development
+## 规范驱动开发的测试理念
 
-### Core Principles
+### 核心原则
 
-1. **Requirements-Driven Testing**: Every test should trace back to a specific requirement
-2. **Phase-Appropriate Validation**: Different validation techniques for each spec phase
-3. **Continuous Quality**: Quality checks throughout the development process
-4. **Automated Where Possible**: Reduce manual effort through automation
-5. **Feedback Loops**: Quick feedback to catch issues early
+1. **需求驱动测试**：每个测试都应溯源至特定需求
+2. **阶段适配验证**：规范的每个阶段使用不同的验证技术
+3. **持续质量**：在整个开发过程中进行质量检查
+4. **尽可能自动化**：通过自动化减少手动工作
+5. **反馈循环**：快速反馈以尽早发现问题
 
-### Testing Pyramid for Spec-Driven Development
+### 规范驱动开发的测试金字塔
 
-\`\`\`
-    /\
-   /  \     Integration Tests
-  /____\    (API, Component Integration)
- /      \   
-/________\   Unit Tests
-           (Individual Functions, Classes)
+```
+     /\
+    /  \      集成测试
+   /____\    (API、组件集成)
+  /      \   
+ /________\   单元测试
+            (单个函数、类)
 
-Foundation: Requirements Validation
-\`\`\`
+ 基础：需求验证
+```
 
-## Phase-Specific Validation Techniques
+## 各阶段特定验证技术
 
-### Requirements Phase Validation
+### 需求阶段验证
 
-#### Requirements Quality Checklist
-- [ ] **Completeness**: All user stories have acceptance criteria
-- [ ] **Clarity**: Requirements are unambiguous and specific
-- [ ] **Testability**: Each requirement can be validated
-- [ ] **EARS Format**: Proper use of WHEN/IF/THEN structure
-- [ ] **Traceability**: Requirements link to business objectives
-- [ ] **Consistency**: No conflicting requirements
+#### 需求质量检查清单
+- [ ] **完整性**：所有用户故事都有验收标准
+- [ ] **清晰度**：需求明确且具体
+- [ ] **可测试性**：每个需求都可以验证
+- [ ] **EARS 格式**：正确使用 WHEN/IF/THEN 结构
+- [ ] **可追溯性**：需求关联至业务目标
+- [ ] **一致性**：没有相互冲突的需求
 
-#### Requirements Review Process
-\`\`\`markdown
-1. **Self Review**: Author reviews requirements for completeness
-2. **Stakeholder Review**: Business stakeholders validate requirements
-3. **Technical Review**: Development team assesses feasibility
-4. **Acceptance**: Formal approval before moving to design
-\`\`\`
+#### 需求审查流程
+```markdown
+1. **自我审查**：作者审查需求的完整性
+2. **利益相关者审查**：业务利益相关者验证需求
+3. **技术审查**：开发团队评估可行性
+4. **验收**：进入设计前获得正式批准
+```
 
-#### Requirements Validation Techniques
-- **Scenario Walkthroughs**: Step through user journeys
-- **Edge Case Analysis**: Identify boundary conditions
-- **Conflict Detection**: Check for contradictory requirements
-- **Completeness Analysis**: Ensure all user needs are covered
+#### 需求验证技术
+- **场景演练**：通过用户旅程进行推演
+- **边缘案例分析**：识别边界条件
+- **冲突检测**：检查矛盾需求
+- **完整性分析**：确保覆盖所有用户需求
 
-### Design Phase Validation
+### 设计阶段验证
 
-#### Design Quality Checklist
-- [ ] **Architecture Soundness**: Design supports all requirements
-- [ ] **Scalability**: Design can handle expected load
-- [ ] **Maintainability**: Code structure will be manageable
-- [ ] **Security**: Security considerations are addressed
-- [ ] **Performance**: Performance requirements are considered
-- [ ] **Integration**: External system interactions are defined
+#### 设计质量检查清单
+- [ ] **架构稳健性**：设计支持所有需求
+- [ ] **可扩展性**：设计能处理预期负载
+- [ ] **可维护性**：代码结构将是可管理的
+- [ ] **安全性**：解决了安全考虑因素
+- [ ] **性能**：考虑了性能需求
+- [ ] **集成**：定义了外部系统交互
 
-#### Design Review Process
-\`\`\`markdown
-1. **Architecture Review**: Senior developers validate overall design
-2. **Security Review**: Security implications are assessed
-3. **Performance Review**: Performance characteristics are evaluated
-4. **Integration Review**: External dependencies are validated
-\`\`\`
+#### 设计审查流程
+```markdown
+1. **架构审查**：资深开发人员验证整体设计
+2. **安全审查**：评估安全影响
+3. **性能审查**：评估性能特征
+4. **集成审查**：验证外部依赖关系
+```
 
-#### Design Validation Techniques
-- **Design Walkthroughs**: Step through system interactions
-- **Threat Modeling**: Identify security vulnerabilities
-- **Performance Modeling**: Estimate system performance
-- **Dependency Analysis**: Map external system requirements
+#### 设计验证技术
+- **设计演练**：梳理系统交互
+- **威胁建模**：识别安全漏洞
+- **性能建模**：估算系统性能
+- **依赖分析**：映射外部系统需求
 
-### Tasks Phase Validation
+### 任务阶段验证
 
-#### Task Quality Checklist
-- [ ] **Actionability**: Each task has clear deliverables
-- [ ] **Sequencing**: Task order makes logical sense
-- [ ] **Completeness**: All design elements are covered
-- [ ] **Testability**: Each task can be validated
-- [ ] **Scope**: Tasks are appropriately sized
-- [ ] **Dependencies**: Task dependencies are clear
+#### 任务质量检查清单
+- [ ] **可操作性**：每个任务都有清晰的交付物
+- [ ] **序列化**：任务顺序逻辑合理
+- [ ] **完整性**：覆盖所有设计元素
+- [ ] **可测试性**：每个任务都可以验证
+- [ ] **范围**：任务大小合适
+- [ ] **依赖性**：任务依赖关系清晰
 
-#### Task Review Process
-\`\`\`markdown
-1. **Completeness Review**: All design elements have corresponding tasks
-2. **Sequencing Review**: Task order is logical and efficient
-3. **Scope Review**: Tasks are appropriately sized for implementation
-4. **Dependency Review**: Task dependencies are clearly defined
-\`\`\`
+#### 任务审查流程
+```markdown
+1. **完整性审查**：所有设计元素都有对应的任务
+2. **序列化审查**：任务顺序逻辑且高效
+3. **范围审查**：任务大小适合实施
+4. **依赖审查**：任务依赖关系定义明确
+```
 
-## Spec-Driven Development Validation
+## 规范驱动开发验证
 
-### Validation Approach for Each Phase
+### 各阶段验证方法
 
-#### Requirements Validation Strategies
-- **Requirements Traceability**: Map each requirement to business objectives
-- **Acceptance Criteria Validation**: Ensure criteria are specific, measurable, and testable
-- **User Story Validation**: Verify stories follow proper format and provide value
-- **Conflict Resolution**: Identify and resolve contradictory requirements
-- **Completeness Assessment**: Ensure all user needs and edge cases are covered
+#### 需求验证策略
+- **需求追溯**：将每个需求映射到业务目标
+- **验收标准验证**：确保标准具体、可衡量且可测试
+- **用户故事验证**：验证故事遵循正确格式并提供价值
+- **冲突解决**：识别并解决矛盾需求
+- **完整性评估**：确保覆盖所有用户需求和边缘案例
 
-#### Design Validation Strategies  
-- **Architecture Review**: Validate design against requirements and constraints
-- **Interface Validation**: Ensure all system interfaces are properly defined
-- **Data Flow Validation**: Verify data flows through the system correctly
-- **Security Assessment**: Review design for security vulnerabilities
-- **Performance Analysis**: Assess design against performance requirements
-- **Scalability Review**: Ensure design can handle expected growth
+#### 设计验证策略
+- **架构审查**：根据需求和约束验证设计
+- **接口验证**：确保正确定义所有系统接口
+- **数据流验证**：验证数据在系统中正确流转
+- **安全评估**：审查设计中的安全漏洞
+- **性能分析**：根据性能需求评估设计
+- **可扩展性审查**：确保设计能处理预期增长
 
-#### Tasks Validation Strategies
-- **Coverage Analysis**: Verify all design elements have corresponding tasks
-- **Dependency Validation**: Ensure task dependencies are correct and complete
-- **Scope Assessment**: Validate task scope is appropriate for implementation
-- **Sequencing Review**: Verify task order enables incremental development
-- **Testability Check**: Ensure each task can be validated upon completion
+#### 任务验证策略
+- **覆盖率分析**：验证所有设计元素都有对应的任务
+- **依赖验证**：确保任务依赖关系正确且完整
+- **范围评估**：验证任务范围适合实施
+- **序列化审查**：验证任务顺序支持渐进式开发
+- **可测试性检查**：确保每个任务在完成后都可以验证
 
-### Continuous Validation Throughout Development
+### 整个开发过程中的持续验证
 
-#### Phase Transition Validation
-- **Requirements → Design**: Verify design addresses all requirements
-- **Design → Tasks**: Ensure tasks cover all design elements
-- **Tasks → Implementation**: Validate implementation matches task specifications
+#### 阶段转换验证
+- **需求 → 设计**：验证设计解决了所有需求
+- **设计 → 任务**：确保任务覆盖所有设计元素
+- **任务 → 实施**：验证实施符合任务规范
 
-#### Iterative Validation Process
-\`\`\`markdown
-1. **Phase Completion**: Complete validation checklist for current phase
-2. **Stakeholder Review**: Get approval from relevant stakeholders
-3. **Quality Gate**: Pass all quality criteria before proceeding
-4. **Feedback Integration**: Incorporate feedback and re-validate if needed
-5. **Phase Transition**: Move to next phase with documented approval
-\`\`\`
+#### 迭代验证流程
+```markdown
+1. **阶段完成**：完成当前阶段的验证检查清单
+2. **利益相关者审查**：获得相关利益相关者的批准
+3. **质量门禁**：在继续前通过所有质量准则
+4. **反馈集成**：并入反馈并在需要时重新验证
+5. **阶段转换**：带着记录在案的批准进入下一阶段
+```
 
-## Implementation Testing Strategies
+## 实施测试策略
 
-### Test-Driven Development Integration
+### 测试驱动开发（TDD）集成
 
-#### TDD Process for Spec Tasks
-\`\`\`markdown
-For each task:
-1. **Write Tests First**: Based on acceptance criteria
-2. **Run Tests**: Verify they fail (red)
-3. **Write Code**: Minimal code to pass tests (green)
-4. **Refactor**: Improve code while keeping tests green
-5. **Validate**: Ensure requirements are satisfied
-\`\`\`
+#### 针对规范任务的 TDD 流程
+```markdown
+针对每个任务：
+1. **先写测试**：基于验收标准
+2. **运行测试**：验证它们失败（红色）
+3. **编写代码**：编写最小代码以通过测试（绿色）
+4. **重构**：在保持测试通过的同时改进代码
+5. **验证**：确保需求得到满足
+```
 
-#### Test Types by Task Category
+#### 按任务类别的测试类型
 
-**Data Model Tasks**
-- Unit tests for validation logic
-- Property-based tests for edge cases
-- Serialization/deserialization tests
+**数据模型任务**
+- 验证逻辑的单元测试
+- 针对边缘案例的属性测试
+- 序列化/反序列化测试
 
-**API Tasks**
-- Contract tests for API endpoints
-- Integration tests for request/response flows
-- Error handling tests
+**API 任务**
+- API 端点的契约测试
+- 请求/响应流的集成测试
+- 错误处理测试
 
-**Business Logic Tasks**
-- Unit tests for core algorithms
-- Integration tests for workflow processes
-- Performance tests for critical paths
+**业务逻辑任务**
+- 核心算法的单元测试
+- 工作流流程的集成测试
+- 关键路径的性能测试
 
-**UI Tasks**
-- Component unit tests
-- User interaction tests
-- Accessibility tests
+**UI 任务**
+- 组件单元测试
+- 用户交互测试
+- 无障碍测试
 
-### Automated Testing Strategy
+### 自动化测试策略
 
-#### Test Automation Pyramid
+#### 测试自动化金字塔
 
-**Unit Tests (70%)**
-- Fast execution (< 1 second per test)
-- Test individual functions and classes
-- Mock external dependencies
-- High code coverage (>80%)
+**单元测试 (70%)**
+- 执行快（每个测试 < 1 秒）
+- 测试单个函数和类
+- 模拟外部依赖
+- 高代码覆盖率 (>80%)
 
-**Integration Tests (20%)**
-- Test component interactions
-- Use real databases/services where practical
-- Validate API contracts
-- Test critical user workflows
+**集成测试 (20%)**
+- 测试组件交互
+- 尽可能使用真实的数据库/服务
+- 验证 API 契约
+- 测试关键用户工作流
 
-**End-to-End Tests (10%)**
-- Test complete user journeys
-- Use production-like environment
-- Focus on critical business flows
-- Minimal but comprehensive coverage
+**端到端测试 (10%)**
+- 测试完整的用户旅程
+- 使用类似生产的环境
+- 关注关键业务流程
+- 极简化但全面的覆盖
 
-#### Continuous Integration Testing
+#### 持续集成测试
 
-\`\`\`yaml
-# Example CI Pipeline
+```yaml
+# CI 流水线示例
 stages:
-  - lint: Code quality checks
-  - unit: Unit test execution
-  - integration: Integration test execution
-  - security: Security vulnerability scanning
-  - performance: Performance regression testing
-  - e2e: End-to-end test execution
-\`\`\`
+  - lint: 代码质量检查
+  - unit: 单元测试执行
+  - integration: 集成测试执行
+  - security: 安全漏洞扫描
+  - performance: 性能回归测试
+  - e2e: 端到端测试执行
+```
 
-## Quality Gates and Checkpoints
+## 质量门禁与检查点
 
-### Spec Phase Quality Gates
+### 规范阶段质量门禁
 
-#### Requirements Phase Exit Criteria
-- [ ] All user stories follow proper format (As a... I want... So that...)
-- [ ] All acceptance criteria use EARS format (WHEN/IF... THEN... SHALL...)
-- [ ] Requirements are testable and measurable
-- [ ] No conflicting or contradictory requirements
-- [ ] All stakeholders have reviewed and approved requirements
-- [ ] Requirements traceability matrix is complete
-- [ ] Edge cases and error conditions are documented
+#### 需求阶段退出准则
+- [ ] 所有用户故事遵循正确格式（作为... 我想要... 以便...）
+- [ ] 所有验收标准使用 EARS 格式（当/如果... 那么... 应该...）
+- [ ] 需求是可测试且可衡量的
+- [ ] 没有冲突或矛盾的需求
+- [ ] 所有利益相关者已审查并批准需求
+- [ ] 需求追溯矩阵已完成
+- [ ] 记录了边缘案例和错误条件
 
-#### Design Phase Exit Criteria
-- [ ] Architecture addresses all functional requirements
-- [ ] Non-functional requirements (performance, security, scalability) are addressed
-- [ ] All external dependencies are identified and documented
-- [ ] Data models and interfaces are clearly defined
-- [ ] Error handling strategies are documented
-- [ ] Security considerations are addressed
-- [ ] Design has been reviewed by senior technical staff
-- [ ] Design patterns and decisions are justified
+#### 设计阶段退出准则
+- [ ] 架构解决了所有功能需求
+- [ ] 解决了非功能需求（性能、安全、可扩展性）
+- [ ] 识别并记录了所有外部依赖
+- [ ] 数据模型和接口定义明确
+- [ ] 记录了错误处理策略
+- [ ] 解决了安全考虑因素
+- [ ] 设计经过资深技术人员审查
+- [ ] 设计模式和决策合理
 
-#### Tasks Phase Exit Criteria
-- [ ] All design elements have corresponding implementation tasks
-- [ ] Tasks are properly sequenced with clear dependencies
-- [ ] Each task is actionable and has clear deliverables
-- [ ] Tasks include specific requirements references
-- [ ] Implementation approach is test-driven where appropriate
-- [ ] Task breakdown is reviewed and approved
-- [ ] Effort estimates are reasonable and justified
+#### 任务阶段退出准则
+- [ ] 所有设计元素都有对应的实施任务
+- [ ] 任务顺序正确，依赖关系清晰
+- [ ] 每个任务都是可操作的，且有清晰的交付物
+- [ ] 任务包含具体的需求引用
+- [ ] 实施方法在适当的情况下采用测试驱动
+- [ ] 任务分解已通过审查和批准
+- [ ] 工作量估算合理且有据可查
 
-### Task-Level Quality Gates
+### 任务级质量门禁
 
-#### Before Starting Implementation
-- [ ] Task requirements are clearly understood
-- [ ] Test strategy is defined
-- [ ] Dependencies are available
-- [ ] Development environment is ready
-- [ ] Acceptance criteria are clear and testable
-- [ ] Required resources and tools are available
+#### 开始实施前
+- [ ] 清晰理解任务需求
+- [ ] 确定了测试策略
+- [ ] 依赖项可用
+- [ ] 开发环境就绪
+- [ ] 验收标准清晰且可测试
+- [ ] 所需资源和工具可用
 
-#### During Implementation
-- [ ] Code follows established standards
-- [ ] Tests are written alongside code
-- [ ] Code coverage meets minimum thresholds (80%+)
-- [ ] No critical security vulnerabilities
-- [ ] Performance requirements are being met
-- [ ] Documentation is updated as code is written
+#### 实施期间
+- [ ] 代码遵循既定标准
+- [ ] 测试与代码同步编写
+- [ ] 代码覆盖率达到最低阈值 (80%+)
+- [ ] 无严重安全漏洞
+- [ ] 满足性能需求
+- [ ] 编写代码时同步更新文档
 
-#### Before Marking Task Complete
-- [ ] All tests pass
-- [ ] Code review is completed
-- [ ] Documentation is updated
-- [ ] Requirements are validated
-- [ ] Integration tests pass
-- [ ] Performance benchmarks are met
-- [ ] Security scan is clean
+#### 标记任务完成前
+- [ ] 所有测试通过
+- [ ] 完成代码审查
+- [ ] 文档已更新
+- [ ] 需求已验证
+- [ ] 集成测试通过
+- [ ] 满足性能基准
+- [ ] 安全扫描通过
 
-### Feature-Level Quality Gates
+### 功能级质量门禁
 
-#### Before Feature Integration
-- [ ] All tasks are complete
-- [ ] Integration tests pass
-- [ ] Performance requirements are met
-- [ ] Security review is completed
-- [ ] Documentation is complete
+#### 功能集成前
+- [ ] 所有任务已完成
+- [ ] 集成测试通过
+- [ ] 满足性能需求
+- [ ] 完成安全审查
+- [ ] 文档齐全
 
-#### Before Feature Release
-- [ ] End-to-end tests pass
-- [ ] User acceptance criteria are validated
-- [ ] Performance benchmarks are met
-- [ ] Security scan is clean
-- [ ] Rollback plan is prepared
+#### 功能发布前
+- [ ] 端到端测试通过
+- [ ] 用户验收标准已验证
+- [ ] 满足性能基准
+- [ ] 安全扫描通过
+- [ ] 准备好回滚计划
 
-## Testing Tools and Frameworks
+## 测试工具与框架
 
-### Recommended Testing Stack
+### 推荐测试栈
 
-#### Unit Testing
+#### 单元测试
 - **JavaScript/TypeScript**: Jest, Vitest
 - **Python**: pytest, unittest
 - **Java**: JUnit, TestNG
 - **C#**: NUnit, xUnit
 
-#### Integration Testing
-- **API Testing**: Postman, REST Assured, Supertest
-- **Database Testing**: Testcontainers, in-memory databases
-- **Message Queue Testing**: Embedded brokers
+#### 集成测试
+- **API 测试**: Postman, REST Assured, Supertest
+- **数据库测试**: Testcontainers, 内存数据库
+- **消息队列测试**: 嵌入式代理（Embedded brokers）
 
-#### End-to-End Testing
-- **Web Applications**: Playwright, Cypress, Selenium
-- **Mobile Applications**: Appium, Detox
-- **API Testing**: Newman, Karate
+#### 端到端测试
+- **Web 应用**: Playwright, Cypress, Selenium
+- **移动应用**: Appium, Detox
+- **API 测试**: Newman, Karate
 
-#### Performance Testing
-- **Load Testing**: k6, JMeter, Artillery
-- **Profiling**: Application-specific profilers
-- **Monitoring**: Application performance monitoring tools
+#### 性能测试
+- **负载测试**: k6, JMeter, Artillery
+- **分析**: 应用特定分析器 (Profilers)
+- **监控**: 应用性能监控工具
 
-### Test Data Management
+### 测试数据管理
 
-#### Test Data Strategies
-- **Synthetic Data**: Generated test data for consistent testing
-- **Data Fixtures**: Predefined test datasets
-- **Database Seeding**: Automated test data setup
-- **Data Anonymization**: Sanitized production data for testing
+#### 测试数据策略
+- **合成数据**：生成测试数据以供一致性测试
+- **数据固定装置 (Fixtures)**：预定义的测试数据集
+- **数据库播种**：自动测试数据设置
+- **数据脱敏**：脱敏后的生产数据用于测试
 
-#### Test Environment Management
-- **Containerization**: Docker for consistent environments
-- **Infrastructure as Code**: Terraform, CloudFormation
-- **Environment Isolation**: Separate test environments
-- **Data Cleanup**: Automated test data cleanup
+#### 测试环境管理
+- **容器化**：使用 Docker 确保环境一致性
+- **基础设施即代码**：Terraform, CloudFormation
+- **环境隔离**：独立的测试环境
+- **数据清理**：自动测试数据清理
 
-## Quality Metrics and Monitoring
+## 质量指标与监控
 
-### Code Quality Metrics
+### 代码质量指标
 
-#### Coverage Metrics
-- **Line Coverage**: Percentage of code lines executed
-- **Branch Coverage**: Percentage of code branches tested
-- **Function Coverage**: Percentage of functions called
-- **Statement Coverage**: Percentage of statements executed
+#### 覆盖率指标
+- **行覆盖率**：执行的代码行百分比
+- **分支覆盖率**：测试的代码分支百分比
+- **函数覆盖率**：调用的函数百分比
+- **语句覆盖率**：执行的语句百分比
 
-#### Quality Metrics
-- **Cyclomatic Complexity**: Code complexity measurement
-- **Technical Debt**: Accumulated shortcuts and issues
-- **Code Duplication**: Repeated code patterns
-- **Maintainability Index**: Overall code maintainability
+#### 质量指标
+- **圈复杂度**：代码复杂度测量
+- **技术债**：累积的权宜之计和问题
+- **代码重复**：重复的代码模式
+- **可维护性指数**：整体代码可维护性
 
-### Testing Metrics
+### 测试指标
 
-#### Test Effectiveness
-- **Test Pass Rate**: Percentage of tests passing
-- **Test Execution Time**: Time to run test suites
-- **Defect Detection Rate**: Bugs found by tests vs. production
-- **Test Maintenance Effort**: Time spent maintaining tests
+#### 测试有效性
+- **测试通过率**：通过测试的百分比
+- **测试执行时间**：运行测试套件的时间
+- **缺陷侦测率**：测试发现的 Bug vs 生产环境发现的 Bug
+- **测试维护成本**：维护测试所花费的时间
 
-#### Process Metrics
-- **Requirements Coverage**: Requirements validated by tests
-- **Defect Escape Rate**: Bugs found in production
-- **Time to Feedback**: Time from code change to test results
-- **Test Automation Rate**: Percentage of automated tests
+#### 流程指标
+- **需求覆盖率**：通过测试验证的需求
+- **缺陷逃逸率**：在生产环境中发现的 Bug
+- **反馈耗时**：从代码更改到获得测试结果的时间
+- **测试自动化率**：自动化测试的百分比
 
-## Troubleshooting and Common Issues
+## 故障排除与常见问题
 
-### Common Testing Challenges
+### 常见测试挑战
 
-#### Flaky Tests
-**Symptoms**: Tests that pass/fail inconsistently
-**Solutions**:
-- Identify timing dependencies
-- Use proper wait conditions
-- Isolate test data
-- Fix race conditions
+#### 脆弱测试 (Flaky Tests)
+**征兆**：测试结果不一致（时过时不过）
+**解决方案**：
+- 识别时间依赖
+- 使用适当的等待条件
+- 隔离测试数据
+- 修复竞争条件
 
-#### Slow Test Suites
-**Symptoms**: Tests take too long to execute
-**Solutions**:
-- Parallelize test execution
-- Optimize database operations
-- Use test doubles for external services
-- Profile and optimize slow tests
+#### 测试套件过慢
+**征兆**：测试执行耗时过长
+**解决方案**：
+- 并行执行测试
+- 优化数据库操作
+- 使用测试替身 (Test doubles) 代替外部服务
+- 分析并优化慢测试
 
-#### Low Test Coverage
-**Symptoms**: Insufficient code coverage
-**Solutions**:
-- Add tests for uncovered code paths
-- Focus on critical business logic
-- Use mutation testing to validate test quality
-- Set coverage gates in CI pipeline
+#### 低测试覆盖率
+**征兆**：代码覆盖率不足
+**解决方案**：
+- 为未覆盖的代码路径增加测试
+- 关注关键业务逻辑
+- 使用变异测试 (Mutation testing) 验证测试质量
+- 在 CI 流水线中设置覆盖率门禁
 
-#### Test Maintenance Burden
-**Symptoms**: Tests require frequent updates
-**Solutions**:
-- Improve test design and abstraction
-- Use page object patterns for UI tests
-- Reduce coupling between tests and implementation
-- Regular test refactoring
+#### 测试维护负担
+**征兆**：测试需要频繁更新
+**解决方案**：
+- 改进测试设计和抽象
+- 为 UI 测试使用页面对象模式 (Page object patterns)
+- 减少测试与实施之间的耦合
+- 定期重构测试
 
-### Quality Gate Failures
+### 质量门禁失败
 
-#### Failed Code Review
-**Common Issues**:
-- Code style violations
-- Missing documentation
-- Security vulnerabilities
-- Performance concerns
+#### 代码审查不通过
+**常见问题**：
+- 违反代码风格
+- 缺少文档
+- 安全漏洞
+- 性能担忧
 
-**Resolution Process**:
-1. Address reviewer feedback
-2. Update code and documentation
-3. Re-submit for review
-4. Ensure all concerns are resolved
+**解决流程**：
+1. 处理评审后的反馈
+2. 更新代码和文档
+3. 重新提交审查
+4. 确保所有担忧都得到解决
 
-#### Failed Integration Tests
-**Common Issues**:
-- Service dependencies unavailable
-- Data inconsistencies
-- Configuration problems
-- Network issues
+#### 集成测试失败
+**常见问题**：
+- 服务依赖不可用
+- 数据不一致
+- 配置问题
+- 网络问题
 
-**Resolution Process**:
-1. Identify root cause
-2. Fix underlying issue
-3. Verify fix in isolation
-4. Re-run full integration suite
+**解决流程**：
+1. 识别根本原因
+2. 修复底层问题
+3. 独立验证修复
+4. 重新运行完整的集成套件
 
-## Best Practices Summary
+## 最佳实践总结
 
-### Testing Best Practices
-1. **Write Tests First**: Use TDD approach when possible
-2. **Keep Tests Simple**: Each test should verify one thing
-3. **Use Descriptive Names**: Test names should explain what's being tested
-4. **Maintain Test Independence**: Tests shouldn't depend on each other
-5. **Regular Test Maintenance**: Keep tests up-to-date with code changes
+### 测试最佳实践
+1. **先写测试**：尽可能使用 TDD 方法
+2. **保持测试简单**：每个测试应只验证一件事
+3. **使用描述性名称**：测试名称应解释正在测试的内容
+4. **保持测试独立**：测试之间不应相互依赖
+5. **定期测试维护**：保持测试与代码更改同步更新
 
-### Quality Assurance Best Practices
-1. **Shift Left**: Find issues as early as possible
-2. **Automate Everything**: Reduce manual testing effort
-3. **Measure and Improve**: Use metrics to drive improvements
-4. **Continuous Learning**: Stay updated with testing practices
-5. **Team Collaboration**: Make quality everyone's responsibility
+### 质量保证最佳实践
+1. **左移**：尽早发现问题
+2. **全自动化**：减少手动测试工作
+3. **衡量与改进**：使用指标驱动改进
+4. **持续学习**：紧跟测试实践的更新
+5. **团队协作**：让质量成为每个人的责任
 
-### Process Integration Best Practices
-1. **Requirements Traceability**: Link tests to requirements
-2. **Continuous Feedback**: Provide quick feedback on quality
-3. **Risk-Based Testing**: Focus testing on high-risk areas
-4. **Documentation**: Keep testing documentation current
-5. **Tool Integration**: Integrate testing tools with development workflow
+### 流程集成最佳实践
+1. **需求追溯**：将测试关联至需求
+2. **持续反馈**：提供快速的质量反馈
+3. **基于风险的测试**：关注高风险区域的测试
+4. **文档化**：保持测试文档为最新
+5. **工具集成**：将测试工具与开发工作流集成
 
 ---
 
-[← Implementation Guide](implementation-guide.md) | [Back to Execution Guide](README.md)
+[← 实施指南](implementation-guide.md) | [返回执行指南](README.md)
 ```
 
 # spec-process-guide/execution/README.md
 
 ```md
-# Execution Guide by kiro
+# kiro 的执行指南
 
-<!-- Navigation Metadata -->
-<!-- Section: Execution | Level: Overview | Prerequisites: process/tasks-phase.md -->
-<!-- Related: examples/simple-feature-spec.md, resources/tools.md, process/README.md -->
+<!-- 导航元数据 -->
+<!-- 章节：执行 | 级别：概览 | 前置要求：process/tasks-phase.md -->
+<!-- 相关内容：examples/simple-feature-spec.md, resources/tools.md, process/README.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Execution Guide**
+**📍 你在这里：** [主指南](../README.md) → **执行指南**
 
-## Quick Navigation
-- **Prerequisites:** [Tasks Phase](../process/tasks-phase.md) - Learn how to create implementation plans
-- **Complete Example:** [Simple Feature Spec](../examples/simple-feature-spec.md) - See full spec-to-code workflow
-- **Helpful Tools:** [Tools & Resources](../resources/tools.md) - Recommended execution tools
-- **Process Overview:** [Three-Phase Workflow](../process/README.md) - Understand the full context
-
----
-
-Practical guidance for implementing features from completed specs.
-
-## In This Section
-
-- **[Implementation Guide](implementation-guide.md)** - Step-by-step execution strategies
-- **[Quality Assurance](quality-assurance.md)** - Testing and validation techniques
-- **[Troubleshooting](troubleshooting.md)** - Common issues and solutions
-
-## From Spec to Code
-
-Once you have a completed spec with requirements, design, and tasks, this section guides you through:
-
-- **Task Execution** - How to work through implementation tasks systematically
-- **Quality Gates** - Validation checkpoints to maintain code quality
-- **Progress Tracking** - Managing task completion and dependencies
-- **Adaptation Strategies** - Handling unexpected challenges during implementation
-
-## Execution Principles
-
-1. **One Task at a Time** - Focus on individual tasks to maintain quality
-2. **Validate Early** - Test components as you build them
-3. **Document Changes** - Track deviations from the original plan
-4. **Maintain Momentum** - Keep implementation moving while ensuring quality
+## 快速导航
+- **前置要求：** [任务阶段](../process/tasks-phase.md) - 学习如何创建实施计划
+- **完整示例：** [简单功能规范](../examples/simple-feature-spec.md) - 查看从规范到代码的完整工作流
+- **实用工具：** [工具与资源](../resources/tools.md) - 推荐的执行工具
+- **流程概览：** [三阶段工作流](../process/README.md) - 理解完整上下文
 
 ---
 
-[← Back to Main Guide](../README.md) | [Start Implementation →](implementation-guide.md)
+从完成的规范中实施功能的实践指导。
+
+## 本节内容
+
+- **[实施指南](implementation-guide.md)** - 逐步执行策略
+- **[质量保证](quality-assurance.md)** - 测试与验证技术
+- **[故障排除](troubleshooting.md)** - 常见问题与解决方案
+
+## 从规范到代码
+
+一旦你拥有了一个包含需求、设计和任务的完成规范，本节将指导你：
+
+- **任务执行** - 如何系统地完成实施任务
+- **质量门禁** - 保持代码质量的验证检查点
+- **进度追踪** - 管理任务完成情况和依赖关系
+- **适配策略** - 处理实施过程中遇到的意外挑战
+
+## 执行原则
+
+1. **一次一个任务** - 专注于单个任务以保持质量
+2. **尽早验证** - 在构建组件时同步进行测试
+3. **记录更改** - 追踪偏离原始计划的情况
+4. **保持势头** - 在确保质量的同时保持实施进度
+
+---
+
+[← 返回主指南](../README.md) | [开始实施 →](implementation-guide.md)
 ```
 
 # spec-process-guide/methodology/README.md
 
 ```md
-# Methodology Overview and Philosophy
+# 方法论概览与哲学
 
-<!-- Navigation Metadata -->
-<!-- Section: Methodology | Level: Overview | Prerequisites: None -->
-<!-- Related: process/README.md, examples/simple-feature-spec.md, prompting/strategies.md -->
+<!-- 导航元数据 -->
+<!-- 章节：方法论 | 级别：概览 | 前置要求：无 -->
+<!-- 相关内容：process/README.md, examples/simple-feature-spec.md, prompting/strategies.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Methodology**
+**📍 你在这里：** [主指南](../README.md) → **方法论**
 
-## Quick Navigation
-- **Next Step:** [Process Guide](../process/README.md) - Learn the step-by-step workflow
-- **See Examples:** [Simple Feature Specs](../examples/simple-feature-spec.md) - See methodology in action
-- **Get Started:** [Requirements Template](../templates/requirements-template.md) - Start your first spec
+## 快速导航
+- **下一步：** [流程指南](../process/README.md) - 学习分步工作流
+- **查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - 查看实际应用中的方法论
+- **开始：** [需求模板](../templates/requirements-template.md) - 开始你的第一个规范
 
 ---
 
-## Introduction
+## 介绍
 
-Spec-driven development is a systematic approach to software feature development that emphasizes thorough planning, clear documentation, and structured implementation. This methodology transforms rough feature ideas into well-defined, implementable solutions through a three-phase process that ensures quality, maintainability, and successful delivery.
+规范驱动开发（Spec-driven development）是一种系统化的软件功能开发方法，强调透彻的计划、清晰的文档和结构化的实施。该方法论将粗略的功能想法转化为定义明确、可实施的解决方案，通过三个阶段的流程确保质量、可维护性和成功交付。
 
-## Core Philosophy
+## 核心哲学
 
-### Clarity Before Code
+### 编码前的清晰度
 
-The fundamental principle of spec-driven development is that clarity of thought and purpose must precede implementation. By investing time in understanding requirements, designing solutions, and planning implementation, we reduce uncertainty, minimize rework, and increase the likelihood of building the right thing correctly.
+规范驱动开发的基本原则是，思想和目的的清晰度必须领先于实施。通过投入时间来理解需求、设计解决方案和规划实施，我们可以减少不确定性，最小化返工，并增加正确构建“正确产品”的可能性。
 
-### Iterative Refinement
+### 迭代细化
 
-Each phase of the spec process is designed to be iterative. Rather than moving linearly from idea to implementation, the methodology encourages refinement and validation at each step. This approach catches issues early when they're less expensive to fix and ensures that each phase builds solidly on the previous one.
+规范流程的每个阶段都被设计为迭代的。该方法论鼓励在每一步进行细化和验证，而不是从想法到实施的线性移动。这种方法可以尽早发现问题（此时修复成本较低），并确保每个阶段都牢固地建立在前一个阶段之上。
 
-### Documentation as Communication
+### 文档即沟通
 
-Specifications serve as more than just planning documents—they're communication tools that align stakeholders, preserve decision rationale, and provide context for future maintenance and enhancement. Well-written specs become valuable assets that outlive the initial implementation.
+规范的作用不仅仅是计划文档——它们是沟通工具，可以对齐利益相关者、保留决策理由，并为未来的维护和增强提供上下文。编写良好的规范将成为比初始实施更长久的宝贵资产。
 
-## The Three-Phase Approach
+## 三阶段方法
 
-### Phase 1: Requirements Gathering
+### 阶段 1：需求获取
 
-**Purpose**: Transform vague feature ideas into clear, testable requirements
+**目的**：将模糊的功能构思转化为清晰、可测试的需求
 
-**Key Activities**:
-- Capture user stories that express value and purpose
-- Define acceptance criteria using EARS (Easy Approach to Requirements Syntax)
-- Identify edge cases and constraints
-- Validate completeness and feasibility
+**关键活动**：
+- 编写体现价值和目的的用户故事
+- 使用 EARS (Easy Approach to Requirements Syntax) 定义验收标准
+- 识别边缘情况和约束条件
+- 验证完整性和可行性
 
-**Benefits**:
-- Ensures all stakeholders understand what's being built
-- Provides clear success criteria for implementation
-- Reduces scope creep and feature drift
-- Creates a foundation for testing and validation
+**优势**：
+- 确保所有利益相关者理解正在构建的内容
+- 为实施提供清晰的成功标准
+- 减少范围蔓延和功能偏移
+- 为测试和验证打下基础
 
-### Phase 2: Design Documentation
+### 阶段 2：设计文档
 
-**Purpose**: Create a comprehensive technical plan for implementation
+**目的**：为实施制定全面的技术计划
 
-**Key Activities**:
-- Research technical approaches and constraints
-- Define system architecture and component interactions
-- Specify data models and interfaces
-- Plan error handling and testing strategies
+**关键活动**：
+- 研究技术方案和约束
+- 定义系统架构和组件交互
+- 指定数据模型和接口
+- 规划错误处理和测试策略
 
-**Benefits**:
-- Identifies technical challenges before coding begins
-- Enables better estimation and resource planning
-- Provides a roadmap for implementation
-- Documents design decisions and their rationale
+**优势**：
+- 在开始编码前识别技术挑战
+- 实现更好的估算和资源规划
+- 为实施提供路线图
+- 记录设计决策及其理由
 
-### Phase 3: Task Planning
+### 阶段 3：任务计划
 
-**Purpose**: Break down the design into actionable, sequential implementation steps
+**目的**：将设计分解为可操作的、顺序的实施步骤
 
-**Key Activities**:
-- Convert design elements into specific coding tasks
-- Sequence tasks to enable incremental progress
-- Define clear objectives and completion criteria
-- Reference requirements to ensure traceability
+**关键活动**：
+- 将设计元素转换为具体的编码任务
+- 对任务进行排序以实现渐进式进展
+- 定义明确的目标和完成标准
+- 引用需求以确保可追溯性
 
-**Benefits**:
-- Makes large features manageable through decomposition
-- Enables parallel work and better progress tracking
-- Reduces cognitive load during implementation
-- Facilitates code review and quality assurance
+**优势**：
+- 通过分解使大型功能变得可管理
+- 实现并行工作和更好的进度追踪
+- 减少实施过程中的认知负荷
+- 促进代码审查和质量保证
 
-## Benefits of Spec-Driven Development
+## 规范驱动开发的优势
 
-### Reduced Risk and Uncertainty
+### 降低风险和不确定性
 
-By thoroughly planning before implementation, spec-driven development significantly reduces the risk of building the wrong thing or encountering unexpected technical challenges. The systematic approach helps identify and address issues early in the process.
+通过在实施前进行透彻的计划，规范驱动开发显著降低了构建错误产品或遇到意外技术挑战的风险。这种系统化的方法有助于在流程早期识别并解决问题。
 
-### Improved Quality and Maintainability
+### 提高质量和可维护性
 
-Features developed through the spec process tend to be more robust, well-tested, and maintainable. The emphasis on clear requirements and thoughtful design leads to better architectural decisions and more comprehensive testing.
+通过规范流程开发的功能往往更健壮、测试更充分且更易于维护。对清晰需求和深思熟虑的设计的强调，带来了更好的架构决策和更全面的测试。
 
-### Enhanced Collaboration
+### 增强协作
 
-Specs provide a common language and shared understanding among team members, stakeholders, and future maintainers. This improved communication reduces misunderstandings and enables more effective collaboration.
+规范为团队成员、利益相关者和未来的维护者提供了共同语言和共识。这种改进的沟通减少了误解，并实现了更有效的协作。
 
-### Better Estimation and Planning
+### 更好的估算与规划
 
-The detailed planning inherent in spec-driven development enables more accurate time and resource estimation. Project managers and developers can make better decisions about scope, timeline, and resource allocation.
+规范驱动开发固有的详细规划使时间和资源估算更加准确。项目经理和开发人员可以就范围、时间线和资源分配做出更好的决策。
 
-### Knowledge Preservation
+### 知识保留
 
-Specs serve as living documentation that preserves the reasoning behind design decisions, requirements rationale, and implementation approaches. This knowledge remains accessible long after the original developers have moved on.
+规范作为活文档，保留了设计决策背后的推理、需求理由和实施方法。即使在最初的开发人员离职后，这些知识仍然可以获取。
 
-## Comparison with Other Development Methodologies
+## 与其他开发方法论的对比
 
-### Traditional Waterfall Development
+### 传统瀑布流开发
 
-**Similarities**:
-- Both emphasize upfront planning and documentation
-- Both follow a sequential phase approach
+**相似之处**：
+- 都强调前期规划和文档
+- 都遵循顺序阶段方法
 
-**Key Differences**:
-- Spec-driven development is more iterative within each phase
-- Specs are designed to be living documents that evolve
-- The methodology is optimized for feature-level development rather than entire projects
-- Greater emphasis on AI-assisted development and collaboration
+**关键区别**：
+- 规范驱动开发在每个阶段内更具迭代性
+- 规范被设计为进化的活文档
+- 该方法论针对功能级开发而非整个项目进行了优化
+- 更加强调 AI 辅助开发和协作
 
-### Agile Development
+### 敏捷开发（Agile）
 
-**Similarities**:
-- Both value working software and customer collaboration
-- Both embrace iterative refinement and feedback
+**相似之处**：
+- 都重视工作的软件和客户协作
+- 都接受迭代细化和反馈
 
-**Key Differences**:
-- Spec-driven development places greater emphasis on upfront design
-- More structured documentation requirements
-- Designed to work within agile frameworks rather than replace them
-- Can be applied to individual features within agile sprints
+**关键区别**：
+- 规范驱动开发更加强调前期设计
+- 更结构化的文档要求
+- 旨在敏捷框架内运行，而非取代它们
+- 可以应用于敏捷 Sprint 中的单个功能
 
-### Test-Driven Development (TDD)
+### 测试驱动开发（TDD）
 
-**Similarities**:
-- Both emphasize defining success criteria before implementation
-- Both use an iterative red-green-refactor cycle (requirements-design-implementation)
+**相似之处**：
+- 都强调在实施前定义成功标准
+- 都使用迭代的“红-绿-重构”循环（需求-设计-实施）
 
-**Key Differences**:
-- Spec-driven development operates at a higher level of abstraction
-- Includes business requirements and system design, not just test cases
-- Can incorporate TDD practices within the implementation phase
-- Provides broader context beyond just testing
+**关键区别**：
+- 规范驱动开发在更高的抽象层次上运行
+- 包含业务需求和系统设计，而不不仅仅是测试用例
+- 可以在实施阶段融入 TDD 实践
+- 提供超越单纯测试的更广泛上下文
 
-### Design-First Development
+### 设计优先开发（Design-First）
 
-**Similarities**:
-- Both prioritize design and planning before coding
-- Both create detailed technical specifications
+**相似之处**：
+- 在编码前都优先考虑设计和计划
+- 都创建详细的技术规范
 
-**Key Differences**:
-- Spec-driven development includes explicit requirements gathering
-- More structured approach to task breakdown and implementation planning
-- Designed specifically for AI-assisted development workflows
-- Includes specific methodologies like EARS for requirements
+**关键区别**：
+- 规范驱动开发包含显式的需求获取
+- 任务分解和实施规划的方法更结构化
+- 专门针对 AI 辅助开发工作流而设计
+- 包含特定的方法论（如用于需求的 EARS）
 
-## When to Use Spec-Driven Development
+## 何时使用规范驱动开发
 
-### Ideal Scenarios
+### 理想场景
 
-- **Complex Features**: When building features with multiple components, integrations, or user interactions
-- **High-Stakes Projects**: When the cost of failure or rework is significant
-- **Team Collaboration**: When multiple developers or stakeholders need to coordinate
-- **Knowledge Transfer**: When documentation and knowledge preservation are important
-- **AI-Assisted Development**: When working with AI tools that benefit from clear, structured input
+- **复杂功能**：构建具有多个组件、集成或用户交互的功能时
+- **高风险项目**：失败或返工成本巨大时
+- **团队协作**：多个开发人员或利益相关者需要协调时
+- **知识转移**：文档和知识保留很重要时
+- **AI 辅助开发**：与受益于清晰、结构化输入的 AI 工具合作时
 
-### Less Suitable Scenarios
+### 不太适合的场景
 
-- **Simple Bug Fixes**: When the change is straightforward and well-understood
-- **Experimental Prototypes**: When the goal is rapid experimentation rather than production code
-- **Time-Critical Hotfixes**: When immediate action is required without time for planning
-- **Well-Established Patterns**: When implementing standard, repetitive functionality
+- **简单的 Bug 修复**：更改非常简单且易于理解时
+- **实验性原型**：目标是快速实验而非生产代码时
+- **时间紧迫的热修复**：需要立即采取行动而没有时间规划时
+- **成熟的模式**：实施标准的、重复的功能时
 
-## Integration with Existing Workflows
+## 与现有工作流集成
 
-Spec-driven development is designed to complement, not replace, existing development methodologies. It can be integrated into:
+规范驱动开发旨在补充而非取代现有的开发方法论。它可以集成到：
 
-- **Agile Sprints**: Use specs for larger user stories or epics
-- **Feature Branches**: Create specs before starting feature development
-- **Code Reviews**: Use specs as context for reviewing implementations
-- **Documentation Systems**: Integrate specs into existing documentation workflows
+- **敏捷 Sprint**：为较大的用户故事或史诗使用规范
+- **功能分支**：在开始功能开发前创建规范
+- **代码审查**：将规范作为审查实施的上下文
+- **文档系统**：将规范集成到现有的文档工作流中
 
-## Conclusion
+## 总结
 
-Spec-driven development represents a balanced approach that combines the benefits of thorough planning with the flexibility needed for modern software development. By following the three-phase methodology, development teams can build better software more efficiently while maintaining the agility needed to respond to changing requirements and emerging opportunities.
+规范驱动开发代表了一种平衡的方法，它结合了透彻规划的优势与现代软件开发所需的灵活性。通过遵循三阶段方法论，开发团队可以更高效地构建更好的软件，同时保持响应不断变化的需求和新兴机会所需的敏捷性。
 
-The methodology is particularly powerful when combined with AI-assisted development tools, as the structured approach to requirements, design, and task planning provides the clear context that AI systems need to be most effective.
+当该方法论与 AI 辅助开发工具结合时尤其强大，因为对需求、设计和任务规划的结构化方法为 AI 系统发挥最大效力提供了清晰的上下文。
 ```
 
 # spec-process-guide/methodology/when-to-use.md
 
 ```md
-# When to Use Spec-Driven Development
+# 何时使用规范驱动开发
 
-## Decision Framework
+## 决策框架
 
-Spec-driven development is most effective when applied strategically. Use this decision framework to determine whether the methodology is appropriate for your specific situation.
+规范驱动开发在有策略地应用时最有效。使用此决策框架来确定该方法论是否适合你的特定情况。
 
-### Primary Decision Criteria
+### 主要决策标准
 
-#### Complexity Assessment
-**Use spec-driven development when:**
-- The feature involves multiple components or systems
-- Integration with external APIs or services is required
-- Complex business logic or data transformations are involved
-- Multiple user roles or permission levels need to be handled
-- The feature affects existing system architecture
+#### 复杂度评估
+**以下情况请使用规范驱动开发：**
+- 功能涉及多个组件或系统
+- 需要与外部 API 或服务集成
+- 涉及复杂的业务逻辑或数据转换
+- 需要处理多个用户角色或权限级别
+- 功能会影响现有的系统架构
 
-**Consider alternatives when:**
-- The change is a simple bug fix or minor adjustment
-- The implementation is well-understood and follows established patterns
-- The feature is purely cosmetic (UI-only changes with no logic)
+**以下情况请考虑替代方案：**
+- 更改只是简单的 Bug 修复或微调
+- 实施方案易于理解且遵循成熟模式
+- 功能纯属装饰性（仅 UI 更改，无逻辑）
 
-#### Risk and Impact Evaluation
-**Use spec-driven development when:**
-- The feature is customer-facing or affects user experience significantly
-- Failure could impact system stability or data integrity
-- The feature involves sensitive data or security considerations
-- Multiple teams or stakeholders depend on the outcome
-- The implementation will be difficult to change once deployed
+#### 风险与影响评估
+**以下情况请使用规范驱动开发：**
+- 功能面向客户或显著影响用户体验
+- 故障可能影响系统稳定性或数据完整性
+- 功能涉及敏感数据或安全考虑
+- 多个团队或利益相关者依赖于最终结果
+- 部署后实施方案将难以更改
 
-**Consider alternatives when:**
-- The feature is internal tooling with limited impact
-- The change is easily reversible
-- You're building a throwaway prototype or proof of concept
+**以下情况请考虑替代方案：**
+- 功能是内部工具，影响有限
+- 更改容易回滚
+- 你正在构建一个一次性原型或概念验证
 
-#### Team and Collaboration Factors
-**Use spec-driven development when:**
-- Multiple developers will work on the feature
-- Cross-functional collaboration is required (design, product, engineering)
-- Knowledge transfer and documentation are important
-- The team is distributed or works asynchronously
-- New team members need to understand the feature
+#### 团队与协作因素
+**以下情况请使用规范驱动开发：**
+- 多个开发人员将协作开发该功能
+- 需要跨职能协作（设计、产品、工程）
+- 知识转移和文档非常重要
+- 团队是分布式的或异步工作的
+- 需要新团队成员理解该功能
 
-**Consider alternatives when:**
-- You're working solo on a well-understood problem
-- The team has extensive shared context about the feature
-- Immediate implementation is more valuable than documentation
+**以下情况请考虑替代方案：**
+- 你在独立解决一个易于理解的问题
+- 团队对该功能拥有广泛的共享背景
+- 立即实施比文档化更有价值
 
-#### Timeline and Resource Considerations
-**Use spec-driven development when:**
-- You have sufficient time for planning (typically 20-30% of total development time)
-- The cost of rework would be significant
-- Accurate estimation is important for project planning
-- The feature will be maintained and extended over time
+#### 时间线与资源考虑
+**以下情况请使用规范驱动开发：**
+- 你有充足的计划时间（通常占总开发时间的 20-30%）
+- 返工成本将非常巨大
+- 准确的估算对项目计划至关重要
+- 功能将随着时间的推移而得到维护和扩展
 
-**Consider alternatives when:**
-- You're under extreme time pressure for a critical fix
-- The feature is experimental and may be discarded
-- Resources for documentation and planning are severely limited
+**以下情况请考虑替代方案：**
+- 你面临极端的时间压力，需要进行关键修复
+- 功能是实验性的，可能会被废弃
+- 用于文档和规划的资源严重受限
 
-## Project Type Recommendations
+## 项目类型建议
 
-### Highly Recommended Scenarios
+### 高度推荐的场景
 
-#### New Feature Development
-- **User-facing features**: Authentication systems, data dashboards, workflow tools
-- **API development**: REST endpoints, GraphQL schemas, webhook systems
-- **Data processing**: ETL pipelines, reporting systems, analytics features
-- **Integration projects**: Third-party service integrations, system migrations
+#### 新功能开发
+- **面向用户的功能**：身份验证系统、数据仪表盘、工作流工具
+- **API 开发**：REST 端点、GraphQL 架构、Webhook 系统
+- **数据处理**：ETL 流水线、报告系统、分析功能
+- **集成项目**：第三方服务集成、系统迁移
 
-#### System Architecture Changes
-- **Database schema modifications**: Adding new entities, changing relationships
-- **Performance optimizations**: Caching strategies, query optimization
-- **Security enhancements**: Access control, audit logging, encryption
-- **Scalability improvements**: Load balancing, distributed processing
+#### 系统架构变更
+- **数据库架构修改**：添加新实体、更改关系
+- **性能优化**：缓存策略、查询优化
+- **安全增强**：访问控制、审计日志、加密
+- **可扩展性改进**：负载均衡、分布式处理
 
-#### Cross-Team Initiatives
-- **Platform features**: Shared libraries, common utilities, infrastructure
-- **Compliance projects**: GDPR, accessibility, security standards
-- **Migration projects**: Technology upgrades, system consolidation
+#### 跨团队计划
+- **平台功能**：共享库、通用工具、基础设施
+- **合规项目**：GDPR、无障碍、安全标准
+- **迁移项目**：技术升级、系统整合
 
-### Moderately Recommended Scenarios
+### 中度推荐的场景
 
-#### Enhancement Projects
-- **Feature extensions**: Adding functionality to existing features
-- **User experience improvements**: Workflow optimization, interface redesign
-- **Configuration and settings**: Admin panels, user preferences
-- **Reporting and analytics**: New metrics, dashboard improvements
+#### 增强项目
+- **功能扩展**：在现有功能基础上添加功能
+- **用户体验改进**：工作流优化、界面重新设计
+- **配置与设置**：管理面板、用户偏好
+- **报告与分析**：新指标、仪表盘改进
 
-#### Maintenance and Refactoring
-- **Code modernization**: Updating deprecated APIs, framework upgrades
-- **Technical debt reduction**: Refactoring complex modules, improving test coverage
-- **Documentation projects**: API documentation, user guides
+#### 维护与重构
+- **代码现代化**：更新弃用的 API、框架升级
+- **技术债减少**：重构复杂模块、提高测试覆盖率
+- **文档项目**：API 文档、用户指南
 
-### Not Recommended Scenarios
+### 不推荐的场景
 
-#### Simple Changes
-- **Bug fixes**: Single-line changes, configuration updates
-- **Content updates**: Text changes, image replacements
-- **Style adjustments**: CSS modifications, minor UI tweaks
-- **Dependency updates**: Library version bumps, security patches
+#### 简单更改
+- **Bug 修复**：单行更改、配置更新
+- **内容更新**：文本更改、图像替换
+- **样式调整**：CSS 修改、微小的 UI 调整
+- **依赖更新**：库版本升级、安全补丁
 
-#### Experimental Work
-- **Proof of concepts**: Technology evaluation, feasibility studies
-- **Rapid prototypes**: Quick mockups, throwaway implementations
-- **A/B test variations**: Simple feature toggles, minor variations
+#### 实验性工作
+- **概念验证（PoC）**：技术评估、可行性研究
+- **快速原型**：快速模型、一次性实施
+- **A/B 测试变体**：简单的功能开关、微小变体
 
-#### Emergency Situations
-- **Critical hotfixes**: Production outages, security vulnerabilities
-- **Time-sensitive patches**: Urgent customer requests, compliance deadlines
-- **Rollback procedures**: Reverting problematic deployments
+#### 紧急情况
+- **关键热修复**：生产环境宕机、安全漏洞
+- **时间敏感的补丁**：紧急客户请求、合规截止日期
+- **回滚程序**：还原有问题的部署
 
-## Practical Examples
+## 实践示例
 
-### Example 1: User Authentication System (Recommended)
+### 示例 1：用户身份验证系统（推荐）
 
-**Scenario**: Building a new user authentication system with OAuth integration, role-based permissions, and session management.
+**场景**：构建一个新的用户身份验证系统，集成 OAuth、基于角色的权限和会话管理。
 
-**Why spec-driven development fits:**
-- High complexity with multiple components (auth service, user management, permissions)
-- Security-critical functionality requiring careful design
-- Multiple stakeholders (security team, product, engineering)
-- Long-term maintenance and extension expected
-- Integration with external OAuth providers
+**为什么适合规范驱动开发：**
+- 复杂度高，包含多个组件（验证服务、用户管理、权限）
+- 涉及安全关键功能，需要谨慎设计
+- 涉及多个利益相关者（安全团队、产品、工程）
+- 预期会有长期维护和扩展
+- 与外部 OAuth 提供商集成
 
-**Spec approach:**
-- Requirements phase: Define user stories for different auth flows, security requirements
-- Design phase: Architecture for auth service, database schema, API design
-- Tasks phase: Step-by-step implementation of auth components, testing strategy
+**规范方法：**
+- 需求阶段：定义不同验证流程的用户故事、安全要求
+- 设计阶段：验证服务架构、数据库架构、API 设计
+- 任务阶段：身份验证组件的分步实施、测试策略
 
-### Example 2: Simple Bug Fix (Not Recommended)
+### 示例 2：简单 Bug 修复（不推荐）
 
-**Scenario**: Fixing a typo in a validation error message.
+**场景**：修复验证错误消息中的错别字。
 
-**Why spec-driven development doesn't fit:**
-- Extremely low complexity
-- No risk to system stability
-- Single developer can handle independently
-- Change is easily reversible
-- No architectural implications
+**为什么不适合规范驱动开发：**
+- 复杂度极低
+- 无系统稳定性风险
+- 单个开发人员可独立处理
+- 更改容易回滚
+- 无架构影响
 
-**Better approach:**
-- Direct fix with code review
-- Simple test to verify the change
-- Update any relevant documentation
+**更好的方法：**
+- 直接修复并进行代码审查
+- 进行简单测试以验证更改
+- 更新任何相关的文档
 
-### Example 3: Data Processing Pipeline (Recommended)
+### 示例 3：数据处理流水线（推荐）
 
-**Scenario**: Building a system to process customer data uploads, validate content, transform formats, and generate reports.
+**场景**：构建一个处理客户数据上传、验证内容、转换格式并生成报告的系统。
 
-**Why spec-driven development fits:**
-- Complex data transformations and business logic
-- Multiple failure modes requiring error handling
-- Performance and scalability considerations
-- Integration with existing reporting systems
-- Regulatory compliance requirements
+**为什么适合规范驱动开发：**
+- 复杂的数据转换和业务逻辑
+- 包含多种故障模式，需要错误处理
+- 性能和可扩展性考虑
+- 与现有报告系统集成
+- 监管合规要求
 
-**Spec approach:**
-- Requirements phase: Data validation rules, transformation requirements, error handling
-- Design phase: Pipeline architecture, data flow, monitoring and alerting
-- Tasks phase: Incremental implementation of processing stages
+**规范方法：**
+- 需求阶段：数据验证规则、转换要求、错误处理
+- 设计阶段：流水线架构、数据流、监控与告警
+- 任务阶段：处理阶段的渐进式实施
 
-### Example 4: UI Color Scheme Update (Not Recommended)
+### 示例 4：UI 配色方案更新（不推荐）
 
-**Scenario**: Updating the application's color palette to match new brand guidelines.
+**场景**：更新应用程序的色板以匹配新的品牌指南。
 
-**Why spec-driven development doesn't fit:**
-- Primarily cosmetic changes
-- Well-understood implementation (CSS updates)
-- Low risk of system impact
-- Easy to iterate and adjust
-- No complex business logic
+**为什么不适合规范驱动开发：**
+- 主要是装饰性更改
+- 实施方案易于理解（CSS 更新）
+- 系统影响风险低
+- 易于迭代和调整
+- 无复杂业务逻辑
 
-**Better approach:**
-- Design system documentation
-- Direct implementation with visual review
-- Automated testing for accessibility compliance
+**更好的方法：**
+- 设计系统文档
+- 直接实施并进行视觉审查
+- 针对无障碍合规性的自动化测试
 
-## Decision Tree
+## 决策树
 
-\`\`\`
-Is the change complex or involve multiple components?
-├─ Yes → Continue evaluation
-└─ No → Consider direct implementation
+```
+更改是否复杂或涉及多个组件？
+├─ 是 → 继续评估
+└─ 否 → 考虑直接实施
 
-Is the risk/impact of failure significant?
-├─ Yes → Continue evaluation  
-└─ No → Consider direct implementation
+故障的风险/影响是否重大？
+├─ 是 → 继续评估  
+└─ 否 → 考虑直接实施
 
-Do multiple people need to collaborate on this?
-├─ Yes → Continue evaluation
-└─ No → Consider direct implementation
+是否需要多人协作？
+├─ 是 → 继续评估
+└─ 否 → 考虑直接实施
 
-Do you have time for proper planning (20-30% of dev time)?
-├─ Yes → Use spec-driven development
-└─ No → Consider direct implementation with minimal documentation
-\`\`\`
+是否有时间进行妥善规划（占开发时间的 20-30%）？
+├─ 是 → 使用规范驱动开发
+└─ 否 → 考虑进行最少文档化的直接实施
+```
 
-## Adapting the Process
+## 适配流程
 
-### Lightweight Spec Process
+### 轻量级规范流程
 
-For scenarios that fall between "full spec" and "direct implementation":
+对于介于“完整规范”和“直接实施”之间的场景：
 
-**Mini-Spec Approach:**
-- Brief requirements (key user stories only)
-- High-level design (architecture diagram, key decisions)
-- Task list (major implementation steps)
-- Skip detailed documentation and extensive examples
+**微型规范（Mini-Spec）方法：**
+- 简要需求（仅限关键用户故事）
+- 高层级设计（架构图、关键决策）
+- 任务列表（主要实施步骤）
+- 跳过详细文档和大量示例
 
-**When to use mini-specs:**
-- Medium complexity features
-- Tight timelines but some planning needed
-- Small team with good communication
-- Well-understood domain
+**何时使用微型规范：**
+- 中等复杂度的功能
+- 时间紧迫但仍需要一定规划
+- 沟通良好的小型团队
+- 领域知识已成熟
 
-### Spec-First vs. Spec-Alongside
+### 规范先行 vs 规范并行
 
-**Spec-First (Recommended):**
-- Complete spec before any implementation
-- Full review and approval process
-- Best for complex, high-risk features
+**规范先行（推荐）：**
+- 在任何实施前完成规范
+- 完整的审查和批准流程
+- 最适合复杂、高风险的功能
 
-**Spec-Alongside:**
-- Develop spec and implementation in parallel
-- Use spec to guide implementation decisions
-- Good for exploratory development with documentation needs
+**规范并行：**
+- 平行开发规范和实施方案
+- 使用规范来指导实施决策
+- 适合具有文档需求的探索性开发
 
-## Integration with Development Workflows
+## 与开发工作流集成
 
-### Agile/Scrum Integration
-- Use specs for larger user stories or epics
-- Create specs during sprint planning
-- Reference specs during daily standups and reviews
-- Update specs based on sprint retrospective feedback
+### 敏捷（Agile/Scrum）集成
+- 为较大的用户故事或史诗使用规范
+- 在 Sprint 计划期间创建规范
+- 在每日站会和评审中引用规范
+- 根据 Sprint 回顾反馈更新规范
 
-### Continuous Integration
-- Include spec validation in CI pipeline
-- Ensure implementation matches spec requirements
-- Use specs for automated testing guidance
-- Update specs as part of the development process
+### 持续集成（CI）
+- 在 CI 流水线中包含规范验证
+- 确保实施方案符合规范需求
+- 使用规范指导自动化测试
+- 作为开发过程的一部分更新规范
 
-### Code Review Process
-- Include spec review as part of code review
-- Verify implementation follows spec design
-- Update specs when implementation reveals better approaches
-- Use specs to provide context for reviewers
+### 代码审查流程
+- 将规范评审作为代码审查的一部分
+- 验证实施方案是否遵循规范设计
+- 当实施方案揭示了更好的方法时更新规范
+- 使用规范为审查者提供上下文
 
-## Measuring Success
+## 衡量成功
 
-### Indicators That Spec-Driven Development Is Working
-- Reduced rework and bug fixes after initial implementation
-- Faster onboarding of new team members to features
-- Better estimation accuracy for similar features
-- Improved stakeholder satisfaction with delivered features
-- Easier maintenance and extension of existing features
+### 规范驱动开发生效的指标
+- 初始实施后返工和 Bug 修复减少
+- 新团队成员更快上手功能开发
+- 类似功能的估算准确度提高
+- 利益相关者对交付功能的满意度提高
+- 现有功能的维护和扩展更轻松
 
-### Warning Signs to Adjust Approach
-- Specs taking longer to write than implementation
-- Specs becoming outdated immediately after creation
-- Team resistance to following the process
-- Specs not being referenced during implementation
-- Over-documentation of simple features
+### 需要调整方法的警示信号
+- 编写规范的时间比实施时间还长
+- 规范在创建后立即过时
+- 团队对遵循该流程产生抵触
+- 实施过程中未引用规范
+- 对简单功能过度文档化
 
-## Conclusion
+## 总结
 
-Spec-driven development is a powerful methodology when applied appropriately. The key is recognizing when the investment in planning and documentation will pay dividends in reduced risk, improved quality, and better collaboration. Use the decision framework and examples in this guide to make informed choices about when to apply the full methodology, when to use a lightweight approach, and when to skip specs entirely in favor of direct implementation.
+规范驱动开发在适时应用时是一种强大的方法论。关键在于识别何时在规划和文档上的投入会通过降低风险、提高质量和改善协作而产生回报。使用本指南中的决策框架和示例，依据实际情况选择是应用完整方法论、使用轻量级方法，还是完全跳过规范而直接实施。
 
-Remember that the goal is better software delivery, not perfect documentation. The spec process should serve your development goals, not become an end in itself.
+请记住，目标是更好地交付软件，而不是完美的文档。规范流程应服务于你的开发目标，而不是其本身成为目的。
 ```
 
 # spec-process-guide/NAVIGATION.md
 
 ```md
-# Complete Navigation Index
+# 完整导航索引
 
-<!-- Master Navigation Index for Search and Cross-Reference -->
-<!-- Keywords: navigation, index, search, cross-reference, sitemap -->
+<!-- 用于搜索和交叉引用的主导航索引 -->
+<!-- 关键词：导航, 索引, 搜索, 交叉引用, 站点地图 -->
 
-This comprehensive index provides multiple ways to navigate the Spec-Driven Development Guide based on your needs, experience level, and current goals.
+本综合索引提供了多种方式来根据你的需求、经验水平和当前目标浏览《规范驱动开发指南》。
 
-## 🎯 Quick Start Paths
+## 🎯 快速入门路径
 
-### New to Spec-Driven Development
-1. [Methodology Overview](methodology/README.md) - Understand the foundation
-2. [Simple Feature Example](examples/simple-feature-spec.md) - See it in action
-3. [Requirements Template](templates/requirements-template.md) - Try it yourself
-4. [Process Guide](process/README.md) - Learn the full workflow
+### 初识规范驱动开发
+1. [方法论概览](methodology/README.md) - 理解基础
+2. [简单功能示例](examples/simple-feature-spec.md) - 查看实际应用
+3. [需求模板](templates/requirements-template.md) - 亲自尝试
+4. [流程指南](process/README.md) - 学习完整工作流
 
-### Ready to Create Your First Spec
-1. [Requirements Template](templates/requirements-template.md) - Start here
-2. [Requirements Phase Guide](process/requirements-phase.md) - Detailed instructions
-3. [EARS Standards](resources/standards.md) - Format reference
-4. [Prompting Strategies](prompting/strategies.md) - Get better AI help
+### 准备创建你的第一个规范
+1. [需求模板](templates/requirements-template.md) - 从这里开始
+2. [需求阶段指南](process/requirements-phase.md) - 详细指令
+3. [EARS 标准](resources/standards.md) - 格式参考
+4. [提示词策略](prompting/strategies.md) - 获取更好的 AI 协助
 
-### Working with AI Systems
-1. [Prompting Strategies](prompting/README.md) - Core communication techniques
-2. [AI Decision Frameworks](ai-reasoning/decision-frameworks.md) - Understand AI reasoning
-3. [Best Practices](prompting/best-practices.md) - Avoid common mistakes
-4. [Troubleshooting](examples/troubleshooting-pitfalls.md) - Fix problems
+### 与 AI 系统协作
+1. [提示词策略](prompting/README.md) - 核心沟通技巧
+2. [AI 决策框架](ai-reasoning/decision-frameworks.md) - 理解 AI 推理
+3. [最佳实践](prompting/best-practices.md) - 避免常见错误
+4. [故障排除](examples/troubleshooting-pitfalls.md) - 解决问题
 
-### Implementing from Specs
-1. [Implementation Guide](execution/implementation-guide.md) - Execute tasks systematically
-2. [Quality Assurance](execution/quality-assurance.md) - Maintain code quality
-3. [Tasks Template](templates/tasks-template.md) - Structure your implementation plan
-4. [Execution Troubleshooting](execution/README.md) - Handle implementation issues
+### 根据规范实施
+1. [实施指南](execution/implementation-guide.md) - 系统地执行任务
+2. [质量保证](execution/quality-assurance.md) - 保持代码质量
+3. [任务模板](templates/tasks-template.md) - 结构化你的实施计划
+4. [执行故障排除](execution/README.md) - 处理实施问题
 
-## 📚 By Content Type
+## 📚 按内容类型
 
-### Core Methodology
-- [Methodology Overview](methodology/README.md) - Philosophy and approach
-- [When to Use](methodology/when-to-use.md) - Decision framework
-- [Process Guide](process/README.md) - Three-phase workflow
-- [Workflow Diagrams](process/workflow-diagrams.md) - Visual process flows
+### 核心方法论
+- [方法论概览](methodology/README.md) - 哲学与方法
+- [何时使用](methodology/when-to-use.md) - 决策框架
+- [流程指南](process/README.md) - 三阶段工作流
+- [工作流图示](process/workflow-diagrams.md) - 视觉化流程图
 
-### Step-by-Step Guides
-- [Requirements Phase](process/requirements-phase.md) - Transform ideas to requirements
-- [Design Phase](process/design-phase.md) - Create technical architecture
-- [Tasks Phase](process/tasks-phase.md) - Break down into implementation steps
-- [Implementation Guide](execution/implementation-guide.md) - Execute the plan
+### 分步指南
+- [需求阶段](process/requirements-phase.md) - 将构思转化为需求
+- [设计阶段](process/design-phase.md) - 创建技术架构
+- [任务阶段](process/tasks-phase.md) - 分解为实施步骤
+- [实施指南](execution/implementation-guide.md) - 执行计划
 
-### Templates & Tools
-- [Requirements Template](templates/requirements-template.md) - EARS-formatted structure
-- [Design Template](templates/design-template.md) - Comprehensive design framework
-- [Tasks Template](templates/tasks-template.md) - Implementation planning format
-- [Checklists](templates/checklists.md) - Quality validation checklists
+### 模板与工具
+- [需求模板](templates/requirements-template.md) - EARS 格式化结构
+- [设计模板](templates/design-template.md) - 全面的设计框架
+- [任务模板](templates/tasks-template.md) - 实施规划格式
+- [检查清单](templates/checklists.md) - 质量验证清单
 
-### Real Examples
-- [Simple Feature Specs](examples/simple-feature-spec.md) - Basic feature examples
-- [Complex System Specs](examples/complex-system-spec.md) - Large system examples
-- [Case Studies](examples/case-studies.md) - Success stories and lessons
-- [Troubleshooting Examples](examples/troubleshooting-pitfalls.md) - Common mistakes
+### 真实示例
+- [简单功能规范](examples/simple-feature-spec.md) - 基础功能示例
+- [复杂系统规范](examples/complex-system-spec.md) - 大型系统示例
+- [案例研究](examples/case-studies.md) - 成功案例与教训
+- [故障排除示例](examples/troubleshooting-pitfalls.md) - 常见错误
 
-### AI Collaboration
-- [Prompting Strategies](prompting/strategies.md) - Core communication approaches
-- [Prompt Templates](prompting/templates.md) - Ready-to-use patterns
-- [Best Practices](prompting/best-practices.md) - Effective techniques
-- [AI Decision Frameworks](ai-reasoning/decision-frameworks.md) - How AI makes choices
+### AI 协作
+- [提示词策略](prompting/strategies.md) - 核心沟通方法
+- [提示词模板](prompting/templates.md) - 即插即用模式
+- [最佳实践](prompting/best-practices.md) - 有效技术
+- [AI 决策框架](ai-reasoning/decision-frameworks.md) - AI 如何做出选择
 
-### Reference Materials
-- [EARS Standards](resources/standards.md) - Requirements syntax reference
-- [Tools & Resources](resources/tools.md) - Recommended tools
-- [Tool Integration](resources/tool-integration-guide.md) - Setup and configuration
+### 参考资料
+- [EARS 标准](resources/standards.md) - 需求语法参考
+- [工具与资源](resources/tools.md) - 推荐工具
+- [工具集成](resources/tool-integration-guide.md) - 安装与配置
 
-## 🎭 By User Role
+## 🎭 按用户角色
 
-### Developers
-**Start Here:** [Simple Feature Example](examples/simple-feature-spec.md)
-- [Implementation Guide](execution/implementation-guide.md) - Execute specs systematically
-- [Quality Assurance](execution/quality-assurance.md) - Maintain code quality
-- [Troubleshooting](examples/troubleshooting-pitfalls.md) - Fix common problems
-- [AI Reasoning](ai-reasoning/decision-frameworks.md) - Understand AI decisions
+### 开发人员
+**从这里开始：** [简单功能示例](examples/simple-feature-spec.md)
+- [实施指南](execution/implementation-guide.md) - 系统地执行规范
+- [质量保证](execution/quality-assurance.md) - 保持代码质量
+- [故障排除](examples/troubleshooting-pitfalls.md) - 解决常见问题
+- [AI 推理](ai-reasoning/decision-frameworks.md) - 理解 AI 决策
 
-### Project Managers
-**Start Here:** [Methodology Overview](methodology/README.md)
-- [When to Use](methodology/when-to-use.md) - Decision framework
-- [Process Guide](process/README.md) - Three-phase workflow
-- [Case Studies](examples/case-studies.md) - Success stories
-- [Complex System Examples](examples/complex-system-spec.md) - Large project examples
+### 项目经理
+**从这里开始：** [方法论概览](methodology/README.md)
+- [何时使用](methodology/when-to-use.md) - 决策框架
+- [流程指南](process/README.md) - 三阶段工作流
+- [案例研究](examples/case-studies.md) - 成功案例
+- [复杂系统示例](examples/complex-system-spec.md) - 大型项目示例
 
-### Technical Leads
-**Start Here:** [Process Guide](process/README.md)
-- [Design Phase](process/design-phase.md) - Architecture and technical decisions
-- [AI Decision Frameworks](ai-reasoning/decision-frameworks.md) - Decision-making insights
-- [Complex System Specs](examples/complex-system-spec.md) - Advanced examples
-- [Quality Assurance](execution/quality-assurance.md) - Quality standards
+### 技术主管
+**从这里开始：** [流程指南](process/README.md)
+- [设计阶段](process/design-phase.md) - 架构与技术决策
+- [AI 决策框架](ai-reasoning/decision-frameworks.md) - 决策洞察
+- [复杂系统规范](examples/complex-system-spec.md) - 高级示例
+- [质量保证](execution/quality-assurance.md) - 质量标准
 
-### AI Practitioners
-**Start Here:** [AI Reasoning](ai-reasoning/README.md)
-- [Decision Frameworks](ai-reasoning/decision-frameworks.md) - Systematic decision-making
-- [Prompting Strategies](prompting/strategies.md) - Effective communication
-- [Best Practices](prompting/best-practices.md) - Advanced techniques
-- [Thought Processes](ai-reasoning/examples.md) - Reasoning examples
+### AI 实践者
+**从这里开始：** [AI 推理](ai-reasoning/README.md)
+- [决策框架](ai-reasoning/decision-frameworks.md) - 系统化决策
+- [提示词策略](prompting/strategies.md) - 有效沟通
+- [最佳实践](prompting/best-practices.md) - 高级技术
+- [思维过程](ai-reasoning/examples.md) - 推理示例
 
-## 🔍 By Problem/Need
+## 🔍 按问题/需求
 
-### "I don't know where to start"
-→ [Methodology Overview](methodology/README.md) → [Simple Example](examples/simple-feature-spec.md) → [Requirements Template](templates/requirements-template.md)
+### “我不知道从哪里开始”
+→ [方法论概览](methodology/README.md) → [简单示例](examples/simple-feature-spec.md) → [需求模板](templates/requirements-template.md)
 
-### "My requirements are unclear/vague"
-→ [Requirements Phase Guide](process/requirements-phase.md) → [EARS Standards](resources/standards.md) → [Troubleshooting](examples/troubleshooting-pitfalls.md)
+### “我的需求不清晰/模糊”
+→ [需求阶段指南](process/requirements-phase.md) → [EARS 标准](resources/standards.md) → [故障排除](examples/troubleshooting-pitfalls.md)
 
-### "I need help with technical design"
-→ [Design Phase Guide](process/design-phase.md) → [AI Decision Frameworks](ai-reasoning/decision-frameworks.md) → [Complex Examples](examples/complex-system-spec.md)
+### “我需要技术设计方面的帮助”
+→ [设计阶段指南](process/design-phase.md) → [AI 决策框架](ai-reasoning/decision-frameworks.md) → [复杂示例](examples/complex-system-spec.md)
 
-### "My AI collaboration isn't working well"
-→ [Prompting Strategies](prompting/strategies.md) → [Best Practices](prompting/best-practices.md) → [Troubleshooting](examples/troubleshooting-pitfalls.md)
+### “我的 AI 协作效果不佳”
+→ [提示词策略](prompting/strategies.md) → [最佳实践](prompting/best-practices.md) → [故障排除](examples/troubleshooting-pitfalls.md)
 
-### "I'm stuck during implementation"
-→ [Implementation Guide](execution/implementation-guide.md) → [Quality Assurance](execution/quality-assurance.md) → [Execution Troubleshooting](execution/README.md)
+### “我在实施过程中卡住了”
+→ [实施指南](execution/implementation-guide.md) → [质量保证](execution/quality-assurance.md) → [执行故障排除](execution/README.md)
 
-### "I need examples for my specific situation"
-→ [Simple Features](examples/simple-feature-spec.md) → [Complex Systems](examples/complex-system-spec.md) → [Case Studies](examples/case-studies.md)
+### “我需要针对特定情况的示例”
+→ [简单功能](examples/simple-feature-spec.md) → [复杂系统](examples/complex-system-spec.md) → [案例研究](examples/case-studies.md)
 
-## 📖 By Learning Style
+## 📖 按学习风格
 
-### Sequential Learners (Step-by-Step)
-1. [Methodology Overview](methodology/README.md)
-2. [Process Guide](process/README.md)
-3. [Requirements Phase](process/requirements-phase.md)
-4. [Design Phase](process/design-phase.md)
-5. [Tasks Phase](process/tasks-phase.md)
-6. [Implementation Guide](execution/implementation-guide.md)
+### 循序渐进（顺序学习者）
+1. [方法论概览](methodology/README.md)
+2. [流程指南](process/README.md)
+3. [需求阶段](process/requirements-phase.md)
+4. [设计阶段](process/design-phase.md)
+5. [任务阶段](process/tasks-phase.md)
+6. [实施指南](execution/implementation-guide.md)
 
-### Example-Driven Learners
-1. [Simple Feature Example](examples/simple-feature-spec.md)
-2. [Complex System Example](examples/complex-system-spec.md)
-3. [Case Studies](examples/case-studies.md)
-4. [Templates](templates/README.md)
+### 示例驱动者
+1. [简单功能示例](examples/simple-feature-spec.md)
+2. [复杂系统示例](examples/complex-system-spec.md)
+3. [案例研究](examples/case-studies.md)
+4. [模板](templates/README.md)
 
-### Reference-Oriented Learners
-1. [Standards Reference](resources/standards.md)
-2. [Templates Collection](templates/README.md)
-3. [Tools & Resources](resources/tools.md)
-4. [AI Decision Frameworks](ai-reasoning/decision-frameworks.md)
+### 参考导向者
+1. [标准参考](resources/standards.md)
+2. [模板集合](templates/README.md)
+3. [工具与资源](resources/tools.md)
+4. [AI 决策框架](ai-reasoning/decision-frameworks.md)
 
-### Problem-Solving Learners
-1. [Troubleshooting Guide](examples/troubleshooting-pitfalls.md)
-2. [Case Studies](examples/case-studies.md)
-3. [Best Practices](prompting/best-practices.md)
-4. [Quality Assurance](execution/quality-assurance.md)
+### 问题解决者
+1. [故障排除指南](examples/troubleshooting-pitfalls.md)
+2. [案例研究](examples/case-studies.md)
+3. [最佳实践](prompting/best-practices.md)
+4. [质量保证](execution/quality-assurance.md)
 
-## 🔗 Cross-Reference Map
+## 🔗 交叉引用图谱
+### 需求 ↔ 相关内容
+- **需求阶段** ↔ [EARS 标准](resources/standards.md), [需求模板](templates/requirements-template.md)
+- **用户故事** ↔ [简单示例](examples/simple-feature-spec.md), [故障排除](examples/troubleshooting-pitfalls.md)
+- **验收标准** ↔ [EARS 参考](resources/standards.md), [质量保证](execution/quality-assurance.md)
 
-### Requirements ↔ Related Content
-- **Requirements Phase** ↔ [EARS Standards](resources/standards.md), [Requirements Template](templates/requirements-template.md)
-- **User Stories** ↔ [Simple Examples](examples/simple-feature-spec.md), [Troubleshooting](examples/troubleshooting-pitfalls.md)
-- **Acceptance Criteria** ↔ [EARS Reference](resources/standards.md), [Quality Assurance](execution/quality-assurance.md)
+### 设计 ↔ 相关内容
+- **设计阶段** ↔ [AI 决策框架](ai-reasoning/decision-frameworks.md), [设计模板](templates/design-template.md)
+- **架构决策** ↔ [复杂示例](examples/complex-system-spec.md), [案例研究](examples/case-studies.md)
+- **技术研究** ↔ [提示词策略](prompting/strategies.md), [最佳实践](prompting/best-practices.md)
 
-### Design ↔ Related Content
-- **Design Phase** ↔ [AI Decision Frameworks](ai-reasoning/decision-frameworks.md), [Design Template](templates/design-template.md)
-- **Architecture Decisions** ↔ [Complex Examples](examples/complex-system-spec.md), [Case Studies](examples/case-studies.md)
-- **Technical Research** ↔ [Prompting Strategies](prompting/strategies.md), [Best Practices](prompting/best-practices.md)
+### 任务 ↔ 相关内容
+- **任务阶段** ↔ [实施指南](execution/implementation-guide.md), [任务模板](templates/tasks-template.md)
+- **任务分解** ↔ [质量保证](execution/quality-assurance.md), [简单示例](examples/simple-feature-spec.md)
+- **实施规划** ↔ [执行指南](execution/README.md), [工具参考](resources/tools.md)
 
-### Tasks ↔ Related Content
-- **Tasks Phase** ↔ [Implementation Guide](execution/implementation-guide.md), [Tasks Template](templates/tasks-template.md)
-- **Task Breakdown** ↔ [Quality Assurance](execution/quality-assurance.md), [Simple Examples](examples/simple-feature-spec.md)
-- **Implementation Planning** ↔ [Execution Guide](execution/README.md), [Tools Reference](resources/tools.md)
+### AI 协作 ↔ 相关内容
+- **提示词** ↔ [AI 推理](ai-reasoning/README.md), [决策框架](ai-reasoning/decision-frameworks.md)
+- **沟通** ↔ [最佳实践](prompting/best-practices.md), [故障排除](examples/troubleshooting-pitfalls.md)
+- **理解 AI** ↔ [思维过程](ai-reasoning/examples.md), [案例研究](examples/case-studies.md)
 
-### AI Collaboration ↔ Related Content
-- **Prompting** ↔ [AI Reasoning](ai-reasoning/README.md), [Decision Frameworks](ai-reasoning/decision-frameworks.md)
-- **Communication** ↔ [Best Practices](prompting/best-practices.md), [Troubleshooting](examples/troubleshooting-pitfalls.md)
-- **Understanding AI** ↔ [Thought Processes](ai-reasoning/examples.md), [Case Studies](examples/case-studies.md)
+## 🏷️ 主题标签
 
-## 🏷️ Topic Tags
+### 按复杂度级别
+- **初级**：[方法论](methodology/README.md), [简单示例](examples/simple-feature-spec.md), [模板](templates/README.md)
+- **中级**：[流程指南](process/README.md), [提示词策略](prompting/README.md), [实施指南](execution/implementation-guide.md)
+- **高级**：[AI 推理](ai-reasoning/README.md), [复杂示例](examples/complex-system-spec.md), [决策框架](ai-reasoning/decision-frameworks.md)
 
-### By Complexity Level
-- **Beginner**: [Methodology](methodology/README.md), [Simple Examples](examples/simple-feature-spec.md), [Templates](templates/README.md)
-- **Intermediate**: [Process Guide](process/README.md), [Prompting Strategies](prompting/README.md), [Implementation Guide](execution/implementation-guide.md)
-- **Advanced**: [AI Reasoning](ai-reasoning/README.md), [Complex Examples](examples/complex-system-spec.md), [Decision Frameworks](ai-reasoning/decision-frameworks.md)
+### 按阶段
+- **需求**：[需求阶段](process/requirements-phase.md), [EARS 标准](resources/standards.md), [需求模板](templates/requirements-template.md)
+- **设计**：[设计阶段](process/design-phase.md), [决策框架](ai-reasoning/decision-frameworks.md), [设计模板](templates/design-template.md)
+- **任务**：[任务阶段](process/tasks-phase.md), [实施指南](execution/implementation-guide.md), [任务模板](templates/tasks-template.md)
 
-### By Phase
-- **Requirements**: [Requirements Phase](process/requirements-phase.md), [EARS Standards](resources/standards.md), [Requirements Template](templates/requirements-template.md)
-- **Design**: [Design Phase](process/design-phase.md), [Decision Frameworks](ai-reasoning/decision-frameworks.md), [Design Template](templates/design-template.md)
-- **Tasks**: [Tasks Phase](process/tasks-phase.md), [Implementation Guide](execution/implementation-guide.md), [Tasks Template](templates/tasks-template.md)
-
-### By Content Type
-- **Process**: [Process Guide](process/README.md), [Workflow Diagrams](process/workflow-diagrams.md)
-- **Examples**: [Examples](examples/README.md), [Case Studies](examples/case-studies.md)
-- **Templates**: [Templates](templates/README.md), [Checklists](templates/checklists.md)
-- **Reference**: [Resources](resources/README.md), [Standards](resources/standards.md)
+### 按内容类型
+- **流程**：[流程指南](process/README.md), [工作流图示](process/workflow-diagrams.md)
+- **示例**：[示例](examples/README.md), [案例研究](examples/case-studies.md)
+- **模板**：[模板](templates/README.md), [检查清单](templates/checklists.md)
+- **参考**：[资源](resources/README.md), [标准](resources/standards.md)
 
 ---
 
-**💡 Tip**: Use your browser's search function (Ctrl/Cmd+F) to quickly find specific topics within this index.
+**💡 提示**：使用浏览器的搜索功能 (Ctrl/Cmd+F) 快速在此索引中查找特定主题。
 
-[← Back to Main Guide](README.md)
+[← 返回主指南](README.md)
 ```
 
 # spec-process-guide/process/design-phase.md
 
 ```md
-# Design Phase Documentation
+# 设计阶段文档
 
 <!-- Navigation Metadata -->
 <!-- Phase: Design | Level: Detailed Guide | Prerequisites: requirements-phase.md -->
 <!-- Related: templates/design-template.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Process Guide](README.md) → **Design Phase**
+**📍 您当前所在位置：** [主指南](../README.md) → [流程指南](README.md) → **设计阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Design Template](../templates/design-template.md) - Ready-to-use template
-- **📖 See Example:** [Complex System Spec](../examples/complex-system-spec.md) - Complete design example
-- **🧠 Decision Help:** [AI Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How to evaluate choices
-- **➡️ Next Phase:** [Tasks Phase](tasks-phase.md) - After design is approved
+## 快速导航
+- **🎯 开始使用：** [设计模板](../templates/design-template.md) - 即插即用的模板
+- **📖 查看示例：** [复杂系统规范](../examples/complex-system-spec.md) - 完整的设计示例
+- **🧠 决策辅助：** [AI 决策框架](../ai-reasoning/decision-frameworks.md) - 如何评估选择
+- **➡️ 下一阶段：** [任务阶段](tasks-phase.md) - 设计获批后的下一步
 
-## Phase Navigation
-- **Previous:** [Requirements Phase](requirements-phase.md) - Must be completed first
-- **Current:** **Design Phase** - Create technical architecture and plan
-- **Next:** [Tasks Phase](tasks-phase.md) - Break down into implementation steps
-- **Context:** [Process Overview](README.md) - Three-phase workflow
+## 阶段导航
+- **上一阶段：** [需求阶段](requirements-phase.md) - 必须首先完成
+- **当前阶段：** **设计阶段** - 创建技术架构和计划
+- **下一阶段：** [任务阶段](tasks-phase.md) - 分解为实施步骤
+- **上下文：** [流程概览](README.md) - 三阶段工作流
 
 ---
 
-## Overview
+## 概览
 
-The Design Phase transforms approved requirements into a comprehensive technical design that serves as a blueprint for implementation. This phase involves research, architectural decisions, and detailed planning that bridges the gap between what needs to be built (requirements) and how it will be built (implementation tasks).
+设计阶段将已批准的需求转化为全面的技术设计，作为实施的蓝图。这一阶段涉及研究、架构决策和详细计划，填补了“需要构建什么”（需求）与“如何构建”（实施任务）之间的鸿沟。
 
-## Purpose and Goals
+## 目的与目标
 
-The design phase serves to:
-- Translate requirements into technical architecture and system design
-- Conduct necessary research to inform design decisions
-- Define system components, interfaces, and data models
-- Establish error handling and testing strategies
-- Create a foundation for breaking down work into implementation tasks
-- Document design rationale and decision-making process
+设计阶段的作用包括：
+- 将需求转化为技术架构和系统设计
+- 进行必要的研究以支持设计决策
+- 定义系统组件、接口和数据模型
+- 制定错误处理和测试策略
+- 为将工作分解为实施任务奠定基础
+- 记录设计理由和决策过程
 
-## Step-by-Step Process
+## 逐步流程
 
-### Step 1: Requirements Analysis and Research Planning
+### 步骤 1：需求分析与研究计划
 
-**Objective**: Understand requirements deeply and identify areas needing research
+**目标**：深入理解需求并识别需要研究的领域
 
-**Process**:
-1. **Review Requirements Thoroughly**: Understand each requirement and its implications
-2. **Identify Technical Unknowns**: List areas where research is needed
-3. **Plan Research Activities**: Prioritize research based on design impact
-4. **Set Research Boundaries**: Define scope to avoid analysis paralysis
+**流程**：
+1. **彻底审查需求**：理解每项需求及其影响
+2. **识别技术未知点**：列出需要研究的领域
+3. **规划研究活动**：根据对设计的影响划分优先级
+4. **设定研究边界**：定义范围以避免分析瘫痪
 
-**Research Areas to Consider**:
-- Technology stack and framework choices
-- Third-party integrations and APIs
-- Performance and scalability requirements
-- Security and compliance considerations
-- Data storage and management approaches
-- User interface and experience patterns
+**待考虑的研究领域**：
+- 技术栈和框架选择
+- 第三方集成和 API
+- 性能和可扩展性需求
+- 安全性和合规性注意事项
+- 数据存储和管理方法
+- 用户界面和体验模式
 
-### Step 2: Conduct Research and Build Context
+### 步骤 2：开展研究并构建上下文
 
-**Research Process**:
-1. **Gather Information**: Research technologies, patterns, and best practices
-2. **Evaluate Options**: Compare different approaches and their trade-offs
-3. **Document Findings**: Summarize key insights that will inform design
-4. **Make Preliminary Decisions**: Choose approaches based on research
+**研究流程**：
+1. **收集信息**：研究技术、模式和最佳实践
+2. **评估选项**：比较不同方法及其权衡
+3. **记录发现**：总结将影响设计的关键见解
+4. **做出初步决策**：基于研究选择方法
 
-**Research Documentation Guidelines**:
-- Focus on findings that impact design decisions
-- Include pros/cons of different approaches
-- Cite sources and include relevant links
-- Summarize key insights rather than exhaustive details
-- Keep research contextual to the specific requirements
+**研究文档指南**：
+- 专注于影响设计决策的发现
+- 包括不同方法的优缺点
+- 引用来源并包含相关链接
+- 总结关键见解而非详尽细节
+- 保持研究与特定需求的相关性
 
-### Step 3: Create System Architecture
+### 步骤 3：创建系统架构
 
-**Architecture Components**:
-1. **System Overview**: High-level description of how the system works
-2. **Component Architecture**: Major system components and their relationships
-3. **Data Flow**: How information moves through the system
-4. **Integration Points**: External systems and APIs
-5. **Technology Stack**: Chosen technologies and their rationale
+**架构组件**：
+1. **系统概览**：系统如何工作的高层描述
+2. **组件架构**：主要系统组件及其关系
+3. **数据流**：信息如何在系统中移动
+4. **集成点**：外部系统和 API
+5. **技术栈**：选择的技术及其理由
 
-**Architecture Documentation Pattern**:
-\`\`\`markdown
-## Architecture
+**架构文档模式**：
+```markdown
+## 架构
 
-### System Overview
-[High-level description of the system approach]
+### 系统概览
+[系统方法的高层描述]
 
-### Component Architecture
-[Description of major components and their responsibilities]
+### 组件架构
+[主要组件及其职责的描述]
 
-### Data Flow
-[How data moves through the system]
+### 数据流
+[数据如何在系统中移动]
 
-### Technology Decisions
-[Key technology choices and rationale]
-\`\`\`
+### 技术决策
+[关键技术选择和理由]
+```
 
-### Step 4: Define Components and Interfaces
+### 步骤 4：定义组件与接口
 
-**Component Design Elements**:
-1. **Component Responsibilities**: What each component does
-2. **Interface Definitions**: How components communicate
-3. **Dependency Relationships**: How components depend on each other
-4. **Configuration and Setup**: How components are initialized
+**组件设计元素**：
+1. **组件职责**：每个组件的功能
+2. **接口定义**：组件如何通信
+3. **依赖关系**：组件如何相互依赖
+4. **配置与设置**：组件如何初始化
 
-**Interface Documentation Pattern**:
-\`\`\`markdown
-## Components and Interfaces
+**接口文档模式**：
+```markdown
+## 组件与接口
 
-### [Component Name]
-- **Purpose**: [What this component does]
-- **Responsibilities**: [Key functions and duties]
-- **Interfaces**: [How other components interact with it]
-- **Dependencies**: [What this component needs]
-\`\`\`
+### [组件名称]
+- **目的**：[该组件的作用]
+- **职责**：[关键功能和职责]
+- **接口**：[其他组件如何与其交互]
+- **依赖**：[该组件需要什么]
+```
 
-### Step 5: Design Data Models
+### 步骤 5：设计数据模型
 
-**Data Model Elements**:
-1. **Entity Definitions**: Core data structures and their properties
-2. **Relationships**: How entities relate to each other
-3. **Validation Rules**: Data integrity and business rules
-4. **Storage Considerations**: How data will be persisted
+**数据模型元素**：
+1. **实体定义**：核心数据结构及其属性
+2. **关系**：实体如何相互关联
+3. **验证规则**：数据完整性和业务规则
+4. **存储考虑**：数据将如何持久化
 
-**Data Model Documentation Pattern**:
-\`\`\`markdown
-## Data Models
+**数据模型文档模式**：
+```markdown
+## 数据模型
 
-### [Entity Name]
-- **Properties**: [List of fields and their types]
-- **Validation**: [Rules for data integrity]
-- **Relationships**: [Connections to other entities]
-- **Storage**: [Persistence considerations]
-\`\`\`
+### [实体名称]
+- **属性**：[字段列表及其类型]
+- **验证**：[数据完整性规则]
+- **关系**：[与其他实体的连接]
+- **存储**：[持久化考虑]
+```
 
-### Step 6: Plan Error Handling and Edge Cases
+### 步骤 6：规划错误处理与边缘情况
 
-**Error Handling Design**:
-1. **Error Categories**: Types of errors the system might encounter
-2. **Error Response Strategies**: How the system responds to different errors
-3. **User Experience**: How errors are communicated to users
-4. **Recovery Mechanisms**: How the system handles and recovers from errors
+**错误处理设计**：
+1. **错误类别**：系统可能遇到的错误类型
+2. **错误响应策略**：系统对不同错误的响应方式
+3. **用户体验**：如何向用户传达错误
+4. **恢复机制**：系统如何处理和从错误中恢复
 
-### Step 7: Define Testing Strategy
+### 步骤 7：定义测试策略
 
-**Testing Strategy Elements**:
-1. **Testing Levels**: Unit, integration, and end-to-end testing approaches
-2. **Test Coverage**: What aspects of the system will be tested
-3. **Testing Tools**: Frameworks and tools for different types of testing
-4. **Quality Gates**: Criteria for determining when testing is sufficient
+**测试策略元素**：
+1. **测试级别**：单元测试、集成测试和端到端测试方法
+2. **测试覆盖范围**：系统哪些方面将被测试
+3. **测试工具**：用于不同类型测试的框架和工具
+4. **质量门禁**：确定测试何时充分的标准
 
-## Design Document Structure
+## 设计文档结构
 
-### Standard Design Document Template
+### 标准设计文档模板
 
-\`\`\`markdown
-# Design Document
+```markdown
+# 设计文档
 
-## Overview
-[High-level summary of the feature and approach]
+## 概览
+[功能和方法的高层总结]
 
-## Architecture
-[System architecture and component overview]
+## 架构
+[系统架构和组件概览]
 
-## Components and Interfaces
-[Detailed component descriptions and interactions]
+## 组件与接口
+[详细的组件描述和交互]
 
-## Data Models
-[Data structures and relationships]
+## 数据模型
+[数据结构和关系]
 
-## Error Handling
-[Error scenarios and response strategies]
+## 错误处理
+[错误场景和响应策略]
 
-## Testing Strategy
-[Testing approach and quality assurance]
-\`\`\`
+## 测试策略
+[测试方法和质量保证]
+```
 
-### Section Guidelines
+### 章节指南
 
-**Overview Section**:
-- Provide context linking back to requirements
-- Explain the overall approach and key design decisions
-- Keep it concise but comprehensive enough for stakeholders
+**概览章节**：
+- 提供连接回需求的上下文
+- 解释整体方法和关键设计决策
+- 保持简洁但足够全面，以便利益相关者理解
 
-**Architecture Section**:
-- Focus on the big picture and major components
-- Explain how the system addresses the requirements
-- Include diagrams when helpful (Mermaid syntax recommended)
+**架构章节**：
+- 专注于大局和主要组件
+- 解释系统如何满足需求
+- 在有帮助时包含图表（推荐使用 Mermaid 语法）
 
-**Components Section**:
-- Detail each major component's purpose and responsibilities
-- Define clear interfaces between components
-- Explain how components work together
+**组件章节**：
+- 详细说明每个主要组件的目的和职责
+- 定义组件之间清晰的接口
+- 解释组件如何协同工作
 
-**Data Models Section**:
-- Define all data structures used by the system
-- Include validation rules and business logic
-- Show relationships between different data entities
+**数据模型章节**：
+- 定义系统使用的所有数据结构
+- 包含验证规则和业务逻辑
+- 展示不同数据实体之间的关系
 
-**Error Handling Section**:
-- Cover both technical errors and business rule violations
-- Define user-facing error messages and system responses
-- Plan for graceful degradation and recovery
+**错误处理章节**：
+- 涵盖技术错误和业务规则违规
+- 定义面向用户的错误消息和系统响应
+- 规划优雅降级和恢复
 
-**Testing Strategy Section**:
-- Outline testing approach for different system layers
-- Define what constitutes adequate test coverage
-- Specify testing tools and frameworks
+**测试策略章节**：
+- 概述不同系统层级的测试方法
+- 定义什么是适当的测试覆盖范围
+- 指定测试工具和框架
 
-## Examples of Design Patterns and Decisions
+## 设计模式与决策示例
 
-### Example 1: API Design Decision
+### 示例 1：API 设计决策
 
-**Context**: Need to design REST API for user management
+**上下文**：需要为用户管理设计 REST API
 
-**Options Considered**:
-1. **RESTful with standard HTTP methods**
-   - Pros: Standard, well-understood, good tooling support
-   - Cons: May not fit all operations perfectly
+**考虑的选项**：
+1. **使用标准 HTTP 方法的 RESTful**
+   - 优点：标准、易于理解、工具支持好
+   - 缺点：可能无法完美契合所有操作
 2. **GraphQL API**
-   - Pros: Flexible queries, single endpoint
-   - Cons: Additional complexity, learning curve
-3. **RPC-style API**
-   - Pros: Direct mapping to business operations
-   - Cons: Less standard, harder to cache
+   - 优点：查询灵活、单一端点
+   - 缺点：额外的复杂性、学习曲线
+3. **RPC 风格 API**
+   - 优点：直接映射到业务操作
+   - 缺点：不够标准、缓存较难
 
-**Decision**: RESTful API with standard HTTP methods
-**Rationale**: Requirements indicate standard CRUD operations, team familiarity with REST, good ecosystem support
+**决策**：使用标准 HTTP 方法的 RESTful API
+**理由**：需求表明是标准 CRUD 操作，团队熟悉 REST，生态系统支持好
 
-### Example 2: Data Storage Decision
+### 示例 2：数据存储决策
 
-**Context**: Need to store user profiles and preferences
+**上下文**：需要存储用户个人资料和偏好
 
-**Options Considered**:
-1. **Relational Database (PostgreSQL)**
-   - Pros: ACID compliance, complex queries, mature ecosystem
-   - Cons: Schema rigidity, scaling complexity
-2. **Document Database (MongoDB)**
-   - Pros: Schema flexibility, easy scaling
-   - Cons: Eventual consistency, less mature tooling
-3. **Key-Value Store (Redis)**
-   - Pros: High performance, simple operations
-   - Cons: Limited query capabilities, memory constraints
+**考虑的选项**：
+1. **关系型数据库 (PostgreSQL)**
+   - 优点：ACID 合规、复杂查询、成熟生态
+   - 缺点：模式死板、扩展复杂
+2. **文档型数据库 (MongoDB)**
+   - 优点：模式灵活、易于扩展
+   - 缺点：最终一致性、工具不够成熟
+3. **键值存储 (Redis)**
+   - 优点：高性能、操作简单
+   - 缺点：查询能力有限、内存限制
 
-**Decision**: PostgreSQL with JSON columns for flexible data
-**Rationale**: Need for data consistency, complex relationships, with flexibility for user preferences
+**决策**：使用带有 JSON 列的 PostgreSQL 以支持灵活数据
+**理由**：需要数据一致性和复杂关系，同时兼顾用户偏好的灵活性
 
-### Example 3: Authentication Strategy
+### 示例 3：身份验证策略
 
-**Context**: Need secure user authentication
+**上下文**：需要安全的用户身份验证
 
-**Options Considered**:
-1. **Session-based authentication**
-   - Pros: Simple, server-controlled, secure
-   - Cons: Scalability challenges, state management
-2. **JWT tokens**
-   - Pros: Stateless, scalable, cross-domain support
-   - Cons: Token revocation complexity, size limitations
-3. **OAuth 2.0 with external provider**
-   - Pros: No password management, user convenience
-   - Cons: External dependency, limited customization
+**考虑的选项**：
+1. **基于会话的身份验证**
+   - 优点：简单、服务器控制、安全
+   - 缺点：扩展挑战、状态管理
+2. **JWT 令牌**
+   - 优点：无状态、可扩展、跨域支持
+   - 缺点：令牌撤销复杂、大小限制
+3. **使用外部提供商的 OAuth 2.0**
+   - 优点：无需管理密码、用户方便
+   - 缺点：外部依赖、自定义受限
 
-**Decision**: JWT tokens with refresh token rotation
-**Rationale**: Scalability requirements, API-first architecture, security best practices
+**决策**：使用带有刷新令牌轮转的 JWT 令牌
+**理由**：可扩展性需求、API 优先架构、安全最佳实践
 
-## Design Decision Documentation
+## 设计决策记录
 
-### Decision Record Template
+### 决策记录模板
 
-\`\`\`markdown
-### Decision: [Brief title]
+```markdown
+### 决策：[简短标题]
 
-**Context**: [Situation requiring a decision]
+**上下文**：[需要做出决策的情况]
 
-**Options Considered**:
-1. **[Option 1]**
-   - Pros: [Benefits]
-   - Cons: [Drawbacks]
-2. **[Option 2]**
-   - Pros: [Benefits]
-   - Cons: [Drawbacks]
+**考虑的选项**：
+1. **[选项 1]**
+   - 优点：[获益]
+   - 缺点：[弊端]
+2. **[选项 2]**
+   - 优点：[获益]
+   - 缺点：[弊端]
 
-**Decision**: [Chosen option]
-**Rationale**: [Why this option was selected]
-**Implications**: [What this means for implementation]
-\`\`\`
+**决策**：[选择的选项]
+**理由**：[为什么选择该选项]
+**影响**：[这对实施意味着什么]
+```
 
-### Key Decision Areas
+### 关键决策领域
 
-**Technology Stack Decisions**:
-- Programming language and framework
-- Database and storage solutions
-- Third-party libraries and services
-- Development and deployment tools
+**技术栈决策**：
+- 编程语言和框架
+- 数据库和存储解决方案
+- 第三方库和服务
+- 开发和部署工具
 
-**Architecture Pattern Decisions**:
-- Monolithic vs. microservices
-- Synchronous vs. asynchronous processing
-- Client-server vs. serverless architecture
-- Caching strategies and data flow
+**架构模式决策**：
+- 单体 vs. 微服务
+- 同步 vs. 异步处理
+- 客户端-服务器 vs. 无服务器架构
+- 缓存策略和数据流
 
-**Security and Compliance Decisions**:
-- Authentication and authorization approaches
-- Data encryption and privacy measures
-- Input validation and sanitization strategies
-- Audit logging and monitoring requirements
+**安全性与合规性决策**：
+- 身份验证和授权方法
+- 数据加密和隐私措施
+- 输入验证和清理策略
+- 审计日志和监控需求
 
-## Research Integration Guidelines
+## 研究集成指南
 
-### Effective Research Practices
+### 有效的研究实践
 
-**Research Scope**:
-- Focus on decisions that significantly impact the design
-- Time-box research to avoid analysis paralysis
-- Prioritize research based on risk and uncertainty
-- Document key findings rather than exhaustive details
+**研究范围**：
+- 专注于对设计产生重大影响的决策
+- 为研究设定时间盒以避免分析瘫痪
+- 根据风险和不确定性划分研究优先级
+- 记录关键发现而非详尽细节
 
-**Research Documentation**:
-- Summarize findings in the context of the specific requirements
-- Include relevant links and sources for future reference
-- Focus on actionable insights that inform design decisions
-- Update design document with research-informed decisions
+**研究文档**：
+- 在特定需求的背景下总结发现
+- 包含相关链接和来源以便后续参考
+- 专注于指导设计决策的可操作见解
+- 用研究支持的决策更新设计文档
 
-### Research Areas by Feature Type
+### 按功能类型划分的研究领域
 
-**User Interface Features**:
-- UI/UX patterns and best practices
-- Accessibility requirements and standards
-- Browser compatibility and responsive design
-- User interaction patterns and workflows
+**用户界面功能**：
+- UI/UX 模式和最佳实践
+- 可访问性要求和标准
+- 浏览器兼容性和响应式设计
+- 用户交互模式和工作流
 
-**Data Processing Features**:
-- Data validation and transformation approaches
-- Performance optimization techniques
-- Error handling and recovery strategies
-- Scalability and throughput considerations
+**数据处理功能**：
+- 数据验证和转换方法
+- 性能优化技术
+- 错误处理和恢复策略
+- 可扩展性和吞吐量考虑
 
-**Integration Features**:
-- API design patterns and standards
-- Authentication and authorization methods
-- Data synchronization strategies
-- Error handling for external dependencies
+**集成功能**：
+- API 设计模式和标准
+- 身份验证和授权方法
+- 数据同步策略
+- 外部依赖的错误处理
 
-## Quality Checklist
+## 质量核查表
 
-Before moving to the tasks phase, verify:
+在进入任务阶段之前，请验证：
 
-**Completeness**:
-- [ ] All requirements are addressed in the design
-- [ ] Major system components are defined
-- [ ] Data models cover all necessary entities
-- [ ] Error handling covers expected failure modes
-- [ ] Testing strategy addresses all system layers
+**完整性**：
+- [ ] 设计中解决了所有需求
+- [ ] 定义了主要系统组件
+- [ ] 数据模型涵盖了所有必要实体
+- [ ] 错误处理涵盖了预期的故障模式
+- [ ] 测试策略针对所有系统层级
 
-**Clarity**:
-- [ ] Design decisions are clearly explained
-- [ ] Component responsibilities are well-defined
-- [ ] Interfaces between components are specified
-- [ ] Technical choices include rationale
+**清晰度**：
+- [ ] 设计决策得到了清晰解释
+- [ ] 组件职责定义明确
+- [ ] 指定了组件间的接口
+- [ ] 技术选择包含了理由
 
-**Feasibility**:
-- [ ] Design is technically achievable with chosen technologies
-- [ ] Performance requirements can be met
-- [ ] Security requirements are addressed
-- [ ] Implementation complexity is reasonable
+**可行性**：
+- [ ] 使用所选技术在技术上是可实现的
+- [ ] 能够满足性能要求
+- [ ] 解决了安全性要求
+- [ ] 实施复杂度合理
 
-**Traceability**:
-- [ ] Design elements map back to specific requirements
-- [ ] All requirements are covered by design components
-- [ ] Design decisions support requirement fulfillment
-- [ ] Testing strategy validates requirement satisfaction
+**可追溯性**：
+- [ ] 设计元素可映射回特定需求
+- [ ] 所有需求都被设计组件覆盖
+- [ ] 设计决策支持需求的实现
+- [ ] 测试策略验证需求是否满足
 
-## Common Design Pitfalls
+## 常见设计陷阱
 
-### Pitfall 1: Over-Engineering
-**Problem**: Designing for requirements that don't exist
-**Solution**: Focus on current requirements, design for extensibility but don't implement unused features
+### 陷阱 1：过度设计
+**问题**：针对不存在的需求进行设计
+**解决方案**：专注于当前需求，为扩展性预留设计，但不要实施未使用的功能
 
-### Pitfall 2: Under-Specified Interfaces
-**Problem**: Vague component boundaries and interactions
-**Solution**: Clearly define what each component does and how components communicate
+### 陷阱 2：接口定义不足
+**问题**：组件边界和交互模糊
+**解决方案**：明确定义每个组件的作用以及组件如何通信
 
-### Pitfall 3: Ignoring Non-Functional Requirements
-**Problem**: Focusing only on functional behavior
-**Solution**: Address performance, security, scalability, and maintainability explicitly
+### 陷阱 3：忽视非功能性需求
+**问题**：仅关注功能行为
+**解决方案**：明确解决性能、安全性、可扩展性和可维护性
 
-### Pitfall 4: Technology-First Design
-**Problem**: Choosing technologies before understanding requirements
-**Solution**: Let requirements drive technology choices, not the reverse
+### 陷阱 4：技术优先的设计
+**问题**：在理解需求之前选择技术
+**解决方案**：让需求驱动技术选择，而非相反
 
-### Pitfall 5: Insufficient Error Handling Design
-**Problem**: Only designing for happy path scenarios
-**Solution**: Explicitly design error handling and edge case behavior
+### 陷阱 5：错误处理设计不足
+**问题**：仅针对“快乐路径”场景进行设计
+**解决方案**：明确设计错误处理和边缘情况行为
 
-## Troubleshooting Design Issues
+## 设计问题排查
 
-### Issue: Design Becomes Too Complex
-**Symptoms**: Design document is overwhelming, too many components
-**Solution**: Simplify by focusing on core requirements, consider phased implementation
+### 问题：设计变得过于复杂
+**症状**：设计文档多得让人不知所措，组件过多
+**解决方案**：通过专注于核心需求来简化，考虑分阶段实施
 
-### Issue: Requirements Don't Map to Design
-**Symptoms**: Difficulty tracing requirements to design elements
-**Solution**: Review each requirement and ensure it's addressed in the design
+### 问题：需求与设计无法映射
+**症状**：难以将需求追踪到设计元素
+**解决方案**：审查每项需求并确保其在设计中得到解决
 
-### Issue: Technology Choices Are Unclear
-**Symptoms**: Multiple viable options without clear selection criteria
-**Solution**: Define decision criteria based on requirements and constraints
+### 问题：技术选择不明确
+**症状**：存在多个可行选项但缺乏明确的选择标准
+**解决方案**：根据需求和约束定义决策标准
 
-### Issue: Design Lacks Detail for Implementation
-**Symptoms**: Developers can't start coding from the design
-**Solution**: Add more specific component descriptions and interface definitions
+### 问题：设计缺乏实施细节
+**症状**：开发人员无法根据设计开始编码
+**解决方案**：添加更具体的组件描述和接口定义
 
-## Next Steps
+## 下一步
 
-Once design is complete and approved:
-1. **Transition to Tasks Phase**: Break down design into actionable implementation tasks
-2. **Maintain Design-Task Traceability**: Ensure tasks implement all design elements
-3. **Keep Design Updated**: Update design if task breakdown reveals issues
-4. **Prepare Implementation Context**: Design serves as reference during coding
+一旦设计完成并获得批准：
+1. **转向任务阶段**：将设计分解为可操作的实施任务
+2. **保持设计-任务可追溯性**：确保任务实施了所有设计元素
+3. **保持设计更新**：如果任务分解揭示了问题，请更新设计
+4. **准备实施上下文**：设计在编码期间作为参考
 
-The design phase bridges requirements and implementation, providing the technical foundation for building the feature effectively.
+设计阶段连接了需求和实施，为有效构建功能提供了技术基础。
 ```
 
 # spec-process-guide/process/README.md
 
 ```md
-# Process Guide
+# 流程指南
 
 <!-- Navigation Metadata -->
 <!-- Section: Process | Level: Overview | Prerequisites: methodology/README.md -->
 <!-- Related: templates/README.md, prompting/strategies.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Process Guide**
+**📍 您当前所在位置：** [主指南](../README.md) → **流程指南**
 
-## Quick Navigation
-- **Prerequisites:** [Methodology Overview](../methodology/README.md) - Understand the foundation first
-- **Templates:** [Ready-to-Use Templates](../templates/README.md) - Get started quickly
-- **Examples:** [See Complete Specs](../examples/README.md) - Learn from real examples
-- **AI Help:** [Prompting Strategies](../prompting/README.md) - Collaborate effectively with AI
+## 快速导航
+- **前提条件：** [方法论概览](../methodology/README.md) - 首先理解基础
+- **模板：** [即插即用的模板](../templates/README.md) - 快速开始
+- **示例：** [查看完整规范](../examples/README.md) - 从真实示例中学习
+- **AI 辅助：** [提示词策略](../prompting/README.md) - 有效地与 AI 协作
 
 ---
 
-Step-by-step walkthrough of the three-phase spec-driven development workflow.
+规范驱动开发（Spec-driven development）三阶段工作流的逐步演练。
 
-## In This Section
+## 本节内容
 
-- **[Requirements Phase](requirements-phase.md)** - Gathering and structuring requirements using EARS format
-- **[Design Phase](design-phase.md)** - Creating comprehensive design documents with research
-- **[Tasks Phase](tasks-phase.md)** - Breaking down design into actionable coding tasks
-- **[Workflow Diagrams](workflow-diagrams.md)** - Visual process flows and decision points
+- **[需求阶段](requirements-phase.md)** - 使用 EARS 格式收集并结构化需求
+- **[设计阶段](design-phase.md)** - 通过研究创建全面的设计文档
+- **[任务阶段](tasks-phase.md)** - 将设计分解为可操作的编码任务
+- **[工作流图表](workflow-diagrams.md)** - 可视化的流程图和决策点
 
-## The Three-Phase Workflow
+## 三阶段工作流
 
-\`\`\`mermaid
+```mermaid
 stateDiagram-v2
-  [*] --> Requirements : Start with user needs
-  Requirements --> Design : Requirements approved
-  Design --> Tasks : Design approved
-  Tasks --> [*] : Ready for implementation
+  [*] --> Requirements : 从用户需求开始
+  Requirements --> Design : 需求获批
+  Design --> Tasks : 设计获批
+  Tasks --> [*] : 准备实施
   
-  Requirements --> Requirements : Iterate based on feedback
-  Design --> Design : Refine design
-  Tasks --> Tasks : Adjust task breakdown
-\`\`\`
+  Requirements --> Requirements : 基于反馈迭代
+  Design --> Design : 细化设计
+  Tasks --> Tasks : 调整任务分解
+```
 
-Each phase builds upon the previous one, with explicit approval gates to ensure quality and alignment before proceeding.
+每个阶段都建立在上一阶段的基础之上，并设有明确的批准门禁，以确保在下一步行动前达到质量要求并达成一致。
 
-## Phase Overview
+## 阶段概览
 
-1. **Requirements** - Transform rough ideas into structured, testable requirements
-2. **Design** - Research and architect a comprehensive solution
-3. **Tasks** - Create an actionable implementation plan with discrete coding steps
+1. **需求** - 将原始想法转化为结构化、可测试的需求
+2. **设计** - 研究并构建一个全面的解决方案架构
+3. **任务** - 创建一个带有离散编码步骤的可操作实施计划
 
 ---
 
-## 🔗 Related Content
+## 🔗 相关内容
 
-### Prerequisites
-- [Methodology Overview](../methodology/README.md) - Understand the foundation first
+### 前提条件
+- [方法论概览](../methodology/README.md) - 首先理解基础
 
-### Next Steps
-- [Requirements Phase](requirements-phase.md) - Start the three-phase process
-- [Templates](../templates/README.md) - Get ready-to-use starting points
+### 下一步
+- [需求阶段](requirements-phase.md) - 开始三阶段流程
+- [模板](../templates/README.md) - 获取即插即用的起点
 
-### Related Sections
-- [Examples](../examples/README.md) - See complete process examples
-- [Prompting Strategies](../prompting/README.md) - Get better AI collaboration
-- [Execution Guide](../execution/README.md) - Implement your completed specs
+### 相关章节
+- [示例](../examples/README.md) - 查看完整的流程示例
+- [提示词策略](../prompting/README.md) - 获得更好的 AI 协作
+- [执行指南](../execution/README.md) - 实施您已完成的规范
 
-[← Back to Main Guide](../README.md) | [Start with Requirements →](requirements-phase.md)
+[← 返回主指南](../README.md) | [从需求开始 →](requirements-phase.md)
 ```
 
 # spec-process-guide/process/requirements-phase.md
 
 ```md
-# Requirements Phase Documentation
+# 需求阶段文档
 
 <!-- Navigation Metadata -->
 <!-- Phase: Requirements | Level: Detailed Guide | Prerequisites: methodology/README.md -->
 <!-- Related: templates/requirements-template.md, resources/standards.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Process Guide](README.md) → **Requirements Phase**
+**📍 您当前所在位置：** [主指南](../README.md) → [流程指南](README.md) → **需求阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Requirements Template](../templates/requirements-template.md) - Ready-to-use template
-- **📖 See Example:** [Simple Feature Spec](../examples/simple-feature-spec.md) - Complete requirements example
-- **📚 Learn EARS:** [Standards Reference](../resources/standards.md) - EARS format details
-- **➡️ Next Phase:** [Design Phase](design-phase.md) - After requirements are approved
+## 快速导航
+- **🎯 开始使用：** [需求模板](../templates/requirements-template.md) - 即插即用的模板
+- **📖 查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - 完整的需求示例
+- **📚 学习 EARS：** [标准参考](../resources/standards.md) - EARS 格式详情
+- **➡️ 下一阶段：** [设计阶段](design-phase.md) - 需求获批后的下一步
 
-## Phase Navigation
-- **Previous:** [Process Overview](README.md) - Three-phase workflow
-- **Current:** **Requirements Phase** - Transform ideas into structured requirements
-- **Next:** [Design Phase](design-phase.md) - Create technical architecture
-- **Final:** [Tasks Phase](tasks-phase.md) - Break down into implementation steps
+## 阶段导航
+- **上一阶段：** [流程概览](README.md) - 三阶段工作流
+- **当前阶段：** **需求阶段** - 将思路转化为结构化需求
+- **下一阶段：** [设计阶段](design-phase.md) - 创建技术架构
+- **最终阶段：** [任务阶段](tasks-phase.md) - 分解为实施步骤
 
 ---
 
-## Overview
+## 概览
 
-The Requirements Phase is the foundation of spec-driven development, where rough feature ideas are transformed into clear, testable requirements using the EARS (Easy Approach to Requirements Syntax) format. This phase ensures all stakeholders have a shared understanding of what needs to be built before moving to design and implementation.
+需求阶段是规范驱动开发的基础，通过使用 EARS（简易需求语法方法，Easy Approach to Requirements Syntax）格式，将原始的功能想法转化为清晰、可测试的需求。这一阶段确保所有利益相关者在进入设计和实施之前，对“需要构建什么”达成共识。
 
-## Purpose and Goals
+## 目的与目标
 
-The requirements phase serves to:
-- Transform vague feature ideas into concrete, measurable requirements
-- Establish clear acceptance criteria for feature success
-- Create a shared understanding between stakeholders
-- Provide a foundation for design and implementation decisions
-- Enable effective testing and validation strategies
+需求阶段的作用包括：
+- 将模糊的功能构想转化为具体、可衡量的需求
+- 为功能成功确立清晰的验收标准
+- 在利益相关者之间建立共同理解
+- 为设计和实施决策奠定基础
+- 实现有效的测试和验证策略
 
-## Step-by-Step Process
+## 逐步流程
 
-### Step 1: Initial Requirements Generation
+### 步骤 1：初步需求生成
 
-**Objective**: Create a first draft of requirements based on the feature idea
+**目标**：基于功能构想创建需求初稿
 
-**Process**:
-1. **Analyze the Feature Idea**: Break down the core concept into user-facing functionality
-2. **Identify User Roles**: Determine who will interact with the feature
-3. **Define User Stories**: Create user stories in the format "As a [role], I want [feature], so that [benefit]"
-4. **Generate Acceptance Criteria**: Write EARS-format requirements for each user story
+**流程**：
+1. **分析功能思路**：将核心概念分解为面向用户的功能点
+2. **识别用户角色**：确定谁将与该功能交互
+3. **定义用户故事**：以“作为 [角色]，我想要 [功能]，以便 [获益]”的格式创建用户故事
+4. **生成验收标准**：为每个用户故事编写 EARS 格式的需求
 
-**Key Principles**:
-- Start with what the user experiences, not technical implementation
-- Focus on observable, testable behaviors
-- Consider edge cases and error scenarios
-- Think about the complete user journey
+**关键原则**：
+- 从用户的体验出发，而非技术实现
+- 专注于可观察、可测试的行为
+- 考虑边缘情况和错误场景
+- 思考完整的用户旅程
 
-### Step 2: Requirements Structure and Format
+### 步骤 2：需求结构与格式
 
-**Document Structure**:
-\`\`\`markdown
-# Requirements Document
+**文档结构**：
+```markdown
+# 需求文档
 
-## Introduction
-[Brief overview of the feature and its purpose]
+## 简介
+[对功能及其目的的简要概述]
 
-## Requirements
+## 需求
 
-### Requirement 1
-**User Story:** As a [role], I want [feature], so that [benefit]
+### 需求 1
+**用户故事：** 作为 [角色]，我想要 [功能]，以便 [获益]
 
-#### Acceptance Criteria
-1. WHEN [event] THEN [system] SHALL [response]
-2. IF [precondition] THEN [system] SHALL [response]
-3. WHEN [event] AND [condition] THEN [system] SHALL [response]
+#### 验收标准
+1. WHEN [事件] THEN [系统] SHALL [响应]
+2. IF [前提条件] THEN [系统] SHALL [响应]
+3. WHEN [事件] AND [条件] THEN [系统] SHALL [响应]
 
-### Requirement 2
-[Continue with additional requirements...]
-\`\`\`
+### 需求 2
+[继续添加其他需求...]
+```
 
-**EARS Format Guidelines**:
-- **WHEN**: Describes triggering events or conditions
-- **IF**: Describes preconditions that must be met
-- **THEN**: Describes the system's required response
-- **SHALL**: Indicates mandatory behavior (use consistently)
-- **AND/OR**: Combines conditions when necessary
+**EARS 格式指南**：
+- **WHEN**：描述触发事件或条件
+- **IF**：描述必须满足的前提条件
+- **THEN**：描述系统所需的响应
+- **SHALL**：指示强制性行为（请一致使用）
+- **AND/OR**：必要时组合多个条件
 
-### Step 3: Requirements Validation
+### 步骤 3：需求验证
 
-**Validation Criteria**:
-- [ ] Each requirement is testable and measurable
-- [ ] Requirements cover normal, edge, and error cases
-- [ ] User stories provide clear business value
-- [ ] Acceptance criteria are specific and unambiguous
-- [ ] Requirements are independent and don't conflict
-- [ ] All user roles and interactions are addressed
+**验证标准**：
+- [ ] 每项需求都是可测试且可衡量的
+- [ ] 需求涵盖了正常、边缘和错误情况
+- [ ] 用户故事提供了清晰的业务价值
+- [ ] 验收标准具体且无歧义
+- [ ] 需求是独立的，不存在冲突
+- [ ] 解决了所有用户角色和交互点
 
-**Common Validation Questions**:
-- Can this requirement be tested automatically?
-- Is the expected behavior clearly defined?
-- Are there any assumptions that need to be made explicit?
-- What happens when things go wrong?
-- Are there any missing user scenarios?
+**常用验证问题**：
+- 这项需求可以自动测试吗？
+- 预期行为定义清晰吗？
+- 是否有任何需要明确说明的假设？
+- 出错时会发生什么？
+- 是否遗漏了任何用户场景？
 
-### Step 4: Iterative Refinement
+### 步骤 4：迭代细化
 
-**Refinement Process**:
-1. **Review with Stakeholders**: Get feedback on completeness and accuracy
-2. **Identify Gaps**: Look for missing scenarios or unclear requirements
-3. **Clarify Ambiguities**: Resolve any vague or conflicting requirements
-4. **Add Missing Details**: Include edge cases and error handling
-5. **Validate Business Value**: Ensure each requirement serves a clear purpose
+**细化流程**：
+1. **与利益相关者审查**：获取关于完整性和准确性的反馈
+2. **识别差距**：寻找遗漏的场景或不清晰的需求
+3. **澄清歧义**：解决任何模糊或冲突的需求
+4. **添加缺失细节**：包含边缘情况和错误处理
+5. **验证业务价值**：确保每项需求都有明确的目的
 
-**Iteration Guidelines**:
-- Make one focused change at a time
-- Always ask for explicit approval after changes
-- Document the reasoning behind requirement decisions
-- Keep requirements at the right level of detail (not too high, not too low)
+**迭代指南**：
+- 一次专注于一项更改
+- 在修改后务必寻求明确批准
+- 记录需求决策背后的理由
+- 保持需求的粒度适中（既不过高也不过低）
 
-## EARS Format Deep Dive
+## EARS 格式深潜
 
-### Basic EARS Patterns
+### 基础 EARS 模式
 
-**Simple Event-Response**:
-\`\`\`
-WHEN [user clicks submit button] THEN [system] SHALL [validate form data]
-\`\`\`
+**简单事件-响应**：
+```
+WHEN [用户点击提交按钮] THEN [系统] SHALL [验证表单数据]
+```
 
-**Conditional Behavior**:
-\`\`\`
-IF [user is authenticated] THEN [system] SHALL [display user dashboard]
-\`\`\`
+**条件行为**：
+```
+IF [用户已通过身份验证] THEN [系统] SHALL [显示用户仪表板]
+```
 
-**Complex Conditions**:
-\`\`\`
-WHEN [user submits form] AND [all required fields are completed] THEN [system] SHALL [process the submission]
-\`\`\`
+**复杂条件**：
+```
+WHEN [用户提交表单] AND [所有必填字段已完成] THEN [系统] SHALL [处理提交内容]
+```
 
-**Error Handling**:
-\`\`\`
-WHEN [user submits invalid data] THEN [system] SHALL [display specific error messages]
-\`\`\`
+**错误处理**：
+```
+WHEN [用户提交无效数据] THEN [系统] SHALL [显示特定错误消息]
+```
 
-### Advanced EARS Patterns
+### 高级 EARS 模式
 
-**State-Based Requirements**:
-\`\`\`
-WHEN [system is in maintenance mode] THEN [system] SHALL [display maintenance message to all users]
-\`\`\`
+**基于状态的需求**：
+```
+WHEN [系统处于维护模式] THEN [系统] SHALL [向所有用户显示维护消息]
+```
 
-**Performance Requirements**:
-\`\`\`
-WHEN [user requests data] THEN [system] SHALL [respond within 2 seconds]
-\`\`\`
+**性能需求**：
+```
+WHEN [用户请求数据] THEN [系统] SHALL [在 2 秒内响应]
+```
 
-**Security Requirements**:
-\`\`\`
-IF [user session expires] THEN [system] SHALL [redirect to login page]
-\`\`\`
+**安全性需求**：
+```
+IF [用户会话过期] THEN [系统] SHALL [重定向到登录页面]
+```
 
-## Examples of Well-Formed Requirements
+## 格式良好的需求示例
 
-### Example 1: User Authentication Feature
+### 示例 1：用户身份验证功能
 
-**User Story**: As a new user, I want to create an account, so that I can access personalized features.
+**用户故事**：作为一名新用户，我想要创建一个账户，以便访问个性化功能。
 
-**Acceptance Criteria**:
-1. WHEN user provides valid email and password THEN system SHALL create new account
-2. WHEN user provides existing email THEN system SHALL display "email already registered" error
-3. WHEN user provides invalid email format THEN system SHALL display "invalid email format" error
-4. WHEN user provides password shorter than 8 characters THEN system SHALL display "password too short" error
-5. WHEN account creation succeeds THEN system SHALL send confirmation email
-6. WHEN account creation succeeds THEN system SHALL redirect to welcome page
+**验收标准**：
+1. WHEN 用户提供有效的电子邮件和密码 THEN 系统 SHALL 创建新账户
+2. WHEN 用户提供已存在的电子邮件 THEN 系统 SHALL 显示“电子邮件已注册”错误
+3. WHEN 用户提供无效的电子邮件格式 THEN 系统 SHALL 显示“无效的电子邮件格式”错误
+4. WHEN 用户提供的密码短于 8 个字符 THEN 系统 SHALL 显示“密码太短”错误
+5. WHEN 账户创建成功 THEN 系统 SHALL 发送确认邮件
+6. WHEN 账户创建成功 THEN 系统 SHALL 重定向到欢迎页面
 
-### Example 2: Data Validation Feature
+### 示例 2：数据验证功能
 
-**User Story**: As a user, I want my input to be validated, so that I don't submit incorrect information.
+**用户故事**：作为一名用户，我希望我的输入得到验证，以便我不会提交错误信息。
 
-**Acceptance Criteria**:
-1. WHEN user enters data in required field THEN system SHALL remove any error highlighting
-2. WHEN user submits form with empty required fields THEN system SHALL highlight missing fields in red
-3. WHEN user enters invalid data format THEN system SHALL display format requirements below field
-4. WHEN all validation passes THEN system SHALL enable submit button
-5. IF validation fails THEN system SHALL keep submit button disabled
+**验收标准**：
+1. WHEN 用户在必填字段中输入数据 THEN 系统 SHALL 移除任何错误高亮
+2. WHEN 用户提交带有空必填字段的表单 THEN 系统 SHALL 以红色高亮显示缺失字段
+3. WHEN 用户输入无效的数据格式 THEN 系统 SHALL 在字段下方显示格式要求
+4. WHEN 所有验证通过 THEN 系统 SHALL 启用提交按钮
+5. IF 验证失败 THEN 系统 SHALL 保持提交按钮禁用
 
-### Example 3: File Upload Feature
+### 示例 3：文件上传功能
 
-**User Story**: As a user, I want to upload files, so that I can share documents with my team.
+**用户故事**：作为一名用户，我想要上传文件，以便我可以与团队共享文档。
 
-**Acceptance Criteria**:
-1. WHEN user selects file under 10MB THEN system SHALL accept file for upload
-2. WHEN user selects file over 10MB THEN system SHALL display "file too large" error
-3. WHEN user selects unsupported file type THEN system SHALL display "unsupported format" error
-4. WHEN upload is in progress THEN system SHALL display progress indicator
-5. WHEN upload completes successfully THEN system SHALL display success message
-6. WHEN upload fails THEN system SHALL display retry option
-7. IF user is not authenticated THEN system SHALL redirect to login before upload
+**验收标准**：
+1. WHEN 用户选择小于 10MB 的文件 THEN 系统 SHALL 接受文件进行上传
+2. WHEN 用户选择超过 10MB 的文件 THEN 系统 SHALL 显示“文件过大”错误
+3. WHEN 用户选择不支持的文件类型 THEN 系统 SHALL 显示“格式不支持”错误
+4. WHEN 上传正在进行中 THEN 系统 SHALL 显示进度指示器
+5. WHEN 上传成功完成 THEN 系统 SHALL 显示成功消息
+6. WHEN 上传失败 THEN 系统 SHALL 显示重试选项
+7. IF 用户未通过身份验证 THEN 系统 SHALL 在上传前重定向到登录界面
 
-## Common Pitfalls and How to Avoid Them
+## 常见陷阱及如何避免
 
-### Pitfall 1: Vague Requirements
-**Problem**: "System should be fast"
-**Solution**: "WHEN user requests data THEN system SHALL respond within 2 seconds"
+### 陷阱 1：需求模糊
+**问题**：“系统应该运行很快”
+**解决方案**：“WHEN 用户请求数据 THEN 系统 SHALL 在 2 秒内响应”
 
-### Pitfall 2: Implementation Details in Requirements
-**Problem**: "System shall use Redis for caching"
-**Solution**: "WHEN user requests frequently accessed data THEN system SHALL return cached results"
+### 陷阱 2：需求中包含实施细节
+**问题**：“系统应使用 Redis 进行缓存”
+**解决方案**：“WHEN 用户请求频繁访问的数据 THEN 系统 SHALL 返回缓存结果”
 
-### Pitfall 3: Missing Error Cases
-**Problem**: Only defining happy path scenarios
-**Solution**: Always include WHEN/IF statements for error conditions
+### 陷阱 3：缺失错误情况
+**问题**：仅定义“快乐路径”场景
+**解决方案**：始终为错误条件包含 WHEN/IF 语句
 
-### Pitfall 4: Conflicting Requirements
-**Problem**: Requirements that contradict each other
-**Solution**: Review all requirements together and resolve conflicts explicitly
+### 陷阱 4：需求冲突
+**问题**：需求之间相互矛盾
+**解决方案**：共同审查所有需求并明确解决冲突
 
-### Pitfall 5: Untestable Requirements
-**Problem**: "System should be user-friendly"
-**Solution**: "WHEN new user completes onboarding THEN system SHALL require no more than 3 clicks to reach main features"
+### 陷阱 5：不可测试的需求
+**问题**：“系统应该是用户友好的”
+**解决方案**：“WHEN 新用户完成引导流程 THEN 系统 SHALL 要求点击次数不超过 3 次即可到达主要功能”
 
-## Quality Checklist
+## 质量核查表
 
-Before moving to the design phase, verify:
+在进入设计阶段之前，请验证：
 
-**Completeness**:
-- [ ] All user roles are identified and addressed
-- [ ] Normal, edge, and error cases are covered
-- [ ] All user interactions have defined system responses
-- [ ] Business rules and constraints are captured
+**完整性**：
+- [ ] 识别并解决了所有用户角色
+- [ ] 涵盖了正常、边缘和错误情况
+- [ ] 所有用户交互都有定义的系统响应
+- [ ] 捕捉到了业务规则和约束
 
-**Clarity**:
-- [ ] Each requirement uses precise, unambiguous language
-- [ ] Technical jargon is avoided or clearly defined
-- [ ] Requirements are written from user perspective
-- [ ] Expected behaviors are specific and measurable
+**清晰度**：
+- [ ] 每项需求都使用精确、无歧义的语言
+- [ ] 避免了技术术语，或者给出了明确定义
+- [ ] 从用户视角编写需求
+- [ ] 预期行为是具体且可衡量的
 
-**Consistency**:
-- [ ] EARS format is used consistently throughout
-- [ ] Terminology is consistent across requirements
-- [ ] Requirements don't contradict each other
-- [ ] Similar scenarios are handled similarly
+**一致性**：
+- [ ] 全程一致使用 EARS 格式
+- [ ] 各项需求术语保持一致
+- [ ] 需求之间互不矛盾
+- [ ] 类似场景的处理方式一致
 
-**Testability**:
-- [ ] Each requirement can be verified through testing
-- [ ] Success criteria are observable and measurable
-- [ ] Requirements specify both inputs and expected outputs
-- [ ] Acceptance criteria are specific enough to guide test creation
+**可测试性**：
+- [ ] 每一项需求都能通过测试进行验证
+- [ ] 验收标准是可观察且可衡量的
+- [ ] 需求指定了输入和预期输出
+- [ ] 验收标准足够具体，能够指导测试创建
 
-## Troubleshooting Common Issues
+## 常见问题排查
 
-### Issue: Requirements Keep Growing
-**Symptoms**: New requirements constantly being added during review
-**Solution**: Set a scope boundary early and document out-of-scope items for future iterations
+### 问题：需求不断增长
+**症状**：评审期间不断添加新需求
+**解决方案**：尽早设定范围边界，并将范围外的内容记录下来供后续迭代参考
 
-### Issue: Stakeholder Disagreement
-**Symptoms**: Different stakeholders want conflicting functionality
-**Solution**: Facilitate discussion to understand underlying needs and find compromise solutions
+### 问题：利益相关者意见不一
+**症状**：不同的利益相关者想要冲突的功能
+**解决方案**：协助讨论以理解潜在需求，并寻找折中方案
 
-### Issue: Requirements Too Technical
-**Symptoms**: Requirements focus on implementation rather than user needs
-**Solution**: Reframe requirements from user perspective and move technical details to design phase
+### 问题：需求过于技术化
+**症状**：需求关注实施而非用户需求
+**解决方案**：从用户视角重新审视需求，并将技术细节移至设计阶段
 
-### Issue: Requirements Too Vague
-**Symptoms**: Acceptance criteria that can't be tested or measured
-**Solution**: Ask "How would we know this requirement is met?" and make criteria more specific
+### 问题：需求太模糊
+**症状**：验收标准无法测试或衡量
+**解决方案**：询问“我们如何知道这项需求已达成？”并使标准更具体
 
-## Next Steps
+## 下一步
 
-Once requirements are complete and approved:
-1. **Transition to Design Phase**: Use requirements as foundation for system design
-2. **Maintain Traceability**: Ensure design decisions map back to specific requirements
-3. **Keep Requirements Updated**: Update requirements if design reveals gaps or conflicts
-4. **Prepare for Implementation**: Requirements will guide task breakdown and testing strategy
+一旦需求完成并获得批准：
+1. **转向设计阶段**：将需求作为系统设计的基础
+2. **保持可追溯性**：确保设计决策可映射回特定需求
+3. **保持需求更新**：如果设计揭示了差距或冲突，请更新需求
+4. **准备实施**：需求将指导任务分解和测试策略
 
-The requirements phase sets the foundation for everything that follows. Taking time to get requirements right saves significant effort in design and implementation phases.
+需求阶段为后续一切工作奠定了基础。花时间把需求做对，可以节省设计和实施阶段的大量精力。
 ```
 
 # spec-process-guide/process/tasks-phase.md
 
 ```md
-# Tasks Phase Documentation
+# 任务阶段文档
 
 <!-- Navigation Metadata -->
 <!-- Phase: Tasks | Level: Detailed Guide | Prerequisites: design-phase.md -->
 <!-- Related: templates/tasks-template.md, execution/implementation-guide.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Process Guide](README.md) → **Tasks Phase**
+**📍 您当前所在位置：** [主指南](../README.md) → [流程指南](README.md) → **任务阶段**
 
-## Quick Navigation
-- **🎯 Get Started:** [Tasks Template](../templates/tasks-template.md) - Ready-to-use template
-- **📖 See Example:** [Simple Feature Tasks](../examples/simple-feature-spec.md#tasks-document) - Complete tasks example
-- **⚡ Execute Tasks:** [Implementation Guide](../execution/implementation-guide.md) - How to work through tasks
-- **🔄 Back to Start:** [Requirements Phase](requirements-phase.md) - Full workflow context
+## 快速导航
+- **🎯 开始使用：** [任务模板](../templates/tasks-template.md) - 即插即用的模板
+- **📖 查看示例：** [简单功能任务](../examples/simple-feature-spec.md#tasks-document) - 完整的任务示例
+- **⚡ 执行任务：** [实施指南](../execution/implementation-guide.md) - 如何逐步完成任务
+- **🔄 返回起点：** [需求阶段](requirements-phase.md) - 完整的工作流上下文
 
-## Phase Navigation
-- **Previous:** [Design Phase](design-phase.md) - Must be completed first
-- **Current:** **Tasks Phase** - Break down design into actionable steps
-- **Next:** [Implementation](../execution/implementation-guide.md) - Execute the tasks
-- **Context:** [Process Overview](README.md) - Three-phase workflow
+## 阶段导航
+- **上一阶段：** [设计阶段](design-phase.md) - 必须首先完成
+- **当前阶段：** **任务阶段** - 将设计分解为可操作的步骤
+- **下一阶段：** [实施](../execution/implementation-guide.md) - 执行这些任务
+- **上下文：** [流程概览](README.md) - 三阶段工作流
 
 ---
 
-## Overview
-
-The Tasks Phase is the final phase of the spec-driven development process, transforming the approved design into a structured implementation plan consisting of discrete, actionable coding tasks. This phase serves as the bridge between planning and execution, breaking down complex system designs into manageable steps that can be executed incrementally by development teams or AI coding agents.
-
-As the third phase in the Requirements → Design → Tasks workflow, the tasks phase ensures that all the careful planning and design work translates into systematic, trackable implementation progress.
-
-## Purpose and Goals
-
-The tasks phase serves to:
-- Convert design components into specific coding activities
-- Sequence tasks for optimal development flow and early validation
-- Create clear, actionable prompts for implementation
-- Establish dependencies and build order between tasks
-- Enable incremental progress with testable milestones
-- Provide a roadmap for systematic feature development
-
-## Step-by-Step Process
-
-### Step 1: Design Analysis and Task Identification
-
-**Objective**: Break down the design into implementable components
-
-**Process**:
-1. **Review Design Components**: Identify all system components that need to be built
-2. **Map to Code Artifacts**: Determine what files, classes, and functions need to be created
-3. **Identify Dependencies**: Understand what needs to be built before other components
-4. **Consider Testing Requirements**: Plan for test creation alongside implementation
-5. **Sequence for Early Validation**: Order tasks to validate core functionality quickly
-
-**Task Identification Guidelines**:
-- Focus on concrete coding activities (writing, modifying, testing code)
-- Each task should produce working, testable code
-- Tasks should build incrementally on previous work
-- Avoid tasks that can't be completed by a coding agent
-
-### Step 2: Task Structuring and Hierarchy
-
-**Task Organization Principles**:
-1. **Two-Level Maximum**: Use only top-level tasks and sub-tasks (avoid deep nesting)
-2. **Logical Grouping**: Group related tasks under meaningful categories
-3. **Sequential Dependencies**: Order tasks so each builds on previous work
-4. **Testable Increments**: Each task should result in testable functionality
-
-**Task Hierarchy Pattern**:
-\`\`\`markdown
-- [ ] 1. [Epic/Major Component]
-- [ ] 1.1 [Specific implementation task]
-  - [Task details and requirements references]
-- [ ] 1.2 [Next specific task]
-  - [Task details and requirements references]
-
-- [ ] 2. [Next Epic/Major Component]
-- [ ] 2.1 [Specific implementation task]
-  - [Task details and requirements references]
-\`\`\`
-
-### Step 3: Task Definition and Specification
-
-**Task Specification Elements**:
-1. **Clear Objective**: What specific code needs to be written or modified
-2. **Implementation Details**: Specific files, components, or functions to create
-3. **Requirements Traceability**: Reference to specific requirements being implemented
-4. **Acceptance Criteria**: How to know the task is complete
-5. **Testing Expectations**: What tests should be written or updated
-
-**Task Description Template**:
-\`\`\`markdown
-- [ ] X.Y [Task Title]
-  - [Specific implementation objective]
-  - [Files or components to create/modify]
-  - [Key functionality to implement]
-  - _Requirements: [Requirement references]_
-\`\`\`
-
-### Step 4: Dependency Management and Sequencing
-
-**Dependency Considerations**:
-1. **Foundation First**: Core interfaces and data models before dependent components
-2. **Bottom-Up Approach**: Lower-level utilities before higher-level features
-3. **Test-Driven Sequence**: Tests alongside or before implementation
-4. **Integration Points**: Plan for connecting components as they're built
-
-**Sequencing Strategies**:
-- **Core-First**: Build essential functionality before optional features
-- **Risk-First**: Tackle uncertain or complex tasks early
-- **Value-First**: Implement high-value features that can be tested quickly
-- **Dependency-Driven**: Respect technical dependencies between components
-
-### Step 5: Task Validation and Refinement
-
-**Task Quality Criteria**:
-1. **Actionable**: Can be executed by a coding agent without additional clarification
-2. **Specific**: Clear about what files, functions, or components to create
-3. **Testable**: Results in code that can be tested and validated
-4. **Incremental**: Builds on previous tasks without big complexity jumps
-5. **Complete**: Covers all aspects of the design that require implementation
-
-**Validation Questions**:
-- Can a developer start coding immediately from this task description?
-- Does this task produce working, testable code?
-- Are the requirements being implemented clearly identified?
-- Does this task build logically on previous tasks?
-- Is the scope appropriate (not too big, not too small)?
-
-## Task Categories and Patterns
-
-### Foundation Tasks
-**Purpose**: Establish core structure and interfaces
-**Examples**:
-- Set up project structure and dependencies
-- Create core data model interfaces
-- Implement base classes and utilities
-- Set up testing framework and configuration
-
-**Pattern**:
-\`\`\`markdown
-- [ ] 1. Set up project foundation
-- [ ] 1.1 Create project structure and core interfaces
-  - Set up directory structure for models, services, and utilities
-  - Define TypeScript interfaces for core data types
-  - Create base configuration files
-  - _Requirements: 1.1, 2.1_
-\`\`\`
-
-### Data Layer Tasks
-**Purpose**: Implement data models and persistence
-**Examples**:
-- Create data model classes with validation
-- Implement repository pattern for data access
-- Set up database connections and migrations
-- Write data access layer tests
-
-**Pattern**:
-\`\`\`markdown
-- [ ] 2. Implement data layer
-- [ ] 2.1 Create core data models with validation
-  - Implement User, Document, and Settings model classes
-  - Add validation methods for data integrity
-  - Write unit tests for model validation
-  - _Requirements: 2.1, 3.3_
-\`\`\`
-
-### Business Logic Tasks
-**Purpose**: Implement core feature functionality
-**Examples**:
-- Create service classes for business operations
-- Implement workflow and process logic
-- Add business rule validation
-- Write integration tests for business logic
-
-**Pattern**:
-\`\`\`markdown
-- [ ] 3. Implement business logic
-- [ ] 3.1 Create authentication service
-  - Implement user registration and login logic
-  - Add password hashing and validation
-  - Create session management functionality
-  - Write tests for authentication flows
-  - _Requirements: 1.2, 4.1_
-\`\`\`
-
-### API/Interface Tasks
-**Purpose**: Create external interfaces and endpoints
-**Examples**:
-- Implement REST API endpoints
-- Create request/response handling
-- Add input validation and error handling
-- Write API integration tests
-
-**Pattern**:
-\`\`\`markdown
-- [ ] 4. Implement API layer
-- [ ] 4.1 Create user management endpoints
-  - Implement POST /users for registration
-  - Implement POST /auth/login for authentication
-  - Add request validation and error responses
-  - Write API endpoint tests
-  - _Requirements: 1.2, 2.3_
-\`\`\`
-
-### Integration Tasks
-**Purpose**: Connect components and external systems
-**Examples**:
-- Wire up dependency injection
-- Implement external API integrations
-- Connect frontend to backend services
-- Add end-to-end integration tests
-
-**Pattern**:
-\`\`\`markdown
-- [ ] 5. Integration and wiring
-- [ ] 5.1 Connect authentication to user management
-  - Wire authentication service to user endpoints
-  - Implement middleware for protected routes
-  - Add integration tests for complete auth flow
-  - _Requirements: 1.2, 4.1_
-\`\`\`
-
-## Task Sequencing Strategies
-
-### Strategy 1: Foundation-First Approach
-**Best for**: New projects, complex systems with many interdependencies
-**Sequence**:
-\`\`\`markdown
-1. Project setup and core interfaces
-2. Data models and validation
-3. Data access layer
-4. Business logic services
-5. API endpoints
-6. Integration and wiring
-\`\`\`
-
-**Advantages**:
-- Establishes solid foundation before building features
-- Reduces rework from architectural changes
-- Clear dependency chain
-
-**Disadvantages**:
-- Longer time before visible functionality
-- Risk of over-engineering foundation
-
-### Strategy 2: Feature-Slice Approach
-**Best for**: MVP development, user-facing applications, agile development
-**Sequence**:
-\`\`\`markdown
-1. Core user registration (end-to-end)
-2. User authentication (end-to-end)
-3. User profile management (end-to-end)
-4. Advanced features and optimizations
-\`\`\`
-
-**Advantages**:
-- Early user value delivery
-- Faster feedback cycles
-- Reduced integration risk
-
-**Disadvantages**:
-- May require refactoring as features expand
-- Potential for technical debt
-
-### Strategy 3: Risk-First Approach
-**Best for**: Projects with high technical uncertainty, proof-of-concepts
-**Sequence**:
-\`\`\`markdown
-1. Most uncertain/complex components
-2. External integrations and dependencies
-3. Core business logic
-4. User interface and experience
-5. Polish and optimization
-\`\`\`
-
-**Advantages**:
-- Early validation of technical feasibility
-- Reduces project risk
-- Informs architectural decisions
-
-**Disadvantages**:
-- May not deliver user value early
-- Requires strong technical expertise
-
-### Strategy 4: Hybrid Approach
-**Best for**: Most real-world projects
-**Sequence**:
-\`\`\`markdown
-1. Minimal foundation (core interfaces, basic setup)
-2. High-risk/high-value feature slice
-3. Expand foundation as needed
-4. Additional feature slices
-5. Integration and polish
-\`\`\`
-
-**Advantages**:
-- Balances risk management with early value
-- Flexible and adaptable
-- Pragmatic approach
-
-## Advanced Dependency Management Strategies
-
-### Dependency Types and Management
-
-#### 1. Technical Dependencies
-**Definition**: Code components that must exist before others can be built
-
-**Examples**:
-- Database models before services that use them
-- Authentication middleware before protected endpoints
-- Configuration setup before feature implementation
-
-**Management Strategy**:
-\`\`\`markdown
-- [ ] 1. Core infrastructure setup
-- [ ] 1.1 Create database connection and configuration
-- [ ] 1.2 Set up authentication middleware framework
-- [ ] 1.3 Create base error handling utilities
-
-- [ ] 2. Foundation models (depends on 1.1)
-- [ ] 2.1 Create User model with database integration
-- [ ] 2.2 Create Session model with database integration
-
-- [ ] 3. Authentication services (depends on 1.2, 2.1, 2.2)
-- [ ] 3.1 Implement login service using User and Session models
-\`\`\`
-
-#### 2. Logical Dependencies
-**Definition**: Features that build conceptually on others
-
-**Examples**:
-- User profile editing requires user registration
-- Password reset requires user authentication
-- Advanced search requires basic search
-
-**Management Strategy**:
-\`\`\`markdown
-- [ ] 1. Basic user management
-- [ ] 1.1 User registration functionality
-- [ ] 1.2 User login functionality
-
-- [ ] 2. Extended user features (depends on 1.1, 1.2)
-- [ ] 2.1 User profile editing (requires existing users)
-- [ ] 2.2 Password reset (requires authentication system)
-\`\`\`
-
-#### 3. Data Dependencies
-**Definition**: Tasks that require specific data or state to exist
-
-**Examples**:
-- User dashboard requires user data
-- Reporting features require transaction data
-- Admin features require user roles
-
-**Management Strategy**:
-\`\`\`markdown
-- [ ] 1. Data foundation
-- [ ] 1.1 Create user registration and sample data
-- [ ] 1.2 Create transaction recording system
-
-- [ ] 2. Data-dependent features (depends on 1.1, 1.2)
-- [ ] 2.1 User dashboard (requires user data from 1.1)
-- [ ] 2.2 Transaction reporting (requires transaction data from 1.2)
-\`\`\`
-
-### Dependency Visualization Techniques
-
-#### Simple Dependency Chain
-\`\`\`
-Task A → Task B → Task C → Task D
-\`\`\`
-
-#### Parallel Dependencies
-\`\`\`
-Task A → Task C
-Task B → Task C
-\`\`\`
-
-#### Complex Dependency Graph
-\`\`\`
-Task A → Task C → Task E
-Task B → Task D → Task E
-Task A → Task D
-\`\`\`
-
-### Handling Circular Dependencies
-
-**Problem**: When tasks seem to depend on each other
-\`\`\`
-User Service needs Auth Service
-Auth Service needs User Service
-\`\`\`
-
-**Solutions**:
-
-1. **Interface Extraction**:
-\`\`\`markdown
-- [ ] 1.1 Create IUserService and IAuthService interfaces
-- [ ] 1.2 Implement UserService using IAuthService interface
-- [ ] 1.3 Implement AuthService using IUserService interface
-- [ ] 1.4 Wire up dependency injection
-\`\`\`
-
-2. **Layered Approach**:
-\`\`\`markdown
-- [ ] 1.1 Create User data model and basic CRUD
-- [ ] 1.2 Create Auth service using User CRUD
-- [ ] 1.3 Enhance User service with Auth integration
-\`\`\`
-
-3. **Event-Driven Decoupling**:
-\`\`\`markdown
-- [ ] 1.1 Create event system for user/auth communication
-- [ ] 1.2 Implement User service with event publishing
-- [ ] 1.3 Implement Auth service with event listening
-\`\`\`
-
-## Examples of Well-Structured Implementation Plans
-
-### Example 1: User Authentication System
-
-\`\`\`markdown
-# Implementation Plan
-
-- [ ] 1. Set up authentication foundation
-- [ ] 1.1 Create project structure and core interfaces
-  - Set up directory structure for auth, models, and API components
-  - Define TypeScript interfaces for User, Session, and AuthRequest types
-  - Create base configuration for environment variables
-  - _Requirements: 1.1_
-
-- [ ] 1.2 Set up testing framework and database
-  - Configure Jest for unit and integration testing
-  - Set up test database with Docker configuration
-  - Create database migration scripts for user tables
-  - _Requirements: 1.1, 2.1_
-
-- [ ] 2. Implement core data models
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, and profile fields
-  - Add validation methods for email format and password strength
-  - Write unit tests for User model validation
-  - _Requirements: 1.2, 2.1_
-
-- [ ] 2.2 Implement Session model and management
-  - Create Session class for tracking user sessions
-  - Implement session creation, validation, and expiration logic
-  - Write unit tests for session management
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 3. Create authentication services
-- [ ] 3.1 Implement user registration service
-  - Create UserService with registration method
-  - Add password hashing using bcrypt
-  - Implement duplicate email checking
-  - Write unit tests for registration logic
-  - _Requirements: 1.2_
-
-- [ ] 3.2 Implement login and session service
-  - Add login method with password verification
-  - Implement JWT token generation and validation
-  - Create session management with refresh tokens
-  - Write unit tests for login and session logic
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 4. Create API endpoints
-- [ ] 4.1 Implement registration endpoint
-  - Create POST /auth/register endpoint
-  - Add request validation and error handling
-  - Implement proper HTTP status codes and responses
-  - Write integration tests for registration API
-  - _Requirements: 1.2, 2.3_
-
-- [ ] 4.2 Implement login endpoint
-  - Create POST /auth/login endpoint
-  - Add authentication middleware for protected routes
-  - Implement logout functionality
-  - Write integration tests for login/logout API
-  - _Requirements: 1.2, 4.1_
-
-- [ ] 5. Integration and security hardening
-- [ ] 5.1 Add security middleware and rate limiting
-  - Implement rate limiting for auth endpoints
-  - Add CORS configuration and security headers
-  - Create middleware for JWT token validation
-  - Write security-focused integration tests
-  - _Requirements: 4.1, 2.3_
-
-- [ ] 5.2 End-to-end integration testing
-  - Create complete user registration and login flow tests
-  - Test error scenarios and edge cases
-  - Validate security measures and token handling
-  - _Requirements: 1.2, 4.1_
-\`\`\`
-
-### Example 2: Data Processing Pipeline
-
-\`\`\`markdown
-# Implementation Plan
-
-- [ ] 1. Set up data processing foundation
-- [ ] 1.1 Create core data processing interfaces
-  - Define interfaces for DataProcessor, Validator, and Transformer
-  - Set up configuration for data sources and destinations
-  - Create error handling and logging utilities
-  - _Requirements: 1.1, 3.1_
-
-- [ ] 2. Implement data validation layer
-- [ ] 2.1 Create data validation engine
-  - Implement configurable validation rules engine
-  - Add support for required fields, data types, and custom rules
-  - Create validation result reporting with detailed error messages
-  - Write unit tests for validation engine
-  - _Requirements: 2.1, 3.2_
-
-- [ ] 3. Build data transformation pipeline
-- [ ] 3.1 Implement data transformation service
-  - Create transformation pipeline with configurable steps
-  - Add support for data mapping, filtering, and enrichment
-  - Implement error handling and partial failure recovery
-  - Write unit tests for transformation logic
-  - _Requirements: 2.2, 3.1_
-
-- [ ] 4. Create data processing orchestrator
-- [ ] 4.1 Implement processing workflow engine
-  - Create orchestrator that coordinates validation and transformation
-  - Add support for batch and streaming processing modes
-  - Implement progress tracking and status reporting
-  - Write integration tests for complete processing workflows
-  - _Requirements: 1.1, 2.1, 2.2_
-\`\`\`
-
-### Example 3: E-commerce Product Management System
-
-This example demonstrates complex dependency management and multiple sequencing strategies:
-
-\`\`\`markdown
-# Implementation Plan
-
-- [ ] 1. Foundation and core infrastructure
-- [ ] 1.1 Set up project structure and core interfaces
-  - Create directory structure for models, services, repositories, and API layers
-  - Define TypeScript interfaces for Product, Category, Inventory, and Order types
-  - Set up configuration management for database, caching, and external services
-  - Configure testing framework with unit, integration, and e2e test support
-  - _Requirements: 1.1, 1.2_
-
-- [ ] 1.2 Create database schema and migrations
-  - Design and implement database schema for products, categories, and inventory
-  - Create migration scripts for initial table creation
-  - Set up database connection pooling and transaction management
-  - Write database utility functions for common operations
-  - _Requirements: 2.1, 2.2_
-
-- [ ] 2. Core data models and validation (depends on 1.1, 1.2)
-- [ ] 2.1 Implement Product model with comprehensive validation
-  - Create Product class with name, description, price, SKU, and metadata fields
-  - Add validation for required fields, price ranges, and SKU uniqueness
-  - Implement product categorization and tagging functionality
-  - Write comprehensive unit tests for all validation scenarios
-  - _Requirements: 2.1, 2.3, 3.1_
-
-- [ ] 2.2 Implement Category model with hierarchical structure
-  - Create Category class supporting parent-child relationships
-  - Add validation for category hierarchy depth and circular references
-  - Implement category path generation and breadcrumb functionality
-  - Write unit tests for hierarchy operations and edge cases
-  - _Requirements: 2.1, 3.2_
-
-- [ ] 2.3 Create Inventory model with stock tracking
-  - Implement Inventory class with stock levels, reservations, and thresholds
-  - Add validation for stock operations and negative inventory prevention
-  - Create inventory adjustment logging and audit trail functionality
-  - Write unit tests for stock operations and concurrent access scenarios
-  - _Requirements: 2.2, 4.1_
-
-- [ ] 3. Repository layer for data access (depends on 2.1, 2.2, 2.3)
-- [ ] 3.1 Implement Product repository with advanced querying
-  - Create ProductRepository with CRUD operations and complex queries
-  - Add support for filtering by category, price range, and availability
-  - Implement full-text search functionality for product names and descriptions
-  - Write integration tests for all repository operations
-  - _Requirements: 3.1, 3.3_
-
-- [ ] 3.2 Implement Category repository with hierarchy operations
-  - Create CategoryRepository with tree traversal and manipulation methods
-  - Add support for finding all descendants, ancestors, and siblings
-  - Implement category reordering and hierarchy restructuring
-  - Write integration tests for hierarchy operations
-  - _Requirements: 3.2_
-
-- [ ] 3.3 Create Inventory repository with concurrency handling
-  - Implement InventoryRepository with atomic stock operations
-  - Add support for bulk inventory updates and reservations
-  - Create inventory history tracking and reporting queries
-  - Write integration tests including concurrent access scenarios
-  - _Requirements: 4.1, 4.2_
-
-- [ ] 4. Business logic services (depends on 3.1, 3.2, 3.3)
-- [ ] 4.1 Implement Product management service
-  - Create ProductService with business logic for product lifecycle
-  - Add support for product creation, updates, and soft deletion
-  - Implement product approval workflow and status management
-  - Write unit tests for all business logic scenarios
-  - _Requirements: 2.1, 2.3, 5.1_
-
-- [ ] 4.2 Create Inventory management service
-  - Implement InventoryService with stock allocation and reservation logic
-  - Add support for automatic reorder point notifications
-  - Create inventory adjustment workflows with approval processes
-  - Write unit tests for inventory business rules
-  - _Requirements: 4.1, 4.2, 5.2_
-
-- [ ] 4.3 Implement Category management service
-  - Create CategoryService with category hierarchy management
-  - Add support for category merging, splitting, and reorganization
-  - Implement category-based product assignment and bulk operations
-  - Write unit tests for category management workflows
-  - _Requirements: 3.2, 5.1_
-
-- [ ] 5. API layer and external interfaces (depends on 4.1, 4.2, 4.3)
-- [ ] 5.1 Create Product API endpoints
-  - Implement REST endpoints for product CRUD operations
-  - Add support for product search, filtering, and pagination
-  - Create product image upload and management endpoints
-  - Write API integration tests and documentation
-  - _Requirements: 6.1, 6.2_
-
-- [ ] 5.2 Implement Inventory API endpoints
-  - Create REST endpoints for inventory queries and updates
-  - Add support for stock reservation and release operations
-  - Implement inventory reporting and analytics endpoints
-  - Write API integration tests with proper error handling
-  - _Requirements: 6.1, 4.2_
-
-- [ ] 5.3 Create Category API endpoints
-  - Implement REST endpoints for category management
-  - Add support for category tree retrieval and manipulation
-  - Create category-based product listing endpoints
-  - Write API integration tests for hierarchy operations
-  - _Requirements: 6.1, 3.2_
-
-- [ ] 6. Advanced features and integrations (depends on 5.1, 5.2, 5.3)
-- [ ] 6.1 Implement product search and recommendation engine
-  - Create search service with Elasticsearch integration
-  - Add support for faceted search, auto-complete, and typo tolerance
-  - Implement basic recommendation algorithms based on categories and popularity
-  - Write integration tests for search functionality
-  - _Requirements: 3.3, 7.1_
-
-- [ ] 6.2 Create inventory synchronization with external systems
-  - Implement service for syncing inventory with warehouse management systems
-  - Add support for real-time inventory updates via webhooks
-  - Create conflict resolution for inventory discrepancies
-  - Write integration tests with mock external systems
-  - _Requirements: 4.3, 7.2_
-
-- [ ] 6.3 Implement caching layer for performance optimization
-  - Add Redis caching for frequently accessed product and category data
-  - Implement cache invalidation strategies for data consistency
-  - Create cache warming processes for popular products
-  - Write performance tests to validate caching effectiveness
-  - _Requirements: 8.1, 8.2_
-
-- [ ] 7. End-to-end integration and testing (depends on 6.1, 6.2, 6.3)
-- [ ] 7.1 Create comprehensive end-to-end test scenarios
-  - Write e2e tests for complete product lifecycle workflows
-  - Test inventory management scenarios including edge cases
-  - Validate category management and product assignment flows
-  - Create performance tests for high-load scenarios
-  - _Requirements: 5.1, 5.2, 6.1, 6.2_
-
-- [ ] 7.2 Implement monitoring and observability
-  - Add application metrics and health check endpoints
-  - Implement structured logging for all business operations
-  - Create alerting for critical inventory and system events
-  - Write tests for monitoring and alerting functionality
-  - _Requirements: 8.3, 8.4_
-\`\`\`
-
-**Key Features of This Example**:
-
-1. **Clear Dependency Chain**: Each major section builds on previous work
-2. **Parallel Development Opportunities**: Tasks 2.1, 2.2, 2.3 can be worked on simultaneously after 1.x is complete
-3. **Risk Management**: Core functionality (models, repositories) before advanced features
-4. **Incremental Value**: Each completed section provides working, testable functionality
-5. **Comprehensive Testing**: Unit, integration, and e2e tests throughout
-6. **Real-world Complexity**: Handles concurrency, external integrations, and performance concerns
-
-## Task Writing Best Practices
-
-### Writing Effective Task Descriptions
-
-**Good Task Example**:
-\`\`\`markdown
-- [ ] 2.1 Create User model with validation
-  - Implement User class with email, password, name, and createdAt fields
-  - Add validation methods for email format (RFC 5322) and password strength (8+ chars, mixed case, numbers)
-  - Create unit tests covering valid/invalid email formats and password requirements
-  - _Requirements: 1.2, 2.1_
-\`\`\`
-
-**Poor Task Example**:
-\`\`\`markdown
-- [ ] 2.1 Build user stuff
-  - Make user things work
-  - Add some validation
-  - _Requirements: 1.2_
-\`\`\`
-
-### Task Scope Guidelines
-
-**Appropriate Task Scope**:
-- Can be completed in 1-4 hours of focused work
-- Produces working, testable code
-- Has clear completion criteria
-- Builds incrementally on previous tasks
-
-**Too Large**:
-\`\`\`markdown
-- [ ] 1.1 Implement complete user management system
-\`\`\`
-
-**Too Small**:
-\`\`\`markdown
-- [ ] 1.1 Add semicolon to line 42
-\`\`\`
-
-**Just Right**:
-\`\`\`markdown
-- [ ] 1.1 Create User model with validation methods
-\`\`\`
-
-### Requirements Traceability
-
-**Always Include**:
-- Reference to specific requirements being implemented
-- Clear connection between task and user value
-- Traceability for testing and validation
-
-**Example**:
-\`\`\`markdown
-- [ ] 3.2 Implement password reset functionality
-  - Create password reset request endpoint
-  - Add email sending for reset tokens
-  - Implement secure token validation
-  - _Requirements: 1.3, 4.2_
-\`\`\`
-
-## Common Task Planning Pitfalls
-
-### Pitfall 1: Tasks Too Abstract
-**Problem**: "Implement user management"
-**Solution**: "Create User model with email validation and password hashing"
-
-### Pitfall 2: Missing Dependencies
-**Problem**: Tasks that can't be completed because prerequisites aren't built
-**Solution**: Sequence tasks so each builds on completed work
-
-### Pitfall 3: Non-Coding Tasks
-**Problem**: "Deploy to production", "Get user feedback"
-**Solution**: Focus only on coding, testing, and implementation activities
-
-### Pitfall 4: Monolithic Tasks
-**Problem**: Tasks that try to implement entire features at once
-**Solution**: Break down into smaller, incremental steps
-
-### Pitfall 5: Missing Test Tasks
-**Problem**: Only implementation tasks without corresponding tests
-**Solution**: Include test creation as part of each implementation task
-
-## Quality Checklist
-
-Before finalizing the task list, verify:
-
-**Completeness**:
-- [ ] All design components are covered by implementation tasks
-- [ ] All requirements are addressed by one or more tasks
-- [ ] Testing tasks are included for all major functionality
-- [ ] Integration tasks connect all components
-
-**Clarity**:
-- [ ] Each task has a clear, specific objective
-- [ ] Task descriptions specify what files/components to create
-- [ ] Requirements references are included for each task
-- [ ] Completion criteria are implicit or explicit
-
-**Sequencing**:
-- [ ] Tasks are ordered to respect dependencies
-- [ ] Early tasks establish foundation for later work
-- [ ] Core functionality is implemented before optional features
-- [ ] Integration tasks come after component implementation
-
-**Feasibility**:
-- [ ] Each task is appropriately scoped for implementation
-- [ ] Tasks can be completed by a coding agent
-- [ ] No tasks require external dependencies or manual processes
-- [ ] Task complexity increases gradually
-
-## Troubleshooting Task Planning Issues
-
-### Issue: Tasks Are Too Vague
-**Symptoms**: Developers can't start coding from task descriptions
-**Solution**: Add more specific implementation details and file/component names
-
-### Issue: Task Dependencies Are Unclear
-**Symptoms**: Tasks can't be completed because prerequisites are missing
-**Solution**: Review task sequence and add missing foundation tasks
-
-### Issue: Tasks Don't Map to Requirements
-**Symptoms**: Difficulty tracing tasks back to user value
-**Solution**: Add requirement references and validate coverage
-
-### Issue: Task List Is Overwhelming
-**Symptoms**: Too many tasks, unclear priorities
-**Solution**: Group related tasks and focus on core functionality first
-
-## Task Execution Guidance
-
-### Preparing for Implementation
-
-Before beginning task execution, ensure you have:
-
-**Context Preparation**:
-- [ ] Requirements document accessible and understood
-- [ ] Design document reviewed and internalized
-- [ ] Development environment set up and tested
-- [ ] Testing framework configured and ready
-- [ ] Version control system initialized
-
-**Task Selection Strategy**:
-1. **Start with Foundation Tasks**: Always begin with setup and core interface tasks
-2. **Follow Dependencies**: Don't skip ahead to tasks that depend on incomplete work
-3. **One Task at a Time**: Focus completely on a single task before moving to the next
-4. **Validate Before Proceeding**: Ensure each task is fully complete and tested
-
-### Step-by-Step Task Execution Process
-
-#### Phase 1: Task Analysis
-**Before starting any task**:
-1. **Read Task Details Thoroughly**: Understand exactly what needs to be implemented
-2. **Review Requirements References**: Understand the user value being delivered
-3. **Check Dependencies**: Ensure all prerequisite tasks are complete
-4. **Plan Implementation Approach**: Decide on specific technical approach
-5. **Identify Success Criteria**: Know how you'll validate completion
-
-#### Phase 2: Implementation
-**During task execution**:
-1. **Update Task Status**: Mark task as "in progress" before starting
-2. **Create Tests First** (when applicable): Write failing tests that define success
-3. **Implement Incrementally**: Build functionality step by step
-4. **Test Continuously**: Validate each piece as you build it
-5. **Document as You Go**: Add comments and documentation inline
-
-#### Phase 3: Validation and Completion
-**Before marking task complete**:
-1. **Run All Tests**: Ensure new and existing tests pass
-2. **Review Against Requirements**: Verify the task delivers required functionality
-3. **Check Integration**: Ensure new code works with existing components
-4. **Code Quality Review**: Check for maintainability and best practices
-5. **Update Task Status**: Mark as complete only when fully validated
-
-### Task Execution Best Practices
-
-#### Working with AI Coding Agents
-
-**Effective Prompting for Task Execution**:
-\`\`\`
-I need to implement task [X.Y] from the spec. Here's the context:
-
-Requirements: [Reference specific requirements]
-Design Context: [Key design decisions that affect this task]
-Task Details: [Copy task description and details]
-Dependencies: [What previous tasks this builds on]
-
-Please implement this task following the specified approach and include appropriate tests.
-\`\`\`
-
-**Iterative Development Approach**:
-1. **Start Simple**: Implement basic functionality first
-2. **Add Complexity Gradually**: Build up features incrementally
-3. **Test Each Addition**: Validate every change before proceeding
-4. **Refactor When Needed**: Improve code quality as you go
-
-#### Managing Task Dependencies
-
-**Dependency Validation Checklist**:
-- [ ] All prerequisite tasks are marked complete
-- [ ] Required interfaces and types are available
-- [ ] Necessary configuration is in place
-- [ ] Test infrastructure is ready
-
-**Handling Blocked Tasks**:
-1. **Identify Missing Dependencies**: What specifically is blocking progress?
-2. **Check Task Sequence**: Are tasks ordered correctly?
-3. **Create Missing Foundation**: Implement minimal prerequisites if needed
-4. **Update Task Plan**: Adjust sequence if dependencies were missed
-
-### Quality Assurance During Execution
-
-#### Testing Strategy for Each Task
-
-**Unit Testing**:
-- Write tests for individual functions and methods
-- Test both happy path and error conditions
-- Aim for high code coverage on new functionality
-- Use descriptive test names that explain behavior
-
-**Integration Testing**:
-- Test how new components work with existing code
-- Validate data flow between components
-- Test error handling across component boundaries
-- Verify configuration and setup work correctly
-
-**Validation Testing**:
-- Test against original requirements
-- Verify user-facing functionality works as expected
-- Test edge cases and boundary conditions
-- Validate performance meets expectations
-
-#### Code Quality Standards
-
-**During Implementation**:
-- Follow consistent coding style and conventions
-- Add meaningful comments for complex logic
-- Use descriptive variable and function names
-- Keep functions focused and single-purpose
-- Handle errors appropriately
-
-**Before Task Completion**:
-- Remove debugging code and console logs
-- Ensure proper error handling is in place
-- Verify no security vulnerabilities introduced
-- Check for performance implications
-- Validate accessibility requirements met
-
-### Troubleshooting Common Execution Issues
-
-#### Issue: Task Requirements Are Unclear
-**Symptoms**: Can't determine what exactly to implement
-**Solutions**:
-- Review the original requirements document for context
-- Check the design document for implementation guidance
-- Look at related tasks for patterns and consistency
-- Break down the task into smaller, clearer sub-steps
-
-#### Issue: Dependencies Are Missing
-**Symptoms**: Can't complete task due to missing prerequisites
-**Solutions**:
-- Review previous tasks to ensure they're truly complete
-- Identify minimal implementation needed to unblock progress
-- Consider if task sequence needs adjustment
-- Implement temporary stubs if necessary
-
-#### Issue: Tests Are Failing
-**Symptoms**: New or existing tests break during implementation
-**Solutions**:
-- Understand why tests are failing before fixing them
-- Ensure new functionality doesn't break existing behavior
-- Update tests if requirements have legitimately changed
-- Add new tests to cover edge cases discovered
-
-#### Issue: Task Scope Creep
-**Symptoms**: Implementation becomes much larger than expected
-**Solutions**:
-- Review original task scope and stick to it
-- Identify what can be deferred to later tasks
-- Break large tasks into smaller, manageable pieces
-- Focus on minimum viable implementation first
-
-### Progress Tracking and Communication
-
-#### Task Status Management
-
-**Status Definitions**:
-- **Not Started**: Task hasn't been begun
-- **In Progress**: Actively working on implementation
-- **Blocked**: Cannot proceed due to dependencies or issues
-- **Review**: Implementation complete, awaiting validation
-- **Complete**: Fully implemented, tested, and validated
-
-**Status Update Guidelines**:
-- Update status when beginning work on a task
-- Add comments when tasks are blocked or delayed
-- Mark complete only when all acceptance criteria are met
-- Include brief notes about implementation decisions
-
-#### Documentation During Execution
-
-**Implementation Notes**:
-- Record key technical decisions made during implementation
-- Document any deviations from original task plan
-- Note any issues encountered and how they were resolved
-- Update design documentation if implementation reveals gaps
-
-**Knowledge Transfer**:
-- Write clear commit messages explaining changes
-- Add inline documentation for complex logic
-- Update README files with new setup or usage instructions
-- Create examples or demos for new functionality
-
-### Adapting the Process
-
-#### Customizing for Different Project Types
-
-**Small Projects**:
-- Combine related tasks for efficiency
-- Focus on essential functionality first
-- Use simpler testing strategies
-- Prioritize working software over extensive documentation
-
-**Large Projects**:
-- Maintain strict task boundaries
-- Implement comprehensive testing at each step
-- Focus on maintainability and extensibility
-- Document architectural decisions thoroughly
-
-**Team Projects**:
-- Coordinate task assignments to avoid conflicts
-- Establish code review processes
-- Use consistent coding standards across team
-- Communicate progress and blockers regularly
-
-#### Handling Implementation Challenges
-
-**When Tasks Take Longer Than Expected**:
-1. Assess if scope has grown beyond original intent
-2. Identify if additional sub-tasks are needed
-3. Consider if task should be split into smaller pieces
-4. Update estimates for remaining tasks based on learnings
-
-**When Requirements Change During Implementation**:
-1. Stop current work and assess impact
-2. Update requirements and design documents first
-3. Revise affected tasks in the implementation plan
-4. Communicate changes to stakeholders
-5. Resume implementation with updated context
-
-**When Technical Blockers Arise**:
-1. Document the specific technical challenge
-2. Research potential solutions and alternatives
-3. Consider if design needs to be adjusted
-4. Implement minimal viable solution to maintain progress
-5. Plan for optimization in later tasks if needed
-
-## Integration with Spec-Driven Development Workflow
-
-### Connection to Previous Phases
-
-**From Requirements Phase**:
-- Each task should trace back to specific requirements
-- User value should be clear for every implementation task
-- Acceptance criteria inform task completion validation
-
-**From Design Phase**:
-- Task structure follows architectural decisions
-- Implementation approach aligns with design patterns
-- Component boundaries respect design interfaces
-
-### Feedback to Earlier Phases
-
-**When Implementation Reveals Issues**:
-- Update design document if architecture needs adjustment
-- Clarify requirements if user needs are misunderstood
-- Revise task plan if dependencies were missed
-
-**Continuous Improvement**:
-- Document lessons learned during implementation
-- Update task planning process based on execution experience
-- Refine estimation accuracy for future projects
-
-## Next Steps
-
-Once tasks are complete and approved:
-1. **Begin Implementation**: Start executing tasks in sequence using the guidance above
-2. **Track Progress**: Update task status as work is completed
-3. **Maintain Quality**: Follow testing and validation practices throughout
-4. **Stay Flexible**: Adjust tasks if implementation reveals issues
-5. **Validate Against Requirements**: Ensure completed tasks satisfy original requirements
-6. **Document Learnings**: Capture insights for future spec-driven development
-
-The tasks phase provides the roadmap for systematic implementation, breaking down complex designs into manageable, actionable steps that lead to successful feature delivery. With proper execution guidance, teams can maintain quality and momentum throughout the implementation process.
+## 概览
+
+任务阶段是规范驱动开发流程的最后一个阶段，它将获批的设计转化为结构化的实施计划，由离散的、可操作的编码任务组成。这一阶段作为规划与执行之间的桥梁，将复杂的系统设计分解为可管理的步骤，可供开发团队或 AI 编码智能体增量执行。
+
+作为“需求 → 设计 → 任务”工作流的第三阶段，任务阶段确保所有周密的规划和设计工作都能转化为系统性的、可追踪的实施进度。
+
+## 目的与目标
+
+任务阶段的作用包括：
+- 将设计组件转化为具体的编码活动
+- 为优化开发流程和早期验证设定任务序列
+- 为实施创建清晰、可操作的提示词（prompts）
+- 确立任务间的依赖关系和构建顺序
+- 通过可测试的里程碑实现增量进度
+- 为系统性的功能开发提供线路图
+
+## 逐步流程
+
+### 步骤 1：设计分析与任务识别
+
+**目标**：将设计分解为可实施的组件
+
+**流程**：
+1. **审查设计组件**：识别所有需要构建的系统组件
+2. **映射到代码产物**：确定需要创建哪些文件、类和函数
+3. **识别依赖关系**：了解哪些组件需要在其他组件之前构建
+4. **考虑测试需求**：规划在实施的同时创建测试
+5. **为早期验证排序**：对任务进行排序，以便快速验证核心功能
+
+**任务识别指南**：
+- 专注于具体的编码活动（编写、修改、测试代码）
+- 每个任务都应产出可运行、可测试的代码
+- 任务应在之前工作的基础上增量构建
+- 避免 AI 编码智能体无法独立完成的任务
+
+### 步骤 2：任务结构化与层级
+
+**任务组织原则**：
+1. **最多两层**：仅使用一级任务和二级子任务（避免深度嵌套）
+2. **逻辑分组**：将相关任务归类在有意义的类别下
+3. **顺序依赖**：对任务进行排序，使每个任务都建立在之前工作的基础上
+4. **可测试的增量**：每个任务都应产出可测试的功能
+
+**任务层级模式**：
+```markdown
+- [ ] 1. [史诗级/主要组件]
+- [ ] 1.1 [具体的实施任务]
+  - [任务详情和需求参考]
+- [ ] 1.2 [下一个具体任务]
+  - [任务详情 and 需求参考]
+
+- [ ] 2. [下一个史诗级/主要组件]
+- [ ] 2.1 [具体的实施任务]
+  - [任务详情和需求参考]
+```
+
+### 步骤 3：任务定义与规范
+
+**任务规范元素**：
+1. **清晰的目标**：需要编写或修改哪些具体代码
+2. **实施详情**：要创建的具体文件、组件或函数
+3. **需求可追溯性**：参考正在实施的具体需求
+4. **验收标准**：如何知道任务已完成
+5. **测试预期**：应该编写或更新哪些测试
+
+**任务描述模板**：
+```markdown
+- [ ] X.Y [任务标题]
+  - [具体的实施目标]
+  - [要创建/修改的文件或组件]
+  - [要实现的关键功能]
+  - _需求：[需求参考]_
+```
+
+### 步骤 4：依赖管理与排序
+
+**依赖考虑因素**：
+1. **基础先行**：在依赖组件之前先完成核心接口和数据模型
+2. **自底向上方法**：在高级功能之前先完成低级工具类
+3. **测试驱动序列**：测试与实施同步进行或先行进行
+4. **集成点**：规划组件构建时的连接方式
+
+**排序策略**：
+- **核心优先**：在可选功能之前构建核心功能
+- **风险优先**：及早处理不确定或复杂的任务
+- **价值优先**：实施能够快速测试的高价值功能
+- **依赖驱动**：尊重组件之间的技术依赖关系
+
+### 步骤 5：任务验证与细化
+
+**任务质量标准**：
+1. **可操作性**：AI 编码智能体无需额外澄清即可执行
+2. **具体性**：明确要创建哪些文件、函数或组件
+3. **可测试性**：产出可被测试和验证的代码
+4. **增量性**：在之前任务基础上构建，没有大幅的复杂度跳跃
+5. **完整性**：涵盖了设计中所有需要实施的方面
+
+**验证问题**：
+- 开发人员能否立即根据此任务描述开始编码？
+- 此任务是否产出可运行、可测试的代码？
+- 正在实施的需求是否被清晰识别？
+- 此任务是否逻辑严密地建立在之前任务的基础上？
+- 范围是否合适（既不太大，也不太小）？
+
+## 任务类别与模式
+
+### 基础任务
+**目的**：建立核心结构和接口
+**示例**：
+- 设置项目结构和依赖
+- 创建核心数据模型接口
+- 实施基类和工具类
+- 设置测试框架和配置
+
+**模式**：
+```markdown
+- [ ] 1. 建立项目基础
+- [ ] 1.1 创建项目结构和核心接口
+  - 设置模型、服务和工具类的目录结构
+  - 为核心数据类型定义 TypeScript 接口
+  - 创建基础配置文件
+  - _需求：1.1, 2.1_
+```
+
+### 数据层任务
+**目的**：实施数据模型和持久化
+**示例**：
+- 创建带有验证逻辑的数据模型类
+- 为数据访问实施存储库模式（Repository Pattern）
+- 设置数据库连接和迁移
+- 编写数据访问层测试
+
+**模式**：
+```markdown
+- [ ] 2. 实施数据层
+- [ ] 2.1 创建带有验证的核心数据模型
+  - 实施 User、Document 和 Settings 模型类
+  - 添加用于数据完整性的验证方法
+  - 为模型验证编写单元测试
+  - _需求：2.1, 3.3_
+```
+
+### 业务逻辑任务
+**目的**：实施核心功能逻辑
+**示例**：
+- 为业务操作创建服务类
+- 实施工作流和流程逻辑
+- 添加业务规则验证
+- 为业务逻辑编写集成测试
+
+**模式**：
+```markdown
+- [ ] 3. 实施业务逻辑
+- [ ] 3.1 创建身份验证服务
+  - 实施用户注册和登录逻辑
+  - 添加密码哈希和验证
+  - 创建会话管理功能
+  - 为身份验证流编写测试
+  - _需求：1.2, 4.1_
+```
+
+### API/接口任务
+**目的**：创建外部接口和端点
+**示例**：
+- 实施 REST API 端点
+- 创建请求/响应处理逻辑
+- 添加输入验证和错误处理
+- 编写 API 集成测试
+
+**模式**：
+```markdown
+- [ ] 4. 实施 API 层
+- [ ] 4.1 创建用户管理端点
+  - 实施用于注册的 POST /users
+  - 实施用于身份验证的 POST /auth/login
+  - 添加请求验证和错误响应
+  - 编写 API 端点测试
+  - _需求：1.2, 2.3_
+```
+
+### 集成任务
+**目的**：连接各组件和外部系统
+**示例**：
+- 编写依赖注入逻辑
+- 实施外部 API 集成
+- 将前端连接到后端服务
+- 添加端到端集成测试
+
+**模式**：
+```markdown
+- [ ] 5. 集成与连接
+- [ ] 5.1 将身份验证连接到用户管理
+  - 将身份验证服务连接到用户端点
+  - 为受保护路由实施中间件
+  - 为完整的身份验证流添加集成测试
+  - _需求：1.2, 4.1_
+```
+
+## 任务排序策略
+
+### 策略 1：基础先行法
+**最适用于**：新项目、具有多重相互依赖关系的复杂系统
+**序列**：
+```markdown
+1. 项目设置和核心接口
+2. 数据模型和验证
+3. 数据访问层
+4. 业务逻辑服务
+5. API 端点
+6. 集成与连接
+```
+
+**优点**：
+- 在构建功能之前建立坚实的基础
+- 减少由于架构更改导致的重工
+- 依赖链条清晰
+
+**缺点**：
+- 看到可见功能的时间较长
+- 存在过度设计基础架构的风险
+
+### 策略 2：功能切片法
+**最适用于**：MVP 开发、面向用户的应用程序、敏捷开发
+**序列**：
+```markdown
+1. 核心用户注册（端到端）
+2. 用户身份验证（端到端）
+3. 用户个人资料管理（端到端）
+4. 高级功能和优化
+```
+
+**优点**：
+- 较早交付用户价值
+- 反馈周期更快
+- 降低集成风险
+
+**缺点**：
+- 随着功能扩展可能需要重构
+- 潜在的技术债
+
+### 策略 3：风险优先法
+**最适用于**：技术不确定性较高的项目、概念验证（PoC）
+**序列**：
+```markdown
+1. 最不确定/最复杂的组件
+2. 外部集成和依赖
+3. 核心业务逻辑
+4. 用户界面和体验
+5. 润色和优化
+```
+
+**优点**：
+- 早期验证技术可行性
+- 降低项目风险
+- 为架构决策提供参考
+
+**缺点**：
+- 可能无法早期交付用户价值
+- 需要较强的技术专长
+
+### 策略 4：混合法
+**最适用于**：大多数现实世界的项目
+**序列**：
+```markdown
+1. 最小化基础（核心接口、基本设置）
+2. 高风险/高价值的功能切片
+3. 根据需要扩展基础
+4. 其他功能切片
+5. 集成与润色
+```
+
+**优点**：
+- 平衡了风险管理与早期价值交付
+- 灵活且适应性强
+- 务实的方法
+```
+## 高级依赖管理策略
+
+### 依赖类型与管理
+
+#### 1. 技术依赖
+**定义**：必须先存在的代码组件，然后才能构建其他组件。
+
+**示例**：
+- 在使用数据库模型的服务之前，先建立数据库模型
+- 在受保护的端点之前，先建立身份验证中间件
+- 在功能实现之前，先完成配置设置
+
+**管理策略**：
+```markdown
+- [ ] 1. 核心基础设施设置
+- [ ] 1.1 创建数据库连接与配置
+- [ ] 1.2 建立身份验证中间件框架
+- [ ] 1.3 创建基础错误处理工具函数
+
+- [ ] 2. 基础模型（依赖于 1.1）
+- [ ] 2.1 创建带有数据库集成的 User 模型
+- [ ] 2.2 创建带有数据库集成的 Session 模型
+
+- [ ] 3. 身份验证服务（依赖于 1.2, 2.1, 2.2）
+- [ ] 3.1 使用 User 和 Session 模型实施登录服务
+```
+
+#### 2. 逻辑依赖
+**定义**：在概念上建立在其他功能之上的功能。
+
+**示例**：
+- 用户资料编辑需要用户注册
+- 密码重置需要用户身份验证系统
+- 高级搜索需要基础搜索功能
+
+**管理策略**：
+```markdown
+- [ ] 1. 基础用户管理
+- [ ] 1.1 用户注册功能
+- [ ] 1.2 用户登录功能
+
+- [ ] 2. 扩展用户功能（依赖于 1.1, 1.2）
+- [ ] 2.1 用户资料编辑（需要现有用户）
+- [ ] 2.2 密码重置（需要身份验证系统）
+```
+
+#### 3. 数据依赖
+**定义**：需要特定数据或状态才能执行的任务。
+
+**示例**：
+- 用户仪表板需要用户数据
+- 报告功能需要交易数据
+- 管理功能需要用户角色
+
+**管理策略**：
+```markdown
+- [ ] 1. 数据基础
+- [ ] 1.1 创建用户注册与样本数据
+- [ ] 1.2 创建交易记录系统
+
+- [ ] 2. 数据依赖功能（依赖于 1.1, 1.2）
+- [ ] 2.1 用户仪表板（需要来自 1.1 的用户数据）
+- [ ] 2.2 交易报告（需要来自 1.2 的交易数据）
+```
+
+### 依赖可视化技术
+
+#### 简单依赖链
+```
+任务 A → 任务 B → 任务 C → 任务 D
+```
+
+#### 并行依赖
+```
+任务 A → 任务 C
+任务 B → 任务 C
+```
+
+#### 复杂依赖图
+```
+任务 A → 任务 C → 任务 E
+任务 B → 任务 D → 任务 E
+任务 A → 任务 D
+```
+
+### 处理循环依赖
+
+**问题**：当任务似乎相互依赖时
+```
+User Service 需要 Auth Service
+Auth Service 需要 User Service
+```
+
+**解决方案**：
+
+1. **接口提取**：
+```markdown
+- [ ] 1.1 创建 IUserService 和 IAuthService 接口
+- [ ] 1.2 使用 IAuthService 接口实施 UserService
+- [ ] 1.3 使用 IUserService 接口实施 AuthService
+- [ ] 1.4 配置依赖注入
+```
+
+2. **分层方法**：
+```markdown
+- [ ] 1.1 创建 User 数据模型和基础 CRUD
+- [ ] 1.2 使用 User CRUD 创建 Auth 服务
+- [ ] 1.3 通过 Auth 集成增强 User 服务
+```
+
+3. **事件驱动解耦**：
+```markdown
+- [ ] 1.1 为 User/Auth 通信创建事件系统
+- [ ] 1.2 实施带有事件发布功能的 User 服务
+- [ ] 1.3 实施带有事件监听功能的 Auth 服务
+```
+
+## 结构良好的实施计划示例
+
+### 示例 1：用户身份验证系统
+
+```markdown
+# 实施计划
+
+- [ ] 1. 建立身份验证基础
+- [ ] 1.1 创建项目结构与核心接口
+  - 为身份验证、模型和 API 组件设置目录结构
+  - 为 User, Session, 和 AuthRequest 类型定义 TypeScript 接口
+  - 为环境变量创建基础配置
+  - _需求：1.1_
+
+- [ ] 1.2 设置测试框架与数据库
+  - 配置 Jest 用于单元测试和集成测试
+  - 使用 Docker 配置设置测试数据库
+  - 为用户表创建数据库迁移脚本
+  - _需求：1.1, 2.1_
+
+- [ ] 2. 实施核心数据模型
+- [ ] 2.1 创建带有验证的 User 模型
+  - 实施包含 email, password 和 profile 字段的 User 类
+  - 添加针对电子邮件格式和密码强度的验证方法
+  - 为 User 模型验证编写单元测试
+  - _需求：1.2, 2.1_
+
+- [ ] 2.2 实施 Session 模型与管理
+  - 创建用于跟踪用户会话的 Session 类
+  - 实施会话创建、验证和过期逻辑
+  - 为会话管理编写单元测试
+  - _需求：1.2, 4.1_
+
+- [ ] 3. 创建身份验证服务
+- [ ] 3.1 实施用户注册服务
+  - 创建带有注册方法的 UserService
+  - 使用 bcrypt 添加密码哈希
+  - 实施重复电子邮件检查
+  - 为注册逻辑编写单元测试
+  - _需求：1.2_
+
+- [ ] 3.2 实施登录与会话服务
+  - 添加带有密码说明的登录方法
+  - 实施 JWT 令牌生成与验证
+  - 创建带有刷新令牌的会话管理
+  - 为登录与会话逻辑编写单元测试
+  - _需求：1.2, 4.1_
+
+- [ ] 4. 创建 API 端点
+- [ ] 4.1 实施注册端点
+  - 创建 POST /auth/register 端点
+  - 添加请求验证和错误处理
+  - 实施正确的 HTTP 状态码和响应
+  - 为注册 API 编写集成测试
+  - _需求：1.2, 2.3_
+
+- [ ] 4.2 实施登录端点
+  - 创建 POST /auth/login 端点
+  - 为受保护路由添加身份验证中间件
+  - 实施注销功能
+  - 为登录/注销 API 编写集成测试
+  - _需求：1.2, 4.1_
+
+- [ ] 5. 集成与安全加固
+- [ ] 5.1 添加安全中间件与速率限制
+  - 为身份验证端点实施速率限制
+  - 添加 CORS 配置和安全标头
+  - 创建用于 JWT 令牌验证的中间件
+  - 编写以安全为重点的集成测试
+  - _需求：4.1, 2.3_
+
+- [ ] 5.2 端到端集成测试
+  - 创建完整的用户注册和登录流测试
+  - 测试错误场景和边缘情况
+  - 验证安全措施和令牌处理
+  - _需求：1.2, 4.1_
+```
+
+### 示例 2：数据处理管道
+
+```markdown
+# 实施计划
+
+- [ ] 1. 建立数据处理基础
+- [ ] 1.1 创建核心数据处理接口
+  - 定义 DataProcessor, Validator, 和 Transformer 接口
+  - 设置数据源和目的地的配置
+  - 创建错误处理和日志记录工具函数
+  - _需求：1.1, 3.1_
+
+- [ ] 2. 实施数据验证层
+- [ ] 2.1 创建数据验证引擎
+  - 实施可配置的验证规则引擎
+  - 添加对必填字段、数据类型和自定义规则的支持
+  - 创建带有详细错误消息的验证结果报告
+  - 为验证引擎编写单元测试
+  - _需求：2.1, 3.2_
+
+- [ ] 3. 构建数据转换管道
+- [ ] 3.1 实施数据转换服务
+  - 创建带有可配置步骤的转换管道
+  - 添加对数据映射、过滤和增强的支持
+  - 实施错误处理和部分失败恢复
+  - 为转换逻辑编写单元测试
+  - _需求：2.2, 3.1_
+
+- [ ] 4. 创建数据处理编排器
+- [ ] 4.1 实施处理工作流引擎
+  - 创建负责协调验证和转换的编排器
+  - 添加对批处理和流处理模式的支持
+  - 实施进度跟踪和状态报告
+  - 为完整的处理工作流编写集成测试
+  - _需求：1.1, 2.1, 2.2_
+```
+
+### 示例 3：电商产品管理系统
+
+此示例演示了复杂的依赖管理和多种排序策略：
+
+```markdown
+# 实施计划
+
+- [ ] 1. 基础与核心基础设施
+- [ ] 1.1 设置项目结构与核心接口
+  - 为模型、服务、存储库和 API 层创建目录结构
+  - 为 Product, Category, Inventory, 和 Order 类型定义 TypeScript 接口
+  - 为数据库、缓存和外部服务设置配置管理
+  - 为单元测试、集成测试和 e2e 测试配置测试框架
+  - _需求：1.1, 1.2_
+
+- [ ] 1.2 创建数据库架构与迁移
+  - 为产品、类别和库存设计并实施数据库架构
+  - 为初始表创建编写迁移脚本
+  - 设置数据库连接池和事务管理
+  - 为常见操作编写数据库工具函数
+  - _需求：2.1, 2.2_
+
+- [ ] 2. 核心数据模型与验证（依赖于 1.1, 1.2）
+- [ ] 2.1 实施带有全面验证的 Product 模型
+  - 创建包含 name, description, price, SKU 和 metadata 字段的 Product 类
+  - 为必填字段、价格范围和 SKU 唯一性添加验证
+  - 实施产品分类和标签功能
+  - 为所有验证场景编写全面的单元测试
+  - _需求：2.1, 2.3, 3.1_
+
+- [ ] 2.2 实施带有分层结构的 Category 模型
+  - 创建支持父子关系的 Category 类
+  - 为类别层次深度和循环引用添加验证
+  - 实施类别路径生成和面包屑导航功能
+  - 为层次结构操作和边缘情况编写单元测试
+  - _需求：2.1, 3.2_
+
+- [ ] 2.3 创建带有库存跟踪的 Inventory 模型
+  - 实施包含库存水平、预留和阈值的 Inventory 类
+  - 为库存操作和防止负库存添加验证
+  - 创建库存调整日志和审计追踪功能
+  - 为库存操作和并发访问场景编写单元测试
+  - _需求：2.2, 4.1_
+
+- [ ] 3. 用于数据访问的存储库层（依赖于 2.1, 2.2, 2.3）
+- [ ] 3.1 实施带有高级查询功能的 Product 存储库
+  - 创建包含 CRUD 操作和复杂查询的 ProductRepository
+  - 添加按类别、价格范围和可用性过滤的支持
+  - 为产品名称和描述实施全文搜索功能
+  - 为所有存储库操作编写集成测试
+  - _需求：3.1, 3.3_
+
+- [ ] 3.2 实施带有层次结构操作的 Category 存储库
+  - 创建带有树遍历和操作方法的 CategoryRepository
+  - 添加查找所有后代、祖先和兄弟节点的支持
+  - 实施类别重新排序和层次结构重构
+  - 为层次结构操作编写集成测试
+  - _需求：3.2_
+
+- [ ] 3.3 创建带有并发处理功能的 Inventory 存储库
+  - 实施带有原子化库存操作的 InventoryRepository
+  - 添加对批量库存更新和预留的支持
+  - 创建库存历史跟踪和报告查询
+  - 编写集成测试，包括并发访问场景
+  - _需求：4.1, 4.2_
+
+- [ ] 4. 业务逻辑服务（依赖于 3.1, 3.2, 3.3）
+- [ ] 4.1 实施产品管理服务
+  - 创建包含产品生命周期业务逻辑的 ProductService
+  - 添加对产品创建、更新和软删除的支持
+  - 实施产品审批工作流和状态管理
+  - 为所有业务逻辑场景编写单元测试
+  - _需求：2.1, 2.3, 5.1_
+
+- [ ] 4.2 创建库存管理服务
+  - 实施包含库存分配和预留逻辑的 InventoryService
+  - 添加自动补货点通知的支持
+  - 创建带有审批流程的库存调整工作流
+  - 为库存业务规则编写单元测试
+  - _需求：4.1, 4.2, 5.2_
+
+- [ ] 4.3 实施类别管理服务
+  - 创建包含类别层次结构管理的 CategoryService
+  - 添加对类别合并、拆分和重组的支持
+  - 实施基于类别的产品分配和批量操作
+  - 为类别管理工作流编写单元测试
+  - _需求：3.2, 5.1_
+
+- [ ] 5. API 层与外部接口（依赖于 4.1, 4.2, 4.3）
+- [ ] 5.1 创建产品 API 端点
+  - 为产品 CRUD 操作实施 REST 端点
+  - 添加对产品搜索、过滤和分页的支持
+  - 创建产品图像上传和管理端点
+  - 编写 API 集成测试和文档
+  - _需求：6.1, 6.2_
+
+- [ ] 5.2 实施库存 API 端点
+  - 为库存查询和更新创建 REST 端点
+  - 添加对库存预留和释放操作的支持
+  - 实施库存报告和分析端点
+  - 编写带有正确错误处理的 API 集成测试
+  - _需求：6.1, 4.2_
+
+- [ ] 5.3 创建类别 API 端点
+  - 为类别管理创建 REST 端点
+  - 添加对类别树获取和操作的支持
+  - 创建基于类别的产品列表端点
+  - 为层次结构操作编写 API 集成测试
+  - _需求：6.1, 3.2_
+
+- [ ] 6. 高级功能与集成（依赖于 5.1, 5.2, 5.3）
+- [ ] 6.1 实施产品搜索与推荐引擎
+  - 使用 Elasticsearch 集成创建搜索服务
+  - 添加对分面搜索、自动补全和纠错的支持
+  - 实施基于类别和流行度的基础推荐算法
+  - 为搜索功能编写集成测试
+  - _需求：3.3, 7.1_
+
+- [ ] 6.2 创建与外部系统的库存同步
+  - 实施用于将库存与仓库管理系统同步的服务
+  - 通过 Webhook 添加对实时库存更新的支持
+  - 创建针对库存差异的冲突解决方法
+  - 使用模拟外部系统编写集成测试
+  - _需求：4.3, 7.2_
+
+- [ ] 6.3 实施缓存层用于性能优化
+  - 为频繁访问的产品和类别数据添加 Redis 缓存
+  - 实施缓存失效策略以保证数据一致性
+  - 为热门产品创建缓存预热流程
+  - 编写性能测试以验证缓存有效性
+  - _需求：8.1, 8.2_
+
+- [ ] 7. 端到端集成与测试（依赖于 6.1, 6.2, 6.3）
+- [ ] 7.1 创建全面的端到端测试场景
+  - 为完整的产品生命周期工作流编写 e2e 测试
+  - 测试包括边缘情况在内的库存管理场景
+  - 验证类别管理和产品分配流程
+  - 为高负载场景创建性能测试
+  - _需求：5.1, 5.2, 6.1, 6.2_
+
+- [ ] 7.2 实施监控与可观测性
+  - 添加应用程序指标和健康检查端点
+  - 为所有业务操作实施结构化日志
+  - 为关键库存和系统事件创建告警
+  - 为监控和告警功能编写测试
+  - _需求：8.3, 8.4_
+```
+
+**该示例的关键特征**：
+
+1. **清晰的依赖链**：每个主要部分都建立在之前工作的基础之上
+2. **并行开发机会**：在 1.x 完成后，任务 2.1, 2.2, 2.3 可以同时进行
+3. **风险管理**：在高级功能之前先实施核心功能（模型、存储库）
+4. **增量价值**：每个完成的部分都提供可运行、可测试的功能
+5. **全面的测试**：全程包含单元测试、集成测试和 e2e 测试
+6. **现实世界的复杂性**：处理并发、外部集成和性能问题
+
+## 任务编写最佳实践
+
+### 编写有效的任务描述
+
+**优秀任务示例**：
+```markdown
+- [ ] 2.1 创建带有验证的 User 模型
+  - 实施包含 email, password, name, 和 createdAt 字段的 User 类
+  - 为电子邮件格式（符合 RFC 5322）和密码强度（8+ 字符，包含大小写和数字）添加验证方法
+  - 创建涵盖有效/无效电子邮件格式和密码要求的单元测试
+  - _需求：1.2, 2.1_
+```
+
+**糟糕任务示例**：
+```markdown
+- [ ] 2.1 构建用户相关内容
+  - 让用户功能跑通
+  - 添加一些验证
+  - _需求：1.2_
+```
+
+### 任务范围指南
+
+**合适的任务范围**：
+- 可以在 1-4 小时的专注工作中完成
+- 产出可运行、可测试的代码
+- 具有明确的完成标准
+- 在之前任务的基础上增量构建
+
+**范围过大**：
+```markdown
+- [ ] 1.1 实施完整的用户管理系统
+```
+
+**范围过小**：
+```markdown
+- [ ] 1.1 在第 42 行添加分号
+```
+
+**恰到好处**：
+```markdown
+- [ ] 1.1 创建带有验证方法的 User 模型
+```
+
+### 需求可追溯性
+
+**务必包含**：
+- 对正在实施的具体需求的引用
+- 任务与用户价值之间的清晰连接
+- 用于测试和验证的可追溯性
+
+**示例**：
+```markdown
+- [ ] 3.2 实施密码重置功能
+  - 创建密码重置请求端点
+  - 添加用于发送重置令牌的邮件功能
+  - 实施安全令牌验证
+  - _需求：1.3, 4.2_
+```
+
+## 常见任务规划陷阱
+
+### 陷阱 1：任务太抽象
+**问题**：“实施用户管理”
+**解决方案**：“创建具有电子邮件验证和密码哈希功能的 User 模型”
+
+### 陷阱 2：缺失依赖项目
+**问题**：由于前置条件未构建而导致任务无法完成
+**解决方案**：按顺序排列任务，使每项任务都建立在已完成工作的基础上
+
+### 陷阱 3：非编码类任务
+**问题**：“部署到生产环境”、“获取用户反馈”
+**解决方案**：仅关注编码、测试和实施活动
+
+### 陷阱 4：巨型任务（Monolithic Tasks）
+**问题**：试图一次性实施整个功能的任务
+**解决方案**：分解为更小的、增量的步骤
+
+### 陷阱 5：缺失测试任务
+**问题**：只有实施任务，没有对应的测试
+**解决方案**：将创建测试作为每项实施任务的一部分
+
+## 质量核查表
+
+在敲定任务列表之前，请验证：
+
+**完整性**：
+- [ ] 所有设计组件都被实施任务覆盖
+- [ ] 所有需求都由一个或多个任务解决
+- [ ] 所有主要功能都包含测试任务
+- [ ] 集成任务连接了所有组件
+
+**清晰度**：
+- [ ] 每项任务都有清晰、具体的目标
+- [ ] 任务描述指明了要创建哪些文件/组件
+- [ ] 每项任务都包含需求引用
+- [ ] 完成标准是隐式或显式的
+
+**顺序**：
+- [ ] 任务排序尊重依赖关系
+- [ ] 早期任务为后续工作建立基础
+- [ ] 核心功能在可选功能之前实施
+- [ ] 集成任务在组件实施之后进行
+
+**可行性**：
+- [ ] 每项任务的范围都适合实施
+- [ ] 任务可以由编码智能体完成
+- [ ] 没有任何任务需要外部依赖或手动流程
+- [ ] 任务复杂度逐渐增加
+
+## 解决任务规划问题
+
+### 问题：任务太模糊
+**症状**：开发人员无法根据任务描述开始编码
+**解决方案**：填充更具体的实施细节以及文件/组件名称
+
+### 问题：任务依赖关系不清晰
+**症状**：由于缺少前置条件而无法完成任务
+**解决方案**：审查任务序列并添加缺失的基础任务
+
+### 问题：任务与需求不匹配
+**症状**：难以将任务回溯到用户价值
+**解决方案**：添加需求引用并验证覆盖范围
+
+### 问题：任务列表过于庞大
+**症状**：任务太多，优先级不明确
+**解决方案**：将相关任务分组，并首先专注于核心功能
+
+## 任务执行指导
+### 实施准备
+
+在开始执行任务之前，请确保您拥有：
+
+**上下文准备**：
+- [ ] 需求文档可访问并已理解
+- [ ] 设计文档已审阅并内化
+- [ ] 开发环境已搭建并经过测试
+- [ ] 测试框架已配置就绪
+- [ ] 版本控制系统已初始化
+
+**任务选择策略**：
+1. **从基础任务开始**：始终从设置和核心接口任务开始
+2. **遵循依赖关系**：不要跳到依赖于未完成工作的任务
+3. **一次一个任务**：在移动到下一个任务之前，完全专注于单个任务
+4. **推进前先验证**：确保每个任务都已完全完成并经过测试
+
+### 任务执行步骤流程
+
+#### 第一阶段：任务分析
+**在开始任何任务之前**：
+1. **彻底阅读任务详情**：准确理解需要实施的内容
+2. **审查需求引用**：理解正在交付的用户价值
+3. **检查依赖关系**：确保所有前置任务已完成
+4. **规划实施方案**：确定具体的技术方案
+5. **识别成功标准**：了解如何验证完成情况
+
+#### 第二阶段：实施
+**在任务执行期间**：
+1. **更新任务状态**：在开始前马克任务为“进行中”
+2. **测试先行**（如果适用）：编写定义成功的失败测试
+3. **增量实施**：步步为营构建功能
+4. **持续测试**：在构建过程中验证每一部分
+5. **边做边记**：在代码中添加注释和文档
+
+#### 第三阶段：验证与完成
+**在标记任务完成之前**：
+1. **运行所有测试**：确保新旧测试全部通过
+2. **对照需求进行审查**：验证任务是否交付了所需功能
+3. **检查集成情况**：确保新代码与现有组件协同工作
+4. **代码质量审查**：检查可维护性和最佳实践
+5. **更新任务状态**：只有在完全验证后才标记为完成
+
+### 任务执行最佳实践
+
+#### 与 AI 编码智能体协作
+
+**有效的任务执行提示词**：
+```
+我需要实施规范中的任务 [X.Y]。以下是相关上下文：
+
+需求：[引用具体需求]
+设计背景：[影响此任务的关键设计决策]
+任务详情：[复制任务描述和详情]
+依赖关系：[此任务建立在哪些之前的任务之上]
+
+请按照指定的方案实施此任务，并包含相应的测试。
+```
+
+**迭代开发方法**：
+1. **从简单开始**：首先实施基础功能
+2. **逐渐增加复杂度**：增量构建功能
+3. **测试每次添加**：在继续之前验证每次更改
+4. **必要时重构**：在进行过程中提高代码质量
+
+#### 管理任务依赖关系
+
+**依赖验证核查表**：
+- [ ] 所有前置任务均已标记为完成
+- [ ] 所需的接口和类型已可用
+- [ ] 必要配置已到位
+- [ ] 测试基础设施已就绪
+
+**处理受阻任务**：
+1. **识别缺失的依赖项**：具体是什么阻碍了进度？
+2. **检查任务顺序**：任务排序是否正确？
+3. **创建缺失的基础**：如果需要，实施最小的前置条件
+4. **更新任务计划**：如果错过了依赖关系，请调整顺序
+
+### 执行期间的质量保证
+
+#### 每个任务的测试策略
+
+**单元测试**：
+- 为单个函数和方法编写测试
+- 测试正常路径和错误情况
+- 针对新功能争取高代码覆盖率
+- 使用解释行为的描述性测试名称
+
+**集成测试**：
+- 测试新组件如何与现有代码协同工作
+- 验证组件之间的数据流
+- 测试跨组件边界的错误处理
+- 验证配置和设置是否工作正常
+
+**验证测试**：
+- 对照原始需求进行测试
+- 验证面向用户的功能是否符合预期
+- 测试边缘情况和边界条件
+- 验证性能是否符合预期
+
+#### 代码质量标准
+
+**实施期间**：
+- 遵循一致的编码风格和规范
+- 为复杂逻辑添加有意义的注释
+- 使用描述性的变量和函数名称
+- 保持函数专注且功能单一
+- 妥善处理错误
+
+**任务完成前**：
+- 移除调试代码和控制台日志 (console logs)
+- 确保适当的错误处理已到位
+- 验证未引入安全漏洞
+- 检查对性能的影响
+- 验证是否满足无障碍 (Accessibility) 需求
+
+### 常见执行问题排查
+
+#### 问题：任务需求不明确
+**症状**：无法确定具体要实施什么
+**解决方案**：
+- 审查原始需求文档以获取背景信息
+- 检查设计文档以获取实施指导
+- 查看相关任务以获取模式和一致性参考
+- 将任务分解为更小、更清晰的子步骤
+
+#### 问题：依赖项缺失
+**症状**：由于缺少前置条件而无法完成任务
+**解决方案**：
+- 审查之前的任务，确保它们确实已完成
+- 确定解除进度锁定所需的最小实施内容
+- 考虑任务顺序是否需要调整
+- 如果有必要，实施临时桩函数 (Stubs)
+
+#### 问题：测试失败
+**症状**：在实施过程中，新测试或现有测试中断
+**解决方案**：
+- 在修复之前，先理解测试为何失败
+- 确保新功能不会破坏现有行为
+- 如果需求发生了合理的变更，请更新测试
+- 添加新测试以覆盖发现的边缘情况
+
+#### 问题：任务范围蔓延
+**症状**：实施规模远超预期
+**解决方案**：
+- 审查原始任务范围并坚持下去
+- 识别哪些内容可以推迟到以后的任务中
+- 将大型任务分解为更小、更易于管理的片段
+- 首先专注于最小可行实施 (Minimum Viable Implementation)
+
+### 进度跟踪与沟通
+
+#### 任务状态管理
+
+**状态定义**：
+- **未开始 (Not Started)**：任务尚未开始
+- **进行中 (In Progress)**：正在积极进行实施工作
+- **已受阻 (Blocked)**：由于依赖关系或问题而无法继续
+- **待评审 (Review)**：实施已完成，等待验证
+- **已完成 (Complete)**：已完全实施、测试并经过验证
+
+**状态更新指南**：
+- 开始任务时更新状态
+- 当任务受阻或延迟时添加注释
+- 只有在满足所有验收标准后才标记为完成
+- 包含有关实施决策的简要说明
+
+#### 执行期间的文档记录
+
+**实施笔记**：
+- 记录实施期间做出的关键技术决策
+- 文档记录任何偏离原始任务计划的情况
+- 记录遇到的任何问题及其解决方法
+- 如果实施过程中发现了漏洞，请更新设计文档
+
+**知识传递**：
+- 编写清晰的提交信息 (Commit Messages) 解释更改内容
+- 为复杂逻辑添加行内文档 (Inline Documentation)
+- 更新 README 文件，包含新的设置或使用说明
+- 为新功能创建示例或演示
+
+### 流程适配
+
+#### 针对不同项目类型进行定制
+
+**小型项目**：
+- 合并相关任务以提高效率
+- 首先关注核心功能
+- 使用更简单的测试策略
+- 优先考虑可运行的软件，而非详尽的文档
+
+**大型项目**：
+- 维持严格的任务边界
+- 在每个步骤都实施全面的测试
+- 专注于可维护性和可扩展性
+- 详尽记录架构决策
+
+**团队项目**：
+- 协调任务分配以避免冲突
+- 建立代码评审流程
+- 在团队中采用一致的编码标准
+- 定期沟通进度和阻碍因素
+
+#### 处理实施挑战
+
+**当任务比预期耗时更长时**：
+1. 评估范围是否超出了最初的目标
+2. 确定是否需要额外的子任务
+3. 考虑是否应将任务拆分为更小的片段
+4. 根据所学知识更新剩余任务的估时
+
+**当需求在实施期间发生变化时**：
+1. 停止当前工作并评估影响
+2. 先更新需求和设计文档
+3. 修订实施计划中受影响的任务
+4. 向利益相关者传达变更情况
+5. 在更新后的上下文中恢复实施
+
+**当出现技术瓶颈时**：
+1. 记录具体的技术挑战
+2. 研究潜在的解决方案和替代方案
+3. 考虑设计是否需要调整
+4. 实施最小可行解决方案以维持进度
+5. 如果需要，计划在以后的任务中进行优化
+
+## 与规范驱动开发工作流的集成
+
+### 与之前阶段的联系
+
+**来自需求阶段**：
+- 每个任务都应回溯到具体的需求
+- 每项实施任务的用户价值都应清晰明确
+- 验收标准为任务完成验证提供依据
+
+**来自设计阶段**：
+- 任务结构遵循架构决策
+- 实施方案与设计模式保持一致
+- 组件边界尊重设计接口
+
+### 对早期阶段的反馈
+
+**当实施发现问题时**：
+- 如果架构需要调整，请更新设计文档
+- 如果误解了用户需求，请澄清需求
+- 如果遗漏了依赖关系，请修订任务计划
+
+**持续改进**：
+- 记录实施期间学习到的经验教训
+- 根据执行经验更新任务规划流程
+- 提高未来项目的估时准确性
+
+## 下一步
+
+任务完成并获批后：
+1. **开始实施**：根据上述指导，按顺序开始执行任务
+2. **跟踪进度**：随着工作完成及时更新任务状态
+3. **维持质量**：全程遵循测试和验证实践
+4. **保持灵活性**：如果实施发现了问题，请调整任务
+5. **对照需求进行验证**：确保完成的任务满足原始需求
+6. **记录心得**：捕获对未来规范驱动开发的见解
+
+任务阶段为系统化实施提供了路线图，将复杂的设计分解为可管理的、可操作的步骤，从而实现成功的功交付。通过正确的执行指导，团队可以在整个实施过程中保持质量和势头。
 ```
 
 # spec-process-guide/process/workflow-diagrams.md
 
 ```md
-# Workflow Diagrams and Visual Aids
+# 工作流图表与视觉辅助
 
-This document provides visual representations of the spec-driven development process, including complete workflow diagrams, decision trees, and phase transition flows.
+本文档提供了规范驱动开发流程的可视化表示，包括完整的工作流图、决策树和阶段转换流程。
 
-## Complete Process Flow
+## 完整流程图
 
-The following diagram shows the complete spec-driven development workflow from initial idea to implementation:
+下图显示了从最初的想法到实施的完整规范驱动开发工作流：
 
-\`\`\`mermaid
+```mermaid
 stateDiagram-v2
-    [*] --> Idea : Feature Request
+    [*] --> 想法 : 功能请求
     
-    Idea --> Requirements : Begin Spec Process
+    想法 --> 需求 : 开始规范流程
     
-    state Requirements {
-        [*] --> Draft_Req : Create Initial Requirements
-        Draft_Req --> Review_Req : Complete Draft
-        Review_Req --> Revise_Req : Feedback/Changes
-        Revise_Req --> Review_Req : Updated Draft
-        Review_Req --> [*] : Explicit Approval
+    state 需求 {
+        [*] --> 草拟需求 : 创建初始需求
+        草拟需求 --> 评审需求 : 完成草案
+        评审需求 --> 修改需求 : 反馈/变更
+        修改需求 --> 评审需求 : 更新草案
+        评审需求 --> [*] : 明确批准
     }
     
-    Requirements --> Design : Requirements Approved
+    需求 --> 设计 : 需求已获批准
     
-    state Design {
-        [*] --> Research : Identify Research Needs
-        Research --> Draft_Design : Create Design Document
-        Draft_Design --> Review_Design : Complete Draft
-        Review_Design --> Revise_Design : Feedback/Changes
-        Revise_Design --> Review_Design : Updated Draft
-        Review_Design --> [*] : Explicit Approval
+    state 设计 {
+        [*] --> 研究 : 确定研究需求
+        研究 --> 草拟设计 : 创建设计文档
+        草拟设计 --> 评审设计 : 完成草案
+        评审设计 --> 修改设计 : 反馈/变更
+        修改设计 --> 评审设计 : 更新草案
+        评审设计 --> [*] : 明确批准
     }
     
-    Design --> Tasks : Design Approved
+    设计 --> 任务 : 设计已获批准
     
-    state Tasks {
-        [*] --> Draft_Tasks : Create Task Breakdown
-        Draft_Tasks --> Review_Tasks : Complete Draft
-        Review_Tasks --> Revise_Tasks : Feedback/Changes
-        Revise_Tasks --> Review_Tasks : Updated Draft
-        Review_Tasks --> [*] : Explicit Approval
+    state 任务 {
+        [*] --> 草拟任务 : 创建任务分解
+        草拟任务 --> 评审任务 : 完成草案
+        评审任务 --> 修改任务 : 反馈/变更
+        修改任务 --> 评审任务 : 更新草案
+        评审任务 --> [*] : 明确批准
     }
     
-    Tasks --> Implementation : Tasks Approved
+    任务 --> 实施 : 任务已获批准
     
-    state Implementation {
-        [*] --> Execute_Task : Select Next Task
-        Execute_Task --> Test_Task : Complete Task
-        Test_Task --> More_Tasks : Task Complete
-        More_Tasks --> Execute_Task : Yes
-        More_Tasks --> [*] : No
+    state 实施 {
+        [*] --> 执行任务 : 选择下一个任务
+        执行任务 --> 测试任务 : 完成任务
+        测试任务 --> 更多任务 : 任务完成
+        更多任务 --> 执行任务 : 是
+        更多任务 --> [*] : 否
     }
     
-    Implementation --> [*] : Feature Complete
+    实施 --> [*] : 功能完成
     
-    note right of Requirements : EARS format\nUser stories\nAcceptance criteria
-    note right of Design : Architecture\nComponents\nData models
-    note right of Tasks : Coding tasks\nTest-driven\nIncremental
-\`\`\`
+    note right of 需求 : EARS 格式\n用户故事\n验收标准
+    note right of 设计 : 系统架构\n组件定义\n数据模型
+    note right of 任务 : 编码任务\n测试驱动\n增量构建
+```
 
-## Phase Transition Decision Tree
+## 阶段转换决策树
 
-This decision tree helps determine when to move between phases and when to iterate:
+此决策树有助于确定何时在各阶段之间移动，以及何时进行迭代：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[Phase Complete] --> B{User Review}
-    B -->|Explicit Approval| C[Move to Next Phase]
-    B -->|Feedback/Changes| D[Revise Current Phase]
-    B -->|Major Issues| E{Scope of Changes}
+    A[阶段完成] --> B{用户评审}
+    B -->|明确批准| C[进入下一阶段]
+    B -->|反馈/变更| D[修改当前阶段]
+    B -->|重大问题| E{变更范围}
     
-    E -->|Minor Adjustments| D
-    E -->|Fundamental Changes| F{Which Phase to Revisit?}
+    E -->|轻微调整| D
+    E -->|根本性变更| F{需要回顾哪个阶段?}
     
-    F -->|Requirements Issues| G[Return to Requirements]
-    F -->|Design Issues| H[Return to Design]
-    F -->|Task Issues| I[Revise Tasks]
+    F -->|需求问题| G[返回需求阶段]
+    F -->|设计问题| H[返回设计阶段]
+    F -->|任务问题| I[修改任务]
     
-    D --> J[Update Document]
-    G --> K[Update Requirements]
-    H --> L[Update Design]
+    D --> J[更新文档]
+    G --> K[更新需求]
+    H --> L[更新设计]
     I --> M[Update Tasks]
     
     J --> A
@@ -7595,241 +7598,241 @@ flowchart TD
     L --> A
     M --> A
     
-    C --> N{Final Phase?}
-    N -->|No| O[Begin Next Phase]
-    N -->|Yes| P[Begin Implementation]
+    C --> N{是否为最终阶段?}
+    N -->|否| O[开始下一阶段]
+    N -->|是| P[开始实施]
     
     O --> A
-    P --> Q[Execute Tasks]
-\`\`\`
+    P --> Q[执行任务]
+```
 
-## Requirements Phase Flow
+## 需求阶段流程
 
-Detailed workflow for the requirements gathering phase:
+需求获取阶段的详细工作流：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[Feature Idea] --> B[Analyze Initial Request]
-    B --> C[Create Initial Requirements Draft]
-    C --> D[Format with EARS Syntax]
-    D --> E[Add User Stories]
-    E --> F[Define Acceptance Criteria]
-    F --> G[Consider Edge Cases]
-    G --> H[Present to User]
+    A[功能想法] --> B[分析初始请求]
+    B --> C[创建初始需求草案]
+    C --> D[使用 EARS 语法格式化]
+    D --> E[添加用户故事]
+    E --> F[定义验收标准]
+    F --> G[考虑边缘情况]
+    G --> H[向用户演示]
     
-    H --> I{User Feedback}
-    I -->|Approved| J[Requirements Complete]
-    I -->|Changes Needed| K[Identify Change Areas]
-    I -->|Unclear Requirements| L[Ask Clarifying Questions]
+    H --> I{用户反馈}
+    I -->|已批准| J[需求已完成]
+    I -->|需要变更| K[识别变更区域]
+    I -->|需求不明| L[提出澄清问题]
     
-    K --> M[Update Requirements]
-    L --> N[Gather Additional Info]
+    K --> M[更新需求]
+    L --> N[收集额外信息]
     
     M --> H
     N --> M
     
-    J --> O[Move to Design Phase]
+    J --> O[进入设计阶段]
     
     style A fill:#e1f5fe
     style J fill:#c8e6c9
     style O fill:#fff3e0
-\`\`\`
+```
 
-## Design Phase Flow
+## 设计阶段流程
 
-Detailed workflow for the design phase:
+设计阶段的详细工作流：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[Requirements Approved] --> B[Identify Research Needs]
-    B --> C[Conduct Research]
-    C --> D[Analyze Findings]
-    D --> E[Create Architecture Overview]
-    E --> F[Define Components]
-    F --> G[Design Data Models]
-    G --> H[Plan Error Handling]
-    H --> I[Define Testing Strategy]
-    I --> J[Present Design to User]
+    A[需求已获批准] --> B[确定研究需求]
+    B --> C[开展研究]
+    C --> D[分析研究发现]
+    D --> E[创建架构概览]
+    E --> F[定义组件]
+    F --> G[设计数据模型]
+    G --> H[规划错误处理]
+    H --> I[定义测试策略]
+    I --> J[向用户演示设计]
     
-    J --> K{User Feedback}
-    K -->|Approved| L[Design Complete]
-    K -->|Changes Needed| M[Update Design]
-    K -->|Requirements Gap| N[Return to Requirements]
+    J --> K{用户反馈}
+    K -->|已批准| L[设计已完成]
+    K -->|需要修改| M[更新设计]
+    K -->|需求缺口| N[返回需求阶段]
     
     M --> J
-    N --> O[Update Requirements]
-    O --> P[Update Design]
+    N --> O[更新需求]
+    O --> P[更新设计]
     P --> J
     
-    L --> Q[Move to Tasks Phase]
+    L --> Q[进入任务阶段]
     
     style A fill:#fff3e0
     style L fill:#c8e6c9
     style Q fill:#f3e5f5
-\`\`\`
+```
 
-## Tasks Phase Flow
+## 任务阶段流程
 
-Detailed workflow for breaking down design into implementation tasks:
+将设计分解为实施任务的详细工作流：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[Design Approved] --> B[Analyze Design Components]
-    B --> C[Identify Implementation Order]
-    C --> D[Create Task Hierarchy]
-    D --> E[Define Task Dependencies]
-    E --> F[Add Requirement References]
-    F --> G[Ensure Test-Driven Approach]
-    G --> H[Validate Task Completeness]
-    H --> I[Present Tasks to User]
+    A[设计已获批准] --> B[分析设计组件]
+    B --> C[确定实施顺序]
+    C --> D[创建任务层级]
+    D --> E[定义任务依赖]
+    E --> F[添加需求引用]
+    F --> G[确保测试驱动方法]
+    G --> H[验证任务完整性]
+    H --> I[向用户演示任务列表]
     
-    I --> J{User Feedback}
-    J -->|Approved| K[Tasks Complete]
-    J -->|Changes Needed| L[Update Tasks]
-    J -->|Design Issues| M[Return to Design]
-    J -->|Requirements Issues| N[Return to Requirements]
+    I --> J{用户反馈}
+    J -->|已批准| K[任务已完成]
+    J -->|需要修改| L[更新任务]
+    J -->|设计问题| M[返回设计阶段]
+    J -->|需求问题| N[返回需求阶段]
     
     L --> I
-    M --> O[Update Design]
-    N --> P[Update Requirements]
+    M --> O[更新设计]
+    N --> P[更新需求]
     
-    O --> Q[Update Tasks]
-    P --> R[Update Design & Tasks]
+    O --> Q[更新任务]
+    P --> R[更新设计与任务]
     
     Q --> I
     R --> I
     
-    K --> S[Begin Implementation]
+    K --> S[开始实施]
     
     style A fill:#f3e5f5
     style K fill:#c8e6c9
     style S fill:#ffecb3
-\`\`\`
+```
 
-## Implementation Execution Flow
+## 实施执行流程
 
-Workflow for executing individual tasks from the implementation plan:
+执行实施计划中单个任务的工作流：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[Tasks Approved] --> B[Select Next Task]
-    B --> C{Has Sub-tasks?}
-    C -->|Yes| D[Execute Sub-tasks First]
-    C -->|No| E[Read Requirements & Design]
+    A[任务已获批准] --> B[选择下一个任务]
+    B --> C{是否有子任务?}
+    C -->|是| D[先执行子任务]
+    C -->|否| E[阅读需求与设计]
     
-    D --> F[Complete All Sub-tasks]
-    F --> G[Mark Parent Task Complete]
+    D --> F[完成所有子任务]
+    F --> G[标记父任务已完成]
     
-    E --> H[Implement Task]
-    H --> I[Write Tests]
-    I --> J[Verify Against Requirements]
-    J --> K[Mark Task Complete]
+    E --> H[实施任务]
+    H --> I[编写测试]
+    I --> J[对照需求进行验证]
+    J --> K[标记任务已完成]
     
-    G --> L{More Tasks?}
+    G --> L{还有更多任务?}
     K --> L
     
-    L -->|Yes| B
-    L -->|No| M[Feature Complete]
+    L -->|是| B
+    L -->|否| M[功能完成]
     
     style A fill:#ffecb3
     style M fill:#c8e6c9
-\`\`\`
+```
 
-## Feedback Loop Patterns
+## 反馈循环模式
 
-Common patterns for handling feedback and iterations:
+处理反馈和迭代的常见模式：
 
-\`\`\`mermaid
+```mermaid
 flowchart LR
-    subgraph "Positive Feedback Loop"
-        A1[Complete Phase] --> B1[User Review]
-        B1 --> C1[Approval]
-        C1 --> D1[Next Phase]
+    subgraph "正向反馈循环"
+        A1[完成阶段] --> B1[用户评审]
+        B1 --> C1[已批准]
+        C1 --> D1[下一阶段]
     end
     
-    subgraph "Revision Loop"
-        A2[Complete Phase] --> B2[User Review]
-        B2 --> C2[Feedback]
-        C2 --> D2[Revise]
+    subgraph "修订循环"
+        A2[完成阶段] --> B2[用户评审]
+        B2 --> C2[反馈]
+        C2 --> D2[修订]
         D2 --> A2
     end
     
-    subgraph "Backtrack Loop"
-        A3[Current Phase] --> B3[Major Issue]
-        B3 --> C3[Previous Phase]
-        C3 --> D3[Fix Issue]
-        D3 --> E3[Update Current]
+    subgraph "回溯循环"
+        A3[当前阶段] --> B3[重大问题]
+        B3 --> C3[前一阶段]
+        C3 --> D3[修复问题]
+        D3 --> E3[更新当前阶段]
         E3 --> A3
     end
     
     style C1 fill:#c8e6c9
     style C2 fill:#fff3e0
     style B3 fill:#ffcdd2
-\`\`\`
+```
 
-## Entry Points and Context
+## 入口点与上下文
 
-Different ways users can enter the spec workflow:
+用户进入规范工作流的不同方式：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    A[User Intent] --> B{Entry Point}
+    A[用户意图] --> B{入口点}
     
-    B -->|New Feature| C[Create New Spec]
-    B -->|Update Existing| D[Modify Spec]
-    B -->|Execute Tasks| E[Implementation Mode]
+    B -->|新功能| C[创建新规范]
+    B -->|更新现有功能| D[修改规范]
+    B -->|执行任务| E[实施模式]
     
-    C --> F[Requirements Phase]
-    D --> G{Which Phase?}
-    E --> H[Task Execution]
+    C --> F[需求阶段]
+    D --> G{哪个阶段?}
+    E --> H[任务执行]
     
-    G -->|Requirements| I[Update Requirements]
-    G -->|Design| J[Update Design]
-    G -->|Tasks| K[Update Tasks]
+    G -->|需求| I[更新需求]
+    G -->|设计| J[更新设计]
+    G -->|任务| K[更新任务]
     
-    F --> L[Complete Workflow]
+    F --> L[完整工作流]
     I --> L
     J --> L
     K --> L
-    H --> M[Single Task Focus]
+    H --> M[专注于单个任务]
     
     style C fill:#e1f5fe
     style D fill:#fff3e0
     style E fill:#ffecb3
-\`\`\`
+```
 
-## Quality Gates and Validation Points
+## 质量门禁与验证点
 
-Key validation checkpoints throughout the process:
+整个流程中的关键验证检查点：
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
-    subgraph "Requirements Quality Gates"
-        A1[EARS Format Check]
-        A2[User Story Validation]
-        A3[Acceptance Criteria Complete]
-        A4[Edge Cases Considered]
+    subgraph "需求质量门禁"
+        A1[EARS 格式检查]
+        A2[用户故事验证]
+        A3[验收标准完整性]
+        A4[边缘情况考虑]
     end
     
-    subgraph "Design Quality Gates"
-        B1[Architecture Clarity]
-        B2[Component Definition]
-        B3[Data Model Completeness]
-        B4[Error Handling Plan]
+    subgraph "设计质量门禁"
+        B1[架构清晰度]
+        B2[组件定义]
+        B3[数据模型完整性]
+        B4[错误处理计划]
     end
     
-    subgraph "Tasks Quality Gates"
-        C1[Task Granularity]
-        C2[Dependency Order]
-        C3[Requirement Traceability]
-        C4[Test-Driven Structure]
+    subgraph "任务质量门禁"
+        C1[任务粒度]
+        C2[依赖顺序]
+        C3[需求可追溯性]
+        C4[测试驱动结构]
     end
     
-    subgraph "Implementation Quality Gates"
-        D1[Code Quality]
-        D2[Test Coverage]
-        D3[Requirement Compliance]
-        D4[Integration Success]
+    subgraph "实施质量门禁"
+        D1[代码质量]
+        D2[测试覆盖率]
+        D3[需求合规性]
+        D4[集成成功]
     end
     
     A1 --> A2 --> A3 --> A4
@@ -7840,1276 +7843,1271 @@ flowchart TD
     A4 --> B1
     B4 --> C1
     C4 --> D1
-\`\`\`
+```
 
-## Common Workflow Scenarios
+## 常见工作流场景
 
-### Scenario 1: Smooth Linear Progression
-\`\`\`mermaid
+### 场景 1：平滑线性进展
+```mermaid
 sequenceDiagram
-    participant U as User
-    participant A as AI Agent
-    participant R as Requirements
-    participant D as Design
-    participant T as Tasks
+    participant U as 用户
+    participant A as AI 智能体
+    participant R as 需求阶段
+    participant D as 设计阶段
+    participant T as 任务阶段
     
-    U->>A: Feature Request
-    A->>R: Create Requirements
-    A->>U: Review Requirements
-    U->>A: Approve
-    A->>D: Create Design
-    A->>U: Review Design
-    U->>A: Approve
-    A->>T: Create Tasks
-    A->>U: Review Tasks
-    U->>A: Approve
-    Note over U,T: Ready for Implementation
-\`\`\`
+    U->>A: 功能请求
+    A->>R: 创建需求
+    A->>U: 评审需求
+    U->>A: 批准
+    A->>D: 创建设计
+    A->>U: 评审设计
+    U->>A: 批准
+    A->>T: 创建任务
+    A->>U: 评审任务
+    U->>A: 批准
+    Note over 用户,任务阶段: 准备实施
+```
 
-### Scenario 2: Iterative Refinement
-\`\`\`mermaid
+### 场景 2：迭代细化
+```mermaid
 sequenceDiagram
-    participant U as User
-    participant A as AI Agent
-    participant R as Requirements
-    participant D as Design
+    participant U as 用户
+    participant A as AI 智能体
+    participant R as 需求阶段
+    participant D as 设计阶段
     
-    U->>A: Feature Request
-    A->>R: Create Requirements v1
-    A->>U: Review Requirements
-    U->>A: Changes Needed
-    A->>R: Update Requirements v2
-    A->>U: Review Requirements
-    U->>A: Approve
-    A->>D: Create Design v1
-    A->>U: Review Design
-    U->>A: Requirements Gap Found
-    A->>R: Update Requirements v3
-    A->>D: Update Design v2
-    A->>U: Review Design
-    U->>A: Approve
-\`\`\`
+    U->>A: 功能请求
+    A->>R: 创建需求 v1
+    A->>U: 评审需求
+    U->>A: 需要变更
+    A->>R: 更新需求 v2
+    A->>U: 评审需求
+    U->>A: 批准
+    A->>D: 创建设计 v1
+    A->>U: 评审设计
+    U->>A: 发现需求缺口
+    A->>R: 更新需求 v3
+    A->>D: 更新设计 v2
+    A->>U: 评审设计
+    U->>A: 批准
+```
 
-### Scenario 3: Implementation Feedback
-\`\`\`mermaid
+### 场景 3：实施反馈
+```mermaid
 sequenceDiagram
-    participant U as User
-    participant A as AI Agent
-    participant T as Tasks
-    participant I as Implementation
+    participant U as 用户
+    participant A as AI 智能体
+    participant T as 任务阶段
+    participant I as 实施阶段
     
-    Note over U,I: Spec Complete, Begin Implementation
-    U->>A: Execute Task 1
-    A->>I: Implement Task 1
-    A->>U: Task 1 Complete
-    U->>A: Execute Task 2
-    A->>I: Implement Task 2
-    A->>U: Issue Found
-    U->>A: Fix Approach
-    A->>T: Update Task 2
-    A->>I: Re-implement Task 2
-    A->>U: Task 2 Complete
-\`\`\`
+    Note over 用户,实施阶段: 规范已完成，开始实施
+    U->>A: 执行任务 1
+    A->>I: 实施任务 1
+    A->>U: 任务 1 已完成
+    U->>A: 执行任务 2
+    A->>I: 实施任务 2
+    A->>U: 发现问题
+    U->>A: 修复方案
+    A->>T: 更新任务 2
+    A->>I: 重新实施任务 2
+    A->>U: 任务 2 已完成
+```
 
-These visual aids provide comprehensive guidance for understanding and navigating the spec-driven development process, supporting both newcomers learning the methodology and experienced practitioners looking for quick reference materials.
+这些视觉辅助工具为理解和执行规范驱动开发流程提供了全面的指导，既支持学习该方法的初学者，也支持寻求快速参考的经验丰富的实践者。
 ```
 
 # spec-process-guide/prompting/best-practices.md
 
 ```md
-# Prompting Best Practices
+# 提示词最佳实践
 
 <!-- Navigation Metadata -->
 <!-- Prompting: Best Practices | Level: Practical Guide | Prerequisites: prompting/strategies.md -->
 <!-- Related: ai-reasoning/decision-frameworks.md, examples/troubleshooting-pitfalls.md, templates/README.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Prompting Strategies](README.md) → **Best Practices**
+**📍 您在这里：** [主指南](../README.md) → [提示策略](README.md) → **最佳实践**
 
-## Quick Navigation
-- **📚 Learn Strategies:** [Prompting Strategies](strategies.md) - Core approaches first
-- **📝 Use Templates:** [Prompt Templates](templates.md) - Ready-to-use patterns
-- **🧠 Understand AI:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How AI makes choices
-- **🔧 Fix Problems:** [Troubleshooting Guide](../examples/troubleshooting-pitfalls.md) - When prompting goes wrong
+## 快速导航
+- **📚 学习策略：** [提示策略](strategies.md) - 首先了解核心方法
+- **📝 使用模板：** [提示模板](templates.md) - 即插即用的模式
+- **🧠 理解 AI：** [决策框架](../ai-reasoning/decision-frameworks.md) - AI 如何做出选择
+- **🔧 解决问题：** [故障排除指南](../examples/troubleshooting-pitfalls.md) - 当提示出现问题时
 
 ---
 
-Effective techniques for AI collaboration during spec creation, including troubleshooting guidance and examples of successful interactions.
+在规范创建过程中与 AI 协作的有效技术，包括故障排除指导和成功交互的示例。
 
-## Core Principles
+## 核心原则
 
-### 1. Context is King
+### 1. 上下文为王
 
-**Provide Rich Context**
-- Always include relevant background about your project, technology stack, and constraints
-- Reference previous discussions and decisions to maintain continuity
-- Explain the "why" behind your requirements, not just the "what"
+**提供丰富的上下文**
+- 始终包含有关项目、技术栈和约束的相关背景
+- 引用之前的讨论和决定以保持连续性
+- 解释需求背后的“为什么”，而不仅仅是“是什么”
 
-**Example - Good Context Setting:**
-\`\`\`
-I'm working on a React e-commerce application that currently handles 10k daily users. 
-We use TypeScript, Node.js backend with PostgreSQL, and deploy on AWS. 
-I need to add a product recommendation feature that integrates with our existing 
-user behavior tracking system and should handle our expected 50% traffic growth.
-\`\`\`
+**示例 - 良好的上下文设置：**
+```
+我正在开发一个 React 电子商务应用程序，目前每天处理 1 万名用户。
+我们使用 TypeScript、结合 PostgreSQL 的 Node.js 后端，并部署在 AWS 上。
+我需要添加一个产品推荐功能，该功能与我们现有的用户行为跟踪系统集成，
+并且能够处理我们预期的 50% 流量增长。
+```
 
-**Example - Poor Context:**
-\`\`\`
-I need a recommendation system.
-\`\`\`
+**示例 - 糟糕的上下文：**
+```
+我需要一个推荐系统。
+```
 
-### 2. Be Specific and Concrete
+### 2. 具体且客观
 
-**Use Concrete Examples**
-- Provide specific scenarios rather than abstract descriptions
-- Include actual data examples when discussing data models
-- Reference real user workflows and business processes
+**使用具体的例子**
+- 提供具体的场景，而不是抽象的描述
+- 在讨论数据模型时包含实际的数据示例
+- 引用真实的用户工作流和业务流程
 
-**Example - Specific Request:**
-\`\`\`
-For the user authentication system, I need to handle these specific scenarios:
-1. New user registration with email verification
-2. Social login via Google and GitHub OAuth
-3. Password reset with secure token expiration (24 hours)
-4. Account lockout after 5 failed attempts with 30-minute cooldown
-5. Integration with our existing user profile system that stores preferences
-\`\`\`
+**示例 - 具体请求：**
+```
+对于用户身份验证系统，我需要处理这些特定场景：
+1. 带有电子邮件验证的新用户注册
+2. 通过 Google 和 GitHub OAuth 进行社交登录
+3. 具有安全令牌过期（24 小时）的密码重置
+4. 5 次尝试失败后锁定帐户，冷却时间为 30 分钟
+5. 与我们现有的存储偏好的用户配置文件系统集成
+```
 
-### 3. Structure Complex Requests
+### 3. 结构化复杂请求
 
-**Break Down Large Asks**
-- Divide complex features into logical phases
-- Prioritize core functionality over nice-to-have features
-- Sequence requests to build understanding progressively
+**分解大型任务**
+- 将复杂功能划分为逻辑阶段
+- 优先考虑核心功能，而不是可选功能
+- 按顺序排序请求，以便逐步建立理解
 
-**Example - Well-Structured Request:**
-\`\`\`
-I want to create a comprehensive spec for a file upload system. Let's start with:
+**示例 - 结构良好的请求：**
+```
+我想为文件上传系统创建一个全面的规范。让我们从以下内容开始：
 
-Phase 1: Core upload functionality
-- Single file upload with progress tracking
-- File type validation (images, documents)
-- Size limits (10MB max)
+第 1 阶段：核心上传功能
+- 具有进度跟踪的单个文件上传
+- 文件类型验证（图像、文档）
+- 大小限制（最大 10MB）
 
-Phase 2: Enhanced features (we'll tackle after Phase 1 is solid)
-- Multiple file upload
-- Drag-and-drop interface
-- Cloud storage integration
-\`\`\`
+第 2 阶段：增强功能（我们将在第 1 阶段稳固后处理）
+- 多文件上传
+- 拖放界面
+- 云存储集成
+```
 
-## Phase-Specific Best Practices
+## 阶段特定的最佳实践
 
-### Requirements Phase
+### 需求阶段
 
-**Do:**
-- Start with user problems, not technical solutions
-- Use the "As a [role], I want [goal], so that [benefit]" format consistently
-- Include both happy path and error scenarios
-- Specify measurable acceptance criteria
+**要做：**
+- 从用户问题开始，而不是技术解决方案
+- 始终使用“作为 [角色]，我想要 [目标]，以便 [收益]”的格式
+- 包含正常路径和错误场景
+- 指定可衡量的验收标准
 
-**Don't:**
-- Jump into implementation details
-- Assume the AI knows your business context
-- Create requirements that are too broad or vague
-- Skip edge cases and error handling
+**不要做：**
+- 直接跳入实施细节
+- 假设 AI 了解您的业务背景
+- 创建过于宽泛或模糊的需求
+- 跳过边缘情况和错误处理
 
-**Successful Interaction Example:**
-\`\`\`
-User: "I need user authentication for my app."
+**成功交互示例：**
+```
+用户：“我的应用程序需要用户身份验证。”
 
-Better approach: "I'm building a SaaS application for small businesses. 
-I need user authentication that supports:
-- Business owners who need to manage team access
-- Team members with different permission levels
-- Integration with existing customer data
-- Compliance with SOC 2 requirements
+更好的方法：“我正在为小型企业构建一个 SaaS 应用程序。
+我需要支持以下内容的用户身份验证：
+- 需要管理团队访问权限的企业主
+- 具有不同权限级别的团队成员
+- 与现有客户数据集成
+- 符合 SOC 2 合规性要求
 
-The main user story is: As a business owner, I want to control who can 
-access our company data, so that I can maintain security and compliance."
-\`\`\`
+主要用户故事是：作为企业主，我想要控制谁可以访问我们公司的业务数据，
+以便我能够维持安全性和合规性。”
+```
 
-### Design Phase
+### 设计阶段
 
-**Do:**
-- Reference specific requirements when making design decisions
-- Explain trade-offs between different approaches
-- Consider scalability and maintainability from the start
-- Include error handling and edge cases in the design
+**要做：**
+- 在做出设计决策时引用特定需求
+- 解释不同方法之间的权衡
+- 从一开始就考虑可扩展性和可维护性
+- 在设计中包含错误处理和边缘情况
 
-**Don't:**
-- Design in isolation from requirements
-- Over-engineer for hypothetical future needs
-- Ignore existing system constraints
-- Skip non-functional requirements
+**不要做：**
+- 脱离需求进行设计
+- 为假设的未来需求进行过度设计
+- 忽略现有系统约束
+- 跳过非功能性需求
 
-**Successful Interaction Example:**
-\`\`\`
-User: "Based on our authentication requirements, I need a design that 
-handles the multi-tenant access control we discussed. Our current system 
-uses JWT tokens, and we have about 500 businesses with an average of 
-8 team members each. Performance is critical - login should be under 200ms.
+**成功交互示例：**
+```
+用户：“根据我们的身份验证需求，我需要一个能够处理我们讨论过的多租户访问控制的设计。
+我们当前的系统使用 JWT 令牌，我们大约有 500 家企业，每家企业平均有 8 名团队成员。
+性能至关重要 - 登录应在 200 毫秒以内。
 
-Please design an approach that:
-1. Leverages our existing JWT infrastructure
-2. Scales to our current user base
-3. Supports the role-based permissions from requirement 2.3
-4. Integrates with our PostgreSQL user database"
-\`\`\`
+请设计一种能够实现以下目标的方法：
+1. 利用我们现有的 JWT 基础设施
+2. 扩展到我们当前的用户群
+3. 支持需求 2.3 中的基于角色的权限
+4. 与我们的 PostgreSQL 用户数据库集成”
+```
 
-### Tasks Phase
+### 任务阶段
 
-**Do:**
-- Request tasks that build incrementally
-- Specify testing requirements for each task
-- Ask for tasks that can be completed independently
-- Include integration and deployment considerations
+**要做：**
+- 请求以增量方式构建的任务
+- 为每个任务指定测试要求
+- 要求可以独立完成的任务
+- 包含集成和部署注意事项
 
-**Don't:**
-- Create tasks that are too large or complex
-- Skip testing and validation steps
-- Ignore dependencies between tasks
-- Forget about documentation and cleanup
+**不要做：**
+- 创建过于庞大或复杂的任务
+- 跳过测试和验证步骤
+- 忽略任务之间的依赖关系
+- 忘记文档和清理工作
 
-**Successful Interaction Example:**
-\`\`\`
-User: "Please break down the authentication design into coding tasks. 
-I want to follow TDD principles and be able to deploy incrementally. 
-Each task should be completable in 2-4 hours and include its own tests.
+**成功交互示例：**
+```
+用户：“请将身份验证设计分解为编码任务。我想遵循 TDD 原则并能够增量部署。
+每个任务应在 2-4 小时内完成，并包含其自身的测试。
 
-Priority is getting basic login/logout working first, then adding 
-the role-based permissions. I'm using Jest for testing and have 
-CI/CD set up with GitHub Actions."
-\`\`\`
+优先级别是先让基本的登录/注销工作，然后添加基于角色的权限。
+我正在使用 Jest 进行测试，并已使用 GitHub Actions 设置了 CI/CD。”
+```
 
-## Communication Techniques
+## 沟通技术
 
-### Iterative Refinement
+### 迭代完善
 
-**Build on Previous Responses**
-\`\`\`
-"The requirements look good overall. I'd like to refine requirement 2.1 
-to be more specific about the error handling. Instead of 'system should 
-handle errors gracefully', let's specify exactly what happens when 
-authentication fails, network is unavailable, and tokens expire."
-\`\`\`
+**建立在先前的回复之上**
+```
+“需求总体看起来不错。我想完善需求 2.1，使其在错误处理方面更加具体。
+不要写‘系统应优雅地处理错误’，让我们准确指定当身份验证失败、
+网络不可用以及令牌过期时会发生什么。”
+```
 
-**Validate Understanding**
-\`\`\`
-"Before we move to design, let me confirm my understanding:
-- We're prioritizing security over convenience
-- Integration with existing systems is mandatory, not optional  
-- Performance requirements are firm (sub-200ms login)
-- We need to support both web and mobile clients
-Is this correct?"
-\`\`\`
+**验证理解**
+```
+“在我们进入设计之前，让我确认一下我的理解：
+- 我们优先考虑安全性而非便利性
+- 与现有系统的集成是强制性的，而不是可选的
+- 性能要求是严格的（登录低于 200 毫秒）
+- 我们需要支持 Web 和移动客户端
+这样对吗？”
+```
 
-### Feedback Integration
+### 反馈整合
 
-**Specific Change Requests**
-\`\`\`
-"I need these specific changes to the design:
-1. Replace Redis caching with in-memory caching to reduce infrastructure complexity
-2. Add rate limiting to prevent brute force attacks (requirement 1.4)
-3. Include session management for the mobile app use case
-4. Specify the database schema changes needed for role storage"
-\`\`\`
+**具体变更请求**
+```
+“我需要对设计进行这些具体更改：
+1. 用内存缓存替换 Redis 缓存，以降低基础设施复杂性
+2. 添加速率限制以防止暴力攻击（需求 1.4）
+3. 为移动应用程序用例包含会话管理
+4. 指定角色存储所需的数据库模式更改”
+```
 
-**Explain the Reasoning**
-\`\`\`
-"I want to change the authentication approach from OAuth to JWT because:
-- Our team has more experience with JWT implementation
-- It reduces external dependencies (no OAuth provider needed)
-- Better fits our offline-capable mobile app requirement
-- Simpler to test and debug in our current setup"
-\`\`\`
+**解释理由**
+```
+“我想将身份验证方法从 OAuth 更改为 JWT，因为：
+- 我们的团队在 JWT 实施方面有更多经验
+- 它减少了外部依赖（不需要 OAuth 提供商）
+- 更好地适应我们的离线可用移动应用需求
+- 在我们当前的设置中更容易进行测试和调试”
+```
 
-## Troubleshooting Common Issues
+## 常见问题排查
 
-### When Responses Are Too Generic
+### 当回复过于通用时
 
-**Problem:** AI provides high-level, generic advice instead of specific guidance.
+**问题：** AI 提供高层次、通用的建议，而不是具体的指导。
 
-**Solution:** Add more context and constraints.
+**解决方案：** 添加更多上下文和约束。
 
-**Before:**
-\`\`\`
-"How should I structure my database for user management?"
-\`\`\`
+**之前：**
+```
+“我应该如何为用户管理构建数据库结构？”
+```
 
-**After:**
-\`\`\`
-"I have a PostgreSQL database for a multi-tenant SaaS app with these constraints:
-- 500 businesses, average 8 users each
-- Need to track user roles, permissions, and activity
-- Current users table has id, email, created_at
-- Must maintain backward compatibility with existing auth system
-- Performance target: user lookup under 50ms
+**之后：**
+```
+“我有一个用于多租户 SaaS 应用程序的 PostgreSQL 数据库，具有以下约束：
+- 500 家企业，每家平均 8 名用户
+- 需要跟踪用户角色、权限和活动
+- 当前用户表具有 id, email, created_at
+- 必须保持与现有身份验证系统的向后兼容性
+- 性能目标：用户查找低于 50 毫秒
 
-How should I extend the schema to support role-based access control?"
-\`\`\`
+我应该如何扩展模式以支持基于角色的访问控制？”
+```
 
-### When Requirements Keep Changing
+### 当需求不断变化时
 
-**Problem:** Scope creep during requirements phase.
+**问题：** 需求阶段出现范围蔓延。
 
-**Solution:** Establish clear boundaries and priorities.
+**解决方案：** 建立明确的边界和优先级。
 
-**Approach:**
-\`\`\`
-"Let's establish the MVP scope first. For version 1, we MUST have:
-- [Core requirement 1]
-- [Core requirement 2]
-- [Core requirement 3]
+**方法：**
+```
+“让我们首先确定 MVP 范围。对于版本 1，我们必须具备：
+- [核心需求 1]
+- [核心需求 2]
+- [核心需求 3]
 
-Nice-to-have features for future versions:
-- [Enhancement 1]
-- [Enhancement 2]
+未来版本的可选功能：
+- [增强功能 1]
+- [增强功能 2]
 
-Please focus the requirements only on the MVP scope."
-\`\`\`
+请仅将需求重点放在 MVP 范围内。”
+```
 
-### When Design Becomes Too Complex
+### 当设计变得过于复杂时
 
-**Problem:** Design tries to solve every possible future need.
+**问题：** 设计试图解决所有可能的未来需求。
 
-**Solution:** Refocus on current requirements and constraints.
+**解决方案：** 重新关注当前的需求和约束。
 
-**Approach:**
-\`\`\`
-"The design is getting complex. Let's simplify by focusing only on 
-requirements 1.1-1.4 for now. We can extend it later for requirements 
-2.x. Please revise the design to:
-- Handle current user load (not 10x future growth)
-- Use our existing tech stack (don't introduce new technologies)
-- Solve the specific problems in our requirements (not general problems)"
-\`\`\`
+**方法：**
+```
+“设计正变得复杂。让我们暂时只专注于需求 1.1-1.4，以此来简化设计。
+我们以后可以针对需求 2.x 进行扩展。请将设计修改为：
+- 处理当前的用户负载（而不是未来的 10 倍增长）
+- 使用我们现有的技术栈（不要引入新技术）
+- 解决我们需求中的具体问题（而不是一般问题）”
+```
 
-### When Tasks Are Too Abstract
+### 当任务过于抽象时
 
-**Problem:** Implementation tasks are too high-level for actual coding.
+**问题：** 实施任务过于高层次，无法进行实际编码。
 
-**Solution:** Request specific, actionable coding steps.
+**解决方案：** 请求具体、可操作的编码步骤。
 
-**Before:**
-\`\`\`
-"- Implement user authentication system"
-\`\`\`
+**之前：**
+```
+“- 实施用户身份验证系统”
+```
 
-**After:**
-\`\`\`
-"Please break down 'Implement user authentication system' into specific coding tasks like:
-- Create User model with email, password_hash, role fields
-- Write password hashing utility functions with bcrypt
-- Implement login endpoint that validates credentials and returns JWT
-- Create middleware to verify JWT tokens on protected routes
-- Write unit tests for each component"
-\`\`\`
+**之后：**
+```
+“请将‘实施用户身份验证系统’分解为具体的编码任务，例如：
+- 创建具有 email, password_hash, role 字段的 User 模型
+- 使用 bcrypt 编写密码哈希实用函数
+- 实施验证凭据并返回 JWT 的登录端点
+- 创建中间件以在受保护的路由上验证 JWT 令牌
+- 为每个组件编写单元测试”
+```
 
-## Quality Validation Techniques
+## 质量验证技术
 
-### Requirements Validation
+### 需求验证
 
-**Completeness Check:**
-\`\`\`
-"Please review these requirements and identify any gaps:
-- Are all user types covered?
-- Do we handle all error scenarios?
-- Are integration points specified?
-- Are performance requirements measurable?
-- Is the scope clearly bounded?"
-\`\`\`
+**完整性检查：**
+```
+“请审查这些需求并确定任何差距：
+- 是否涵盖了所有用户类型？
+- 我们是否处理了所有错误场景？
+- 是否指定了集成点？
+- 性能要求是否可衡量？
+- 范围是否界定清晰？”
+```
 
 **EARS Format Validation:**
-\`\`\`
+```
 "Please check if these acceptance criteria follow EARS format properly:
 - Do they start with WHEN, IF, WHERE, WHILE?
 - Is the system response clearly specified with SHALL?
-- Are conditions and triggers specific and testable?"
-\`\`\`
+- 条件和触发器是否具体且可测试？”
+```
 
-### Design Validation
+### 设计验证
 
-**Architecture Review:**
-\`\`\`
-"Please validate this design against our requirements:
-- Does it address all functional requirements?
-- Are non-functional requirements (performance, security) handled?
-- Are interfaces between components well-defined?
-- Is error handling comprehensive?
-- Can this be tested effectively?"
-\`\`\`
+**架构评审：**
+```
+“请根据我们的需求验证该设计：
+- 它是否解决了所有功能需求？
+- 非功能性需求（性能、安全性）是否得到处理？
+- 组件之间的接口是否定义明确？
+- 错误处理是否全面？
+- 这能被有效地进行测试吗？”
+```
 
-**Technical Feasibility:**
-\`\`\`
-"Given our constraints (team size, timeline, existing systems), 
-is this design realistic? Are there any parts that seem 
-over-engineered or under-specified?"
-\`\`\`
+**技术可行性：**
+```
+“考虑到我们的约束（团队规模、时间表、现有系统），
+这个设计现实吗？是否有任何部分看起来
+过度设计或定义不足？”
+```
 
-### Task Validation
+### 任务验证
 
-**Actionability Check:**
-\`\`\`
-"Are these tasks specific enough for a developer to implement?
-- Do they specify exact files/components to create?
-- Are dependencies between tasks clear?
-- Can each task be completed and tested independently?
-- Do they build incrementally toward the full feature?"
-\`\`\`
+**可操作性检查：**
+```
+“这些任务对于开发人员实施来说是否足够具体？
+- 它们是否指定了要创建的确切文件/组件？
+- 任务之间的依赖关系是否清晰？
+- 每个任务可以独立完成并测试吗？
+- 它们是否以增量方式向完整功能构建？”
+```
 
-## Advanced Techniques
+## 高级技术
 
-### Research Integration
+### 研究集成
 
-**When You Need Technical Research:**
-\`\`\`
-"Before we finalize the design, I need to research authentication 
-best practices for multi-tenant SaaS applications. Please help me 
-identify the key areas to research:
-- Industry standards for role-based access control
-- Common security vulnerabilities and mitigations
-- Performance optimization techniques for JWT at scale
-- Integration patterns with existing systems"
-\`\`\`
+**当您需要技术研究时：**
+```
+“在我们最终确定设计之前，我需要研究
+多租户 SaaS 应用程序的身份验证最佳实践。请帮我
+确定需要研究的关键领域：
+- 基于角色的访问控制行业标准
+- 常见的安全漏洞和缓解措施
+- 大规模 JWT 的性能优化技术
+- 与现有系统的集成模式”
+```
 
-### Constraint Management
+### 约束管理
 
-**Handling Conflicting Requirements:**
-\`\`\`
-"We have conflicting requirements: users want single sign-on (req 1.3) 
-but we also need offline capability (req 2.1). Please help me:
-1. Analyze the trade-offs between these approaches
-2. Suggest compromise solutions
-3. Recommend which requirement should take priority and why"
-\`\`\`
+**处理冲突的需求：**
+```
+“我们有冲突的需求：用户想要单点登录（需求 1.3）
+但我们也需要离线功能（需求 2.1）。请帮我：
+1. 分析这些方法之间的权衡
+2. 建议折衷方案
+3. 推荐哪个需求应该优先考虑以及原因”
+```
 
-### Stakeholder Alignment
+### 利益相关者对齐
 
-**Multi-Perspective Validation:**
-\`\`\`
-"Please review these requirements from different stakeholder perspectives:
-- Developer: Are they technically feasible with our stack?
-- User: Do they solve real user problems effectively?
-- Business: Do they align with our business goals and constraints?
-- Security: Are there any security concerns or gaps?"
-\`\`\`
+**多视角验证：**
+```
+“请从不同的利益相关者角度审查这些需求：
+- 开发人员：使用我们的技术栈在技术上是否可行？
+- 用户：它们是否有效地解决了真实的用户问题？
+- 业务：它们是否符合我们的业务目标和约束？
+- 安全性：是否存在任何安全问题或漏洞？”
+```
 
 ---
 
-[← Templates](templates.md) | [Back to Prompting Guide](README.md)
+[← 模板](templates.md) | [返回提示词指南](README.md)
 ```
 
 # spec-process-guide/prompting/README.md
 
 ```md
-# Prompting Strategies
+# 提示策略
 
 <!-- Navigation Metadata -->
 <!-- Section: Prompting | Level: Overview | Prerequisites: methodology/README.md -->
 <!-- Related: process/README.md, ai-reasoning/decision-frameworks.md, templates/README.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Prompting Strategies**
+**📍 您在这里：** [主指南](../README.md) → **提示策略**
 
-## Quick Navigation
-- **Foundation:** [Methodology Overview](../methodology/README.md) - Understand spec-driven development first
-- **Process Steps:** [Process Guide](../process/README.md) - Learn the three-phase workflow
-- **AI Reasoning:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - Understand how AI makes choices
-- **Practice:** [Templates](../templates/README.md) - Try prompting with structured templates
-
----
-
-Effective communication techniques for successful AI collaboration during spec development.
-
-## In This Section
-
-- **[Strategies](strategies.md)** - Core approaches for clear, effective prompting
-- **[Templates](templates.md)** - Ready-to-use prompt patterns for each phase
-- **[Best Practices](best-practices.md)** - Tips for getting better results
-
-## Key Principles
-
-Effective prompting for spec development follows these principles:
-
-1. **Be Specific** - Provide clear context and concrete examples
-2. **Structure Requests** - Break complex asks into manageable parts
-3. **Iterate Thoughtfully** - Build on previous responses rather than starting over
-4. **Validate Understanding** - Confirm alignment before proceeding to next phases
-
-## Common Patterns
-
-- **Context Setting** - Establishing project background and constraints
-- **Phase Transitions** - Moving smoothly between requirements, design, and tasks
-- **Feedback Integration** - Incorporating changes and refinements effectively
-- **Quality Validation** - Ensuring outputs meet your standards
+## 快速导航
+- **基础：** [方法论概述](../methodology/README.md) - 首先理解规范驱动开发
+- **流程步骤：** [流程指南](../process/README.md) - 学习三阶段工作流
+- **AI 推理：** [决策框架](../ai-reasoning/decision-frameworks.md) - 理解 AI 如何做出选择
+- **实践：** [模板](../templates/README.md) - 尝试使用结构化模板进行提示
 
 ---
 
-[← Back to Main Guide](../README.md) | [Learn Core Strategies →](strategies.md)
+在规范开发过程中进行成功的 AI 协作的有效沟通技术。
+
+## 在本节中
+
+- **[策略](strategies.md)** - 清晰、有效的提示核心方法
+- **[模板](templates.md)** - 适用于每个阶段的即开即用的提示模式
+- **[最佳实践](best-practices.md)** - 获得更好结果的建议
+
+## 核心原则
+
+用于规范开发的有效提示遵循以下原则：
+
+1. **要具体** - 提供清晰的上下文和具体的例子
+2. **结构化请求** - 将复杂的请求分解为易于管理的部分
+3. **深思熟虑地迭代** - 建立在先前的回复之上，而不是重新开始
+4. **验证理解** - 在进入下一阶段之前确认一致性
+
+## 常见模式
+
+- **上下文设置** - 建立项目背景和约束
+- **阶段转换** - 在需求、设计和任务之间平滑移动
+- **反馈整合** - 有效地整合变更和完善
+- **质量验证** - 确保输出符合您的标准
+
+---
+
+[← 返回主指南](../README.md) | [学习核心策略 →](strategies.md)
 ```
 
 # spec-process-guide/prompting/templates.md
 
 ```md
-# Prompt Templates and Patterns
+# 提示模板与模式
 
-This guide provides specific prompt templates for each phase of spec development, with variations for different feature types and complexity levels.
+本指南为规范开发的每个阶段提供了具体的提示模板，并针对不同的功能类型和复杂程度进行了变体设计。
 
-## Template Structure
+## 模板结构
 
-Each template follows this pattern:
-- **Context Setting**: Establish project background and constraints
-- **Phase-Specific Instructions**: Clear guidance for the current phase
-- **Output Format**: Specific formatting requirements
-- **Validation Criteria**: How to evaluate the response
+每个模板都遵循以下模式：
+- **上下文设置**：建立项目背景和约束
+- **阶段特定的说明**：当前阶段的清晰指导
+- **输出格式**：具体的格式化要求
+- **验证标准**：如何评估回复
 
-## Requirements Phase Templates
+## 需求阶段模板
 
-### Basic Feature Requirements
+### 基础功能需求
 
-\`\`\`
-I want to create a spec for [FEATURE_NAME]. Here's my initial idea:
+```
+我想为 [功能名称] 创建一个规范。这是我的初步想法：
 
-[BRIEF_FEATURE_DESCRIPTION]
+[功能简要描述]
 
-Please help me create comprehensive requirements using the EARS format. Focus on:
-- User stories that capture the core value proposition
-- Acceptance criteria that are testable and specific
-- Edge cases and error scenarios
-- Integration points with existing systems
+请帮我使用 EARS 格式创建全面的需求。重点关注：
+- 捕捉核心价值主张的用户故事
+- 具体且可测试的验收标准
+- 边缘情况和错误场景
+- 与现有系统的集成点
 
-The feature should serve [TARGET_USER_TYPE] and solve [CORE_PROBLEM].
-\`\`\`
+该功能应服务于 [目标用户类型] 并解决 [核心问题]。
+```
 
-### Complex System Requirements
+### 复杂系统需求
 
-\`\`\`
-I'm planning a [SYSTEM_TYPE] that needs to handle [CORE_FUNCTIONALITY]. 
+```
+我正在规划一个需要处理 [核心功能] 的 [系统类型]。
 
-Key constraints:
-- Performance: [PERFORMANCE_REQUIREMENTS]
-- Scale: [EXPECTED_USAGE_PATTERNS]
-- Integration: [EXISTING_SYSTEMS_TO_INTEGRATE]
-- Compliance: [REGULATORY_OR_BUSINESS_REQUIREMENTS]
+关键约束：
+- 性能：[性能要求]
+- 规模：[预期使用模式]
+- 集成：[要集成的现有系统]
+- 合规性：[监管或业务要求]
 
-Please help me break this down into well-structured requirements using EARS format. Pay special attention to:
-- System boundaries and interfaces
-- Non-functional requirements
-- Data flow and processing requirements
-- Security and compliance considerations
-\`\`\`
+请帮我使用 EARS 格式将其分解为结构良好的需求。特别注意：
+- 系统边界和接口
+- 非功能性需求
+- 数据流和处理要求
+- 安全和合规性考虑
+```
 
-### API/Service Requirements
+### API/服务需求
 
-\`\`\`
-I need to design an API for [API_PURPOSE]. The API should:
+```
+我需要为 [API 用途] 设计一个 API。该 API 应具备：
 
-Core functionality:
-- [PRIMARY_OPERATIONS]
-- [SECONDARY_OPERATIONS]
+核心功能：
+- [主要操作]
+- [次要操作]
 
-Technical context:
-- Expected consumers: [WHO_WILL_USE_IT]
-- Data sources: [WHERE_DATA_COMES_FROM]
-- Performance needs: [RESPONSE_TIME_REQUIREMENTS]
+技术背景：
+- 预期消费者：[谁将使用它]
+- 数据源：[数据来自何处]
+- 性能需求：[响应时间要求]
 
-Please create requirements that cover:
-- Endpoint specifications and data models
-- Authentication and authorization
-- Error handling and status codes
-- Rate limiting and usage policies
-\`\`\`
+请创建涵盖以下内容的需求：
+- 端点规范和数据模型
+- 身份验证和授权
+- 错误处理和状态码
+- 速率限制和使用策略
+```
 
-## Design Phase Templates
+## 设计阶段模板
 
-### Architecture Design
+### 架构设计
 
-\`\`\`
-Based on the requirements we've established, I need a comprehensive design for [FEATURE_NAME].
+```
+根据我们已经建立的需求，我需要为 [功能名称] 进行全面设计。
 
-Requirements summary: [BRIEF_RECAP_OF_KEY_REQUIREMENTS]
+需求摘要：[关键需求简要回顾]
 
-Please create a design that addresses:
-- Overall architecture and component relationships
-- Data models and their relationships
-- API interfaces and contracts
-- Error handling strategies
-- Testing approach
+请创建一个解决以下问题的设计：
+- 整体架构和组件关系
+- 数据模型及其关系
+- API 接口和合同
+- 错误处理策略
+- 测试方法
 
-Consider these technical constraints:
-- Technology stack: [CURRENT_TECH_STACK]
-- Performance requirements: [KEY_PERFORMANCE_NEEDS]
-- Integration points: [SYSTEMS_TO_INTEGRATE_WITH]
-\`\`\`
+考虑这些技术约束：
+- 技术栈：[当前技术栈]
+- 性能要求：[关键性能需求]
+- 集成点：[要集成的系统]
+```
 
-### Database Design Focus
+### 以数据库设计为重点
 
-\`\`\`
-I need a detailed database design for [FEATURE_NAME] based on our requirements.
+```
+我需要根据我们的需求为 [功能名称] 提供详细的数据库设计。
 
-Key data entities from requirements:
-- [ENTITY_1]: [BRIEF_DESCRIPTION]
-- [ENTITY_2]: [BRIEF_DESCRIPTION]
-- [ENTITY_3]: [BRIEF_DESCRIPTION]
+需求中的关键数据实体：
+- [实体 1]：[简要描述]
+- [实体 2]：[简要描述]
+- [实体 3]：[简要描述]
 
-Please design:
-- Entity relationship diagrams
-- Table schemas with appropriate constraints
-- Indexing strategy for performance
-- Data migration considerations
-- Backup and recovery approach
+请设计：
+- 实体关系图
+- 具有适当约束的表模式
+- 性能索引策略
+- 数据迁移注意事项
+- 备份和恢复方法
 
-Database context: [CURRENT_DATABASE_TECHNOLOGY]
-\`\`\`
+数据库背景：[当前数据库技术]
+```
 
-### UI/UX Design Focus
+### 以 UI/UX 设计为重点
 
-\`\`\`
-Based on our requirements, I need a user experience design for [FEATURE_NAME].
+```
+根据我们的需求，我需要为 [功能名称] 提供用户体验设计。
 
-User context:
-- Primary users: [USER_TYPES]
-- Usage patterns: [HOW_THEY_WILL_USE_IT]
-- Device/platform: [WHERE_THEY_ACCESS_IT]
+用户背景：
+- 主要用户：[用户类型]
+- 使用模式：[他们将如何使用它]
+- 设备/平台：[他们从哪里访问它]
 
-Please design:
-- User flow diagrams
-- Interface mockups or wireframes
-- Interaction patterns
-- Accessibility considerations
-- Error state handling
-\`\`\`
+请设计：
+- 用户流程图
+- 界面模型或线框图
+- 交互模式
+- 可访问性考虑
+- 错误状态处理
+```
 
-## Tasks Phase Templates
+## 任务阶段模板
 
-### Implementation Planning
+### 实施规划
 
-\`\`\`
-Now that we have the design approved, please break it down into actionable coding tasks.
+```
+现在我们已经批准了设计，请将其分解为可操作的编码任务。
 
-Design summary: [KEY_DESIGN_COMPONENTS]
+设计摘要：[关键设计组件]
 
-Create an implementation plan that:
-- Follows test-driven development principles
-- Builds incrementally with early validation
-- Sequences tasks to minimize dependencies
-- Includes specific file/component creation steps
+创建一个实施计划，该计划：
+- 遵循测试驱动开发原则
+- 通过早期验证进行增量构建
+- 按顺序排序任务以尽量减少依赖关系
+- 包含特定的文件/组件创建步骤
 
-Each task should:
-- Reference specific requirements it addresses
-- Be completable by a coding agent
-- Build on previous tasks
-- Include testing considerations
-\`\`\`
+每个任务应：
+- 引用它解决的特定需求
+- 可由编码智能体完成
+- 建立在先前任务的基础上
+- 包含测试注意事项
+```
 
-### Refactoring/Migration Planning
+### 重构/迁移规划
 
-\`\`\`
-I need to refactor [EXISTING_SYSTEM] to implement [NEW_FEATURE] based on our design.
+```
+我需要根据我们的设计重构 [现有系统] 以实施 [新功能]。
 
-Current system context:
-- Existing codebase: [BRIEF_DESCRIPTION]
-- Technologies used: [CURRENT_TECH_STACK]
-- Areas that need changes: [COMPONENTS_TO_MODIFY]
+当前系统背景：
+- 现有代码库：[简要描述]
+- 使用的技术：[当前技术栈]
+- 需要更改的区域：[要修改的组件]
 
-Create tasks that:
-- Minimize disruption to existing functionality
-- Allow for incremental rollout
-- Include comprehensive testing at each step
-- Handle data migration if needed
-\`\`\`
+创建满足以下要求的任务：
+- 尽量减少对现有功能的干扰
+- 允许增量推出
+- 在每一步都包含全面的测试
+- 如果需要，处理数据迁移
+```
 
-## Complexity-Based Variations
+## 基于复杂性的变体
 
-### Simple Feature (< 5 requirements)
+### 简单功能（< 5 个需求）
 
-Use concise templates focusing on:
-- Core user story and acceptance criteria
-- Basic architecture decisions
+使用重点关注以下内容的简洁模板：
+- 核心用户故事和验收标准
+- 基础架构决策
 - Straightforward task breakdown
 
-### Medium Feature (5-15 requirements)
+### 中等功能（5-15 个需求）
 
-Include additional sections for:
-- Multiple user personas
-- Integration considerations
-- Performance and scalability
-- More detailed task sequencing
+包含额外的章节：
+- 多个用户角色
+- 集成注意事项
+- 性能和可扩展性
+- 更详细的任务排序
 
-### Complex Feature (15+ requirements)
+### 复杂功能（15+ 个需求）
 
-Expand templates to cover:
-- System-wide impact analysis
-- Detailed technical research needs
-- Phased implementation approach
-- Risk assessment and mitigation
+扩展模板以涵盖：
+- 全系统影响分析
+- 详细的技术研究需求
+- 分阶段实施方法
+- 风险评估和缓解
 
-## Communication Patterns
+## 沟通模式
 
-### Context Preservation
+### 上下文保留
 
-\`\`\`
-Continuing from our previous discussion about [FEATURE_NAME], I'd like to [SPECIFIC_REQUEST].
+```
+延续我们之前关于 [功能名称] 的讨论，我想 [具体请求]。
 
-Previous context:
-- [KEY_POINT_1]
-- [KEY_POINT_2]
-- [KEY_POINT_3]
+先前的上下文：
+- [关键点 1]
+- [关键点 2]
+- [关键点 3]
 
-Please [SPECIFIC_ACTION] while maintaining consistency with what we've established.
-\`\`\`
+请在保持与我们已建立的内容的一致性的同时 [执行具体操作]。
+```
 
-### Feedback Integration
+### 反馈整合
 
-\`\`\`
-I've reviewed the [REQUIREMENTS/DESIGN/TASKS] and have some feedback:
+```
+我已经审查了 [需求/设计/任务]，并有一些反馈：
 
-Changes needed:
-1. [SPECIFIC_CHANGE_1] - [REASON]
-2. [SPECIFIC_CHANGE_2] - [REASON]
-3. [SPECIFIC_CHANGE_3] - [REASON]
+需要进行的更改：
+1. [具体更改 1] - [理由]
+2. [具体更改 2] - [理由]
+3. [具体更改 3] - [理由]
 
-Please update the document to incorporate these changes while maintaining the overall structure and quality.
-\`\`\`
+请更新文档以整合这些更改，同时保持整体结构 and 质量。
+```
 
-### Clarification Requests
+### 澄清请求
 
-\`\`\`
-I need clarification on [SPECIFIC_ASPECT] from the [REQUIREMENTS/DESIGN/TASKS].
+```
+我需要关于 [需求/设计/任务] 中 [具体方面] 的澄清。
 
-Specifically:
-- [QUESTION_1]
-- [QUESTION_2]
-- [QUESTION_3]
+具体来说：
+- [问题 1]
+- [问题 2]
+- [问题 3]
 
-Please provide detailed explanations and update the document if needed to make these points clearer.
-\`\`\`
+请提供详细的说明，并在需要时更新文档以使这些点更加清晰。
+```
 
-## Quality Validation Prompts
+## 质量验证提示词
 
-### Requirements Review
+### 需求评审
 
-\`\`\`
-Please review the requirements document for [FEATURE_NAME] and check:
+```
+请审查 [功能名称] 的需求文档并检查：
 
-- Are all user stories complete with clear acceptance criteria?
-- Do the requirements use proper EARS format?
-- Are edge cases and error scenarios covered?
-- Is the scope clearly defined and bounded?
-- Are there any missing integration points?
+- 所有用户故事是否都完整并具有清晰的验收标准？
+- 需求是否使用了正确的 EARS 格式？
+- 边缘情况和错误场景是否得到覆盖？
+- 范围是否界定清晰？
+- 是否有缺失的集成点？
 
-Provide specific feedback on any issues found.
-\`\`\`
+请针对发现的任何问题提供具体的反馈。
+```
 
-### Design Review
+### 设计评审
 
-\`\`\`
-Please review the design document for [FEATURE_NAME] and validate:
+```
+请审查 [功能名称] 的设计文档并验证：
 
-- Does the architecture address all requirements?
-- Are the component interfaces well-defined?
-- Is the error handling strategy comprehensive?
-- Are performance considerations addressed?
-- Is the testing approach adequate?
+- 架构是否解决了所有需求？
+- 组件接口是否定义明确？
+- 错误处理策略是否全面？
+- 是否解决了性能方面的考虑？
+- 测试方法是否充分？
 
-Highlight any gaps or inconsistencies.
-\`\`\`
+请突出显示任何差距或不一致之处。
+```
 
-### Tasks Review
+### 任务评审
 
-\`\`\`
-Please review the implementation plan for [FEATURE_NAME] and check:
+```
+请审查 [功能名称] 的实施计划并检查：
 
-- Are all tasks actionable by a coding agent?
-- Do tasks build incrementally without big jumps?
-- Are all requirements covered by the tasks?
-- Is the sequencing logical and dependency-aware?
-- Are testing tasks integrated throughout?
+- 所有任务是否都可以由编码智能体执行？
+- 任务是否以增量方式构建，没有巨大的跳跃？
+- 任务是否涵盖了所有需求？
+- 排序是否符合逻辑且具有依赖意识？
+- 测试任务是否贯穿始终？
 
-Suggest improvements for any issues identified.
-\`\`\`
+对发现的任何问题提出改进建议。
+```
 
-## Troubleshooting Prompts
+## 故障排除提示词
 
-### When Requirements Are Too Vague
+### 当需求过于模糊时
 
-\`\`\`
-The requirements seem too high-level. Please help me break down [SPECIFIC_REQUIREMENT] into more specific, testable acceptance criteria.
+```
+需求似乎太高层次了。请帮我将 [具体需求] 分解为更具体的、可测试的验收标准。
 
-Focus on:
-- Concrete user actions and system responses
-- Measurable success criteria
-- Specific error conditions and handling
-- Clear boundaries of what's included/excluded
-\`\`\`
+重点关注：
+- 具体的用户操作和系统响应
+- 可衡量的成功标准
+- 特定的错误条件和处理
+- 所包含/排除内容的清晰界限
+```
 
-### When Design Lacks Detail
+### 当设计缺乏细节时
 
-\`\`\`
-The design needs more technical detail for [SPECIFIC_COMPONENT]. Please expand on:
+```
+该设计需要更多关于 [具体组件] 的技术细节。请扩展以下内容：
 
-- Specific interfaces and data contracts
-- Implementation approach and technology choices
-- Error handling and edge case management
-- Performance considerations and constraints
-- Testing strategy for this component
-\`\`\`
+- 具体接口和数据合同
+- 实施方法和技术选择
+- 错误处理和边缘情况管理
+- 性能考虑和约束
+- 该组件的测试策略
+```
 
-### When Tasks Are Too Abstract
+### 当任务过于抽象时
 
-\`\`\`
-Some tasks in the implementation plan are too abstract for direct coding. Please break down [SPECIFIC_TASK] into concrete coding steps that specify:
+```
+实施计划中的某些任务对于直接编码来说过于抽象。请将 [具体任务] 分解为具体的编码步骤，并指明：
 
-- Exact files or components to create/modify
-- Specific functions or classes to implement
-- Test cases to write
-- Integration points to establish
-\`\`\`
+- 要创建/修改的确切文件或组件
+- 要实施的具体函数或类
+- 要编写的测试用例
+- 要建立的集成点
+```
 
 ---
 
-[← Back to Prompting Guide](README.md) | [Best Practices →](best-practices.md)
+[← 返回提示策略指南](README.md) | [最佳实践 →](best-practices.md)
 ```
 
 # spec-process-guide/resources/README.md
 
 ```md
-# Resources
+# 资源
 
 <!-- Navigation Metadata -->
 <!-- Section: Resources | Level: Reference | Prerequisites: None -->
 <!-- Related: process/requirements-phase.md, templates/README.md, methodology/README.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Resources**
+**📍 您在这里：** [主指南](../README.md) → **资源**
 
-## Quick Navigation
-- **Apply Standards:** [Requirements Phase](../process/requirements-phase.md) - Use EARS format in practice
-- **Get Templates:** [Templates & Checklists](../templates/README.md) - Ready-to-use starting points
-- **Understand Context:** [Methodology](../methodology/README.md) - See how resources fit the bigger picture
-- **Find Tools:** [Tool Integration Guide](tool-integration-guide.md) - Specific tool recommendations
-
----
-
-Curated references and learning materials to deepen your understanding of spec-driven development.
-
-## In This Section
-
-- **[Standards](standards.md)** - EARS format and industry requirements engineering standards
-- **[Tools](tools.md)** - Recommended tools and integrations for spec development
-- **[Further Reading](further-reading.md)** - Books, articles, and additional learning resources
-
-## Quick Reference
-
-### EARS Format
-**E**asy **A**pproach to **R**equirements **S**yntax - A structured way to write clear, testable requirements using keywords like WHEN, IF, WHILE, WHERE, and SHALL.
-
-### Key Standards
-- IEEE 830 - Software Requirements Specifications
-- ISO/IEC 25010 - Systems and software Quality Requirements and Evaluation
-- Agile Requirements Engineering practices
-
-### Essential Tools
-- Documentation platforms (Markdown, Notion, Confluence)
-- Diagramming tools (Mermaid, Lucidchart, Draw.io)
-- Project management (Linear, Jira, GitHub Issues)
+## 快速导航
+- **应用标准：** [需求阶段](../process/requirements-phase.md) - 在实践中使用 EARS 格式
+- **获取模板：** [模板与检查清单](../templates/README.md) - 即开即用的起点
+- **理解上下文：** [方法论](../methodology/README.md) - 了解资源如何融入大局
+- **寻找工具：** [工具集成指南](tool-integration-guide.md) - 具体的工具建议
 
 ---
 
-[← Back to Main Guide](../README.md) | [Explore Standards →](standards.md)
+经过策划的参考资料和学习材料，旨在加深您对规范驱动开发的理解。
+
+## 在本节中
+
+- **[标准](standards.md)** - EARS 格式和行业需求工程标准
+- **[工具](tools.md)** - 用于规范开发的推荐工具和集成
+- **[进一步阅读](further-reading.md)** - 书籍、文章和其他学习资源
+
+## 快速参考
+
+### EARS 格式
+**E**asy **A**pproach to **R**equirements **S**yntax - 一种用于编写清晰、可测试需求的结构化方法，使用 WHEN, IF, WHILE, WHERE 和 SHALL 等关键字。
+
+### 关键标准
+- IEEE 830 - 软件需求规范
+- ISO/IEC 25010 - 系统和软件质量需求及评估
+- 敏捷需求工程实践
+
+### 必备工具
+- 文档平台 (Markdown, Notion, Confluence)
+- 绘图工具 (Mermaid, Lucidchart, Draw.io)
+- 项目管理 (Linear, Jira, GitHub Issues)
+
+---
+
+[← 返回主指南](../README.md) | [探索标准 →](standards.md)
 ```
 
 # spec-process-guide/resources/standards.md
 
 ```md
-# Standards and Methodology References
+# 标准与方法论参考
 
 <!-- Navigation Metadata -->
 <!-- Resource: Standards | Level: Reference | Prerequisites: None -->
 <!-- Related: process/requirements-phase.md, templates/requirements-template.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Resources](README.md) → **Standards**
+**📍 您在这里：** [主指南](../README.md) → [资源](README.md) → **标准**
 
-## Quick Navigation
-- **📋 Apply EARS:** [Requirements Phase](../process/requirements-phase.md) - Use EARS format in practice
-- **📝 Use Template:** [Requirements Template](../templates/requirements-template.md) - EARS-formatted template
-- **📖 See Examples:** [Simple Feature Specs](../examples/simple-feature-spec.md) - EARS in action
-- **🔧 More Tools:** [Tools & Resources](tools.md) - Additional helpful resources
+## 快速导航
+- **📋 应用 EARS：** [需求阶段](../process/requirements-phase.md) - 在实践中使用 EARS 格式
+- **📝 使用模板：** [需求模板](../templates/requirements-template.md) - EARS 格式的模板
+- **📖 查看示例：** [简单功能规范](../examples/simple-feature-spec.md) - EARS 的实际应用
+- **🔧 更多工具：** [工具与资源](tools.md) - 其他有用的资源
 
 ---
 
-This section provides detailed information about industry standards, methodologies, and best practices that inform the spec-driven development approach.
+本节提供了有关行业标准、方法论和最佳实践的详细信息，这些信息为规范驱动开发方法提供了参考。
 
-## EARS (Easy Approach to Requirements Syntax)
+## EARS (需求语法的简易方法)
 
-EARS is a structured approach to writing requirements that makes them clear, testable, and unambiguous. It uses specific keywords to define different types of requirements.
+EARS 是一种编写需求的结构化方法，它使需求变得清晰、可测试且无歧义。它使用特定的关键字来定义不同类型的需求。
 
-### EARS Keywords and Structure
+### EARS 关键字和结构
 
-#### WHEN (Event-driven requirements)
-Used for requirements triggered by specific events or conditions.
+#### WHEN (事件驱动的需求)
+用于由特定事件或条件触发的需求。
 
-**Format:** `WHEN [event/trigger] THEN [system] SHALL [response]`
+**格式：** `WHEN [事件/触发器] THEN [系统] SHALL [响应]`
 
-**Examples:**
-- WHEN a user clicks the "Save" button THEN the system SHALL validate all form fields
-- WHEN a file upload exceeds 10MB THEN the system SHALL display an error message
-- WHEN a user session expires THEN the system SHALL redirect to the login page
+**示例：**
+- WHEN 用户点击“保存”按钮 THEN 系统 SHALL 验证所有表单字段
+- WHEN 文件上传超过 10MB THEN 系统 SHALL 显示错误消息
+- WHEN 用户会话过期 THEN 系统 SHALL 重定向到登录页面
 
-#### IF (State-driven requirements)
-Used for requirements that depend on specific system states or conditions.
+#### IF (状态驱动的需求)
+用于取决于特定系统状态或条件的需求。
 
-**Format:** `IF [condition] THEN [system] SHALL [response]`
+**格式：** `IF [条件] THEN [系统] SHALL [响应]`
 
-**Examples:**
-- IF a user is not authenticated THEN the system SHALL deny access to protected resources
-- IF the database connection fails THEN the system SHALL display a maintenance message
-- IF a user has admin privileges THEN the system SHALL show the admin panel
+**示例：**
+- IF 用户未经身份验证 THEN 系统 SHALL 拒绝访问受保护的资源
+- IF 数据库连接失败 THEN 系统 SHALL 显示维护消息
+- IF 用户具有管理员特权 THEN 系统 SHALL 显示管理面板
 
-#### WHILE (Continuous requirements)
-Used for requirements that must be maintained during ongoing operations.
+#### WHILE (持续性需求)
+用于在持续运行期间必须维持的需求。
 
-**Format:** `WHILE [condition] [system] SHALL [continuous behavior]`
+**格式：** `WHILE [条件] [系统] SHALL [持续行为]`
 
-**Examples:**
-- WHILE a file is uploading the system SHALL display a progress indicator
-- WHILE a user is typing the system SHALL provide real-time validation feedback
-- WHILE the system is processing a request the system SHALL prevent duplicate submissions
+**示例：**
+- WHILE 文件正在上传 系统 SHALL 显示进度指示器
+- WHILE 用户正在输入 系统 SHALL 提供实时验证反馈
+- WHILE 系统正在处理请求 系统 SHALL 防止重复提交
 
-#### WHERE (Optional requirements)
-Used for requirements that apply only in specific contexts or locations.
+#### WHERE (可选需求)
+用于仅在特定上下文或位置适用的需求。
 
-**Format:** `WHERE [location/context] [system] SHALL [behavior]`
+**格式：** `WHERE [位置/上下文] [系统] SHALL [行为]`
 
-**Examples:**
-- WHERE the user is on a mobile device the system SHALL use responsive layout
-- WHERE the application runs in production mode the system SHALL log errors to external service
-- WHERE multiple users edit simultaneously the system SHALL handle conflicts gracefully
+**示例：**
+- WHERE 用户在移动设备上 系统 SHALL 使用响应式布局
+- WHERE 应用程序在生产模式下运行 系统 SHALL 将错误记录到外部服务
+- WHERE 多个用户同时编辑 系统 SHALL 优雅地处理冲突
 
-### EARS Best Practices
+### EARS 最佳实践
 
-1. **Use Active Voice**: Write requirements using active voice for clarity
-2. **Be Specific**: Avoid vague terms like "user-friendly" or "fast"
-3. **One Requirement Per Statement**: Each EARS statement should contain exactly one requirement
-4. **Testable Outcomes**: Every requirement should be verifiable through testing
-5. **Consistent Terminology**: Use the same terms throughout all requirements
+1. **使用主动语态**：为了清晰起见，使用主动语态编写需求
+2. **要具体**：避免使用诸如“用户友好”或“快速”之类的模糊术语
+3. **每个陈述一个需求**：每个 EARS 陈述应恰好包含一个需求
+4. **可测试的结果**：每个需求都应该可以通过测试进行验证
+5. **术语一致性**：在所有需求中使用相同的术语
 
-### EARS Anti-Patterns to Avoid
+### 要避免的 EARS 反模式
 
-- **Compound Requirements**: Avoid multiple SHALL statements in one requirement
-- **Vague Conditions**: Don't use unclear triggers like "when appropriate"
-- **Implementation Details**: Focus on what, not how
-- **Untestable Requirements**: Avoid subjective terms that can't be measured
+- **复合需求**：避免在一个需求中出现多个 SHALL 陈述
+- **模糊条件**：不要使用“在适当时”等不清晰的触发器
+- **实施细节**：关注“是什么”，而不是“如何做”
+- **不可测试的需求**：避免使用无法衡量的客观术语
 
-## Industry Standards for Requirements Engineering
+## 需求工程行业标准
 
-### IEEE 830 - Software Requirements Specifications
+### IEEE 830 - 软件需求规范
 
-IEEE 830 provides guidelines for writing software requirements specifications (SRS). Key principles include:
+IEEE 830 为编写软件需求规范 (SRS) 提供了指南。关键原则包括：
 
-#### Characteristics of Good Requirements
-- **Correct**: Accurately describes the intended functionality
-- **Unambiguous**: Has only one interpretation
-- **Complete**: Includes all necessary information
-- **Consistent**: No conflicts with other requirements
-- **Ranked**: Prioritized by importance and stability
-- **Verifiable**: Can be tested or inspected
-- **Modifiable**: Can be changed without excessive impact
-- **Traceable**: Can be linked to design and implementation
+#### 良好需求的特征
+- **正确**：准确描述预期功能
+- **无歧义**：只有一种解释
+- **完整**：包含所有必要信息
+- **一致**：与其他需求没有冲突
+- **分级**：按重要性和稳定性排序
+- **可验证**：可以测试或检查
+- **可修改**：可以在不产生过度影响的情况下进行更改
+- **可追溯**：可以链接到设计和实施
 
-#### SRS Document Structure
-1. Introduction (Purpose, Scope, Definitions)
-2. Overall Description (Product Perspective, Functions, User Characteristics)
-3. Specific Requirements (Functional, Non-functional, Interface)
-4. Appendices (Supporting Information)
+#### SRS 文档结构
+1. 引言（目的、范围、定义）
+2. 总体描述（产品视角、功能、用户特征）
+3. 特定需求（功能性、非功能性、接口）
+4. 附录（支持信息）
 
-### ISO/IEC 25010 - Quality Requirements
+### ISO/IEC 25010 - 质量需求
 
-ISO/IEC 25010 defines quality characteristics for systems and software:
+ISO/IEC 25010 定义了系统 and 软件的质量特征：
 
-#### Functional Suitability
-- **Functional Completeness**: All specified functions are present
+#### 功能适用性
+- **功能完整性**：所有指定的功能均已存在
 - **Functional Correctness**: Functions provide correct results
-- **Functional Appropriateness**: Functions facilitate specified tasks
+- **功能适当性**：功能是否有助于完成指定任务
 
-#### Performance Efficiency
-- **Time Behavior**: Response times and processing speeds
-- **Resource Utilization**: CPU, memory, storage usage
-- **Capacity**: Maximum limits and scalability
+#### 性能效率
+- **时间行为**：响应时间和处理速度
+- **资源利用**：CPU、内存、存储使用情况
+- **容量**：最大限制和可扩展性
 
-#### Compatibility
-- **Co-existence**: Can operate with other systems
-- **Interoperability**: Can exchange and use information
+#### 兼容性
+- **共存性**：能够与其他系统一起运行
+- **互操作性**：能够交换和使用信息
 
-#### Usability
-- **Appropriateness Recognizability**: Users can recognize suitability
-- **Learnability**: Easy to learn and understand
-- **Operability**: Easy to operate and control
-- **User Error Protection**: Protects against user errors
-- **User Interface Aesthetics**: Pleasing user interface
-- **Accessibility**: Usable by people with disabilities
+#### 易用性
+- **适用性可识别性**：用户能够识别适用性
+- **易学性**：易于学习和理解
+- **可操作性**：易于操作和控制
+- **用户错误保护**：防止用户出错
+- **界面美观性**：令人愉悦的用户界面
+- **可访问性**：残障人士也可使用
 
-#### Reliability
-- **Maturity**: Meets reliability needs under normal operation
-- **Availability**: Operational when required
-- **Fault Tolerance**: Operates despite hardware/software faults
-- **Recoverability**: Can recover from failures
+#### 可靠性
+- **成熟度**：在正常运行下满足可靠性需求
+- **可用性**：需要时可运行
+- **容错性**：尽管存在硬件/软件故障仍可运行
+- **可恢复性**：能够从故障中恢复
 
-#### Security
-- **Confidentiality**: Ensures data access only by authorized users
-- **Integrity**: Prevents unauthorized modification
-- **Non-repudiation**: Proves actions or events have taken place
-- **Accountability**: Traces actions to entities
-- **Authenticity**: Proves identity of subjects or resources
+#### 安全性
+- **机密性**：确保数据仅由授权用户访问
+- **完整性**：防止未经授权的修改
+- **不可否认性**：证明操作或事件已经发生
+- **问责性**：将操作追溯到实体
+- **真实性**：证明主体或资源的身份
 
-#### Maintainability
-- **Modularity**: Composed of discrete components
-- **Reusability**: Assets can be used in other systems
-- **Analysability**: Easy to assess impact of changes
-- **Modifiability**: Can be modified without defects
-- **Testability**: Test criteria can be established
+#### 可维护性
+- **模块化**：由离散组件组成
+- **可重用性**：资产可以在其他系统中使用
+- **可分析性**：易于评估更改的影响
+- **可修改性**：可以在不产生缺陷的情况下进行修改
+- **可测试性**：可以建立测试标准
 
-#### Portability
-- **Adaptability**: Can be adapted to different environments
-- **Installability**: Can be installed in specified environments
-- **Replaceability**: Can replace other software for same purpose
+#### 可移植性
+- **适应性**：可以适应不同的环境
+- **可安装性**：可以安装在指定的环境中
+- **可替换性**：可以替换出于相同目的的其他软件
 
-## System Design and Architecture Best Practices
+## 系统设计与架构最佳实践
 
-### Architectural Principles
+### 架构原则
 
-#### SOLID Principles
-- **Single Responsibility**: Each module has one reason to change
-- **Open/Closed**: Open for extension, closed for modification
-- **Liskov Substitution**: Subtypes must be substitutable for base types
-- **Interface Segregation**: Clients shouldn't depend on unused interfaces
-- **Dependency Inversion**: Depend on abstractions, not concretions
+#### SOLID 原则
+- **单一职责 (Single Responsibility)**：每个模块都有一个变更的原因
+- **开闭原则 (Open/Closed)**：对扩展开放，对修改关闭
+- **里氏替换 (Liskov Substitution)**：子类型必须可以替换其基类型
+- **接口隔离 (Interface Segregation)**：客户端不应依赖未使用的接口
+- **依赖倒置 (Dependency Inversion)**：依赖于抽象，而不是具体实现
 
-#### Design Patterns
-- **Creational**: Factory, Builder, Singleton
-- **Structural**: Adapter, Decorator, Facade
-- **Behavioral**: Observer, Strategy, Command
+#### 设计模式
+- **创建型模式**：工厂模式、构建器模式、单例模式
+- **结构型模式**：适配器模式、装饰器模式、外观模式
+- **行为型模式**：观察者模式、策略模式、命令模式
 
-#### Architectural Styles
-- **Layered Architecture**: Separation of concerns through layers
-- **Microservices**: Distributed system of small, independent services
-- **Event-Driven**: Components communicate through events
-- **Hexagonal**: Isolates core logic from external concerns
+#### 架构风格
+- **分层架构**：通过层实现关注点分离
+- **微服务**：由小型、独立服务组成的分布式系统
+- **事件驱动**：组件通过事件进行通信
+- **六边形架构**：将核心逻辑与外部关注点隔离
 
-### System Design Methodologies
+### 系统设计方法论
 
-#### Domain-Driven Design (DDD)
-- **Ubiquitous Language**: Shared vocabulary between technical and domain experts
-- **Bounded Contexts**: Clear boundaries around domain models
-- **Aggregates**: Consistency boundaries for business rules
-- **Domain Events**: Capture important business occurrences
+#### 领域驱动设计 (DDD)
+- **通用语言 (Ubiquitous Language)**：技术专家和领域专家之间的共享词汇
+- **限界上下文 (Bounded Contexts)**：围绕领域模型的明确边界
+- **聚合 (Aggregates)**：业务规则的一致性边界
+- **领域事件 (Domain Events)**：捕获重要的业务发生情况
 
-#### Clean Architecture
-- **Independence**: Framework, database, and UI independent
-- **Testability**: Business rules can be tested without external elements
-- **UI Independence**: UI can change without changing business rules
-- **Database Independence**: Business rules not bound to database
+#### 整洁架构 (Clean Architecture)
+- **独立性**：框架、数据库 and UI 独立
+- **可测试性**：业务规则可以在没有外部元素的情况下进行测试
+- **UI 独立性**：UI 可以更改而无需更改业务规则
+- **数据库独立性**：业务规则不绑定到数据库
 
-#### Twelve-Factor App
-1. **Codebase**: One codebase tracked in revision control
-2. **Dependencies**: Explicitly declare and isolate dependencies
-3. **Config**: Store config in the environment
-4. **Backing Services**: Treat backing services as attached resources
-5. **Build, Release, Run**: Strictly separate build and run stages
-6. **Processes**: Execute as one or more stateless processes
-7. **Port Binding**: Export services via port binding
-8. **Concurrency**: Scale out via the process model
-9. **Disposability**: Maximize robustness with fast startup and graceful shutdown
-10. **Dev/Prod Parity**: Keep development, staging, and production as similar as possible
-11. **Logs**: Treat logs as event streams
-12. **Admin Processes**: Run admin/management tasks as one-off processes
+#### 云原生应用的 12 要素 (Twelve-Factor App)
+1. **基准代码 (Codebase)**：一份基准代码，多份部署
+2. **依赖 (Dependencies)**：显式声明并隔离依赖
+3. **配置 (Config)**：在环境中存储配置
+4. **后端服务 (Backing Services)**：将后端服务视为附加资源
+5. **构建、发布、运行 (Build, Release, Run)**：严格分离构建和运行阶段
+6. **进程 (Processes)**：以一个或多个无状态进程运行应用
+7. **端口绑定 (Port Binding)**：通过端口绑定导出服务
+8. **并发 (Concurrency)**：通过进程模型进行扩展
+9. **易处理性 (Disposability)**：快速启动和优雅终止可最大程度提高健壮性
+10. **开发环境与线上环境等同 (Dev/Prod Parity)**：尽可能的保持开发、预发和线上环境一致
+11. **日志 (Logs)**：把日志视为事件流
+12. **管理进程 (Admin Processes)**：后台管理任务当作一次性进程运行
 
-## Requirements Engineering Methodologies
+## 需求工程方法论
 
-### Agile Requirements Engineering
+### 敏捷需求工程
 
-#### User Stories
-**Format:** `As a [role], I want [feature], so that [benefit]`
+#### 用户故事
+**格式：** `作为 [角色]，我想要 [功能]，以便 [收益]`
 
-**Characteristics:**
-- **Independent**: Can be developed separately
-- **Negotiable**: Details can be discussed and refined
-- **Valuable**: Provides value to users or business
-- **Estimable**: Can be sized for planning
-- **Small**: Can be completed in one iteration
-- **Testable**: Has clear acceptance criteria
+**特征 (INVEST)：**
+- **独立性 (Independent)**：可以单独开发
+- **可协商性 (Negotiable)**：细节可以讨论和完善
+- **有价值 (Valuable)**：为用户或业务提供价值
+- **可估算 (Estimable)**：可以估算规模以便计划
+- **小型 (Small)**：可以在一个迭代中完成
+- **可测试 (Testable)**：具有清晰的验收标准
 
-#### Acceptance Criteria
-- Define when a user story is complete
-- Written in Given-When-Then format or EARS format
-- Should be testable and specific
-- Agreed upon by team and stakeholders
+#### 验收标准
+- 定义用户故事何时完成
+- 以 Given-When-Then 格式或 EARS 格式编写
+- 应该是具体的且可测试的
+- 由团队和利益相关者达成一致
 
-### Behavior-Driven Development (BDD)
+### 行为驱动开发 (BDD)
 
-#### Gherkin Syntax
-\`\`\`gherkin
-Feature: User Authentication
-  As a user
-  I want to log into the system
-  So that I can access my personal data
+#### Gherkin 语法
+```gherkin
+Feature: 用户身份验证
+  作为一名用户
+  我想要登录系统
+  以便我可以访问我的个人数据
 
-  Scenario: Successful login
-    Given I am on the login page
-    When I enter valid credentials
-    Then I should be redirected to the dashboard
-\`\`\`
+  Scenario: 成功登录
+    Given 我在登录页面
+    When 我输入有效的凭据
+    Then 我应该被重定向到仪表板
+```
 
-#### BDD Process
-1. **Discovery**: Explore and understand requirements
-2. **Formulation**: Document examples and scenarios
-3. **Automation**: Create executable specifications
+#### BDD 流程
+1. **探索 (Discovery)**：探索并理解需求
+2. **表述 (Formulation)**：记录示例和场景
+3. **自动化 (Automation)**：创建可执行规范
 
-### Model-Based Requirements Engineering
+### 基于模型的需求工程
 
-#### Use Case Modeling
-- **Actors**: External entities that interact with the system
-- **Use Cases**: Specific interactions or functions
-- **Relationships**: Include, extend, and generalization
+#### 用例建模
+- **参与者 (Actors)**：与系统交互的外部实体
+- **用例 (Use Cases)**：特定的交互或功能
+- **关系**：包含 (include)、扩展 (extend) 和泛化 (generalization)
 
-#### Requirements Modeling Techniques
-- **Entity-Relationship Diagrams**: Data relationships
-- **State Diagrams**: System behavior over time
-- **Sequence Diagrams**: Interaction between components
-- **Activity Diagrams**: Workflow and process flow
+#### 需求建模技术
+- **实体关系图**：数据关系
+- **状态图**：系统随时间的变化行为
+- **序列图**：组件之间的交互
+- **活动图**：工作流和流程流
 
-## Quality Assurance Standards
+## 质量保证标准
 
-### Testing Standards
+### 测试标准
 
-#### ISO/IEC/IEEE 29119 - Software Testing
-- **Test Planning**: Strategy and approach
-- **Test Design**: Test cases and procedures
-- **Test Execution**: Running tests and recording results
-- **Test Monitoring**: Progress tracking and reporting
+#### ISO/IEC/IEEE 29119 - 软件测试
+- **测试计划**：策略和方法
+- **测试设计**：测试用例和程序
+- **测试执行**：运行测试并记录结果
+- **测试监控**：进度跟踪和报告
 
-#### Test-Driven Development (TDD)
-1. **Red**: Write a failing test
-2. **Green**: Write minimal code to pass
-3. **Refactor**: Improve code while keeping tests green
+#### 测试驱动开发 (TDD)
+1. **红 (Red)**：编写一个失败的测试
+2. **绿 (Green)**：编写最少量的代码以通过测试
+3. **重构 (Refactor)**：在保持测试通过的同时改进代码
 
-### Code Quality Standards
+### 代码质量标准
 
-#### Clean Code Principles
-- **Meaningful Names**: Use intention-revealing names
-- **Small Functions**: Functions should do one thing well
-- **Comments**: Code should be self-documenting
-- **Error Handling**: Handle errors gracefully
-- **Formatting**: Consistent code formatting
+#### 清洁代码原则
+- **有意义的命名**：使用揭示意图的命名
+- **小型函数**：函数应该只做一件事，并把它做好
+- **注释**：代码应该是自解释的
+- **错误处理**：优雅地处理错误
+- **格式化**：一致的代码格式
 
-#### Code Review Standards
-- **Functionality**: Does the code do what it's supposed to do?
-- **Design**: Is the code well-designed and appropriate?
-- **Complexity**: Is the code more complex than it needs to be?
-- **Tests**: Does the code have correct and well-designed tests?
-- **Naming**: Are names clear and appropriate?
-- **Comments**: Are comments clear and useful?
+#### 代码评审标准
+- **功能性**：代码是否实现了它应该做的功能？
+- **设计**：代码设计是否良好且得当？
+- **复杂性**：代码是否比需要的更复杂？
+- **测试**：代码是否具有正确且设计良好的测试？
+- **命名**：命名是否清晰且合适？
+- **注释**：注释是否清晰且有用？
 
-## Documentation Standards
+## 文档标准
 
-### Technical Writing Best Practices
+### 技术写作最佳实践
 
-#### Structure and Organization
-- **Logical Flow**: Information presented in logical order
-- **Consistent Format**: Uniform structure across documents
-- **Clear Headings**: Descriptive section and subsection titles
-- **Cross-References**: Links between related information
+#### 结构与组织
+- **逻辑流**：信息按逻辑顺序呈现
+- **一致的格式**：所有文档结构统一
+- **清晰的标题**：具有描述性的章节标题
+- **交叉引用**：相关信息之间的链接
 
-#### Writing Style
-- **Active Voice**: Use active voice for clarity
-- **Concise Language**: Eliminate unnecessary words
-- **Consistent Terminology**: Use same terms throughout
-- **Audience Awareness**: Write for your intended audience
+#### 写作风格
+- **主动语态**：为了清晰起见，使用主动语态
+- **简洁的语言**：消除不必要的词语
+- **术语一致性**：贯穿始终使用相同的术语
+- **受众意识**：为您的目标受众写作
 
-### Documentation Types
+### 文档类型
 
-#### API Documentation
-- **Endpoint Descriptions**: Clear explanation of each endpoint
-- **Request/Response Examples**: Sample inputs and outputs
-- **Error Codes**: Comprehensive error handling information
-- **Authentication**: Security requirements and implementation
+#### API 文档
+- **端点描述**：对每个端点的清晰解释
+- **请求/响应示例**：示例输入和输出
+- **错误代码**：全面的错误处理信息
+- **身份验证**：安全要求和实施
 
-#### User Documentation
-- **Getting Started**: Quick start guides and tutorials
-- **Feature Guides**: Detailed explanations of functionality
-- **Troubleshooting**: Common issues and solutions
-- **FAQ**: Frequently asked questions and answers
-
----
-
-## References and Further Reading
-
-### Standards Organizations
-- **IEEE** (Institute of Electrical and Electronics Engineers): [ieee.org](https://www.ieee.org)
-- **ISO** (International Organization for Standardization): [iso.org](https://www.iso.org)
-- **W3C** (World Wide Web Consortium): [w3.org](https://www.w3.org)
-
-### Requirements Engineering Resources
-- "Software Requirements" by Karl Wiegers and Joy Beatty
-- "Writing Effective Use Cases" by Alistair Cockburn
-- "User Stories Applied" by Mike Cohn
-- "Specification by Example" by Gojko Adzic
-
-### System Design Resources
-- "Clean Architecture" by Robert C. Martin
-- "Domain-Driven Design" by Eric Evans
-- "Building Microservices" by Sam Newman
-- "System Design Interview" by Alex Xu
-
-### Quality Assurance Resources
-- "Clean Code" by Robert C. Martin
-- "The Art of Software Testing" by Glenford Myers
-- "Continuous Delivery" by Jez Humble and David Farley
-- "Release It!" by Michael Nygard
+#### 用户文档
+- **入门指南**：快速入门指南和教程
+- **功能指南**：功能的详细说明
+- **故障排除**：常见问题和解决方案
+- **常见问题解答 (FAQ)**：常见问题及其答案
 
 ---
 
-[← Back to Resources](README.md) | [Tools and Templates →](../templates/README.md)
+## 参考资料与进一步阅读
+
+### 标准组织
+- **IEEE** (电气与电子工程师协会): [ieee.org](https://www.ieee.org)
+- **ISO** (国际标准化组织): [iso.org](https://www.iso.org)
+- **W3C** (万维网联盟): [w3.org](https://www.w3.org)
+
+### 需求工程资源
+- 《软件需求》作者：Karl Wiegers and Joy Beatty
+- 《编写有效用例》作者：Alistair Cockburn
+- 《用户故事实战》作者：Mike Cohn
+- 《实时规范：用示例定义需求》作者：Gojko Adzic
+
+### 系统设计资源
+- 《架构整洁之道》作者：Robert C. Martin
+- 《领域驱动设计》作者：Eric Evans
+- 《微服务设计》作者：Sam Newman
+- 《系统设计面试》作者：Alex Xu
+
+### 质量保证资源
+- 《代码整洁之道》作者：Robert C. Martin
+- 《软件测试的艺术》作者：Glenford Myers
+- 《持续交付》作者：Jez Humble 和 David Farley
+- 《发布！软件的设计与部署》作者：Michael Nygard
+
+---
+
+[← 返回资源](README.md) | [工具与模板 →](../templates/README.md)
 ```
 
 # spec-process-guide/resources/tool-integration-guide.md
 
 ```md
-# Tool Integration Guide for Spec Process
+# 规范流程的工具集成指南
 
-This guide provides practical instructions for integrating various tools with the spec-driven development process, focusing on automation, efficiency, and seamless workflows.
+本指南提供了将各种工具与规范驱动开发流程集成的实际说明，重点关注自动化、效率 and 无缝工作流。
 
-## Integrating Tools with the Spec Process
+## 将工具与规范流程集成
 
-### Requirements Phase Integration
+### 需求阶段集成
 
-#### Document Management Tools
+#### 文档管理工具
 
-**GitHub/GitLab Integration**
-\`\`\`bash
-# Create spec directory structure
+**GitHub/GitLab 集成**
+```bash
+# 创建规范目录结构
 mkdir -p .kiro/specs/my-feature
 touch .kiro/specs/my-feature/requirements.md
 touch .kiro/specs/my-feature/design.md
 touch .kiro/specs/my-feature/tasks.md
 
-# Set up git hooks for validation
+# 设置 git 钩子以进行验证
 cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/bash
 files=$(git diff --cached --name-only | grep -E "\.kiro/specs/.*/requirements\.md$")
 if [ -n "$files" ]; then
-  echo "Validating requirements format..."
+  echo "正在验证需求格式..."
   ./scripts/validate-requirements.sh $files
   if [ $? -ne 0 ]; then
-    echo "Requirements validation failed. Please fix the issues before committing."
+    echo "需求验证失败。请在提交前修复问题。"
     exit 1
   fi
 fi
 exit 0
 EOF
 chmod +x .git/hooks/pre-commit
-\`\`\`
+```
 
-**Notion Integration**
-\`\`\`javascript
-// Example: Notion API integration to sync requirements
+**Notion 集成**
+```javascript
+// 示例：Notion API 集成以同步需求
 const { Client } = require('@notionhq/client');
 const fs = require('fs');
 const path = require('path');
@@ -9125,21 +9123,21 @@ async function syncRequirementsToNotion(requirementsPath, databaseId) {
       parent: { database_id: databaseId },
       properties: {
         Name: { title: [{ text: { content: req.title } }] },
-        Status: { select: { name: 'Draft' } },
-        'User Story': { rich_text: [{ text: { content: req.userStory } }] },
-        'Acceptance Criteria': { rich_text: [{ text: { content: req.criteria.join('\n') } }] }
+        Status: { select: { name: '草案' } },
+        '用户故事': { rich_text: [{ text: { content: req.userStory } }] },
+        '验收标准': { rich_text: [{ text: { content: req.criteria.join('\n') } }] }
       }
     });
   }
 }
-\`\`\`
+```
 
-#### Requirements Validation Tools
+#### 需求验证工具
 
-**EARS Validator Script**
-\`\`\`python
+**EARS 验证器脚本**
+```python
 #!/usr/bin/env python3
-# validate-ears.py - Validates EARS format in requirements documents
+# validate-ears.py - 验证需求文档中的 EARS 格式
 
 import re
 import sys
@@ -9148,45 +9146,45 @@ def validate_ears(file_path):
     with open(file_path, 'r') as f:
         content = f.read()
     
-    # Find all acceptance criteria sections
-    criteria_sections = re.findall(r'#### Acceptance Criteria\n\n(.*?)(?=\n\n|\Z)', content, re.DOTALL)
+    # 查找所有验收标准章节
+    criteria_sections = re.findall(r'#### 验收标准\n\n(.*?)(?=\n\n|\Z)', content, re.DOTALL)
     
     errors = []
     for section in criteria_sections:
         criteria = [c.strip() for c in section.split('\n') if c.strip()]
         for i, criterion in enumerate(criteria):
-            # Check EARS format
+            # 检查 EARS 格式
             if not (re.match(r'^[0-9]+\.\s+WHEN .+ THEN .+ SHALL .+$', criterion) or
                     re.match(r'^[0-9]+\.\s+IF .+ THEN .+ SHALL .+$', criterion) or
                     re.match(r'^[0-9]+\.\s+WHILE .+ .+ SHALL .+$', criterion) or
                     re.match(r'^[0-9]+\.\s+WHERE .+ .+ SHALL .+$', criterion)):
-                errors.append(f"Invalid EARS format: {criterion}")
+                errors.append(f"无效的 EARS 格式: {criterion}")
     
     if errors:
-        print(f"Validation failed for {file_path}:")
+        print(f"验证失败 {file_path}:")
         for error in errors:
             print(f"  - {error}")
         return False
     
-    print(f"Validation passed for {file_path}")
+    print(f"验证通过 {file_path}")
     return True
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: validate-ears.py <requirements_file>")
+        print("用法: validate-ears.py <requirements_file>")
         sys.exit(1)
     
     success = validate_ears(sys.argv[1])
     sys.exit(0 if success else 1)
-\`\`\`
+```
 
-### Design Phase Integration
+### 设计阶段集成
 
-#### Diagramming Tools
+#### 绘图工具
 
-**Mermaid Integration**
-\`\`\`javascript
-// Example: Generate Mermaid diagrams from design specs
+**Mermaid 集成**
+```javascript
+// 示例：从设计规范中生成 Mermaid 图表
 const fs = require('fs');
 const path = require('path');
 
@@ -9194,8 +9192,8 @@ function extractMermaidDiagrams(designPath) {
   const content = fs.readFileSync(designPath, 'utf8');
   const diagrams = [];
   
-  // Extract Mermaid code blocks
-  const regex = /\`\`\`mermaid\n([\s\S]*?)\n\`\`\`/g;
+  // 提取 Mermaid 代码块
+  const regex = /```mermaid\n([\s\S]*?)\n```/g;
   let match;
   
   while ((match = regex.exec(content)) !== null) {
@@ -9216,50 +9214,50 @@ function generateDiagramImages(designPath, outputDir) {
     const tempFile = path.join(outputDir, `diagram_${index}.mmd`);
     fs.writeFileSync(tempFile, diagram);
     
-    // Use mermaid-cli to generate images
+    // 使用 mermaid-cli 生成图像
     const outputFile = path.join(outputDir, `diagram_${index}.png`);
     execSync(`mmdc -i ${tempFile} -o ${outputFile}`);
     
-    console.log(`Generated diagram: ${outputFile}`);
+    console.log(`生成的图表: ${outputFile}`);
   });
 }
-\`\`\`
+```
 
-**Draw.io Integration**
-\`\`\`bash
+**Draw.io 集成**
+```bash
 #!/bin/bash
-# sync-diagrams.sh - Syncs Draw.io diagrams with spec repository
+# sync-diagrams.sh - 将 Draw.io 图表与规范仓库同步
 
 SPEC_DIR=".kiro/specs"
 DIAGRAMS_DIR="diagrams"
 
-# Ensure diagrams directory exists
+# 确保图表目录存在
 mkdir -p "$DIAGRAMS_DIR"
 
-# Find all design documents
+# 查找所有设计文档
 find "$SPEC_DIR" -name "design.md" | while read design_file; do
   feature_name=$(basename $(dirname "$design_file"))
   feature_diagrams_dir="$DIAGRAMS_DIR/$feature_name"
   mkdir -p "$feature_diagrams_dir"
   
-  # Extract diagram references
+  # 提取图表引用
   grep -o "!\[.*\](.*\.drawio)" "$design_file" | sed -E 's/!\[.*\]\((.*)\)/\1/' | while read diagram_path; do
-    # Copy diagram to central location if it exists
+    # 如果图表存在，则将其复制到中心位置
     if [[ -f "$diagram_path" ]]; then
       cp "$diagram_path" "$feature_diagrams_dir/"
-      echo "Synced diagram: $diagram_path -> $feature_diagrams_dir/"
+      echo "已同步图表: $diagram_path -> $feature_diagrams_dir/"
     fi
   done
 done
-\`\`\`
+```
 
-### Tasks Phase Integration
+### 任务阶段集成
 
-#### Project Management Integration
+#### 项目管理集成
 
-**GitHub Issues Integration**
-\`\`\`javascript
-// Example: Generate GitHub issues from tasks document
+**GitHub Issues 集成**
+```javascript
+// 示例：从任务文档中生成 GitHub issue
 const { Octokit } = require('@octokit/rest');
 const fs = require('fs');
 const path = require('path');
@@ -9271,22 +9269,22 @@ async function createIssuesFromTasks(tasksPath, owner, repo) {
   const tasks = parseTasks(content);
   
   for (const task of tasks) {
-    // Create GitHub issue
+    // 创建 GitHub issue
     await octokit.issues.create({
       owner,
       repo,
       title: task.title,
-      body: `${task.details}\n\n**Requirements:** ${task.requirements}`,
+      body: `${task.details}\n\n**需求情况:** ${task.requirements}`,
       labels: ['spec-task']
     });
     
-    console.log(`Created issue: ${task.title}`);
+    console.log(`已创建 issue: ${task.title}`);
   }
 }
 
 function parseTasks(content) {
   const tasks = [];
-  const regex = /- \[ \] ([0-9.]+) (.*?)\n((?:  - .*\n)*)(  - _Requirements: (.*?)_)/g;
+  const regex = /- \[ \] ([0-9.]+) (.*?)\n((?:  - .*\n)*)(  - _需求情况: (.*?)_)/g;
   let match;
   
   while ((match = regex.exec(content)) !== null) {
@@ -9304,12 +9302,12 @@ function parseTasks(content) {
   
   return tasks;
 }
-\`\`\`
+```
 
-**Jira Integration**
-\`\`\`python
+**Jira 集成**
+```python
 #!/usr/bin/env python3
-# sync-jira.py - Syncs tasks with Jira
+# sync-jira.py - 将任务同步到 Jira
 
 import os
 import re
@@ -9321,7 +9319,7 @@ def parse_tasks(tasks_file):
         content = f.read()
     
     tasks = []
-    task_pattern = r'- \[ \] ([0-9.]+) (.*?)\n((?:  - .*\n)*)(  - _Requirements: (.*?)_)'
+    task_pattern = r'- \[ \] ([0-9.]+) (.*?)\n((?:  - .*\n)*)(  - _需求情况: (.*?)_)'
     
     for match in re.finditer(task_pattern, content, re.MULTILINE):
         task_number = match.group(1)
@@ -9345,42 +9343,42 @@ def sync_with_jira(tasks, project_key):
     )
     
     for task in tasks:
-        # Check if issue already exists
+        # 检查 issue 是否已存在
         existing_issues = jira.search_issues(f'project={project_key} AND summary~"{task["key"]} {task["title"]}"')
         
         if existing_issues:
             issue = existing_issues[0]
-            print(f"Updating issue: {issue.key}")
+            print(f"正在更新 issue: {issue.key}")
             jira.issue(issue.key).update(
                 summary=f"{task['key']} {task['title']}",
-                description=f"{task['description']}\n\nRequirements: {task['requirements']}"
+                description=f"{task['description']}\n\n需求情况: {task['requirements']}"
             )
         else:
-            print(f"Creating issue: {task['key']} {task['title']}")
+            print(f"正在创建 issue: {task['key']} {task['title']}")
             jira.create_issue(
                 project=project_key,
                 summary=f"{task['key']} {task['title']}",
-                description=f"{task['description']}\n\nRequirements: {task['requirements']}",
+                description=f"{task['description']}\n\n需求情况: {task['requirements']}",
                 issuetype={'name': 'Task'}
             )
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
-        print("Usage: sync-jira.py <tasks_file> <jira_project_key>")
+        print("用法: sync-jira.py <tasks_file> <jira_project_key>")
         sys.exit(1)
     
     tasks = parse_tasks(sys.argv[1])
     sync_with_jira(tasks, sys.argv[2])
-\`\`\`
+```
 
-### Cross-Phase Integration
+### 跨阶段集成
 
-#### CI/CD Integration
+#### CI/CD 集成
 
-**GitHub Actions Workflow**
-\`\`\`yaml
+**GitHub Actions 工作流**
+```yaml
 # .github/workflows/spec-validation.yml
-name: Spec Validation
+name: 规范验证
 
 on:
   push:
@@ -9396,39 +9394,39 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Set up Python
+      - name: 设置 Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
           
-      - name: Install dependencies
+      - name: 安装依赖
         run: |
           python -m pip install --upgrade pip
           pip install pyyaml markdown
           
-      - name: Validate requirements format
+      - name: 验证需求格式
         run: |
           python scripts/validate-requirements.py
           
-      - name: Check requirements-design traceability
+      - name: 检查需求-设计可追溯性
         run: |
           python scripts/check-traceability.py
           
-      - name: Generate spec reports
+      - name: 生成规范报告
         run: |
           python scripts/generate-spec-report.py
           
-      - name: Upload spec reports
+      - name: 上传规范报告
         uses: actions/upload-artifact@v2
         with:
           name: spec-reports
           path: reports/
-\`\`\`
+```
 
-**Traceability Checker Script**
-\`\`\`python
+**可追溯性检查脚本**
+```python
 #!/usr/bin/env python3
-# check-traceability.py - Checks traceability between requirements and design
+# check-traceability.py - 检查需求和设计之间的可追溯性
 
 import os
 import re
@@ -9440,7 +9438,7 @@ def extract_requirements(req_file):
         content = f.read()
     
     req_ids = []
-    req_pattern = r'### Requirement ([0-9]+)'
+    req_pattern = r'### 需求 ([0-9]+)'
     
     for match in re.finditer(req_pattern, content):
         req_ids.append(match.group(1))
@@ -9453,7 +9451,7 @@ def check_design_coverage(design_file, req_ids):
     
     covered_reqs = set()
     for req_id in req_ids:
-        if re.search(r'Requirement ' + re.escape(req_id), content):
+        if re.search(r'需求 ' + re.escape(req_id), content):
             covered_reqs.add(req_id)
     
     return covered_reqs
@@ -9469,7 +9467,7 @@ def check_traceability():
             continue
         
         feature_name = os.path.basename(os.path.dirname(spec_dir))
-        print(f"Checking traceability for {feature_name}...")
+        print(f"正在检查 {feature_name} 的可追溯性...")
         
         req_ids = extract_requirements(req_file)
         covered_reqs = check_design_coverage(design_file, req_ids)
@@ -9477,22 +9475,22 @@ def check_traceability():
         missing_reqs = set(req_ids) - covered_reqs
         
         if missing_reqs:
-            print(f"  WARNING: The following requirements are not covered in the design:")
+            print(f"  警告: 以下需求在设计中未被覆盖:")
             for req_id in missing_reqs:
-                print(f"    - Requirement {req_id}")
+                print(f"    - 需求 {req_id}")
         else:
-            print(f"  All requirements are covered in the design.")
+            print(f"  所有需求已在设计中被覆盖。")
 
 if __name__ == "__main__":
     check_traceability()
-\`\`\`
+```
 
-#### Documentation Generation
+#### 文档生成
 
-**Spec Report Generator**
-\`\`\`python
+**规范报告生成器**
+```python
 #!/usr/bin/env python3
-# generate-spec-report.py - Generates HTML reports from spec documents
+# generate-spec-report.py - 从规范文档生成 HTML 报告
 
 import os
 import re
@@ -9519,7 +9517,7 @@ def generate_report():
         if not os.path.exists(req_file):
             continue
         
-        # Generate feature report
+        # 生成功能报告
         feature_report = {
             'name': feature_name,
             'requirements': os.path.exists(req_file),
@@ -9528,22 +9526,22 @@ def generate_report():
             'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         
-        # Extract requirements
+        # 提取需求
         if os.path.exists(req_file):
             with open(req_file, 'r') as f:
                 req_content = f.read()
             
-            feature_report['req_count'] = len(re.findall(r'### Requirement', req_content))
+            feature_report['req_count'] = len(re.findall(r'### 需求', req_content))
             feature_report['req_html'] = markdown.markdown(req_content)
         
-        # Extract design info
+        # 提取设计信息
         if os.path.exists(design_file):
             with open(design_file, 'r') as f:
                 design_content = f.read()
             
             feature_report['design_html'] = markdown.markdown(design_content)
         
-        # Extract tasks info
+        # 提取任务信息
         if os.path.exists(tasks_file):
             with open(tasks_file, 'r') as f:
                 tasks_content = f.read()
@@ -9552,16 +9550,16 @@ def generate_report():
             feature_report['completed_tasks'] = len(re.findall(r'- \[x\]', tasks_content))
             feature_report['tasks_html'] = markdown.markdown(tasks_content)
         
-        # Generate HTML report
+        # 生成 HTML 报告
         report_html = generate_html_report(feature_report)
         report_path = os.path.join(reports_dir, f"{feature_name}.html")
         
         with open(report_path, 'w') as f:
             f.write(report_html)
         
-        print(f"Generated report: {report_path}")
+        print(f"已生成报告: {report_path}")
         
-        # Add to index
+        # 添加到索引
         index_data.append({
             'name': feature_name,
             'req_count': feature_report.get('req_count', 0),
@@ -9570,21 +9568,21 @@ def generate_report():
             'report_url': f"{feature_name}.html"
         })
     
-    # Generate index page
+    # 生成索引页
     index_html = generate_index_html(index_data)
     index_path = os.path.join(reports_dir, "index.html")
     
     with open(index_path, 'w') as f:
         f.write(index_html)
     
-    print(f"Generated index: {index_path}")
+    print(f"已生成索引: {index_path}")
 
 def generate_html_report(feature_report):
-    # HTML template implementation
+    # HTML 模版实现
     html = f"""<!DOCTYPE html>
 <html>
 <head>
-    <title>{feature_report['name']} - Spec Report</title>
+    <title>{feature_report['name']} - 规范报告</title>
     <style>
         body {{ font-family: Arial, sans-serif; margin: 20px; }}
         h1 {{ color: #333; }}
@@ -9596,33 +9594,33 @@ def generate_html_report(feature_report):
     </style>
 </head>
 <body>
-    <h1>{feature_report['name']} - Spec Report</h1>
-    <p>Generated on {feature_report['timestamp']}</p>
+    <h1>{feature_report['name']} - 规范报告</h1>
+    <p>生成于 {feature_report['timestamp']}</p>
     
     <div class="stats">
         <div class="stat-box">
-            <h3>Requirements</h3>
-            <p>{feature_report.get('req_count', 0)} requirements</p>
+            <h3>需求</h3>
+            <p>{feature_report.get('req_count', 0)} 个需求</p>
         </div>
         <div class="stat-box">
-            <h3>Tasks</h3>
-            <p>{feature_report.get('completed_tasks', 0)} / {feature_report.get('total_tasks', 0)} completed</p>
+            <h3>任务</h3>
+            <p>{feature_report.get('completed_tasks', 0)} / {feature_report.get('total_tasks', 0)} 已完成</p>
         </div>
     </div>
     
     <div class="section">
-        <h2>Requirements</h2>
-        {feature_report.get('req_html', '<p>No requirements document found.</p>')}
+        <h2>需求</h2>
+        {feature_report.get('req_html', '<p>未找到需求文档。</p>')}
     </div>
     
     <div class="section">
-        <h2>Design</h2>
-        {feature_report.get('design_html', '<p>No design document found.</p>')}
+        <h2>设计</h2>
+        {feature_report.get('design_html', '<p>未找到设计文档。</p>')}
     </div>
     
     <div class="section">
-        <h2>Tasks</h2>
-        {feature_report.get('tasks_html', '<p>No tasks document found.</p>')}
+        <h2>任务</h2>
+        {feature_report.get('tasks_html', '<p>未找到任务文档。</p>')}
     </div>
 </body>
 </html>"""
@@ -9651,7 +9649,7 @@ def generate_index_html(index_data):
     html = f"""<!DOCTYPE html>
 <html>
 <head>
-    <title>Spec Reports</title>
+    <title>规范报告列表</title>
     <style>
         body {{ font-family: Arial, sans-serif; margin: 20px; }}
         h1 {{ color: #333; }}
@@ -9663,15 +9661,15 @@ def generate_index_html(index_data):
     </style>
 </head>
 <body>
-    <h1>Spec Reports</h1>
-    <p>Generated on {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+    <h1>规范报告列表</h1>
+    <p>生成于 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
     
     <table>
         <tr>
-            <th>Feature</th>
-            <th>Requirements</th>
-            <th>Tasks</th>
-            <th>Progress</th>
+            <th>功能</th>
+            <th>需求数</th>
+            <th>任务数</th>
+            <th>进度</th>
         </tr>
         {features_html}
     </table>
@@ -9681,19 +9679,19 @@ def generate_index_html(index_data):
 
 if __name__ == "__main__":
     generate_report()
-\`\`\`
+```
 
-## Tool Integration Templates
+## 工具集成模板
 
-### Requirements Phase Templates
+### 需求阶段模板
 
-#### Requirements Automation Script
-\`\`\`bash
+#### 需求自动化脚本
+```bash
 #!/bin/bash
-# create-requirements.sh - Creates a new requirements document from template
+# create-requirements.sh - 从模板创建新的需求文档
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <feature-name>"
+  echo "用法: $0 <feature-name>"
   exit 1
 fi
 
@@ -9731,23 +9729,23 @@ cat > "$REQ_FILE" << 'EOF'
 
 ### Requirement 2
 
-**User Story:** As a [role], I want [feature], so that [benefit].
+**用户故事:** 作为 [角色]，我想要 [功能]，以便 [收益]。
 
-#### Acceptance Criteria
+#### 验收标准
 
-1. WHEN [event] THEN [system] SHALL [response]
-2. IF [condition] THEN [system] SHALL [response]
+1. WHEN [事件] THEN [系统] SHALL [响应]
+2. IF [条件] THEN [系统] SHALL [响应]
 EOF
 
-echo "Created requirements file: $REQ_FILE"
-\`\`\`
+echo "已创建需求文件: $REQ_FILE"
+```
 
-### Design Phase Templates
+### 设计阶段模板
 
-#### Design Document Generator
-\`\`\`python
+#### 设计文档生成器
+```python
 #!/usr/bin/env python3
-# generate-design.py - Generates design document from requirements
+# generate-design.py - 从需求生成设计文档
 
 import os
 import re
@@ -9758,13 +9756,13 @@ def extract_requirements(req_file):
     with open(req_file, 'r') as f:
         content = f.read()
     
-    # Extract introduction
-    intro_match = re.search(r'## Introduction\n\n(.*?)(?=\n\n##)', content, re.DOTALL)
+    # 提取简介
+    intro_match = re.search(r'## 简介\n\n(.*?)(?=\n\n##)', content, re.DOTALL)
     introduction = intro_match.group(1) if intro_match else ""
     
-    # Extract requirements
+    # 提取需求
     requirements = []
-    req_pattern = r'### Requirement ([0-9]+)\n\n\*\*User Story:\*\* (.*?)\n\n#### Acceptance Criteria\n\n(.*?)(?=\n\n###|\Z)'
+    req_pattern = r'### 需求 ([0-9]+)\n\n\*\*用户故事：\*\* (.*?)\n\n#### 验收标准\n\n(.*?)(?=\n\n###|\Z)'
     
     for match in re.finditer(req_pattern, content, re.DOTALL):
         req_id = match.group(1)
@@ -9785,88 +9783,88 @@ def extract_requirements(req_file):
 def generate_design_doc(feature_name, req_data):
     today = datetime.datetime.now().strftime('%Y-%m-%d')
     
-    design = f"""# Design Document
+    design = f"""# 设计文档
 
-## Overview
+## 概述
 
 {req_data['introduction']}
 
-### Design Goals
-- [Primary goal 1]
-- [Primary goal 2]
-- [Primary goal 3]
+### 设计目标
+- [主要目标 1]
+- [主要目标 2]
+- [主要目标 3]
 
-### Key Design Decisions
-- [Decision 1 and rationale]
-- [Decision 2 and rationale]
-- [Decision 3 and rationale]
+### 关键设计决策
+- [决策 1 及其理由]
+- [决策 2 及其理由]
+- [决策 3 及其理由]
 
-## Architecture
+## 架构
 
-### System Context
-[Describe how this feature fits into the broader system. Include external dependencies and integration points.]
+### 系统上下文
+[描述该功能如何融入更广泛的系统。包括外部依赖项和集成点。]
 
-\`\`\`mermaid
+```mermaid
 graph TB
-    A[External System 1] --> B[Your Feature]
-    B --> C[Internal System 1]
-    B --> D[Internal System 2]
-    E[External System 2] --> B
-\`\`\`
+    A[外部系统 1] --> B[您的功能]
+    B --> C[内部系统 1]
+    B --> D[内部系统 2]
+    E[外部系统 2] --> B
+```
 
-### High-Level Architecture
-[Describe the overall architectural approach and major components.]
+### 高层架构
+[描述整体架构方法和主要组件。]
 
-\`\`\`mermaid
+```mermaid
 graph LR
-    A[Component 1] --> B[Component 2]
-    B --> C[Component 3]
-    C --> D[Component 4]
-\`\`\`
+    A[组件 1] --> B[组件 2]
+    B --> C[组件 3]
+    C --> D[组件 4]
+```
 
-### Technology Stack
-| Layer | Technology | Rationale |
+### 技术栈
+| 层 | 技术 | 理由 |
 |-------|------------|-----------|
-| Frontend | [Technology] | [Why chosen] |
-| Backend | [Technology] | [Why chosen] |
-| Database | [Technology] | [Why chosen] |
-| Infrastructure | [Technology] | [Why chosen] |
+| 前端 | [技术] | [选择原因] |
+| 后端 | [技术] | [选择原因] |
+| 数据库 | [技术] | [选择原因] |
+| 基础设施 | [技术] | [选择原因] |
 
-## Components and Interfaces
+## 组件与接口
 
 """
 
-    # Add components based on requirements
+    # 根据需求添加组件
     for i, req in enumerate(req_data['requirements'], 1):
-        design += f"""### Component {i}: [Component Name]
+        design += f"""### 组件 {i}: [组件名称]
 
-**Purpose**: [What this component does]
+**用途**: [该组件的作用]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
-- [Responsibility 3]
+**职责**:
+- [职责 1]
+- [职责 2]
+- [职责 3]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**:
+- **输入**: [它接收什么]
+- **输出**: [它产生什么]
+- **依赖**: [它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实现说明**:
+- [关键实现细节 1]
+- [关键实现细节 2]
 
-**Requirements Addressed**:
-- Requirement {req['id']}: {req['user_story']}
+**解决的需求**:
+- 需求 {req['id']}: {req['user_story']}
 
 """
 
-    # Add data models section
-    design += """## Data Models
+    # 添加数据模型部分
+    design += """## 数据模型
 
-### Entity 1: [Entity Name]
+### 实体 1: [实体名称]
 
-\`\`\`typescript
+```typescript
 interface EntityName {
   id: string;
   property1: string;
@@ -9875,66 +9873,66 @@ interface EntityName {
   createdAt: Date;
   updatedAt: Date;
 }
-\`\`\`
+```
 
-**Validation Rules**:
-- [Validation rule 1]
-- [Validation rule 2]
+**验证规则**:
+- [验证规则 1]
+- [验证规则 2]
 
-**Relationships**:
-- [Relationship to other entities]
+**关系**:
+- [与其他实体的关系]
 
-### Data Flow
+### 数据流
 
-\`\`\`mermaid
+```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
+    participant 用户
+    participant 前端
     participant API
-    participant Database
+    participant 数据库
     
-    User->>Frontend: Action
-    Frontend->>API: Request
-    API->>Database: Query
-    Database-->>API: Result
-    API-->>Frontend: Response
-    Frontend-->>User: Update
-\`\`\`
+    用户->>前端: 操作
+    前端->>API: 请求
+    API->>数据库: 查询
+    数据库-->>API: 结果
+    API-->>前端: 响应
+    前端-->>用户: 更新
+```
 
-## Error Handling
+## 错误处理
 
-### Error Categories
-| Category | HTTP Status | Description | User Action |
+### 错误分类
+| 类别 | HTTP 状态码 | 描述 | 用户操作 |
 |----------|-------------|-------------|-------------|
-| Validation | 400 | Invalid input data | Fix input and retry |
-| Authentication | 401 | Invalid credentials | Re-authenticate |
-| Authorization | 403 | Insufficient permissions | Contact administrator |
-| Not Found | 404 | Resource doesn't exist | Check resource identifier |
-| Server Error | 500 | Internal system error | Retry later or contact support |
+| 验证错误 | 400 | 输入数据无效 | 修复输入并重试 |
+| 认证错误 | 401 | 凭据无效 | 重新进行身份验证 |
+| 授权错误 | 403 | 权限不足 | 联系管理员 |
+| 未找到 | 404 | 资源不存在 | 检查资源标识符 |
+| 服务器错误 | 500 | 系统内部错误 | 稍后重试或联系支持人员 |
 
-## Testing Strategy
+## 测试策略
 
-### Unit Testing
-- **Coverage Target**: [Percentage]
-- **Testing Framework**: [Framework name]
-- **Key Test Areas**: [Critical functionality to test]
+### 单元测试
+- **覆盖率目标**: [百分比]
+- **测试框架**: [框架名称]
+- **关键测试领域**: [要测试的关键功能]
 
-### Integration Testing
-- **API Testing**: [Approach and tools]
-- **Database Testing**: [Approach and tools]
-- **External Service Testing**: [Mocking strategy]
+### 集成测试
+- **API 测试**: [方法和工具]
+- **数据库测试**: [方法和工具]
+- **外部服务测试**: [模拟 (Mocking) 策略]
 
-### End-to-End Testing
-- **User Scenarios**: [Key user journeys to test]
-- **Testing Tools**: [E2E testing framework]
-- **Test Environment**: [Environment setup]
+### 端到端 (E2E) 测试
+- **用户场景**: [要测试的关键用户旅程]
+- **测试工具**: [E2E 测试框架]
+- **测试环境**: [环境设置]
 """
 
     return design
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: generate-design.py <feature-name>")
+        print("用法: generate-design.py <feature-name>")
         sys.exit(1)
     
     feature_name = sys.argv[1]
@@ -9943,12 +9941,12 @@ def main():
     design_file = f"{spec_dir}/design.md"
     
     if not os.path.exists(req_file):
-        print(f"Requirements file not found: {req_file}")
+        print(f"未找到需求文件: {req_file}")
         sys.exit(1)
     
     if os.path.exists(design_file):
-        print(f"Design file already exists: {design_file}")
-        response = input("Do you want to overwrite it? (y/n): ")
+        print(f"设计文件已存在: {design_file}")
+        response = input("您要覆盖它吗？(y/n): ")
         if response.lower() != 'y':
             sys.exit(0)
     
@@ -9958,18 +9956,18 @@ def main():
     with open(design_file, 'w') as f:
         f.write(design_content)
     
-    print(f"Generated design document: {design_file}")
+    print(f"已生成设计文档: {design_file}")
 
 if __name__ == "__main__":
     main()
-\`\`\`
+```
 
-### Tasks Phase Templates
+### 任务阶段模板
 
-#### Task Generator Script
-\`\`\`python
+#### 任务生成器脚本
+```python
 #!/usr/bin/env python3
-# generate-tasks.py - Generates tasks document from design and requirements
+# generate-tasks.py - 从设计和需求生成任务文档
 
 import os
 import re
@@ -9981,7 +9979,7 @@ def extract_components(design_file):
         content = f.read()
     
     components = []
-    component_pattern = r'### Component \d+: \[(.*?)\]\n\n\*\*Purpose\*\*: (.*?)\n\n\*\*Responsibilities\*\*:\n(.*?)\n\n\*\*Interfaces\*\*:'
+    component_pattern = r'### 组件 \d+: \[(.*?)\]\n\n\*\*用途\*\*: (.*?)\n\n\*\*职责\*\*:\n(.*?)\n\n\*\*接口\*\*:'
     
     for match in re.finditer(component_pattern, content, re.DOTALL):
         name = match.group(1)
@@ -9994,10 +9992,10 @@ def extract_components(design_file):
             'responsibilities': responsibilities
         })
     
-    # Extract requirements addressed by each component
-    req_pattern = r'\*\*Requirements Addressed\*\*:\n- Requirement (\d+)'
+    # 提取每个组件所解决的需求
+    req_pattern = r'\*\*解决的需求\*\*:\n- 需求 (\d+)'
     for i, component in enumerate(components):
-        component_text = re.search(f'### Component {i+1}.*?(?=### Component|\Z)', content, re.DOTALL)
+        component_text = re.search(f'### 组件 {i+1}.*?(?=### 组件|\Z)', content, re.DOTALL)
         if component_text:
             req_matches = re.findall(req_pattern, component_text.group(0))
             component['requirements'] = req_matches
@@ -10007,92 +10005,90 @@ def extract_components(design_file):
 def generate_tasks_doc(feature_name, components):
     today = datetime.datetime.now().strftime('%Y-%m-%d')
     
-    tasks = f"""# Implementation Plan
+    tasks = f"""# 实施计划
 
-## Phase 1: Foundation and Setup
+## 第一阶段：基础与设置
 
-- [ ] 1. Set up project structure and development environment
-  - Create directory structure for the feature
-  - Set up build configuration and dependencies
-  - Configure development tools and linting
-  - _Requirements: [Reference specific requirements]_
+- [ ] 1. 设置项目结构和开发环境
+  - 创建功能的目录结构
+  - 设置构建配置和依赖项
+  - 配置开发工具和代码校验 (linting)
+  - _需求情况: [参考具体需求]_
 
 """
 
     task_num = 2
     
-    # Add component implementation tasks
+    # 添加组件实现任务
     for i, component in enumerate(components):
-        tasks += f"""- [ ] {task_num}. Implement {component['name']}
+        tasks += f"""- [ ] {task_num}. 实现 {component['name']}
 """
         
-        # Add sub-tasks for each component
+        # 为每个组件添加子任务
         subtask_num = 1
         
-        # Data model tasks
-        tasks += f"""- [ ] {task_num}.{subtask_num} Create data models and interfaces
-  - Define TypeScript interfaces for all data models
-  - Implement validation functions for data integrity
-  - Create unit tests for data model validation
-  - _Requirements: {', '.join(component.get('requirements', ['TBD']))}_ 
-
+        # 数据模型任务
+        tasks += f"""- [ ] {task_num}.{subtask_num} 创建数据模型和接口
+"""
+  - 为所有数据模型定义 TypeScript 接口
+  - 实现数据完整性验证函数
+  - 为数据模型验证创建单元测试
+  - _需求情况: {', '.join(component.get('requirements', ['待定']))}_ 
 """
         subtask_num += 1
         
-        # Core functionality tasks
-        tasks += f"""- [ ] {task_num}.{subtask_num} Implement core functionality
-  - Develop main business logic for {component['name']}
-  - Handle edge cases and error conditions
-  - Write comprehensive unit tests
-  - _Requirements: {', '.join(component.get('requirements', ['TBD']))}_ 
-
+        # 核心功能任务
+        tasks += f"""- [ ] {task_num}.{subtask_num} 实现核心功能
+  - 开发 {component['name']} 的主要业务逻辑
+  - 处理边缘情况和错误条件
+  - 编写全面的单元测试
+  - _需求情况: {', '.join(component.get('requirements', ['待定']))}_ 
 """
         subtask_num += 1
         
-        # Integration tasks
-        tasks += f"""- [ ] {task_num}.{subtask_num} Integrate with other components
-  - Implement interfaces with dependent components
-  - Create integration tests
-  - Document integration points
-  - _Requirements: {', '.join(component.get('requirements', ['TBD']))}_ 
-
+        # 集成任务
+        tasks += f"""- [ ] {task_num}.{subtask_num} 与其他组件集成
+  - 实现与依赖组件的接口
+  - 创建集成测试
+  - 记录集成点
+  - _需求情况: {', '.join(component.get('requirements', ['待定']))}_ 
 """
         
         task_num += 1
     
-    # Add testing and documentation tasks
-    tasks += f"""- [ ] {task_num}. Implement comprehensive testing
-- [ ] {task_num}.1 Create unit test suite
-  - Implement tests for all components
-  - Set up test automation
-  - Ensure adequate code coverage
-  - _Requirements: All_
+    # 添加测试和文档任务
+    tasks += f"""- [ ] {task_num}. 实施全面测试
+- [ ] {task_num}.1 创建单元测试套件
+  - 为所有组件实现测试
+  - 设置自动化测试
+  - 确保足够的代码覆盖率
+  - _需求情况: 全部_
 
-- [ ] {task_num}.2 Implement integration tests
-  - Test component interactions
-  - Validate end-to-end workflows
-  - Test error handling and edge cases
-  - _Requirements: All_
+- [ ] {task_num}.2 实施集成测试
+  - 测试组件间交互
+  - 验证端到端工作流
+  - 测试错误处理和边缘情况
+  - _需求情况: 全部_
 
-- [ ] {task_num+1}. Create documentation
-- [ ] {task_num+1}.1 Write API documentation
-  - Document all public interfaces
-  - Include usage examples
-  - Document error responses
-  - _Requirements: All_
+- [ ] {task_num+1}. 创建文档
+- [ ] {task_num+1}.1 编写 API 文档
+  - 记录所有公共接口
+  - 包含使用示例
+  - 记录错误响应
+  - _需求情况: 全部_
 
-- [ ] {task_num+1}.2 Update user documentation
-  - Document new features
-  - Create user guides
-  - Update relevant existing documentation
-  - _Requirements: All_
+- [ ] {task_num+1}.2 更新用户文档
+  - 记录新功能
+  - 创建用户指南
+  - 更新相关的现有文档
+  - _需求情况: 全部_
 """
     
     return tasks
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: generate-tasks.py <feature-name>")
+        print("用法: generate-tasks.py <feature-name>")
         sys.exit(1)
     
     feature_name = sys.argv[1]
@@ -10101,12 +10097,12 @@ def main():
     tasks_file = f"{spec_dir}/tasks.md"
     
     if not os.path.exists(design_file):
-        print(f"Design file not found: {design_file}")
+        print(f"未找到设计文件: {design_file}")
         sys.exit(1)
     
     if os.path.exists(tasks_file):
-        print(f"Tasks file already exists: {tasks_file}")
-        response = input("Do you want to overwrite it? (y/n): ")
+        print(f"任务文件已存在: {tasks_file}")
+        response = input("您要覆盖它吗？(y/n): ")
         if response.lower() != 'y':
             sys.exit(0)
     
@@ -10116,50 +10112,50 @@ def main():
     with open(tasks_file, 'w') as f:
         f.write(tasks_content)
     
-    print(f"Generated tasks document: {tasks_file}")
+    print(f"已生成任务文档: {tasks_file}")
 
 if __name__ == "__main__":
     main()
-\`\`\`
+```
 
-## Automation Workflows
+## 自动化工作流
 
-### Complete Spec Creation Workflow
+### 完整的规范创建工作流
 
-\`\`\`bash
+```bash
 #!/bin/bash
-# create-spec.sh - Creates a complete spec from scratch
+# create-spec.sh - 从头开始创建一个完整的规范
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <feature-name>"
+  echo "用法: $0 <feature-name>"
   exit 1
 fi
 
 FEATURE_NAME=$1
 SPEC_DIR=".kiro/specs/$FEATURE_NAME"
 
-# Create directory structure
+# 创建目录结构
 mkdir -p "$SPEC_DIR"
 
-# Create requirements template
-echo "Creating requirements document..."
+# 创建需求模板
+echo "正在创建需求文档..."
 ./scripts/create-requirements.sh "$FEATURE_NAME"
 
 echo ""
-echo "Requirements document created at $SPEC_DIR/requirements.md"
-echo "Please edit the requirements document and then run:"
+echo "需求文档已创建于 $SPEC_DIR/requirements.md"
+echo "请编辑需求文档，然后运行："
 echo "  ./scripts/generate-design.py $FEATURE_NAME"
-echo "to generate the design document based on your requirements."
-\`\`\`
+echo "以根据您的需求生成设计文档。"
+```
 
-### Spec Review Workflow
+### 规范评审工作流
 
-\`\`\`bash
+```bash
 #!/bin/bash
-# review-spec.sh - Runs validation and generates review reports
+# review-spec.sh - 运行验证并生成评审报告
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <feature-name>"
+  echo "用法: $0 <feature-name>"
   exit 1
 fi
 
@@ -10167,526 +10163,526 @@ FEATURE_NAME=$1
 SPEC_DIR=".kiro/specs/$FEATURE_NAME"
 REPORT_DIR="reports/$FEATURE_NAME"
 
-# Create report directory
+# 创建报告目录
 mkdir -p "$REPORT_DIR"
 
-# Validate requirements
-echo "Validating requirements..."
+# 验证需求
+echo "正在验证需求..."
 python scripts/validate-requirements.py "$SPEC_DIR/requirements.md" > "$REPORT_DIR/requirements-validation.txt"
 
-# Check traceability
-echo "Checking traceability..."
+# 检查可追溯性
+echo "正在检查可追溯性..."
 python scripts/check-traceability.py "$FEATURE_NAME" > "$REPORT_DIR/traceability-report.txt"
 
-# Generate review checklists
-echo "Generating review checklists..."
+# 生成评审检查表
+echo "正在生成评审检查表..."
 python scripts/generate-checklists.py "$FEATURE_NAME" "$REPORT_DIR"
 
-# Generate HTML report
-echo "Generating HTML report..."
+# 生成 HTML 报告
+echo "正在生成 HTML 报告..."
 python scripts/generate-spec-report.py "$FEATURE_NAME" "$REPORT_DIR"
 
 echo ""
-echo "Review reports generated in $REPORT_DIR"
-echo "Open $REPORT_DIR/index.html to view the complete report."
-\`\`\`
+echo "评审报告已生成至 $REPORT_DIR"
+echo "打开 $REPORT_DIR/index.html 以查看完整报告。"
+```
 
-## Integration Best Practices
+## 集成最佳实践
 
-### Version Control Integration
+### 版本控制集成
 
-1. **Branch Strategy**
-   - Use feature branches for each spec: `feature/spec-{feature-name}`
-   - Create separate branches for each phase: `feature/spec-{feature-name}-requirements`
-   - Use pull requests for review and approval
+1. **分支策略**
+   - 为每个规范使用功能分支：`feature/spec-{feature-name}`
+   - 为每个阶段创建独立分支：`feature/spec-{feature-name}-requirements`
+   - 使用拉取请求 (Pull Request) 进行评审和批准
 
-2. **Commit Message Format**
-   \`\`\`
+2. **提交消息格式**
+   ```
    [SPEC-{feature}] {phase}: {description}
    
-   - Detailed changes
-   - References to requirements/design elements
-   \`\`\`
+   - 详细变更
+   - 引用需求/设计元素
+   ```
 
-3. **Git Hooks**
-   - Use pre-commit hooks for validation
-   - Use post-commit hooks for notifications
-   - Use pre-push hooks for comprehensive checks
+3. **Git 钩子 (Hooks)**
+   - 使用 pre-commit 钩子进行验证
+   - 使用 post-commit 钩子进行通知
+   - 使用 pre-push 钩子进行全面检查
 
-### Continuous Integration
+### 持续集成 (CI)
 
-1. **Automated Validation**
-   - Run validation scripts on every commit
-   - Generate reports for review
-   - Block merges if validation fails
+1. **自动化验证**
+   - 每次提交时运行验证脚本
+   - 生成评审报告
+   - 如果验证失败，阻止合并 (Merge)
 
-2. **Review Automation**
-   - Generate review checklists automatically
-   - Track review status in project management tools
-   - Notify stakeholders of pending reviews
+2. **评审自动化**
+   - 自动生成评审检查表
+   - 在项目管理工具中跟踪评审状态
+   - 通知利益相关者有待处理的评审
 
-3. **Documentation Generation**
-   - Generate documentation from spec files
-   - Keep documentation in sync with code
-   - Publish documentation to accessible locations
+3. **文档生成**
+   - 从规范文件生成文档
+   - 保持文档与代码同步
+   - 将文档发布到可访问的位置
 
-## Tool Selection Guide
+## 工具选择指南
 
-When selecting tools for your spec process, consider the following factors:
+在为您的规范流程选择工具时，请考虑以下因素：
 
-### Requirements Phase Tools
+### 需求阶段工具
 
-| Tool Type | Recommended For | Avoid For |
+| 工具类型 | 推荐场景 | 避免场景 |
 |-----------|----------------|-----------|
-| Markdown Editors | Version-controlled specs, developer-focused teams | Non-technical stakeholders, complex approval workflows |
-| Requirement Management Tools | Regulated industries, complex traceability needs | Small teams, simple features |
-| Collaboration Platforms | Cross-functional teams, remote collaboration | Security-sensitive projects, offline work |
+| Markdown 编辑器 | 版本受控的规范，以开发人员为中心的团队 | 非技术利益相关者，复杂的审批工作流 |
+| 需求管理工具 | 受监管行业，复杂的追溯需求 | 小规模团队，简单功能 |
+| 协作平台 | 跨职能团队，远程协作 | 安全敏感的项目，离线工作 |
 
-### Design Phase Tools
+### 设计阶段工具
 
-| Tool Type | Recommended For | Avoid For |
+| 工具类型 | 推荐场景 | 避免场景 |
 |-----------|----------------|-----------|
-| Diagramming Tools | Visual architecture, component relationships | Text-heavy designs, simple features |
-| Modeling Tools | Complex data models, state machines | Rapid prototyping, simple features |
-| Design Systems | UI-focused features, consistent interfaces | Backend services, infrastructure features |
+| 绘图工具 | 视觉化架构，组件关系 | 文字密集型设计，简单功能 |
+| 建模工具 | 复杂的数据模型，状态机 | 快速原型制作，简单功能 |
+| 设计系统 | 以 UI 为中心的功能，一致的界面 | 后端服务，基础设施功能 |
 
-### Tasks Phase Tools
+### 任务阶段工具
 
-| Tool Type | Recommended For | Avoid For |
+| 工具类型 | 推荐场景 | 避免场景 |
 |-----------|----------------|-----------|
-| Project Management | Task tracking, assignment, progress monitoring | Simple features, small teams |
-| Issue Trackers | Bug tracking, feature requests | Complex dependencies, resource planning |
-| Kanban Boards | Visual workflow, status tracking | Detailed reporting, complex hierarchies |
+| 项目管理 | 任务跟踪、分配、进度监控 | 简单功能，小规模团队 |
+| 缺陷跟踪器 | 故障跟踪、功能请求 | 复杂的依赖关系，资源规划 |
+| 看板 (Kanban) | 视觉化工作流，状态跟踪 | 详细报告，复杂的层级结构 |
 
-## Tool Integration Decision Tree
+## 工具集成决策树
 
-\`\`\`mermaid
+```mermaid
 graph TD
-    A[Start Tool Selection] --> B{Team Size?}
-    B -->|Small Team| C{Technical Focus?}
-    B -->|Medium Team| D{Distributed?}
-    B -->|Large Team| E{Regulated Industry?}
+    A[开始选择工具] --> B{团队规模？}
+    B -->|小团队| C{技术导向？}
+    B -->|中型团队| D{分布式？}
+    B -->|大团队| E{受监管行业？}
     
-    C -->|Developer-Focused| F[GitHub + Markdown + Mermaid]
-    C -->|Mixed Technical/Non-Technical| G[Notion + Draw.io]
+    C -->|以开发人员为中心| F[GitHub + Markdown + Mermaid]
+    C -->|技术/非技术混合| G[Notion + Draw.io]
     
-    D -->|Yes| H{Integration Needs?}
-    D -->|No| I[Jira + Confluence]
+    D -->|是| H{集成需求？}
+    D -->|否| I[Jira + Confluence]
     
-    E -->|Yes| J[Enterprise ALM Suite]
-    E -->|No| K[Jira + Confluence + Custom Integration]
+    E -->|是| J[企业级 ALM 套件]
+    E -->|否| K[Jira + Confluence + 自定义集成]
     
-    H -->|High| L[Custom Integration Platform]
-    H -->|Medium| M[Zapier/Integromat + Slack]
-    H -->|Low| N[GitHub + Slack Notifications]
-\`\`\`
+    H -->|高| L[自定义集成平台]
+    H -->|中| M[Zapier/Integromat + Slack]
+    H -->|低| N[GitHub + Slack 通知]
+```
 
 ---
 
-[← Tools Reference](tools.md) | [Checklists →](../templates/checklists.md) | [Back to Resources](README.md)
+[← 工具参考](tools.md) | [检查表 →](../templates/checklists.md) | [返回资源](README.md)
 ```
 
 # spec-process-guide/resources/tools.md
 
 ```md
-# Tools and Integration Guide
+# 工具与集成指南
 
-This guide provides recommendations for tools, platforms, and integrations that support the spec-driven development process.
+本指南为支持规范驱动开发流程的工具、平台和集成提供了建议。
 
-## Documentation Tools
+## 文档工具
 
-### Markdown Editors and Platforms
+### Markdown 编辑器与平台
 
 #### GitHub/GitLab
-**Best for**: Version-controlled documentation, team collaboration
+**最适用场景**: 版本受控的文档，团队协作
 
-**Features**:
-- Native Markdown rendering
-- Pull request reviews for documentation
-- Issue tracking integration
-- Wiki functionality
-- Mermaid diagram support
+**特点**:
+- 原生 Markdown 渲染
+- 文档拉取请求评审
+- 缺陷跟踪集成
+- Wiki 功能
+- Mermaid 图表支持
 
-**Integration Tips**:
-- Store specs in `.kiro/specs/` directory structure
-- Use branch protection for spec reviews
-- Link issues to specific requirements
-- Use GitHub Pages for published documentation
+**集成提示**:
+- 将规范存储在 `.kiro/specs/` 目录结构中
+- 对规范评审使用分支保护
+- 将 issue 链接到具体需求
+- 使用 GitHub Pages 发布文档
 
 #### Notion
-**Best for**: Rich formatting, database integration, team wikis
+**最适用场景**: 丰富的格式，数据库集成，团队 Wiki
 
-**Features**:
-- Rich text editing with Markdown export
-- Database views for requirement tracking
-- Template system for consistent formatting
-- Real-time collaboration
-- Integration with project management tools
+**特点**:
+- 带有 Markdown 导出功能的富文本编辑
+- 用于需求跟踪的数据库视图
+- 用于保持格式一致的模板系统
+- 实时协作
+- 与项目管理工具集成
 
-**Integration Tips**:
-- Create template pages for each spec phase
-- Use databases to track requirement status
-- Link related pages for cross-references
-- Export to Markdown for version control
+**集成提示**:
+- 为每个规范阶段创建模板页面
+- 使用数据库跟踪需求状态
+- 链接相关页面以进行交叉引用
+- 导出为 Markdown 以便进行版本控制
 
 #### Obsidian
-**Best for**: Knowledge graphs, cross-referencing, personal knowledge management
+**最适用场景**: 知识图谱，交叉引用，个人知识管理
 
 **Features**:
 - Bidirectional linking between documents
-- Graph view for requirement relationships
-- Plugin ecosystem for extended functionality
-- Local file storage with sync options
-- Advanced search and filtering
+- 需求关系的图谱视图
+- 用于扩展功能的插件生态系统
+- 带有同步选项的本地文件存储
+- 高级搜索和过滤
 
-**Integration Tips**:
-- Use tags for requirement categorization
-- Create templates for consistent structure
-- Leverage graph view for dependency analysis
-- Use daily notes for spec development progress
+**集成提示**:
+- 使用标签对需求进行分类
+- 创建模板以保持结构一致
+- 利用图谱视图进行依赖关系分析
+- 使用每日笔记记录规范开发进度
 
 #### Confluence
-**Best for**: Enterprise documentation, structured content management
+**最适用场景**: 企业级文档，结构化内容管理
 
-**Features**:
-- Enterprise-grade collaboration
-- Advanced permissions and workflows
-- Template system and macros
-- Integration with Atlassian suite
-- Advanced search and reporting
+**特点**:
+- 企业级协作
+- 高级权限和工作流
+- 模板系统和宏 (Macros)
+- 与 Atlassian 套件集成
+- 高级搜索和报告
 
-**Integration Tips**:
-- Create space templates for spec projects
-- Use page templates for consistent formatting
-- Leverage macros for dynamic content
-- Integrate with Jira for requirement tracking
+**集成提示**:
+- 为规范项目创建空间模板
+- 使用页面模板保持格式一致
+- 利用宏实现动态内容
+- 与 Jira 集成以进行需求跟踪
 
-### Diagramming Tools
+### 绘图工具
 
 #### Mermaid
-**Best for**: Code-based diagrams, version control integration
+**最适用场景**: 基于代码的图表，版本控制集成
 
-**Supported Diagrams**:
-- Flowcharts for process flows
-- Sequence diagrams for interactions
-- Class diagrams for data models
-- State diagrams for system behavior
-- Gantt charts for project timelines
+**支持的图表**:
+- 用于流程规划的流程图 (Flowcharts)
+- 用于交互说明的序列图 (Sequence diagrams)
+- 用于数据模型的类图 (Class diagrams)
+- 用于系统行为的状态图 (State diagrams)
+- 用于项目时间线的甘特图 (Gantt charts)
 
-**Example Usage**:
-\`\`\`mermaid
+**使用示例**:
+```mermaid
 graph TD
-    A[Requirements] --> B[Design]
-    B --> C[Tasks]
-    C --> D[Implementation]
-    D --> E[Testing]
-    E --> F[Deployment]
-\`\`\`
+    A[需求] --> B[设计]
+    B --> C[任务]
+    C --> D[实施]
+    D --> E[测试]
+    E --> F[部署]
+```
 
-**Integration Tips**:
-- Embed directly in Markdown documents
-- Use consistent styling across diagrams
-- Version control diagram source code
-- Generate documentation from diagrams
+**集成提示**:
+- 直接嵌入到 Markdown 文档中
+- 在所有图表中使用一致的样式
+- 对图表源代码进行版本控制
+- 从图表中生成文档
 
 #### Lucidchart
-**Best for**: Complex system diagrams, collaborative design
+**最适用场景**: 复杂的系统图，协作式设计
 
-**Features**:
-- Professional diagramming tools
-- Real-time collaboration
-- Template library
-- Integration with documentation platforms
-- Advanced styling and formatting
+**特点**:
+- 专业级绘图工具
+- 实时协作
+- 模板库
+- 与文档平台集成
+- 高级样式和格式
 
-**Integration Tips**:
-- Create diagram templates for common patterns
-- Use shared folders for team access
-- Export diagrams for documentation embedding
-- Link diagrams to specific requirements
+**集成提示**:
+- 为常见模式创建图表模板
+- 使用共享文件夹供团队访问
+- 导出图表以嵌入文档
+- 将图表链接到具体需求
 
-#### Draw.io (now diagrams.net)
-**Best for**: Free diagramming, offline capability
+#### Draw.io (现为 diagrams.net)
+**最适用场景**: 免费绘图，离线功能
 
-**Features**:
-- Free and open-source
-- Web-based and desktop versions
-- Integration with cloud storage
-- Extensive shape libraries
-- Export to multiple formats
+**特点**:
+- 免费且开源
+- 网页版和桌面版
+- 与云存储集成
+- 广泛的形状库
+- 导出为多种格式
 
-**Integration Tips**:
-- Save diagrams in project repositories
-- Use consistent naming conventions
-- Create custom shape libraries
-- Export as SVG for scalable embedding
+**集成提示**:
+- 将图表保存在项目代码库中
+- 使用一致的命名约定
+- 创建自定义形状库
+- 导出为 SVG 以实现可缩放嵌入
 
-## Project Management and Tracking
+## 项目管理与跟踪
 
 ### Linear
-**Best for**: Modern project management, developer-focused workflows
+**最适用场景**: 现代项目管理，以开发人员为中心的工作流
 
-**Features**:
-- Clean, fast interface
-- Git integration
-- Automated workflows
-- Requirement tracking
-- Sprint planning
+**特点**:
+- 整洁、快速的界面
+- Git 集成
+- 自动化工作流
+- 需求跟踪
+- 迭代 (Sprint) 规划
 
-**Spec Integration**:
-- Create issues from requirements
-- Link tasks to specific acceptance criteria
-- Track implementation progress
-- Generate reports on spec completion
+**规范集成**:
+- 从需求创建 issue
+- 将任务链接到特定的验收标准
+- 跟踪实施进度
+- 生成规范完成情况报告
 
-**Setup Tips**:
-- Create labels for spec phases (Requirements, Design, Tasks)
-- Use custom fields for requirement traceability
-- Set up automation for status updates
-- Create views for different stakeholders
+**设置提示**:
+- 为规范阶段（需求、设计、任务）创建标签 (Label)
+- 使用自定义字段进行需求可追溯性追踪
+- 设置状态更新的自动化规则
+- 为不同的利益相关者创建视图
 
 ### Jira
-**Best for**: Enterprise project management, complex workflows
+**最适用场景**: 企业级项目管理，复杂的工作流
 
-**Features**:
-- Customizable workflows
-- Advanced reporting
-- Integration ecosystem
-- Requirement management
-- Agile planning tools
+**特点**:
+- 可定制的工作流
+- 高级报告
+- 集成生态系统
+- 需求管理
+- 敏捷规划工具
 
-**Spec Integration**:
-- Create epic for each major requirement
-- Break down epics into user stories
-- Link stories to acceptance criteria
-- Track progress through custom dashboards
+**规范集成**:
+- 为每个主要需求创建 Epic (史诗)
+- 将 Epic 拆分为用户故事
+- 将故事链接到验收标准
+- 通过自定义仪表板跟踪进度
 
-**Setup Tips**:
-- Create custom issue types for requirements
-- Use components to organize by feature area
-- Set up custom fields for EARS tracking
-- Create dashboards for spec progress
+**设置提示**:
+- 为需求创建自定义 issue 类型
+- 使用组件 (Component) 按功能区域组织
+- 为 EARS 跟踪设置自定义字段
+- 创建规范进度仪表板
 
 ### GitHub Issues/Projects
-**Best for**: Code-integrated project management, open source projects
+**最适用场景**: 与代码集成的项目管理，开源项目
 
-**Features**:
-- Native Git integration
-- Project boards and automation
-- Issue templates
-- Milestone tracking
-- Pull request integration
+**特点**:
+- 原生 Git 集成
+- 项目看板和自动化
+- Issue 模板
+- 里程碑跟踪
+- 拉取请求集成
 
-**Spec Integration**:
-- Create issue templates for requirements
-- Use project boards for spec phases
-- Link pull requests to requirements
-- Track completion through milestones
+**规范集成**:
+- 为需求创建 issue 模板
+- 为规范阶段使用项目看板
+- 将拉取请求链接到需求
+- 通过里程碑跟踪完成情况
 
-**Setup Tips**:
-- Create labels for requirement types
-- Use issue templates for consistency
-- Set up project automation rules
-- Link issues to specific code changes
+**设置提示**:
+- 为需求类型创建标签
+- 使用 issue 模板保持一致性
+- 设置项目自动化规则
+- 将 issue 链接到具体的代码更改
 
 ### Trello
-**Best for**: Simple kanban boards, visual project management
+**最适用场景**: 简单的看板，可视化项目管理
 
-**Features**:
-- Visual kanban boards
-- Card-based organization
-- Power-ups for extended functionality
-- Team collaboration
-- Mobile apps
+**特点**:
+- 可视化看板
+- 基于卡片的组织方式
+- 用于扩展功能的 Power-up
+- 团队协作
+- 移动端 App
 
-**Spec Integration**:
-- Create boards for each spec phase
-- Use cards for individual requirements
-- Add checklists for acceptance criteria
-- Move cards through workflow stages
+**规范集成**:
+- 为每个规范阶段创建看板
+- 为每个需求使用卡片
+- 为验收标准添加检查列表
+- 让卡片在工作流阶段中移动
 
-**Setup Tips**:
-- Create board templates for new specs
-- Use labels for requirement priority
-- Add due dates for milestone tracking
-- Use power-ups for time tracking
+**设置提示**:
+- 为新规范创建看板模板
+- 使用标签表示需求优先级
+- 为里程碑跟踪添加截止日期
+- 使用 Power-up 进行时间跟踪
 
-## Requirements Management Tools
+## 需求管理工具
 
 ### Azure DevOps
-**Best for**: Enterprise requirements management, Microsoft ecosystem
+**最适用场景**: 企业需求管理，微软生态系统
 
-**Features**:
-- Work item tracking
-- Requirements hierarchy
-- Traceability matrix
-- Test case management
-- Integration with development tools
+**特点**:
+- 工作项 (Work item) 跟踪
+- 需求层级结构
+- 可追溯性矩阵
+- 测试用例管理
+- 与开发工具集成
 
-**Spec Integration**:
-- Create work item types for requirements
-- Build requirement hierarchies
-- Link requirements to test cases
-- Generate traceability reports
+**规范集成**:
+- 为需求创建工作项类型
+- 构建需求层级结构
+- 将需求链接到测试用例
+- 生成可追溯性报告
 
 ### IBM DOORS
-**Best for**: Regulated industries, complex requirement traceability
+**最适用场景**: 受监管行业，复杂的需求可追溯性
 
-**Features**:
-- Formal requirements management
-- Change impact analysis
-- Baseline management
-- Compliance reporting
-- Integration with testing tools
+**特点**:
+- 正式需求管理
+- 变更影响分析
+- 基线 (Baseline) 管理
+- 合规性报告
+- 与测试工具集成
 
-**Spec Integration**:
-- Import requirements from specs
-- Maintain requirement baselines
-- Track requirement changes
-- Generate compliance reports
+**规范集成**:
+- 从规范中导入需求
+- 维护需求基线
+- 跟踪需求变更
+- 生成合规性报告
 
 ### Aha!
-**Best for**: Product management, roadmap planning
+**最适用场景**: 产品管理，路线图规划
 
-**Features**:
-- Product roadmap management
-- Feature prioritization
-- Stakeholder communication
-- Integration with development tools
-- Strategic planning
+**特点**:
+- 产品路线图管理
+- 功能优先级排序
+- 利益相关者沟通
+- 与开发工具集成
+- 战略规划
 
-**Spec Integration**:
-- Create features from requirements
-- Prioritize based on business value
-- Communicate roadmap to stakeholders
-- Track feature delivery
+**规范集成**:
+- 从需求创建功能
+- 根据业务价值排列优先级
+- 向利益相关者传达路线图
+- 跟踪功能交付情况
 
-## Testing and Quality Assurance Tools
+## 测试与质量保证工具
 
-### Test Management
+### 测试管理
 
 #### TestRail
-**Best for**: Comprehensive test management, requirement traceability
+**最适用场景**: 全面的测试管理，需求可追溯性
 
-**Features**:
-- Test case management
-- Test execution tracking
-- Requirement coverage analysis
-- Reporting and analytics
-- Integration with bug tracking
+**特点**:
+- 测试用例管理
+- 测试执行跟踪
+- 需求覆盖率分析
+- 报告与分析
+- 与缺陷跟踪集成
 
-**Spec Integration**:
-- Create test cases from acceptance criteria
-- Track requirement coverage
-- Link test results to requirements
-- Generate coverage reports
+**规范集成**:
+- 根据验收标准创建测试用例
+- 跟踪需求覆盖率
+- 将测试结果链接到需求
+- 生成覆盖率报告
 
 #### Zephyr
-**Best for**: Jira integration, agile testing
+**最适用场景**: Jira 集成，敏捷测试
 
-**Features**:
-- Native Jira integration
-- Test case creation and execution
-- Real-time reporting
-- Traceability matrix
-- Automation integration
+**特点**:
+- 原生 Jira 集成
+- 测试用例创建与执行
+- 实时报告
+- 可追溯性矩阵
+- 自动化集成
 
-**Spec Integration**:
-- Link test cases to requirement issues
-- Track testing progress in Jira
-- Generate requirement coverage reports
-- Integrate with CI/CD pipelines
+**规范集成**:
+- 将测试用例链接到需求 issue
+- 在 Jira 中跟踪测试进度
+- 生成需求覆盖率报告
+- 与 CI/CD 流水线集成
 
-### Automated Testing
+### 自动化测试
 
 #### Jest/Vitest
-**Best for**: JavaScript/TypeScript unit testing
+**最适用场景**: JavaScript/TypeScript 单元测试
 
-**Integration Tips**:
-- Name test files to match requirements
-- Use describe blocks for requirement grouping
-- Include requirement IDs in test descriptions
-- Generate coverage reports for requirements
+**集成提示**:
+- 测试文件命名与需求保持一致
+- 使用 describe 块对需求进行分组
+- 在测试描述中包含需求 ID
+- 为需求生成覆盖率报告
 
 #### Cypress/Playwright
-**Best for**: End-to-end testing, user scenario validation
+**最适用场景**: 端到端测试，用户场景验证
 
-**Integration Tips**:
-- Create test scenarios from user stories
-- Use data attributes for requirement traceability
-- Generate test reports with requirement mapping
-- Integrate with CI/CD for continuous validation
+**集成提示**:
+- 根据用户故事创建测试场景
+- 使用 data 属性进行需求可追溯性映射
+- 生成带有需求映射的测试报告
+- 与 CI/CD 集成以进行持续验证
 
 #### Postman/Insomnia
-**Best for**: API testing, integration validation
+**最适用场景**: API 测试，集成验证
 
-**Integration Tips**:
-- Create test collections for API requirements
-- Use environment variables for different test scenarios
-- Generate API documentation from tests
-- Integrate with CI/CD for automated API testing
+**集成提示**:
+- 为 API 需求创建测试集合 (Collections)
+- 为不同的测试场景使用环境变量
+- 从测试中生成 API 文档
+- 与 CI/CD 集成以进行自动化 API 测试
 
-## Development and Code Quality Tools
+## 开发与代码质量工具
 
-### Code Quality
+### 代码质量
 
 #### SonarQube
-**Best for**: Code quality analysis, technical debt management
+**最适用场景**: 代码质量分析，技术债务管理
 
-**Features**:
-- Static code analysis
-- Security vulnerability detection
-- Code coverage tracking
-- Technical debt assessment
-- Quality gate enforcement
+**特点**:
+- 静态代码分析
+- 安全漏洞检测
+- 代码覆盖率跟踪
+- 技术债务评估
+- 质量门禁 (Quality gate) 强制执行
 
-**Spec Integration**:
-- Set quality gates based on requirements
-- Track code coverage for requirement implementation
-- Monitor technical debt introduction
-- Generate quality reports for stakeholders
+**规范集成**:
+- 根据需求设置质量门禁
+- 跟踪需求实现的代码覆盖率
+- 监控技术债务的引入情况
+- 为利益相关者生成质量报告
 
 #### ESLint/Prettier
-**Best for**: Code formatting and linting
+**最适用场景**: 代码格式化和静态代码检查
 
-**Integration Tips**:
-- Configure rules based on project standards
-- Integrate with CI/CD for automated checks
-- Use pre-commit hooks for consistency
-- Generate reports for code quality metrics
+**集成提示**:
+- 根据项目标准配置规则
+- 与 CI/CD 集成进行自动化检查
+- 使用 pre-commit 钩子保持代码一致性
+- 生成代码质量指标报告
 
-### Version Control
+### 版本控制
 
-#### Git Workflows
-**Best for**: Code versioning, collaboration
+#### Git 工作流
+**最适用场景**: 代码版本控制、协作
 
-**Spec Integration Strategies**:
-- **Feature Branches**: Create branches for each requirement
-- **Commit Messages**: Reference requirement IDs in commits
-- **Pull Requests**: Link PRs to specific requirements
-- **Tags**: Tag releases with requirement completion
+**规范集成策略**:
+- **功能分支 (Feature Branches)**: 为每个需求创建分支
+- **提交消息 (Commit Messages)**: 在提交中引用需求 ID
+- **拉取请求 (Pull Requests)**: 将 PR 链接到具体需求
+- **标签 (Tags)**: 在发布时使用标签标记需求完成情况
 
-**Branch Naming Conventions**:
+**分支命名约定**:
 - `feature/req-1.1-user-authentication`
 - `bugfix/req-2.3-validation-error`
 - `docs/req-update-api-spec`
 
-## CI/CD and Automation Tools
+## CI/CD 与自动化工具
 
-### Continuous Integration
+### 持续集成 (CI)
 
 #### GitHub Actions
-**Best for**: GitHub-integrated CI/CD, workflow automation
+**最适用场景**: 与 GitHub 集成的 CI/CD，工作流自动化
 
-**Spec Integration**:
-- Trigger builds on requirement-related changes
-- Run tests for specific requirement areas
-- Generate reports on requirement completion
-- Automate deployment based on requirement status
+**规范集成**:
+- 触发与需求变更相关的构建
+- 为特定的需求领域运行测试
+- 生成需求完成情况报告
+- 根据需求状态自动化部署
 
-**Example Workflow**:
-\`\`\`yaml
-name: Requirement Validation
+**工作流示例**:
+```yaml
+name: 需求验证
 on:
   pull_request:
     paths:
@@ -10696,374 +10692,374 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Run requirement tests
+      - name: 运行需求测试
         run: npm test -- --grep "Requirement"
-\`\`\`
+```
 
 #### Jenkins
-**Best for**: Enterprise CI/CD, complex pipelines
+**最适用场景**: 企业级 CI/CD，复杂的流水线
 
-**Spec Integration**:
-- Create pipelines for requirement validation
-- Integrate with testing tools
-- Generate requirement completion reports
-- Automate deployment based on quality gates
+**规范集成**:
+- 创建用于需求验证的流水线
+- 与测试工具集成
+- 生成需求完成报告
+- 根据质量门禁自动化部署
 
 #### GitLab CI
-**Best for**: GitLab-integrated CI/CD, DevOps workflows
+**最适用场景**: 与 GitLab 集成的 CI/CD，DevOps 工作流
 
-**Spec Integration**:
-- Use merge request templates for requirement reviews
-- Create pipelines for requirement testing
-- Generate coverage reports
-- Automate requirement status updates
+**规范集成**:
+- 使用合并请求 (Merge Request) 模板进行需求评审
+- 为需求测试创建流水线
+- 生成覆盖率报告
+- 自动更新需求状态
 
-## Communication and Collaboration Tools
+## 沟通与协作工具
 
-### Team Communication
+### 团队沟通
 
 #### Slack
-**Best for**: Real-time team communication, integration hub
+**最适用场景**: 实时团队沟通，集成枢纽
 
-**Spec Integration**:
-- Create channels for spec discussions
-- Use bots for requirement status updates
-- Integrate with project management tools
-- Share spec progress and updates
+**规范集成**:
+- 为规范讨论创建频道 (Channel)
+- 使用机器人 (Bot) 更新需求状态
+- 与项目管理工具集成
+- 分享规范进度和更新
 
-**Bot Integrations**:
-- GitHub/GitLab notifications for spec changes
-- Jira/Linear updates for requirement progress
-- Calendar reminders for spec reviews
-- Custom bots for requirement queries
+**机器人集成**:
+- GitHub/GitLab 的规范变更通知
+- Jira/Linear 的需求进度更新
+- 规范评审的日历提醒
+- 用于需求查询的自定义机器人
 
 #### Microsoft Teams
-**Best for**: Enterprise communication, Microsoft ecosystem
+**最适用场景**: 企业沟通，微软生态系统
 
-**Spec Integration**:
-- Create teams for spec development
-- Use channels for different spec phases
-- Integrate with Azure DevOps
-- Share documents and collaborate on specs
+**规范集成**:
+- 为规范开发创建团队
+- 为不同的规范阶段使用频道
+- 与 Azure DevOps 集成
+- 共享文档并协作编写规范
 
 #### Discord
-**Best for**: Community-driven projects, informal communication
+**最适用场景**: 社区驱动的项目，非正式沟通
 
-**Spec Integration**:
-- Create channels for spec discussions
-- Use bots for automated updates
-- Share progress and get feedback
-- Coordinate development activities
+**规范集成**:
+- 为规范讨论创建频道
+- 使用机器人进行自动化更新
+- 分享进度并获取反馈
+- 协调开发活动
 
-### Review and Approval
+### 评审与批准
 
 #### ReviewBoard
-**Best for**: Code and document review workflows
+**最适用场景**: 代码和文档评审工作流
 
-**Features**:
-- Document review workflows
-- Comment and approval tracking
-- Integration with version control
-- Review analytics and reporting
+**特点**:
+- 文档评审工作流
+- 评论和批准跟踪
+- 与版本控制集成
+- 评审分析与报告
 
-**Spec Integration**:
-- Review requirements documents
-- Track approval status
-- Manage review feedback
-- Generate review reports
+**规范集成**:
+- 评审需求文档
+- 跟踪批准状态
+- 管理评审反馈
+- 生成评审报告
 
 #### Collaborator
-**Best for**: Enterprise code and document review
+**最适用场景**: 企业级代码和文档评审
 
-**Features**:
-- Formal review processes
-- Compliance reporting
-- Integration with development tools
-- Advanced analytics
+**特点**:
+- 正式评审流程
+- 合规性报告
+- 与开发工具集成
+- 高级分析功能
 
-**Spec Integration**:
-- Formal spec review processes
-- Compliance tracking
-- Review metrics and reporting
-- Integration with quality gates
+**规范集成**:
+- 正式规范评审流程
+- 合规性跟踪
+- 评审指标与报告
+- 与质量门禁集成
 
-## Monitoring and Analytics Tools
+## 监控与分析工具
 
-### Application Monitoring
+### 应用监控
 
 #### DataDog
-**Best for**: Application performance monitoring, observability
+**最适用场景**: 应用性能监控 (APM)，可观测性
 
-**Spec Integration**:
-- Monitor requirement-specific metrics
-- Create dashboards for feature performance
-- Set up alerts for requirement violations
-- Track user behavior for requirement validation
+**规范集成**:
+- 监控特定需求的指标
+- 为功能性能创建仪表板
+- 为违反需求的情况设置告警
+- 跟踪用户行为以验证需求
 
 #### New Relic
-**Best for**: Application performance monitoring, user experience
+**最适用场景**: 应用性能监控，用户体验
 
-**Spec Integration**:
-- Monitor feature performance metrics
-- Track user interactions with new features
-- Set up alerts for performance requirements
-- Generate reports on requirement compliance
+**规范集成**:
+- 监控功能性能指标
+- 跟踪用户与新功能的交互
+- 为性能需求设置告警
+- 生成需求合规性报告
 
-### Analytics and Reporting
+### 分析与报告
 
 #### Google Analytics
-**Best for**: User behavior tracking, feature usage analysis
+**最适用场景**: 用户行为跟踪，功能使用分析
 
-**Spec Integration**:
-- Track usage of new features
-- Measure requirement success metrics
-- Analyze user behavior patterns
-- Generate reports on feature adoption
+**规范集成**:
+- 跟踪新功能的使用情况
+- 衡量需求成功指标
+- 分析用户行为模式
+- 生成功能采用情况报告
 
 #### Mixpanel
-**Best for**: Product analytics, event tracking
+**最适用场景**: 产品分析，事件跟踪
 
-**Spec Integration**:
-- Track requirement-specific events
-- Measure feature success metrics
-- Analyze user engagement
-- Generate requirement performance reports
+**规范集成**:
+- 跟踪特定需求的事件
+- 衡量功能成功指标
+- 分析用户参与度
+- 生成需求性能报告
 
-## Tool Integration Strategies
+## 工具集成策略
 
-### Workflow Integration
+### 工作流集成
 
-#### Single Source of Truth
-- Choose one primary tool for requirement storage
-- Sync data between tools using APIs
-- Maintain consistency across platforms
-- Establish clear data ownership
+#### 单一事实来源 (Single Source of Truth)
+- 选择一个主要工具存储需求
+- 使用 API 在工具之间同步数据
+- 保持跨平台的一致性
+- 确立清晰的数据归属权
 
-#### API Integration
-- Use webhooks for real-time updates
-- Implement custom integrations where needed
-- Leverage existing integration platforms
-- Monitor integration health and performance
+#### API 集成
+- 使用 Webhooks 进行实时更新
+- 在需要时实施自定义集成
+- 利用现有的集成平台
+- 监控集成的健康状况和性能
 
-#### Automation Workflows
-- Automate status updates across tools
-- Create triggers for requirement changes
-- Generate reports automatically
-- Notify stakeholders of important updates
+#### 自动化工作流
+- 跨工具自动化状态更新
+- 为需求变更创建触发器
+- 自动生成报告
+- 通知利益相关者重要的更新
 
-### Best Practices
+### 最佳实践
 
-#### Tool Selection Criteria
-- **Team Size**: Choose tools that scale with your team
-- **Budget**: Consider cost vs. value for your organization
-- **Integration**: Ensure tools work well together
-- **Learning Curve**: Consider adoption time and training needs
-- **Support**: Evaluate vendor support and community
+#### 工具选择标准
+- **团队规模**: 选择能随团队扩展的工具
+- **预算**: 为您的组织考虑成本与价值
+- **集成性**: 确保工具之间协作良好
+- **学习曲线**: 考虑采用时间和培训需求
+- **支持**: 评估供应商支持和社区活跃度
 
-#### Implementation Strategy
-1. **Start Small**: Begin with core tools and expand gradually
-2. **Pilot Programs**: Test tools with small teams first
-3. **Training**: Provide adequate training for team members
-4. **Feedback**: Collect feedback and iterate on tool usage
-5. **Optimization**: Continuously optimize workflows and integrations
+#### 实施策略
+1. **从小处着手**: 从核心工具开始，逐步扩展
+2. **试点计划**: 先在小团队中测试工具
+3. **培训**: 为团队成员提供充分的培训
+4. **反馈**: 收集反馈并迭代工具的使用方式
+5. **优化**: 持续优化工作流和集成
 
-#### Maintenance and Updates
-- Regularly review tool effectiveness
-- Keep integrations updated and secure
-- Monitor tool usage and adoption
-- Plan for tool migrations and upgrades
-- Maintain documentation for tool usage
+#### 维护与更新
+- 定期评估工具的有效性
+- 保持集成的更新和安全性
+- 监控工具的使用和采用情况
+- 为工具迁移和升级做准备
+- 维护工具使用文档
 
 ---
 
-## Tool Comparison Matrix
+## 工具对比矩阵
 
-| Category | Tool | Best For | Cost | Learning Curve | Integration |
+| 类别 | 工具 | 最适用场景 | 成本 | 学习曲线 | 集成性 |
 |----------|------|----------|------|----------------|-------------|
-| Documentation | GitHub | Version control | Free/Paid | Low | Excellent |
-| Documentation | Notion | Rich formatting | Paid | Medium | Good |
-| Documentation | Confluence | Enterprise | Paid | Medium | Excellent |
-| Project Mgmt | Linear | Modern teams | Paid | Low | Good |
-| Project Mgmt | Jira | Enterprise | Paid | High | Excellent |
-| Project Mgmt | GitHub Projects | Code integration | Free/Paid | Low | Excellent |
-| Diagramming | Mermaid | Code-based | Free | Medium | Excellent |
-| Diagramming | Lucidchart | Professional | Paid | Low | Good |
-| Testing | Jest | Unit testing | Free | Medium | Good |
-| Testing | Cypress | E2E testing | Free/Paid | Medium | Good |
-| CI/CD | GitHub Actions | GitHub integration | Free/Paid | Medium | Excellent |
-| CI/CD | Jenkins | Enterprise | Free | High | Good |
+| 文档 | GitHub | 版本控制 | 免费/付费 | 低 | 极好 |
+| 文档 | Notion | 丰富格式 | 付费 | 中 | 良好 |
+| 文档 | Confluence | 企业级 | 付费 | 中 | 极好 |
+| 项目管理 | Linear | 现代团队 | 付费 | 低 | 良好 |
+| 项目管理 | Jira | 企业级 | 付费 | 高 | 极好 |
+| 项目管理 | GitHub Projects | 代码集成 | 免费/付费 | 低 | 极好 |
+| 绘图 | Mermaid | 基于代码 | 免费 | 中 | 极好 |
+| 绘图 | Lucidchart | 专业绘图 | 付费 | 低 | 良好 |
+| 测试 | Jest | 单元测试 | 免费 | 中 | 良好 |
+| 测试 | Cypress | E2E 测试 | 免费/付费 | 中 | 良好 |
+| CI/CD | GitHub Actions | GitHub 集成 | 免费/付费 | 中 | 极好 |
+| CI/CD | Jenkins | 企业级 | 免费 | 高 | 良好 |
 
-## Recommended Tool Stacks
+## 推荐工具栈
 
-### Startup/Small Team Stack
-**Budget**: Low to Medium  
-**Team Size**: 2-10 developers  
-**Complexity**: Low to Medium
+### 初创公司/小团队栈
+**预算**: 低到中等  
+**团队规模**: 2-10 名开发人员  
+**复杂度**: 低到中等
 
-**Core Tools**:
-- **Documentation**: GitHub + Markdown
-- **Project Management**: Linear or GitHub Projects
-- **Diagramming**: Mermaid (embedded in docs)
-- **Testing**: Jest + Cypress
+**核心工具**:
+- **文档**: GitHub + Markdown
+- **项目管理**: Linear 或 GitHub Projects
+- **绘图**: Mermaid (嵌入文档)
+- **测试**: Jest + Cypress
 - **CI/CD**: GitHub Actions
-- **Communication**: Slack
+- **沟通**: Slack
 
-**Total Cost**: $50-200/month  
-**Setup Time**: 1-2 days  
-**Learning Curve**: Low
+**总成本**: 50-200 美金/月  
+**设置时间**: 1-2 天  
+**学习曲线**: 低
 
-**Pros**:
-- Integrated ecosystem
-- Low cost and complexity
-- Fast setup and adoption
-- Good for code-centric teams
+**优点**:
+- 集成化的生态系统
+- 成本和复杂度低
+- 设置和采用速度快
+- 适合以代码为中心的团队
 
-**Cons**:
-- Limited advanced features
-- May not scale to large teams
-- Fewer enterprise integrations
+**缺点**:
+- 高级功能有限
+- 可能无法扩展到大型团队
+- 企业级集成较少
 
-### Enterprise Stack
-**Budget**: High  
-**Team Size**: 50+ developers  
-**Complexity**: High
+### 企业级栈
+**预算**: 高  
+**团队规模**: 50 名以上开发人员  
+**复杂度**: 高
 
-**Core Tools**:
-- **Documentation**: Confluence + SharePoint
-- **Project Management**: Jira + Azure DevOps
-- **Requirements**: IBM DOORS or Azure DevOps
-- **Diagramming**: Lucidchart + Visio
-- **Testing**: TestRail + Selenium Grid
+**核心工具**:
+- **文档**: Confluence + SharePoint
+- **项目管理**: Jira + Azure DevOps
+- **需求**: IBM DOORS 或 Azure DevOps
+- **绘图**: Lucidchart + Visio
+- **测试**: TestRail + Selenium Grid
 - **CI/CD**: Jenkins + Azure Pipelines
-- **Communication**: Microsoft Teams
+- **沟通**: Microsoft Teams
 
-**Total Cost**: $500-2000/month  
-**Setup Time**: 2-4 weeks  
-**Learning Curve**: High
+**总成本**: 500-2000 美金/月  
+**设置时间**: 2-4 周  
+**学习曲线**: 高
 
-**Pros**:
-- Enterprise-grade features
-- Advanced reporting and analytics
-- Compliance and audit support
-- Extensive integration options
+**优点**:
+- 企业级功能
+- 高级报告和分析
+- 合规性和审计支持
+- 广泛的集成选项
 
-**Cons**:
-- High cost and complexity
-- Longer setup and training time
-- May be overkill for smaller projects
+**缺点**:
+- 成本和复杂度高
+- 设置和培训时间较长
+- 对于小型项目来说可能过于繁重
 
-### Hybrid/Modern Stack
-**Budget**: Medium  
-**Team Size**: 10-50 developers  
-**Complexity**: Medium
+### 混合型/现代栈
+**预算**: 中等  
+**团队规模**: 10-50 名开发人员  
+**复杂度**: 中等
 
-**Core Tools**:
-- **Documentation**: Notion + GitHub
-- **Project Management**: Linear + Jira (for complex projects)
-- **Diagramming**: Mermaid + Lucidchart
-- **Testing**: Jest + Playwright + TestRail
+**核心工具**:
+- **文档**: Notion + GitHub
+- **项目管理**: Linear + Jira (用于复杂项目)
+- **绘图**: Mermaid + Lucidchart
+- **测试**: Jest + Playwright + TestRail
 - **CI/CD**: GitHub Actions + Jenkins
-- **Communication**: Slack + Microsoft Teams
+- **沟通**: Slack + Microsoft Teams
 
-**Total Cost**: $200-800/month  
-**Setup Time**: 1 week  
-**Learning Curve**: Medium
+**总成本**: 200-800 美金/月  
+**设置时间**: 1 周  
+**学习曲线**: 中等
 
-**Pros**:
-- Balance of features and cost
-- Flexible and adaptable
-- Good integration options
-- Scales with team growth
+**优点**:
+- 功能与成本之间的平衡
+- 灵活且适应性强
+- 良好的集成选项
+- 随团队增长而扩展
 
-**Cons**:
-- Requires more tool management
-- Potential integration complexity
-- May require custom solutions
+**缺点**:
+- 需要更多的工具管理
+- 潜在的集成复杂性
+- 可能需要自定义解决方案
 
-## Tool Selection Framework
+## 工具选择框架
 
-### Evaluation Criteria
+### 评估标准
 
-#### Functional Requirements
-1. **Core Features**: Does the tool provide essential functionality?
-2. **Integration**: How well does it integrate with existing tools?
-3. **Scalability**: Can it grow with your team and projects?
-4. **Customization**: Can it be adapted to your specific needs?
-5. **Reporting**: Does it provide necessary analytics and reporting?
+#### 功能性需求
+1. **核心功能**: 该工具是否提供基本的功能？
+2. **集成性**: 它与现有工具的集成效果如何？
+3. **可扩展性**: 它能否随您的团队和项目而增长？
+4. **定制化**: 它能否适应您的特定需求？
+5. **报告功能**: 它是否提供必要的分析和报告？
 
-#### Non-Functional Requirements
-1. **Performance**: Is the tool fast and responsive?
-2. **Reliability**: Is it stable and available when needed?
-3. **Security**: Does it meet your security requirements?
-4. **Usability**: Is it easy to learn and use?
-5. **Support**: What level of support is available?
+#### 非功能性需求
+1. **性能**: 该工具是否快速且响应灵敏？
+2. **可靠性**: 在需要时它是否稳定可用？
+3. **安全性**: 它是否满足您的安全要求？
+4. **易用性**: 它是否易于学习和使用？
+5. **技术支持**: 提供什么级别的支持？
 
-#### Business Considerations
-1. **Cost**: Total cost of ownership including licenses, training, maintenance
-2. **ROI**: Expected return on investment and productivity gains
-3. **Risk**: Vendor stability, lock-in concerns, migration complexity
-4. **Compliance**: Regulatory and policy compliance requirements
-5. **Timeline**: Implementation timeline and resource requirements
+#### 商业考虑
+1. **成本**: 总拥有成本，包括许可、培训、维护
+2. **投资回报率 (ROI)**: 预期的投资回报和效率提升
+3. **风险**: 供应商稳定性、绑定限制 (Lock-in)、迁移复杂度
+4. **合规性**: 监管和策略合规性要求
+5. **时间线**: 实施时间表和资源需求
 
-### Decision Matrix Template
+### 决策矩阵模板
 
-| Tool | Core Features | Integration | Scalability | Cost | Usability | Total Score |
+| 工具 | 核心功能 | 集成性 | 可扩展性 | 成本 | 易用性 | 总分 |
 |------|---------------|-------------|-------------|------|-----------|-------------|
-| Option 1 | 8/10 | 7/10 | 9/10 | 6/10 | 8/10 | 38/50 |
-| Option 2 | 9/10 | 8/10 | 7/10 | 8/10 | 7/10 | 39/50 |
-| Option 3 | 7/10 | 9/10 | 8/10 | 7/10 | 9/10 | 40/50 |
+| 选项 1 | 8/10 | 7/10 | 9/10 | 6/10 | 8/10 | 38/50 |
+| 选项 2 | 9/10 | 8/10 | 7/10 | 8/10 | 7/10 | 39/50 |
+| 选项 3 | 7/10 | 9/10 | 8/10 | 7/10 | 9/10 | 40/50 |
 
-### Implementation Roadmap
+### 实施路线图
 
-#### Phase 1: Foundation (Week 1-2)
-- Set up core documentation platform
-- Configure basic project management
-- Establish team communication channels
-- Create initial templates and workflows
+#### 第一阶段：基础构建 (第 1-2 周)
+- 设置核心文档平台
+- 配置基础项目管理
+- 建立团队沟通渠道
+- 创建初始模板和工作流
 
-#### Phase 2: Enhancement (Week 3-4)
-- Add diagramming and visualization tools
-- Implement testing and quality assurance tools
-- Set up basic automation and CI/CD
-- Train team on new tools and processes
+#### 第二阶段：能力增强 (第 3-4 周)
+- 添加绘图和视觉化工具
+- 实施测试和质量保证工具
+- 设置基础自动化和 CI/CD
+- 就新工具和流程培训团队
 
-#### Phase 3: Optimization (Week 5-8)
-- Integrate advanced features and customizations
-- Implement comprehensive monitoring and reporting
-- Optimize workflows and automation
-- Gather feedback and iterate on processes
+#### 第三阶段：持续优化 (第 5-8 周)
+- 集成高级功能和自定义设置
+- 实施全面的监控和报告
+- 优化工作流和自动化
+- 收集反馈并迭代流程
 
-#### Phase 4: Scaling (Ongoing)
-- Add additional tools as needed
-- Scale processes for larger teams
-- Implement advanced integrations
-- Continuously improve and optimize
+#### 第四阶段：规模化扩展 (持续进行)
+- 根据需要添加更多工具
+- 为更大规模的团队扩展流程
+- 实施高级集成
+- 持续改进和优化
 
-## Integration Patterns and Best Practices
+## 集成模式与最佳实践
 
-### API Integration Patterns
+### API 集成模式
 
-#### Webhook-Based Integration
-\`\`\`javascript
-// Example: GitHub webhook to update project management tool
+#### 基于 Webhook 的集成
+```javascript
+// 示例：GitHub Webhook 用于更新项目管理工具
 app.post('/webhook/github', (req, res) => {
   const { action, pull_request } = req.body;
   
   if (action === 'opened' && pull_request.title.includes('[REQ-')) {
-    // Extract requirement ID from PR title
+    // 从 PR 标题中提取需求 ID
     const reqId = pull_request.title.match(/\[REQ-(\d+\.\d+)\]/)[1];
     
-    // Update project management tool
+    // 更新项目管理工具
     await updateTaskStatus(reqId, 'in_progress');
   }
   
   res.status(200).send('OK');
 });
-\`\`\`
+```
 
-#### Polling-Based Integration
-\`\`\`javascript
-// Example: Sync requirement status between tools
+#### 基于轮询 (Polling) 的集成
+```javascript
+// 示例：在工具之间同步需求状态
 async function syncRequirementStatus() {
   const requirements = await getRequirementsFromSource();
   
@@ -11077,13 +11073,13 @@ async function syncRequirementStatus() {
   }
 }
 
-// Run every 15 minutes
+// 每 15 分钟运行一次
 setInterval(syncRequirementStatus, 15 * 60 * 1000);
-\`\`\`
+```
 
-#### Event-Driven Integration
-\`\`\`javascript
-// Example: Event bus for tool integration
+#### 事件驱动型集成
+```javascript
+// 示例：用于工具集成的事件总线 (Event Bus)
 class SpecEventBus {
   constructor() {
     this.subscribers = new Map();
@@ -11102,42 +11098,42 @@ class SpecEventBus {
   }
 }
 
-// Usage
+// 使用示例
 const eventBus = new SpecEventBus();
 
 eventBus.subscribe('requirement.updated', async (data) => {
-  await updateProjectManagementTool(data);
-  await notifyStakeholders(data);
-  await updateDocumentation(data);
+  await updateProjectManagementTool(data); // 更新项目管理工具
+  await notifyStakeholders(data);         // 通知利益相关者
+  await updateDocumentation(data);       // 更新文档
 });
-\`\`\`
+```
 
-### Data Synchronization Strategies
+### 数据同步策略
 
-#### Master-Slave Pattern
-- One tool serves as the master source of truth
-- Other tools sync from the master
-- Simple to implement and maintain
-- Risk of data loss if master fails
+#### 主从模式 (Master-Slave)
+- 一个工具作为单一事实来源（主）
+- 其他工具（从）从主工具同步
+- 实施和维护都很简单
+- 如果主工具发生故障，存在数据丢失风险
 
-#### Multi-Master Pattern
-- Multiple tools can update the same data
-- Conflict resolution mechanisms required
-- More complex but more resilient
-- Better for distributed teams
+#### 多主模式 (Multi-Master)
+- 多个工具都可以更新相同的数据
+- 需要冲突解决机制
+- 更加复杂但更具韧性
+- 更适合分布式团队
 
-#### Event Sourcing Pattern
-- All changes are stored as events
-- Tools replay events to build current state
-- Excellent audit trail and debugging
-- More complex to implement
+#### 事件溯源模式 (Event Sourcing)
+- 所有变更都以事件形式存储
+- 工具通过重放事件来构建当前状态
+- 极佳的审计追踪和调试能力
+- 实施起来较为复杂
 
-### Automation Workflows
+### 自动化工作流
 
-#### Requirement Lifecycle Automation
-\`\`\`yaml
-# GitHub Actions workflow for requirement updates
-name: Requirement Lifecycle
+#### 需求生命周期自动化
+```yaml
+# 用于需求更新的 GitHub Actions 工作流
+name: 需求生命周期
 on:
   push:
     paths:
@@ -11148,21 +11144,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Validate EARS format
+      - name: 验证 EARS 格式
         run: |
           python scripts/validate_ears.py
-      - name: Update project management
+      - name: 更新项目管理
         run: |
           python scripts/sync_requirements.py
-      - name: Notify stakeholders
+      - name: 通知利益相关者
         run: |
           python scripts/notify_stakeholders.py
-\`\`\`
+```
 
-#### Testing Integration Automation
-\`\`\`yaml
-# Automated testing based on requirements
-name: Requirement Testing
+#### 测试集成自动化
+```yaml
+# 基于自动化的需求测试
+name: 需求测试
 on:
   pull_request:
     types: [opened, synchronize]
@@ -11172,738 +11168,740 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Extract requirement IDs
+      - name: 提取需求 ID
         id: extract
         run: |
           echo "::set-output name=req_ids::$(grep -o 'REQ-[0-9]\+\.[0-9]\+' ${{ github.event.pull_request.body }})"
-      - name: Run requirement-specific tests
+      - name: 运行特定需求的测试
         run: |
           npm test -- --grep "${{ steps.extract.outputs.req_ids }}"
-\`\`\`
+```
 
-## Security and Compliance Considerations
+## 安全与合规性考量
 
-### Data Protection
-- **Encryption**: Ensure data is encrypted in transit and at rest
-- **Access Control**: Implement role-based access control
-- **Audit Logging**: Maintain comprehensive audit logs
-- **Data Retention**: Implement appropriate data retention policies
+### 数据保护
+- **加密**: 确保数据在传输和存储时都经过加密
+- **访问控制**: 实施基于角色的访问控制 (RBAC)
+- **审计日志**: 维护全面的审计日志
+- **数据保留**: 实施适当的数据保留策略
 
-### Compliance Requirements
-- **GDPR**: Ensure tools comply with data protection regulations
-- **SOX**: Maintain audit trails for financial compliance
-- **HIPAA**: Protect health information if applicable
-- **Industry Standards**: Follow relevant industry standards
+### 合规性要求
+- **GDPR**: 确保工具符合数据保护法规
+- **SOX**: 为财务合规性维护审计追踪
+- **HIPAA**: 如果适用，保护健康信息
+- **行业标准**: 遵循相关的行业标准
 
-### Security Best Practices
-- **Authentication**: Use strong authentication mechanisms
-- **Authorization**: Implement least-privilege access
-- **Network Security**: Secure network communications
-- **Vulnerability Management**: Regular security assessments
+### 安全最佳实践
+- **身份验证**: 使用强身份验证机制
+- **授权**: 实施最小权限访问原则
+- **网络安全**: 保护网络通信安全
+- **漏洞管理**: 定期的安全性评估
 
-## Cost Optimization Strategies
+## 成本优化策略
 
-### License Management
-- **User-Based Licensing**: Optimize user assignments
-- **Feature-Based Licensing**: Only pay for needed features
-- **Volume Discounts**: Negotiate better rates for larger teams
-- **Annual vs Monthly**: Consider annual commitments for savings
+### 许可管理
+- **基于用户的许可**: 优化用户分配
+- **基于功能的许可**: 只为您需要的功能付费
+- **批量折扣**: 为大型团队协商更好的费率
+- **年度 vs 每月**: 考虑年度订阅以节省开支
 
-### Resource Optimization
-- **Cloud vs On-Premise**: Evaluate total cost of ownership
-- **Shared Resources**: Share tools across multiple projects
-- **Automation**: Reduce manual effort through automation
-- **Training**: Invest in training to improve efficiency
+### 资源优化
+- **云端 vs 本地**: 评估总拥有成本 (TOC)
+- **共享资源**: 在多个项目之间共享工具
+- **自动化**: 通过自动化减少手动工作
+- **培训**: 投资培训以提高使用效率
 
-### ROI Measurement
-- **Productivity Metrics**: Measure development velocity improvements
-- **Quality Metrics**: Track defect reduction and quality improvements
-- **Time Savings**: Quantify time saved through automation
-- **Cost Avoidance**: Calculate costs avoided through better processes
+### 投资回报率 (ROI) 衡量
+- **生产力指标**: 衡量开发速度的提升
+- **质量指标**: 跟踪缺陷减少和质量改进情况
+- **时间节省**: 量化通过自动化节省的时间
+- **成本规避**: 计算通过改进流程所避免的成本
 
 ---
 
-[← Standards](standards.md) | [Checklists →](../templates/checklists.md) | [Back to Resources](README.md)
+[← 标准](standards.md) | [检查表 →](../templates/checklists.md) | [返回资源](README.md)
 ```
 
 # spec-process-guide/templates/checklists.md
 
 ```md
-# Spec Process Checklists
+# 规范流程检查表
 
-This document provides comprehensive checklists for each phase of the spec-driven development process. Use these checklists to ensure quality and completeness at each stage.
+本文档为规范驱动开发流程的每个阶段提供全面的检查表。请使用这些检查表来确保每个阶段的质量和完整性。
 
-## Requirements Phase Checklist
+## 需求阶段检查表
 
-### Initial Requirements Gathering
+### 初始需求收集
 
-#### Content Quality
-- [ ] **Clear Introduction**: Feature overview explains the problem and solution
-- [ ] **Business Value**: Clear articulation of why this feature is needed
-- [ ] **Scope Definition**: What's included and excluded is explicitly stated
-- [ ] **Stakeholder Identification**: All relevant stakeholders are identified
+#### 内容质量
+- [ ] **清晰的介绍**: 功能概览解释了问题和解决方案
+- [ ] **业务价值**: 明确阐述为什么要开发这个功能
+- [ ] **范围定义**: 明确说明包含哪些内容，排除哪些内容
+- [ ] **利益相关者识别**: 识别出所有相关的利益相关者
 
-#### User Stories
-- [ ] **Complete Format**: All user stories follow "As a [role], I want [feature], so that [benefit]" format
-- [ ] **Clear Roles**: User roles are specific and well-defined
-- [ ] **Valuable Features**: Each feature provides clear user value
-- [ ] **Measurable Benefits**: Benefits are specific and measurable where possible
+#### 用户故事
+- [ ] **完整格式**: 所有用户故事都遵循“作为 [角色]，我想要 [功能]，以便 [收益]”的格式
+- [ ] **清晰的角色**: 用户角色具体且定义明确
+- [ ] **有价值的功能**: 每个功能都提供清晰的用户价值
+- [ ] **可衡量的收益**: 收益在可能的情况下应是具体且可衡量的
 
-#### EARS Format Compliance
-- [ ] **WHEN Statements**: Event-driven requirements use WHEN correctly
-- [ ] **IF Statements**: Conditional requirements use IF appropriately
-- [ ] **WHILE Statements**: Continuous behaviors use WHILE correctly
-- [ ] **WHERE Statements**: Context-specific requirements use WHERE appropriately
-- [ ] **SHALL Usage**: All system responses use SHALL for mandatory behavior
+#### EARS 格式合规性
+- [ ] **WHEN 语句**: 事件驱动型需求能正确使用 WHEN
+- [ ] **IF 语句**: 条件型需求能恰当使用 IF
+- [ ] **WHILE 语句**: 持续性行为能正确使用 WHILE
+- [ ] **WHERE 语句**: 特定情境下的需求能恰当使用 WHERE
+- [ ] **SHALL 的使用**: 所有系统响应都使用 SHALL 来表示强制性行为
 
-#### Acceptance Criteria Quality
-- [ ] **Testable**: Each criterion can be objectively tested
-- [ ] **Specific**: Criteria avoid vague terms like "user-friendly" or "fast"
-- [ ] **Complete**: All aspects of the requirement are covered
-- [ ] **Unambiguous**: Criteria have only one possible interpretation
-- [ ] **Measurable**: Quantitative criteria include specific metrics
+#### 验收标准质量
+- [ ] **可测试性**: 每条标准都可以进行客观测试
+- [ ] **具体**: 标准避免使用“用户友好”或“快速”等模糊术语
+- [ ] **完整性**: 涵盖了需求的方方面面
+- [ ] **无歧义**: 标准只有一种可能的解释
+- [ ] **可衡量**: 定量标准包含具体的指标
 
-#### Non-Functional Requirements
-- [ ] **Performance**: Response time and throughput requirements specified
-- [ ] **Security**: Authentication, authorization, and data protection covered
-- [ ] **Usability**: User experience and accessibility requirements included
-- [ ] **Reliability**: Error handling and recovery requirements defined
-- [ ] **Scalability**: Growth and load requirements addressed
+#### 非功能性需求
+- [ ] **性能**: 指定了响应时间和吞吐量要求
+- [ ] **安全性**: 涵盖了身份验证、授权和数据保护
+- [ ] **易用性**: 包含用户体验和无障碍要求
+- [ ] **可靠性**: 定义了错误处理和恢复要求
+- [ ] **可扩展性**: 解决了增长和负载要求
 
-#### Requirements Organization
-- [ ] **Logical Grouping**: Related requirements are grouped together
-- [ ] **Clear Numbering**: Hierarchical numbering system is consistent
-- [ ] **Priority Assignment**: Requirements have clear priority levels
-- [ ] **Dependency Mapping**: Dependencies between requirements are identified
+#### 需求组织
+- [ ] **逻辑分组**: 相关需求被分在一组
+- [ ] **清晰的编号**: 分层编号系统保持一致
+- [ ] **优先级分配**: 需求具有清晰的优先级级别
+- [ ] **依赖映射**: 识别出需求之间的依赖关系
 
-### Requirements Review and Validation
+### 需求评审与验证
 
-#### Completeness Check
-- [ ] **All Scenarios Covered**: Positive, negative, and edge cases included
-- [ ] **Integration Points**: External system interactions are specified
-- [ ] **Data Requirements**: Data models and validation rules are defined
-- [ ] **Error Conditions**: Error scenarios and handling are documented
+#### 完整性检查
+- [ ] **涵盖所有场景**: 包含正向、负向和边缘情况
+- [ ] **集成点**: 指定了与外部系统的交互
+- [ ] **数据需求**: 定义了数据模型和校验规则
+- [ ] **错误情况**: 记录了错误场景及处理方式
 
-#### Quality Assurance
-- [ ] **No Conflicts**: Requirements don't contradict each other
-- [ ] **Feasibility**: Technical feasibility has been considered
-- [ ] **Consistency**: Terminology is used consistently throughout
-- [ ] **Traceability**: Requirements can be traced to business objectives
+#### 质量保证
+- [ ] **无冲突**: 需求之间互不矛盾
+- [ ] **可行性**: 已考虑技术可行性
+- [ ] **一致性**: 术语自始至终使用一致
+- [ ] **溯源性**: 需求可以追溯到业务目标
 
-#### Stakeholder Validation
-- [ ] **Business Approval**: Business stakeholders have reviewed and approved
-- [ ] **Technical Review**: Technical team has validated feasibility
-- [ ] **User Validation**: End users have provided input where appropriate
-- [ ] **Compliance Check**: Regulatory and policy requirements are met
-
----
-
-## Design Phase Checklist
-
-### Architecture and Design
-
-#### High-Level Architecture
-- [ ] **System Context**: How the feature fits into the broader system is clear
-- [ ] **Component Identification**: Major components and their responsibilities are defined
-- [ ] **Interface Definition**: Interfaces between components are specified
-- [ ] **Technology Choices**: Technology stack decisions are justified
-
-#### Detailed Design
-- [ ] **Data Models**: Complete data structures with validation rules
-- [ ] **API Specifications**: Detailed API endpoints with request/response formats
-- [ ] **Business Logic**: Core algorithms and business rules are documented
-- [ ] **Integration Points**: External system integrations are detailed
-
-#### Design Quality
-- [ ] **Modularity**: Components are loosely coupled and highly cohesive
-- [ ] **Extensibility**: Design supports future enhancements
-- [ ] **Maintainability**: Code organization supports easy maintenance
-- [ ] **Reusability**: Common patterns and components are identified
-
-### Non-Functional Design
-
-#### Performance Design
-- [ ] **Scalability**: Design supports expected load and growth
-- [ ] **Caching Strategy**: Appropriate caching mechanisms are planned
-- [ ] **Database Optimization**: Query optimization and indexing considered
-- [ ] **Resource Usage**: Memory and CPU usage patterns are analyzed
-
-#### Security Design
-- [ ] **Authentication**: User authentication mechanisms are specified
-- [ ] **Authorization**: Access control and permissions are designed
-- [ ] **Data Protection**: Encryption and data handling procedures are defined
-- [ ] **Input Validation**: Security validation and sanitization are planned
-
-#### Reliability Design
-- [ ] **Error Handling**: Comprehensive error handling strategy is defined
-- [ ] **Monitoring**: Observability and monitoring approaches are planned
-- [ ] **Recovery**: Backup and disaster recovery procedures are considered
-- [ ] **Testing Strategy**: Comprehensive testing approach is outlined
-
-### Design Documentation
-
-#### Visual Documentation
-- [ ] **Architecture Diagrams**: Clear visual representation of system architecture
-- [ ] **Data Flow Diagrams**: How data moves through the system
-- [ ] **Sequence Diagrams**: Interaction patterns between components
-- [ ] **State Diagrams**: System state transitions where applicable
-
-#### Technical Specifications
-- [ ] **API Documentation**: Complete API specifications with examples
-- [ ] **Database Schema**: Detailed database design with relationships
-- [ ] **Configuration**: Environment and deployment configuration requirements
-- [ ] **Dependencies**: External libraries and services are documented
-
-### Design Review and Validation
-
-#### Requirements Alignment
-- [ ] **Complete Coverage**: All requirements are addressed in the design
-- [ ] **Traceability**: Design elements can be traced back to requirements
-- [ ] **Gap Analysis**: No requirements are left unaddressed
-- [ ] **Scope Validation**: Design stays within defined scope
-
-#### Technical Review
-- [ ] **Architecture Review**: Senior developers have reviewed the architecture
-- [ ] **Security Review**: Security team has validated security aspects
-- [ ] **Performance Review**: Performance implications have been analyzed
-- [ ] **Integration Review**: Integration points have been validated
+#### 利益相关者验证
+- [ ] **业务批准**: 业务相关者已评审并批准
+- [ ] **技术评审**: 技术团队已验证可行性
+- [ ] **用户验证**: 最终用户在适当情境下提供了输入
+- [ ] **合规性检查**: 符合法规和政策要求
 
 ---
 
-## Tasks Phase Checklist
+## 设计阶段检查表
 
-### Task Planning and Organization
+### 架构与设计
 
-#### Task Structure
-- [ ] **Clear Objectives**: Each task has a specific, measurable objective
-- [ ] **Appropriate Scope**: Tasks are sized for 1-2 days of work
-- [ ] **Logical Sequence**: Tasks are ordered to build incrementally
-- [ ] **Dependency Management**: Task dependencies are clearly identified
+#### 高层架构
+- [ ] **系统上下文**: 该功能如何融入更广泛的系统是清晰的
+- [ ] **组件识别**: 定义了主要组件及其职责
+- [ ] **接口定义**: 指定了组件之间的接口
+- [ ] **技术选择**: 技术栈决策有理有据
 
-#### Task Details
-- [ ] **Acceptance Criteria**: Each task has specific completion criteria
-- [ ] **Implementation Notes**: Key implementation details are provided
-- [ ] **Testing Requirements**: Testing expectations are clearly stated
-- [ ] **Requirements Traceability**: Tasks link back to specific requirements
+#### 详细设计
+- [ ] **数据模型**: 包含校验规则的完整数据结构
+- [ ] **API 规范**: 包含请求/响应格式的详细 API 端点
+- [ ] **业务逻辑**: 记录了核心算法和业务规则
+- [ ] **集成点**: 详细说明了外部系统集成
 
-#### Task Categories
-- [ ] **Foundation Tasks**: Setup and infrastructure tasks are included
-- [ ] **Core Logic Tasks**: Business logic implementation is covered
-- [ ] **Integration Tasks**: System integration work is planned
-- [ ] **Testing Tasks**: Comprehensive testing tasks are included
-- [ ] **Documentation Tasks**: Documentation updates are planned
+#### 设计质量
+- [ ] **模块化**: 组件之间松耦合、高内聚
+- [ ] **可扩展性**: 设计支持未来的功能增强
+- [ ] **可维护性**: 代码组织支持轻松维护
+- [ ] **重用性**: 识别出通用模式和组件
 
-### Implementation Planning
+### 非功能性设计
 
-#### Development Strategy
-- [ ] **Test-Driven Approach**: TDD/BDD strategy is defined where appropriate
-- [ ] **Code Quality Standards**: Quality expectations are established
-- [ ] **Review Process**: Code review procedures are planned
-- [ ] **Integration Strategy**: How components will be integrated is clear
+#### 性能设计
+- [ ] **可扩展性**: 设计支持预期的负载和增长
+- [ ] **缓存策略**: 规划了适当的缓存机制
+- [ ] **数据库优化**: 考虑了查询优化和索引
+- [ ] **资源消耗**: 分析了内存和 CPU 的使用模式
 
-#### Risk Management
-- [ ] **Technical Risks**: Potential technical challenges are identified
-- [ ] **Dependency Risks**: External dependency risks are considered
-- [ ] **Resource Risks**: Team capacity and skill requirements are assessed
-- [ ] **Timeline Risks**: Schedule risks and mitigation strategies are planned
+#### 安全设计
+- [ ] **身份验证**: 指定了用户身份验证机制
+- [ ] **授权**: 设计了访问控制和权限
+- [ ] **数据保护**: 定义了加密和数据处理程序
+- [ ] **输入校验**: 规划了安全校验和清理 (Sanitization)
 
-#### Quality Assurance
-- [ ] **Testing Strategy**: Unit, integration, and E2E testing is planned
-- [ ] **Performance Testing**: Performance validation approach is defined
-- [ ] **Security Testing**: Security validation procedures are included
-- [ ] **User Acceptance**: User validation and feedback processes are planned
+#### 可靠性设计
+- [ ] **错误处理**: 定义了全面的错误处理策略
+- [ ] **监控**: 规划了可观测性和监控方法
+- [ ] **恢复**: 考虑了备份和灾难恢复程序
+- [ ] **测试策略**: 勾勒了全面的测试方法
 
-### Task Validation and Review
+### 设计文档
 
-#### Completeness Check
-- [ ] **Full Coverage**: All design elements are covered by tasks
-- [ ] **No Gaps**: No implementation areas are left unaddressed
-- [ ] **Realistic Scope**: Task scope is achievable within constraints
-- [ ] **Resource Alignment**: Tasks match available team skills and capacity
+#### 视觉文档
+- [ ] **架构图**: 清楚展示系统架构的视觉表现
+- [ ] **数据流图**: 数据如何在系统中流动
+- [ ] **序列图**: 组件之间的交互模式
+- [ ] **状态图**: 系统状态转换（如适用）
 
-#### Quality Validation
-- [ ] **Actionable Tasks**: Each task can be executed by a developer
-- [ ] **Clear Deliverables**: Expected outputs are clearly defined
-- [ ] **Measurable Progress**: Task completion can be objectively measured
-- [ ] **Integration Ready**: Tasks build toward a cohesive implementation
+#### 技术规范
+- [ ] **API 文档**: 包含示例的完整 API 规范
+- [ ] **数据库 Schema**: 包含关系的详细数据库设计
+- [ ] **配置**: 环境和部署配置要求
+- [ ] **依赖**: 记录了外部库和服务
 
-#### Stakeholder Review
-- [ ] **Technical Approval**: Development team has reviewed and approved tasks
-- [ ] **Business Alignment**: Tasks align with business priorities and timeline
-- [ ] **Resource Confirmation**: Required resources and skills are available
-- [ ] **Timeline Validation**: Task timeline is realistic and achievable
+### 设计评审与验证
 
----
+#### 需求对齐
+- [ ] **完整覆盖**: 设计中解决了所有需求
+- [ ] **溯源性**: 设计元素可以追溯回需求
+- [ ] **差异分析 (Gap Analysis)**: 没有需求遗漏
+- [ ] **范围验证**: 设计保持在定义的范围内
 
-## Cross-Phase Quality Checks
-
-### Documentation Quality
-
-#### Consistency
-- [ ] **Terminology**: Consistent terminology across all documents
-- [ ] **Formatting**: Consistent formatting and structure
-- [ ] **Cross-References**: Proper linking between related sections
-- [ ] **Version Control**: Document versions are properly managed
-
-#### Completeness
-- [ ] **All Phases**: Requirements, design, and tasks are all complete
-- [ ] **Traceability**: Clear traceability from requirements through tasks
-- [ ] **No Orphans**: No requirements without design, no design without tasks
-- [ ] **Validation**: All documents have been reviewed and approved
-
-#### Usability
-- [ ] **Clear Navigation**: Easy to find and navigate between sections
-- [ ] **Searchable**: Documents are organized for easy searching
-- [ ] **Actionable**: Information is presented in an actionable format
-- [ ] **Maintainable**: Documents can be easily updated and maintained
-
-### Process Validation
-
-#### Workflow Compliance
-- [ ] **Phase Completion**: Each phase was completed before moving to the next
-- [ ] **Review Gates**: Proper reviews were conducted at each phase
-- [ ] **Stakeholder Involvement**: Appropriate stakeholders were engaged
-- [ ] **Change Management**: Changes were properly documented and approved
-
-#### Quality Gates
-- [ ] **Requirements Quality**: Requirements meet quality standards
-- [ ] **Design Quality**: Design addresses all requirements appropriately
-- [ ] **Task Quality**: Tasks provide clear implementation roadmap
-- [ ] **Overall Coherence**: All documents work together cohesively
+#### 技术评审
+- [ ] **架构评审**: 高级开发人员已评审架构
+- [ ] **安全评审**: 安全团队已验证安全方面
+- [ ] **性能评审**: 已分析性能影响
+- [ ] **集成评审**: 已验证集成点
 
 ---
 
-## Implementation Execution Checklist
+---
 
-### Pre-Implementation Setup
+## 任务阶段检查表
 
-#### Environment Preparation
-- [ ] **Development Environment**: Development environment is set up and tested
-- [ ] **Dependencies**: All required dependencies are installed and configured
-- [ ] **Tools**: Development tools and IDE are configured properly
-- [ ] **Access**: Required system access and permissions are in place
+### 任务规划与组织
 
-#### Team Preparation
-- [ ] **Role Assignment**: Team roles and responsibilities are clear
-- [ ] **Knowledge Transfer**: Relevant knowledge has been shared with the team
-- [ ] **Communication**: Communication channels and processes are established
-- [ ] **Timeline**: Implementation timeline and milestones are agreed upon
+#### 任务结构
+- [ ] **明确的目标**: 每个任务都有具体、可衡量的目标
+- [ ] **适当的范围**: 任务大小适合 1-2 天的工作量
+- [ ] **逻辑顺序**: 任务排序以实现增量构建
+- [ ] **依赖管理**: 任务依赖关系清晰可见
 
-### During Implementation
+#### 任务详情
+- [ ] **验收标准**: 每个任务都有具体的完成标准
+- [ ] **实现说明**: 提供了关键的实现细节
+- [ ] **测试要求**: 明确说明了测试预期
+- [ ] **需求溯源性**: 任务链接到特定的需求
 
-#### Task Execution
-- [ ] **One Task at a Time**: Focus on completing one task before starting another
-- [ ] **Acceptance Criteria**: Each task meets its defined acceptance criteria
-- [ ] **Code Quality**: Code follows established standards and best practices
-- [ ] **Testing**: Appropriate tests are written and passing
+#### 任务类别
+- [ ] **基础任务**: 包含设置和基础设施任务
+- [ ] **核心逻辑任务**: 涵盖了业务逻辑实现
+- [ ] **集成任务**: 规划了系统集成工作
+- [ ] **测试任务**: 包含全面的测试任务
+- [ ] **文档任务**: 规划了文档更新
 
-#### Progress Tracking
-- [ ] **Status Updates**: Regular progress updates are provided
-- [ ] **Blocker Management**: Blockers are identified and addressed promptly
-- [ ] **Quality Monitoring**: Code quality metrics are monitored
-- [ ] **Requirement Validation**: Implementation is validated against requirements
+### 实施规划
 
-### Post-Implementation Validation
+#### 开发策略
+- [ ] **测试驱动方法**: 在适当之处定义了 TDD/BDD 策略
+- [ ] **代码质量标准**: 确立了质量预期
+- [ ] **评审流程**: 规划了代码评审程序
+- [ ] **集成策略**: 清晰说明了组件将如何集成
 
-#### Completion Verification
-- [ ] **All Tasks Complete**: All planned tasks have been completed
-- [ ] **Requirements Met**: All requirements have been implemented and tested
-- [ ] **Quality Standards**: Code meets all quality and performance standards
-- [ ] **Documentation Updated**: All documentation has been updated appropriately
+#### 风险管理
+- [ ] **技术风险**: 识别出潜在的技术挑战
+- [ ] **依赖风险**: 考虑了外部依赖风险
+- [ ] **资源风险**: 评估了团队能力和技能要求
+- [ ] **时间线风险**: 规划了进度风险和缓解策略
 
-#### Final Review
-- [ ] **Code Review**: Complete code review has been conducted
-- [ ] **Testing Validation**: All tests are passing and coverage is adequate
-- [ ] **Performance Validation**: Performance requirements are met
-- [ ] **Security Validation**: Security requirements are satisfied
-- [ ] **User Acceptance**: User acceptance testing has been completed successfully
+#### 质量保证
+- [ ] **测试策略**: 规划了单元、集成和 E2E 测试
+- [ ] **性能测试**: 定义了性能验证方法
+- [ ] **安全测试**: 包含安全校验程序
+- [ ] **用户验收**: 规划了用户验证和反馈流程
+
+### 任务验证与评审
+
+#### 完整性检查
+- [ ] **全面覆盖**: 所有设计元素都由任务涵盖
+- [ ] **无死角**: 没有未处理的实现领域
+- [ ] **现实范围**: 任务范围在限制条件下是可实现的
+- [ ] **资源对齐**: 任务与现有的团队技能和能力相匹配
+
+#### 质量验证
+- [ ] **可操作的任务**: 每个任务都可以由开发人员执行
+- [ ] **清晰的交付物**: 明确定义了预期产出
+- [ ] **可衡量的进度**: 任务完成情况可以进行客观衡量
+- [ ] **集成准备就绪**: 任务朝着相互协作的实现而构建
+
+#### 利益相关者评审
+- [ ] **技术批准**: 开发团队已评审并批准任务
+- [ ] **业务对齐**: 任务与业务优先级和时间线一致
+- [ ] **资源确认**: 所需资源和技能已到位
+- [ ] **时间线验证**: 任务时间线现实且可实现
 
 ---
 
-## Troubleshooting Checklist
+## 跨阶段质量检查
 
-### Common Issues and Solutions
+### 文档质量
 
-#### Requirements Phase Issues
-- [ ] **Vague Requirements**: Break down into more specific, testable criteria
-- [ ] **Missing Stakeholders**: Identify and engage all relevant stakeholders
-- [ ] **Scope Creep**: Clearly define and communicate scope boundaries
-- [ ] **Conflicting Requirements**: Resolve conflicts through stakeholder discussion
+#### 一致性
+- [ ] **术语**: 所有文档中的术语保持一致
+- [ ] **格式**: 格式和结构保持一致
+- [ ] **交叉引用**: 相关部分之间有适当链接
+- [ ] **版本控制**: 文档版本得到妥善管理
 
-#### Design Phase Issues
-- [ ] **Over-Engineering**: Simplify design to meet current requirements
-- [ ] **Under-Specification**: Add necessary detail for implementation clarity
-- [ ] **Technology Mismatch**: Validate technology choices against requirements
-- [ ] **Integration Complexity**: Simplify integration points where possible
+#### 完整性
+- [ ] **所有阶段**: 需求、设计和任务全都完整
+- [ ] **溯源性**: 从需求到任务有清晰的溯源
+- [ ] **无遗弃项**: 没有无设计的需求，也没有无任务的设计
+- [ ] **验证**: 所有文档均已评审并批准
 
-#### Tasks Phase Issues
-- [ ] **Tasks Too Large**: Break down large tasks into smaller, manageable pieces
-- [ ] **Missing Dependencies**: Identify and document all task dependencies
-- [ ] **Unclear Objectives**: Clarify task objectives and acceptance criteria
-- [ ] **Resource Mismatch**: Align tasks with available team skills and capacity
+#### 易用性
+- [ ] **清晰的导航**: 易于在各部分之间查找和导航
+- [ ] **可搜索性**: 文档经过组织，方便搜索
+- [ ] **可操作性**: 信息以可操作的格式呈现
+- [ ] **可维护性**: 文档可以轻松更新和维护
 
-#### Implementation Issues
-- [ ] **Requirement Misunderstanding**: Refer back to original requirements and design
-- [ ] **Technical Blockers**: Escalate technical issues and seek expert help
-- [ ] **Quality Issues**: Implement additional testing and code review processes
-- [ ] **Timeline Pressure**: Prioritize critical functionality and defer nice-to-haves
+### 流程验证
 
----
+#### 工作流合规性
+- [ ] **阶段完成**: 每个阶段都在进入下一阶段前完成
+- [ ] **评审关口**: 在每个阶段都进行了适当评审
+- [ ] **相关者参与**: 适当的利益相关者参与其中
+- [ ] **变更管理**: 变更经过妥善记录和批准
 
-## Quality Metrics and KPIs
-
-### Requirements Quality Metrics
-- **Completeness**: Percentage of requirements with complete acceptance criteria
-- **Testability**: Percentage of requirements that are objectively testable
-- **Traceability**: Percentage of requirements traced to business objectives
-- **Stakeholder Approval**: Percentage of requirements approved by stakeholders
-
-### Design Quality Metrics
-- **Coverage**: Percentage of requirements addressed in design
-- **Complexity**: Cyclomatic complexity of proposed architecture
-- **Reusability**: Number of reusable components identified
-- **Performance**: Estimated performance against requirements
-
-### Implementation Quality Metrics
-- **Task Completion**: Percentage of tasks completed on schedule
-- **Code Quality**: Code quality metrics (coverage, complexity, etc.)
-- **Defect Rate**: Number of defects found during implementation
-- **Requirement Satisfaction**: Percentage of requirements fully implemented
-
-### Process Quality Metrics
-- **Cycle Time**: Time from requirements to implementation completion
-- **Rework Rate**: Percentage of work that required significant rework
-- **Stakeholder Satisfaction**: Stakeholder satisfaction with the process
-- **Team Velocity**: Rate of task completion over time
+#### 质量阀门 (Quality Gates)
+- [ ] **需求质量**: 需求符合质量标准
+- [ ] **设计质量**: 设计恰当地解决了所有需求
+- [ ] **任务质量**: 任务提供了清晰的实现路线图
+- [ ] **整体连贯性**: 所有文档协同工作，保持连贯
 
 ---
 
-## Downloadable Checklists
+## 实施执行检查表
 
-### Quick Reference Checklists
+### 实施前设置
 
-#### Requirements Phase Quick Checklist
-\`\`\`markdown
-# Requirements Quick Checklist
+#### 环境准备
+- [ ] **开发环境**: 开发环境已设置并测试
+- [ ] **依赖项**: 所有必需的依赖项已安装并配置
+- [ ] **工具**: 开发工具和 IDE 已正确配置
+- [ ] **权限**: 所需的系统访问权限已到位
 
-## Document Structure
-- [ ] Clear introduction and problem statement
-- [ ] User stories with roles, features, and benefits
-- [ ] EARS-formatted acceptance criteria
-- [ ] Non-functional requirements
-- [ ] Constraints and assumptions
+#### 团队准备
+- [ ] **角色分配**: 团队角色和职责明确
+- [ ] **知识传递**: 相关知识已与团队分享
+- [ ] **沟通**: 已建立沟通渠道和流程
+- [ ] **时间线**: 实施时间表和里程碑已达成共识
 
-## Quality Check
-- [ ] All requirements are testable
-- [ ] No vague or ambiguous language
-- [ ] Requirements are prioritized
-- [ ] Dependencies are identified
-- [ ] All stakeholders have reviewed
-\`\`\`
+### 实施期间
 
-#### Design Phase Quick Checklist
-\`\`\`markdown
-# Design Quick Checklist
+#### 任务执行
+- [ ] **一次一个任务**: 在开始另一个任务前专注于完成当前任务
+- [ ] **验收标准**: 每个任务都符合其定义的验收标准
+- [ ] **代码质量**: 代码遵循既定标准和最佳实践
+- [ ] **测试**: 编写了适当的测试且已通过
 
-## Document Structure
-- [ ] Architecture overview with diagrams
-- [ ] Component responsibilities defined
-- [ ] Interface specifications
-- [ ] Data models and validation rules
-- [ ] Error handling strategy
+#### 进度跟踪
+- [ ] **状态更新**: 提供定期的进度更新
+- [ ] **阻碍管理**: 识别出阻碍 (Blockers) 并及时解决
+- [ ] **质量监控**: 监控代码质量指标
+- [ ] **需求验证**: 根据需求验证实施情况
 
-## Quality Check
-- [ ] All requirements are addressed
-- [ ] Design is modular and maintainable
-- [ ] Security considerations included
-- [ ] Performance considerations included
-- [ ] Technical team has reviewed
-\`\`\`
+### 实施后验证
 
-#### Tasks Phase Quick Checklist
-\`\`\`markdown
-# Tasks Quick Checklist
+#### 完成情况验证
+- [ ] **所有任务已完成**: 所有计划的任务都已完成
+- [ ] **需求已满足**: 所有需求都已实施并测试
+- [ ] **质量标准**: 代码符合所有质量和性能标准
+- [ ] **文档已更新**: 所有文档都已相应更新
 
-## Document Structure
-- [ ] Incremental implementation plan
-- [ ] Tasks with clear objectives
-- [ ] Requirements traceability
-- [ ] Testing strategy for each component
-- [ ] Dependency management
-
-## Quality Check
-- [ ] Tasks are appropriately sized
-- [ ] All design elements are covered
-- [ ] Tasks build incrementally
-- [ ] Implementation risks identified
-- [ ] Development team has reviewed
-\`\`\`
-
-### Printable Checklists
-
-These checklists are formatted for easy printing and use during review sessions:
-
-#### Requirements Review Checklist (Printable)
-\`\`\`markdown
-# Requirements Review Checklist
-
-Spec Name: _________________________ Date: _____________
-Reviewer: __________________________ Role: _____________
-
-## Content Completeness
-□ Introduction clearly explains the problem and solution
-□ All user stories follow proper format
-□ All acceptance criteria use EARS format
-□ Non-functional requirements are included
-□ Constraints and assumptions are documented
-
-## Quality Assessment
-□ Requirements are specific and testable
-□ No ambiguous or subjective language
-□ No conflicting requirements
-□ Requirements are properly prioritized
-□ All edge cases and error scenarios covered
-
-## Stakeholder Approval
-□ Business stakeholders: __________________ □ Approved □ Changes Needed
-□ Technical stakeholders: _________________ □ Approved □ Changes Needed
-□ User representatives: ___________________ □ Approved □ Changes Needed
-
-## Notes and Action Items
-_________________________________________________
-_________________________________________________
-_________________________________________________
-_________________________________________________
-
-□ APPROVED TO PROCEED TO DESIGN PHASE
-□ REVISIONS REQUIRED (See notes)
-
-Signature: _________________________ Date: _____________
-\`\`\`
-
-#### Design Review Checklist (Printable)
-\`\`\`markdown
-# Design Review Checklist
-
-Spec Name: _________________________ Date: _____________
-Reviewer: __________________________ Role: _____________
-
-## Architecture Assessment
-□ System context is clearly defined
-□ Component responsibilities are well-defined
-□ Interfaces between components are specified
-□ Technology choices are justified
-
-## Requirements Coverage
-□ All functional requirements are addressed
-□ All non-functional requirements are considered
-□ No requirements are left unaddressed
-□ Design stays within defined scope
-
-## Technical Quality
-□ Design follows established patterns and principles
-□ Security considerations are addressed
-□ Performance requirements are considered
-□ Error handling is comprehensive
-
-## Reviewer Approval
-□ Architecture reviewer: __________________ □ Approved □ Changes Needed
-□ Security reviewer: _____________________ □ Approved □ Changes Needed
-□ Performance reviewer: __________________ □ Approved □ Changes Needed
-
-## Notes and Action Items
-_________________________________________________
-_________________________________________________
-_________________________________________________
-_________________________________________________
-
-□ APPROVED TO PROCEED TO TASKS PHASE
-□ REVISIONS REQUIRED (See notes)
-
-Signature: _________________________ Date: _____________
-\`\`\`
-
-#### Tasks Review Checklist (Printable)
-\`\`\`markdown
-# Tasks Review Checklist
-
-Spec Name: _________________________ Date: _____________
-Reviewer: __________________________ Role: _____________
-
-## Task Structure
-□ Tasks have clear, specific objectives
-□ Tasks are appropriately sized (1-2 days)
-□ Tasks are sequenced logically
-□ Dependencies between tasks are identified
-
-## Implementation Coverage
-□ All design components are covered by tasks
-□ Testing tasks are included for all components
-□ No implementation areas are left unaddressed
-□ Tasks match available team skills
-
-## Quality Planning
-□ Testing strategy is comprehensive
-□ Code quality standards are defined
-□ Review processes are planned
-□ Risk mitigation strategies are included
-
-## Reviewer Approval
-□ Technical lead: ______________________ □ Approved □ Changes Needed
-□ Implementation team: _________________ □ Approved □ Changes Needed
-□ Project manager: _____________________ □ Approved □ Changes Needed
-
-## Notes and Action Items
-_________________________________________________
-_________________________________________________
-_________________________________________________
-_________________________________________________
-
-□ APPROVED TO PROCEED TO IMPLEMENTATION
-□ REVISIONS REQUIRED (See notes)
-
-Signature: _________________________ Date: _____________
-\`\`\`
+#### 最终评审
+- [ ] **代码评审**: 已进行完整的代码评审
+- [ ] **测试验证**: 所有测试均已通过，且覆盖率充足
+- [ ] **性能验证**: 满足性能需求
+- [ ] **安全验证**: 满足安全需求
+- [ ] **用户验收**: 用户验收测试已顺利完成
 
 ---
 
-[← Tasks Template](tasks-template.md) | [Tool Integration Guide →](../resources/tools.md)
+## 故障排除检查表
+
+### 常见问题与解决方案
+
+#### 需求阶段问题
+- [ ] **需求模糊**: 分解为更具体的、可测试的标准
+- [ ] **利益相关者缺失**: 识别并接触所有相关的利益相关者
+- [ ] **范围蔓延 (Scope Creep)**: 明确定义并沟通范围边界
+- [ ] **需求冲突**: 通过利益相关者讨论解决冲突
+
+#### 设计阶段问题
+- [ ] **过度设计 (Over-Engineering)**: 简化设计以满足当前需求
+- [ ] **规范不足 (Under-Specification)**: 添加必要的细节以明确实现
+- [ ] **技术不匹配**: 根据需求验证技术选择
+- [ ] **集成复杂性**: 尽可能简化集成点
+
+#### 任务阶段问题
+- [ ] **任务太大**: 将大型任务分解为更小的、可管理的部分
+- [ ] **缺失依赖项**: 识别并记录所有任务依赖项
+- [ ] **目标不明确**: 澄清任务目标和验收标准
+- [ ] **资源不匹配**: 将任务与现有的团队技能和能力相匹配
+
+#### 实施问题
+- [ ] **需求误解**: 回过头查阅原始需求和设计
+- [ ] **技术阻碍**: 上报技术问题并寻求专家帮助
+- [ ] **质量问题**: 实施额外的测试和代码评审流程
+- [ ] **时间线压力**: 优先考虑核心功能，推迟“锦上添花”的功能
+
+---
+
+## 质量指标与 KPI
+
+### 需求质量指标
+- **完整性**: 具有完整验收标准的需求百分比
+- **可测试性**: 客观上可测试的需求百分比
+- **溯源性**: 追溯到业务目标的需求百分比
+- **相关者批准**: 获得利益相关者批准的需求百分比
+
+### 设计质量指标
+- **覆盖率**: 设计中涵盖的需求百分比
+- **复杂度**: 提议架构的圈复杂度 (Cyclomatic complexity)
+- **重用性**: 识别出的可重用组件数量
+- **性能**: 相对于需求的估算性能
+
+### 实施质量指标
+- **任务完成率**: 按计划完成的任务百分比
+- **代码质量**: 代码质量指标（覆盖率、复杂度等）
+- **缺陷率**: 实施期间发现的缺陷数量
+- **需求满足度**: 完全实现的需求百分比
+
+### 流程质量指标
+- **周期时间 (Cycle Time)**: 从需求到实施完成的时间
+- **返工率**: 需要重大返工的工作百分比
+- **相关者满意度**: 利益相关者对流程的满意度
+- **团队速度**: 随时间推移的任务完成率
+
+---
+
+## 可下载的检查表
+
+### 快速参考检查表
+
+#### 需求阶段快速检查表
+```markdown
+# 需求快速检查表
+
+## 文档结构
+- [ ] 清晰的介绍和问题陈述
+- [ ] 包含角色、功能和收益的用户故事
+- [ ] 符合 EARS 格式的验收标准
+- [ ] 非功能性需求
+- [ ] 约束条件和假设
+
+## 质量检查
+- [ ] 所有需求均为可测试的
+- [ ] 无模糊或歧义的语言
+- [ ] 需求已确定优先级
+- [ ] 已识别依赖关系
+- [ ] 所有相关利益者均已评审
+```
+
+#### 设计阶段快速检查表
+```markdown
+# 设计快速检查表
+
+## 文档结构
+- [ ] 包含图表的架构概览
+- [ ] 定义了组件职责
+- [ ] 接口规范
+- [ ] 数据模型和校验规则
+- [ ] 错误处理策略
+
+## 质量检查
+- [ ] 涵盖了所有需求
+- [ ] 设计是模块化且可维护的
+- [ ] 包含安全考量
+- [ ] 包含性能考量
+- [ ] 技术团队已评审
+```
+
+#### 任务阶段快速检查表
+```markdown
+# 任务快速检查表
+
+## 文档结构
+- [ ] 增量实施计划
+- [ ] 具有明确目标的任务
+- [ ] 需求溯源性
+- [ ] 每个组件的测试策略
+- [ ] 依赖管理
+
+## 质量检查
+- [ ] 任务规模适当
+- [ ] 涵盖所有设计元素
+- [ ] 任务呈增量构建
+- [ ] 识别出实施风险
+- [ ] 开发团队已评审
+```
+
+### 可打印检查表
+
+这些检查表采用了便于打印的格式，供评审会议使用：
+
+#### 需求评审检查表 (可打印)
+```markdown
+# 需求评审检查表
+
+规范名称: _________________________ 日期: _____________
+评审人: __________________________ 角色: _____________
+
+## 内容完整性
+□ 介绍清晰解释了问题和解决方案
+□ 所有用户故事均遵循正确格式
+□ 所有验收标准均使用 EARS 格式
+□ 包含非功能性需求
+□ 记录了约束条件和假设
+
+## 质量评估
+□ 需求具体且可测试
+□ 无歧义或主观语言
+□ 无冲突需求
+□ 需求已正确确定优先级
+□ 涵盖所有边缘情况和错误场景
+
+## 利益相关者批准
+□ 业务相关者: __________________ □ 已批准 □ 需要修改
+□ 技术相关者: __________________ □ 已批准 □ 需要修改
+□ 用户代表: ____________________ □ 已批准 □ 需要修改
+
+## 笔记与后续行动
+_________________________________________________
+_________________________________________________
+_________________________________________________
+_________________________________________________
+
+□ 批准进入设计阶段
+□ 需要修订 (见笔记)
+
+签名: _________________________ 日期: _____________
+```
+
+#### 设计评审检查表 (可打印)
+```markdown
+# 设计评审检查表
+
+规范名称: _________________________ 日期: _____________
+评审人: __________________________ 角色: _____________
+
+## 架构评估
+□ 系统上下文定义清晰
+□ 组件职责定义良好
+□ 指定了组件间的接口
+□ 技术选择有理有据
+
+## 需求覆盖
+□ 涵盖所有功能性需求
+□ 考虑了所有非功能性需求
+□ 无需求遗漏
+□ 设计保持在定义的范围内
+
+## 技术质量
+□ 设计遵循既定模式和原则
+□ 解决了安全考量
+□ 考虑了性能需求
+□ 错误处理全面
+
+## 评审人批准
+□ 架构评审人: __________________ □ 已批准 □ 需要修改
+□ 安全评审人: __________________ □ 已批准 □ 需要修改
+□ 性能评审人: __________________ □ 已批准 □ 需要修改
+
+## 笔记与后续行动
+_________________________________________________
+_________________________________________________
+_________________________________________________
+_________________________________________________
+
+□ 批准进入任务阶段
+□ 需要修订 (见笔记)
+
+签名: _________________________ 日期: _____________
+```
+
+#### 任务评审检查表 (可打印)
+```markdown
+# 任务评审检查表
+
+规范名称: _________________________ 日期: _____________
+评审人: __________________________ 角色: _____________
+
+## 任务结构
+□ 任务具有清晰、具体的目标
+□ 任务规模适当 (1-2 天)
+□ 任务排序符合逻辑
+□ 识别出任务间的依赖关系
+
+## 实施覆盖
+□ 所有设计组件均由任务涵盖
+□ 包含所有组件的测试任务
+□ 无实施领域遗漏
+□ 任务与现有的团队技能相匹配
+
+## 质量规划
+□ 测试策略全面
+□ 定义了代码质量标准
+□ 规划了评审流程
+□ 包含风险缓解策略
+
+## 评审人批准
+□ 技术负责人: ____________________ □ 已批准 □ 需要修改
+□ 实施团队: ______________________ □ 已批准 □ 需要修改
+□ 项目经理: ______________________ □ 已批准 □ 需要修改
+
+## 笔记与后续行动
+_________________________________________________
+_________________________________________________
+_________________________________________________
+_________________________________________________
+
+□ 批准进入实施阶段
+□ 需要修订 (见笔记)
+
+签名: _________________________ 日期: _____________
+```
+
+---
+
+[← 任务模板](tasks-template.md) | [工具集成指南 →](../resources/tools.md)
 ```
 
 # spec-process-guide/templates/design-template.md
 
 ```md
-# Design Template
+# 设计模板
 
-<!-- Navigation Metadata -->
-<!-- Template: Design | Level: Template | Prerequisites: requirements-template.md -->
-<!-- Related: process/design-phase.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
+<!-- 导航元数据 -->
+<!-- 模板：设计 | 级别：模板 | 先决条件：requirements-template.md -->
+<!-- 相关：process/design-phase.md, ai-reasoning/decision-frameworks.md, examples/complex-system-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Templates](README.md) → **Design Template**
+**📍 您当前的位置：** [主指南](../README.md) → [模板](README.md) → **设计模板**
 
-## Quick Navigation
-- **📚 Learn Process:** [Design Phase Guide](../process/design-phase.md) - How to use this template
-- **📖 See Example:** [Complex System Design](../examples/complex-system-spec.md#design-document) - Template in action
-- **🧠 Decision Help:** [Decision Frameworks](../ai-reasoning/decision-frameworks.md) - How to make design choices
-- **➡️ Next Template:** [Tasks Template](tasks-template.md) - After design is done
+## 快速导航
+- **📚 学习流程：** [设计阶段指南](../process/design-phase.md) - 如何使用此模板
+- **📖 查看示例：** [复杂系统设计](../examples/complex-system-spec.md#design-document) - 实际应用中的模板
+- **🧠 决策帮助：** [决策框架](../ai-reasoning/decision-frameworks.md) - 如何做出设计选择
+- **➡️ 下一个模板：** [任务模板](tasks-template.md) - 设计完成后
 
 ---
 
-Use this template to create comprehensive design documents that translate requirements into technical specifications.
+使用此模板创建全面的设计文档，将需求转化为技术规范。
 
-## Document Information
+## 文档信息
 
-- **Feature Name**: [Your Feature Name]
-- **Version**: 1.0
-- **Date**: [Current Date]
-- **Author**: [Your Name]
-- **Reviewers**: [List technical reviewers]
-- **Related Documents**: [Link to requirements document]
+- **功能名称**: [您的功能名称]
+- **版本**: 1.0
+- **日期**: [当前日期]
+- **作者**: [您的姓名]
+- **评审人**: [列出技术评审人]
+- **相关文档**: [链接到需求文档]
 
-## Overview
+## 概览
 
-[Provide a high-level summary of the design approach. Explain how this design addresses the requirements and fits into the overall system architecture. Keep this section concise but comprehensive.]
+[提供设计方法的概要总结。解释该设计如何解决需求并融入整体系统架构。本部分应保持简洁且全面。]
 
-### Design Goals
-- [Primary goal 1]
-- [Primary goal 2]
-- [Primary goal 3]
+### 设计目标
+- [主要目标 1]
+- [主要目标 2]
+- [主要目标 3]
 
-### Key Design Decisions
-- [Decision 1 and rationale]
-- [Decision 2 and rationale]
-- [Decision 3 and rationale]
+### 关键设计决策
+- [决策 1 及其理由]
+- [决策 2 及其理由]
+- [决策 3 及其理由]
 
-## Architecture
+## 架构
 
-### System Context
-[Describe how this feature fits into the broader system. Include external dependencies and integration points.]
+### 系统上下文
+[描述该功能如何融入更广泛的系统。包括外部依赖项和集成点。]
 
-\`\`\`mermaid
+```mermaid
 graph TB
-    A[External System 1] --> B[Your Feature]
-    B --> C[Internal System 1]
-    B --> D[Internal System 2]
-    E[External System 2] --> B
-\`\`\`
+    A[外部系统 1] --> B[您的功能]
+    B --> C[内部系统 1]
+    B --> D[内部系统 2]
+    E[外部系统 2] --> B
+```
 
-### High-Level Architecture
-[Describe the overall architectural approach and major components.]
+### 高层架构
+[描述整体架构方法和主要组件。]
 
-\`\`\`mermaid
+```mermaid
 graph LR
-    A[Component 1] --> B[Component 2]
-    B --> C[Component 3]
-    C --> D[Component 4]
-\`\`\`
+    A[组件 1] --> B[组件 2]
+    B --> C[组件 3]
+    C --> D[组件 4]
+```
 
-### Technology Stack
-| Layer | Technology | Rationale |
+### 技术栈
+| 层级 | 技术 | 理由 |
 |-------|------------|-----------|
-| Frontend | [Technology] | [Why chosen] |
-| Backend | [Technology] | [Why chosen] |
-| Database | [Technology] | [Why chosen] |
-| Infrastructure | [Technology] | [Why chosen] |
+| 前端 | [技术] | [选择理由] |
+| 后端 | [技术] | [选择理由] |
+| 数据库 | [技术] | [选择理由] |
+| 基础设施 | [技术] | [选择理由] |
 
-## Components and Interfaces
+## 组件与接口
 
-### Component 1: [Component Name]
+### 组件 1: [组件名称]
 
-**Purpose**: [What this component does]
+**用途**: [该组件的功能]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
-- [Responsibility 3]
+**职责**:
+- [职责 1]
+- [职责 2]
+- [职责 3]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**:
+- **输入**: [它接收什么]
+- **输出**: [它产生什么]
+- **依赖项**: [它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施注意事项**:
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-### Component 2: [Component Name]
+### 组件 2: [组件名称]
 
-**Purpose**: [What this component does]
+**用途**: [该组件的功能]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
+**职责**:
+- [职责 1]
+- [职责 2]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**:
+- **输入**: [它接收什么]
+- **输出**: [它产生什么]
+- **依赖项**: [它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施注意事项**:
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-### Component 3: [Component Name]
+### 组件 3: [组件名称]
 
-**Purpose**: [What this component does]
+**用途**: [该组件的功能]
 
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
+**职责**:
+- [职责 1]
+- [职责 2]
 
-**Interfaces**:
-- **Input**: [What it receives]
-- **Output**: [What it produces]
-- **Dependencies**: [What it depends on]
+**接口**:
+- **输入**: [它接收什么]
+- **输出**: [它产生什么]
+- **依赖项**: [它依赖什么]
 
-**Implementation Notes**:
-- [Key implementation detail 1]
-- [Key implementation detail 2]
+**实施注意事项**:
+- [关键实施细节 1]
+- [关键实施细节 2]
 
-## Data Models
+## 数据模型
 
-### Entity 1: [Entity Name]
+### 实体 1: [实体名称]
 
-\`\`\`typescript
+```typescript
 interface EntityName {
   id: string;
   property1: string;
@@ -11912,533 +11910,533 @@ interface EntityName {
   createdAt: Date;
   updatedAt: Date;
 }
-\`\`\`
+```
 
-**Validation Rules**:
-- [Validation rule 1]
-- [Validation rule 2]
+**校验规则**:
+- [校验规则 1]
+- [校验规则 2]
 
-**Relationships**:
-- [Relationship to other entities]
+**关系**:
+- [与其他实体的关系]
 
-### Entity 2: [Entity Name]
+### 实体 2: [实体名称]
 
-\`\`\`typescript
+```typescript
 interface EntityName {
   id: string;
   property1: string;
   property2: EntityName[];
   status: 'active' | 'inactive' | 'pending';
 }
-\`\`\`
+```
 
-**Validation Rules**:
-- [Validation rule 1]
-- [Validation rule 2]
+**校验规则**:
+- [校验规则 1]
+- [校验规则 2]
 
-**Relationships**:
-- [Relationship to other entities]
+**关系**:
+- [与其他实体的关系]
 
-### Data Flow
+### 数据流
 
-\`\`\`mermaid
+```mermaid
 sequenceDiagram
-    participant User
-    participant Frontend
+    participant 用户
+    participant 前端
     participant API
-    participant Database
+    participant 数据库
     
-    User->>Frontend: Action
-    Frontend->>API: Request
-    API->>Database: Query
-    Database-->>API: Result
-    API-->>Frontend: Response
-    Frontend-->>User: Update
-\`\`\`
+    用户->>前端: 操作
+    前端->>API: 请求
+    API->>数据库: 查询
+    数据库-->>API: 结果
+    API-->>Frontend: 响应
+    前端-->>用户: 更新
+```
 
-## API Design
+## API 设计
 
-### Endpoint 1: [Endpoint Name]
+### 端点 1: [端点名称]
 
-**Method**: `POST`  
-**Path**: `/api/v1/[resource]`
+**方法**: `POST`  
+**路径**: `/api/v1/[资源]`
 
-**Request**:
-\`\`\`json
+**请求**:
+```json
 {
   "property1": "string",
   "property2": "number",
   "property3": "boolean"
 }
-\`\`\`
+```
 
-**Response**:
-\`\`\`json
+**响应**:
+```json
 {
   "id": "string",
   "property1": "string",
   "property2": "number",
-  "createdAt": "ISO date string"
+  "createdAt": "ISO 日期字符串"
 }
-\`\`\`
+```
 
-**Error Responses**:
-- `400 Bad Request`: [When this occurs]
-- `401 Unauthorized`: [When this occurs]
-- `404 Not Found`: [When this occurs]
+**错误响应**:
+- `400 Bad Request`: [何时发生]
+- `401 Unauthorized`: [何时发生]
+- `404 Not Found`: [何时发生]
 
-### Endpoint 2: [Endpoint Name]
+### 端点 2: [端点名称]
 
-**Method**: `GET`  
-**Path**: `/api/v1/[resource]/{id}`
+**方法**: `GET`  
+**路径**: `/api/v1/[资源]/{id}`
 
-**Parameters**:
-- `id` (path): [Description]
-- `include` (query, optional): [Description]
+**参数**:
+- `id` (path): [描述]
+- `include` (query, optional): [描述]
 
-**Response**:
-\`\`\`json
+**响应**:
+```json
 {
   "id": "string",
   "property1": "string",
   "property2": "number"
 }
-\`\`\`
+```
 
-## Security Considerations
+## 安全考量
 
-### Authentication
-- [Authentication method and implementation]
-- [Token management approach]
+### 身份验证
+- [身份验证方法与实施]
+- [令牌 (Token) 管理方法]
 
-### Authorization
-- [Authorization model and rules]
-- [Permission checking strategy]
+### 授权
+- [授权模型与规则]
+- [权限检查策略]
 
-### Data Protection
-- [Data encryption approach]
-- [PII handling procedures]
-- [Data retention policies]
+### 数据保护
+- [数据加密方法]
+- [PII 处理程序]
+- [数据保留政策]
 
-### Input Validation
-- [Validation strategies]
-- [Sanitization procedures]
-- [Rate limiting approach]
+### 输入校验
+- [校验策略]
+- [清理 (Sanitization) 程序]
+- [速率限制方法]
 
-## Error Handling
+## 错误处理
 
-### Error Categories
-| Category | HTTP Status | Description | User Action |
+### 错误类别
+| 类别 | HTTP 状态码 | 描述 | 用户操作 |
 |----------|-------------|-------------|-------------|
-| Validation | 400 | Invalid input data | Fix input and retry |
-| Authentication | 401 | Invalid credentials | Re-authenticate |
-| Authorization | 403 | Insufficient permissions | Contact administrator |
-| Not Found | 404 | Resource doesn't exist | Check resource identifier |
-| Server Error | 500 | Internal system error | Retry later or contact support |
+| 校验 (Validation) | 400 | 输入数据无效 | 修改输入并重试 |
+| 身份验证 | 401 | 凭据无效 | 重新进行身份验证 |
+| 授权 (Authorization) | 403 | 权限不足 | 联系管理员 |
+| 未找到 | 404 | 资源不存在 | 检查资源标识符 |
+| 服务器错误 | 500 | 内部系统错误 | 稍后重试或联系支持人员 |
 
-### Error Response Format
-\`\`\`json
+### 错误响应格式
+```json
 {
   "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable error message",
+    "code": "错误代码",
+    "message": "人类可读的错误消息",
     "details": {
-      "field": "Specific field error"
+      "field": "特定字段错误"
     },
-    "timestamp": "ISO date string",
-    "requestId": "unique-request-id"
+    "timestamp": "ISO 日期字符串",
+    "requestId": "唯一请求 ID"
   }
 }
-\`\`\`
+```
 
-### Logging Strategy
-- **Error Logs**: [What gets logged for errors]
-- **Audit Logs**: [What gets logged for auditing]
-- **Performance Logs**: [What gets logged for monitoring]
+### 日志策略
+- **错误日志**: [错误时记录什么]
+- **审计日志**: [审计时记录什么]
+- **性能日志**: [监控时记录什么]
 
-## Performance Considerations
+## 性能考量
 
-### Expected Load
-- **Concurrent Users**: [Number]
-- **Requests per Second**: [Number]
-- **Data Volume**: [Size/Growth rate]
+### 预期负载
+- **并发用户**: [数量]
+- **每秒请求数 (RPS)**: [数量]
+- **数据量**: [大小/增长率]
 
-### Performance Requirements
-- **Response Time**: [Target response times]
-- **Throughput**: [Target throughput]
-- **Availability**: [Uptime requirements]
+### 性能需求
+- **响应时间**: [目标响应时间]
+- **吞吐量**: [目标吞吐量]
+- **可用性**: [运行时间要求]
 
-### Optimization Strategies
-- [Caching strategy]
-- [Database optimization approach]
-- [CDN usage]
-- [Load balancing approach]
+### 优化策略
+- [缓存策略]
+- [数据库优化方法]
+- [CDN 使用情况]
+- [负载均衡方法]
 
-### Monitoring and Metrics
-- [Key performance indicators]
-- [Monitoring tools and dashboards]
-- [Alert thresholds]
+### 监控与指标
+- [关键绩效指标]
+- [监控工具与仪表板]
+- [警报阈值]
 
-## Testing Strategy
+## 测试策略
 
-### Unit Testing
-- **Coverage Target**: [Percentage]
-- **Testing Framework**: [Framework name]
-- **Key Test Areas**: [Critical functionality to test]
+### 单元测试
+- **覆盖率目标**: [百分比]
+- **测试框架**: [框架名称]
+- **关键测试领域**: [要测试的关键功能]
 
-### Integration Testing
-- **API Testing**: [Approach and tools]
-- **Database Testing**: [Approach and tools]
-- **External Service Testing**: [Mocking strategy]
+### 集成测试
+- **API 测试**: [方法与工具]
+- **数据库测试**: [方法与工具]
+- **外部服务测试**: [Mock 策略]
 
-### End-to-End Testing
-- **User Scenarios**: [Key user journeys to test]
-- **Testing Tools**: [E2E testing framework]
-- **Test Environment**: [Environment setup]
+### 端到端 (E2E) 测试
+- **用户场景**: [要测试的关键用户旅程]
+- **测试工具**: [E2E 测试框架]
+- **测试环境**: [环境设置]
 
-### Performance Testing
-- **Load Testing**: [Approach and tools]
-- **Stress Testing**: [Limits to test]
-- **Monitoring**: [Performance metrics to track]
+### 性能测试
+- **负载测试**: [方法与工具]
+- **压力测试**: [要测试的限制]
+- **监控**: [要跟踪的性能指标]
 
-## Deployment and Operations
+## 部署与运营
 
-### Deployment Strategy
-- [Deployment approach (blue-green, rolling, etc.)]
-- [Environment progression]
-- [Rollback procedures]
+### 部署策略
+- [部署方法（蓝绿部署、滚动更新等）]
+- [环境晋级机制]
+- [回滚程序]
 
-### Configuration Management
-- [Configuration approach]
-- [Environment-specific settings]
-- [Secret management]
+### 配置管理
+- [配置方法]
+- [特定于环境的设置]
+- [密钥 (Secret) 管理]
 
-### Monitoring and Alerting
-- [Health checks]
-- [Key metrics to monitor]
-- [Alert conditions and escalation]
+### 监控与警报
+- [健康检查]
+- [要监控的关键指标]
+- [警报条件与升级流程]
 
-### Maintenance Procedures
-- [Regular maintenance tasks]
-- [Backup and recovery procedures]
-- [Update and patching strategy]
+### 维护程序
+- [常规维护任务]
+- [备份与恢复程序]
+- [更新与补丁策略]
 
-## Migration and Compatibility
+## 迁移与兼容性
 
-### Data Migration
-- [Migration strategy if applicable]
-- [Data transformation requirements]
-- [Rollback procedures]
+### 数据迁移
+- [迁移策略（如适用）]
+- [数据转换要求]
+- [回滚程序]
 
-### Backward Compatibility
-- [API versioning strategy]
-- [Breaking change procedures]
-- [Deprecation timeline]
+### 向后兼容性
+- [API 版本控制策略]
+- [破坏性变更程序]
+- [弃用 (Deprecation) 时间线]
 
-### Integration Impact
-- [Impact on existing systems]
-- [Required changes to dependent systems]
-- [Communication plan for changes]
-
----
-
-## Design Review Checklist
-
-Use this checklist to validate your design document:
-
-### Architecture
-- [ ] High-level architecture is clearly described
-- [ ] Component responsibilities are well-defined
-- [ ] Interfaces between components are specified
-- [ ] Technology choices are justified
-
-### Requirements Alignment
-- [ ] Design addresses all functional requirements
-- [ ] Non-functional requirements are considered
-- [ ] Success criteria can be met with this design
-- [ ] Constraints and assumptions are addressed
-
-### Technical Quality
-- [ ] Design follows established patterns and principles
-- [ ] Security considerations are addressed
-- [ ] Performance requirements are considered
-- [ ] Error handling is comprehensive
-
-### Implementation Readiness
-- [ ] Design provides sufficient detail for implementation
-- [ ] Data models are complete and validated
-- [ ] API specifications are detailed
-- [ ] Testing strategy is comprehensive
-
-### Maintainability
-- [ ] Design supports future extensibility
-- [ ] Components are loosely coupled
-- [ ] Configuration is externalized
-- [ ] Monitoring and observability are included
+### 集成影响
+- [对现有系统的影响]
+- [对依赖系统所需的更改]
+- [变更沟通计划]
 
 ---
 
-## Design Patterns Reference
+## 设计评审检查表
 
-### Common Patterns to Consider
+使用此检查表来验证您的设计文档：
 
-**Creational Patterns**:
-- Factory: When you need to create objects without specifying exact classes
-- Builder: When constructing complex objects step by step
-- Singleton: When you need exactly one instance of a class
+### 架构
+- [ ] 高层架构描述清晰
+- [ ] 组件职责定义良好
+- [ ] 指定了组件间的接口
+- [ ] 技术选择有理有据
 
-**Structural Patterns**:
-- Adapter: When integrating incompatible interfaces
-- Decorator: When adding behavior without altering structure
-- Facade: When simplifying complex subsystem interfaces
+### 需求一致性
+- [ ] 设计解决了所有功能性需求
+- [ ] 考虑了非功能性需求
+- [ ] 通过该设计可以达到成功标准
+- [ ] 解决了约束条件和假设
 
-**Behavioral Patterns**:
-- Observer: When objects need to be notified of state changes
-- Strategy: When you need to switch between algorithms
-- Command: When you need to parameterize objects with operations
+### 技术质量
+- [ ] 设计遵循既定模式和原则
+- [ ] 解决了安全考量
+- [ ] 考虑了性能需求
+- [ ] 错误处理全面
 
-**Architectural Patterns**:
-- MVC/MVP/MVVM: For separating presentation from business logic
-- Repository: For abstracting data access logic
-- Unit of Work: For maintaining consistency across multiple operations
+### 实施准备就绪
+- [ ] 设计为实施提供了足够的细节
+- [ ] 数据模型完整且经过验证
+- [ ] API 规范详尽
+- [ ] 测试策略全面
+
+### 可维护性
+- [ ] 设计支持未来的扩展性
+- [ ] 组件之间松耦合
+- [ ] 配置已外部化
+- [ ] 包含监控和可观测性
 
 ---
 
-[← Requirements Template](requirements-template.md) | [Tasks Template →](tasks-template.md)
+## 设计模式参考
+
+### 值得考虑的常用模式
+
+**创建型模式 (Creational Patterns)**:
+- 工厂模式 (Factory): 当您需要在不指定确切类的情况下创建对象时
+- 生成器模式 (Builder): 当需要一步步构建复杂对象时
+- 单例模式 (Singleton): 当一个类只需要一个实例时
+
+**结构型模式 (Structural Patterns)**:
+- 适配器模式 (Adapter): 当集成不兼容的接口时
+- 装饰器模式 (Decorator): 当在不改变结构的情况下添加行为时
+- 外观模式 (Facade): 当简化复杂子系统的接口时
+
+**行为型模式 (Behavioral Patterns)**:
+- 观察者模式 (Observer): 当对象需要在状态改变时获得通知时
+- 策略模式 (Strategy): 当您需要在不同算法之间切换时
+- 命令模式 (Command): 当您需要将操作参数化为对象时
+
+**架构模式 (Architectural Patterns)**:
+- MVC/MVP/MVVM: 用于将表现层与业务逻辑分离
+- 仓储模式 (Repository): 用于抽象数据访问逻辑
+- 工作单元模式 (Unit of Work): 用于在多个操作之间保持一致性
+
+---
+
+[← 需求模板](requirements-template.md) | [任务模板 →](tasks-template.md)
 ```
 
 # spec-process-guide/templates/README.md
 
 ```md
-# Templates
+# 模板
 
-<!-- Navigation Metadata -->
-<!-- Section: Templates | Level: Reference | Prerequisites: None -->
-<!-- Related: process/README.md, examples/README.md, resources/standards.md -->
+<!-- 导航元数据 -->
+<!-- 章节：模板 | 级别：参考 | 先决条件：无 -->
+<!-- 相关：process/README.md, examples/README.md, resources/standards.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → **Templates**
+**📍 您当前的位置：** [主指南](../README.md) → **模板**
 
-## Quick Navigation
-- **Learn Process:** [Process Guide](../process/README.md) - Understand how to use these templates
-- **See Examples:** [Complete Examples](../examples/README.md) - Templates filled out in practice
-- **Standards Reference:** [EARS & Standards](../resources/standards.md) - Format guidelines
-- **Start Here:** [Requirements Template](requirements-template.md) - Begin your first spec
-
----
-
-Ready-to-use templates and checklists to accelerate your spec development process.
-
-## In This Section
-
-- **[Requirements Template](requirements-template.md)** - EARS-formatted requirements structure
-- **[Design Template](design-template.md)** - Comprehensive design document framework
-- **[Tasks Template](tasks-template.md)** - Implementation planning format
-
-## How to Use Templates
-
-1. **Copy the Template** - Start with the appropriate template for your phase
-2. **Customize Sections** - Adapt the structure to your specific feature needs
-3. **Fill in Content** - Replace placeholder text with your actual requirements/design/tasks
-4. **Validate Completeness** - Use the included checklists to ensure nothing is missed
-
-## Template Features
-
-Each template includes:
-- **Structured Format** - Consistent organization and formatting
-- **Placeholder Content** - Examples to guide your writing
-- **Validation Checklists** - Quality gates for each section
-- **Cross-References** - Links between related sections
-
-## Quick Start Guide
-
-1. **New Feature?** Start with [Requirements Template](requirements-template.md)
-2. **Requirements Done?** Move to [Design Template](design-template.md)  
-3. **Design Complete?** Use [Tasks Template](tasks-template.md)
-4. **Need Examples?** Check the [Examples](../examples/README.md) section
+## 快速导航
+- **学习流程：** [流程指南](../process/README.md) - 了解如何使用这些模板
+- **查看示例：** [完整示例](../examples/README.md) - 在实践中填写的模板
+- **标准参考：** [EARS 与标准](../resources/standards.md) - 格式指南
+- **从这里开始：** [需求模板](requirements-template.md) - 开始您的第一份规范
 
 ---
 
-[← Back to Main Guide](../README.md) | [Get Requirements Template →](requirements-template.md)
+提供开箱即用的模板和检查表，旨在加速您的规范开发流程。
+
+## 本部分内容
+
+- **[需求模板](requirements-template.md)** - 符合 EARS 格式的需求结构
+- **[设计模板](design-template.md)** - 面的设计文档框架
+- **[任务模板](tasks-template.md)** - 实施计划格式
+
+## 如何使用模板
+
+1. **复制模板** - 从适合您当前阶段的模板开始
+2. **自定义章节** - 根据您具体的功能需求调整结构
+3. **填写内容** - 用实际的需求/设计/任务替换占位符文本
+4. **验证完整性** - 使用附带的检查表确保无遗漏
+
+## 模板特色
+
+每个模板都包含：
+- **结构化格式** - 统一的组织与排版
+- **占位符内容** - 引导您撰写的示例
+- **验证检查表** - 每个章节的质量关口
+- **交叉引用** - 相关章节之间的链接
+
+## 快速入门指南
+
+1. **新功能？** 从 [需求模板](requirements-template.md) 开始
+2. **需求已完成？** 进入 [设计模板](design-template.md)  
+3. **设计已完成？** 使用 [任务模板](tasks-template.md)
+4. **需要示例？** 查阅 [示例](../examples/README.md) 部分
+
+---
+
+[← 返回主指南](../README.md) | [获取需求模板 →](requirements-template.md)
 ```
 
 # spec-process-guide/templates/requirements-template.md
 
 ```md
-# Requirements Template
+# 需求模板
 
-<!-- Navigation Metadata -->
-<!-- Template: Requirements | Level: Template | Prerequisites: None -->
-<!-- Related: process/requirements-phase.md, resources/standards.md, examples/simple-feature-spec.md -->
+<!-- 导航元数据 -->
+<!-- 模板：需求 | 级别：模板 | 先决条件：无 -->
+<!-- 相关：process/requirements-phase.md, resources/standards.md, examples/simple-feature-spec.md -->
 
-**📍 You are here:** [Main Guide](../README.md) → [Templates](README.md) → **Requirements Template**
+**📍 您当前的位置：** [主指南](../README.md) → [模板](README.md) → **需求模板**
 
-## Quick Navigation
-- **📚 Learn Process:** [Requirements Phase Guide](../process/requirements-phase.md) - How to use this template
-- **📖 See Example:** [Simple Feature Requirements](../examples/simple-feature-spec.md#requirements-document) - Template in action
-- **📋 EARS Reference:** [Standards Guide](../resources/standards.md) - EARS format details
-- **➡️ Next Template:** [Design Template](design-template.md) - After requirements are done
+## 快速导航
+- **📚 学习流程：** [需求阶段指南](../process/requirements-phase.md) - 如何使用此模板
+- **📖 查看示例：** [简单功能需求](../examples/simple-feature-spec.md#requirements-document) - 实际应用中的模板
+- **📋 EARS 参考：** [标准指南](../resources/standards.md) - EARS 格式详情
+- **➡️ 下一个模板：** [设计模板](design-template.md) - 需求完成后
 
 ---
 
-Use this template to create comprehensive requirements documents using the EARS (Easy Approach to Requirements Syntax) format.
+使用此模板采用 EARS (Easy Approach to Requirements Syntax，需求句法简易法) 格式创建全面的需求文档。
 
-## Document Information
+## 文档信息
 
-- **Feature Name**: [Your Feature Name]
-- **Version**: 1.0
-- **Date**: [Current Date]
-- **Author**: [Your Name]
-- **Stakeholders**: [List key stakeholders]
+- **功能名称**: [您的功能名称]
+- **版本**: 1.0
+- **日期**: [当前日期]
+- **作者**: [您的姓名]
+- **利益相关者**: [列出关键利益相关者]
 
-## Introduction
+## 介绍
 
-[Provide a clear, concise overview of the feature. Explain what problem it solves and why it's needed. Keep this section to 2-3 paragraphs maximum.]
+[提供对该功能的清晰、简洁的概述。解释它解决了什么问题以及为什么需要它。本节最多保持在 2-3 段。]
 
-### Feature Summary
-[One sentence summary of what this feature does]
+### 功能摘要
+[一句话总结该功能的作用]
 
-### Business Value
-[Explain the business value and expected outcomes]
+### 业务价值
+[解释业务价值和预期成果]
 
-### Scope
-[Define what is included and excluded from this feature]
+### 范围
+[定义该功能包含哪些内容，排除哪些内容]
 
-## Requirements
+## 需求
 
-### Requirement 1: [Requirement Title]
+### 需求 1: [需求标题]
 
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
+**用户故事:** 作为 [角色/用户类型]，我想要 [所需功能]，以便 [收益/价值]。
 
-#### Acceptance Criteria
+#### 验收标准
 
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
-3. WHILE [ongoing condition] [system name] SHALL [continuous behavior]
-4. WHERE [context or location] [system name] SHALL [contextual behavior]
+1. 当 (WHEN) [特定事件或触发器] 时，[系统名称] 应当 (SHALL) [特定的系统响应]
+2. 如果 (IF) [条件或状态]，那么 [系统名称] 应当 (SHALL) [必需的行为]
+3. 当 (WHILE) [持续进行的条件] 时，[系统名称] 应当 (SHALL) [持续的行为]
+4. 在 (WHERE) [情境或位置] 的情况下，[系统名称] 应当 (SHALL) [特定情境下的行为]
 
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies on other requirements or systems]
-- **Assumptions**: [List any assumptions made]
+#### 附加详情
+- **优先级**: [高/中/低]
+- **复杂度**: [高/中/低]
+- **依赖项**: [列出对其他需求或系统的任何依赖]
+- **假设**: [列出所作的任何假设]
 
-### Requirement 2: [Requirement Title]
+### 需求 2: [需求标题]
 
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
+**用户故事:** 作为 [角色/用户类型]，我想要 [所需功能]，以便 [收益/价值]。
 
-#### Acceptance Criteria
+#### 验收标准
 
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
+1. 当 (WHEN) [特定事件或触发器] 时，[系统名称] 应当 (SHALL) [特定的系统响应]
+2. 如果 (IF) [条件或状态]，那么 [系统名称] 应当 (SHALL) [必需的行为]
 
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies]
-- **Assumptions**: [List any assumptions]
+#### 附加详情
+- **优先级**: [高/中/低]
+- **复杂度**: [高/中/低]
+- **依赖项**: [列出任何依赖项]
+- **假设**: [列出任何假设]
 
-### Requirement 3: [Requirement Title]
+### 需求 3: [需求标题]
 
-**User Story:** As a [role/user type], I want [desired functionality], so that [benefit/value].
+**用户故事:** 作为 [角色/用户类型]，我想要 [所需功能]，以便 [收益/价值]。
 
-#### Acceptance Criteria
+#### 验收标准
 
-1. WHEN [specific event or trigger] THEN [system name] SHALL [specific system response]
-2. IF [condition or state] THEN [system name] SHALL [required behavior]
+1. 当 (WHEN) [特定事件或触发器] 时，[系统名称] 应当 (SHALL) [特定的系统响应]
+2. 如果 (IF) [条件或状态]，那么 [系统名称] 应当 (SHALL) [必需的行为]
 
-#### Additional Details
-- **Priority**: [High/Medium/Low]
-- **Complexity**: [High/Medium/Low]
-- **Dependencies**: [List any dependencies]
-- **Assumptions**: [List any assumptions]
+#### 附加详情
+- **优先级**: [高/中/低]
+- **复杂度**: [高/中/低]
+- **依赖项**: [列出任何依赖项]
+- **假设**: [列出任何假设]
 
-## Non-Functional Requirements
+## 非功能性需求
 
-### Performance Requirements
-- WHEN [load condition] THEN [system name] SHALL [performance criteria]
-- IF [usage scenario] THEN [system name] SHALL [response time requirement]
+### 性能需求
+- 当 (WHEN) [负载条件] 时，[系统名称] 应当 (SHALL) [性能标准]
+- 如果 (IF) [使用场景]，那么 [系统名称] 应当 (SHALL) [响应时间要求]
 
-### Security Requirements
-- WHEN [security event] THEN [system name] SHALL [security response]
-- IF [authentication condition] THEN [system name] SHALL [access control behavior]
+### 安全需求
+- 当 (WHEN) [安全事件] 时，[系统名称] 应当 (SHALL) [安全响应]
+- 如果 (IF) [身份验证条件]，那么 [系统名称] 应当 (SHALL) [访问控制行为]
 
-### Usability Requirements
-- WHEN [user interaction] THEN [system name] SHALL [usability standard]
-- IF [accessibility condition] THEN [system name] SHALL [accessibility compliance]
+### 易用性需求
+- 当 (WHEN) [用户交互] 时，[系统名称] 应当 (SHALL) [易用性标准]
+- 如果 (IF) [无障碍条件]，那么 [系统名称] 应当 (SHALL) [无障碍合规性]
 
-### Reliability Requirements
-- WHEN [failure condition] THEN [system name] SHALL [recovery behavior]
-- IF [error state] THEN [system name] SHALL [error handling response]
+### 可靠性需求
+- 当 (WHEN) [故障条件] 时，[系统名称] 应当 (SHALL) [恢复行为]
+- 如果 (IF) [错误状态]，那么 [系统名称] 应当 (SHALL) [错误处理响应]
 
-## Constraints and Assumptions
+## 约束条件与假设
 
-### Technical Constraints
-- [List technical limitations or constraints]
-- [Include platform, technology, or integration constraints]
+### 技术约束
+- [列出技术限制或约束]
+- [包括平台、技术或集成约束]
 
-### Business Constraints
-- [List business rules or policy constraints]
-- [Include budget, timeline, or resource constraints]
+### 业务约束
+- [列出业务规则或政策约束]
+- [包括预算、时间线或资源约束]
 
-### Assumptions
-- [List assumptions about user behavior]
-- [Include assumptions about system environment]
-- [Note assumptions about external dependencies]
+### 假设
+- [列出关于用户行为的假设]
+- [包括关于系统环境的假设]
+- [注明关于外部依赖项的假设]
 
-## Success Criteria
+## 成功标准
 
-### Definition of Done
-- [ ] All acceptance criteria are met
-- [ ] Non-functional requirements are satisfied
-- [ ] Integration requirements are fulfilled
-- [ ] Testing criteria are passed
+### 完成定义 (Definition of Done)
+- [ ] 满足所有验收标准
+- [ ] 满足非功能性需求
+- [ ] 完成集成需求
+- [ ] 通过测试标准
 
-### Acceptance Metrics
-- [Define measurable success criteria]
-- [Include performance benchmarks]
-- [Specify quality gates]
+### 验收指标
+- [定义可衡量的成功标准]
+- [包括性能基准]
+- [指定质量阀门]
 
-## Glossary
+## 术语表
 
-| Term | Definition |
+| 术语 | 定义 |
 |------|------------|
-| [Term 1] | [Clear definition] |
-| [Term 2] | [Clear definition] |
-| [Term 3] | [Clear definition] |
+| [术语 1] | [清晰的定义] |
+| [术语 2] | [清晰的定义] |
+| [术语 3] | [清晰的定义] |
 
 ---
 
-## Requirements Review Checklist
+## 需求评审检查表
 
-Use this checklist to validate your requirements document:
+使用此检查表来验证您的需求文档：
 
-### Completeness
-- [ ] All user stories have clear roles, features, and benefits
-- [ ] Each requirement has specific acceptance criteria using EARS format
-- [ ] Non-functional requirements are addressed
-- [ ] Success criteria are defined and measurable
+### 完整性
+- [ ] 所有用户故事均具有清晰的角色、功能和收益
+- [ ] 每个需求都有使用 EARS 格式的具体验收标准
+- [ ] 解决了非功能性需求
+- [ ] 定义了成功标准且是可衡量的
 
-### Quality
-- [ ] Requirements are written in active voice
-- [ ] Each acceptance criterion is testable
-- [ ] Requirements avoid implementation details
-- [ ] Terminology is consistent throughout
+### 质量
+- [ ] 需求以主动语态编写
+- [ ] 每条验收标准均是可测试的
+- [ ] 需求避免涉及实施细节
+- [ ] 术语自始至终保持一致
 
-### EARS Format Validation
-- [ ] WHEN statements describe specific events or triggers
-- [ ] IF statements describe clear conditions or states
-- [ ] WHILE statements describe continuous behaviors
-- [ ] WHERE statements describe specific contexts
-- [ ] All statements use SHALL for system responses
+### EARS 格式验证
+- [ ] 当 (WHEN) 语句描述了特定的事件或触发器
+- [ ] 如果 (IF) 语句描述了清晰的条件或状态
+- [ ] 当 (WHILE) 语句描述了持续的行为
+- [ ] 在...的情况下 (WHERE) 语句描述了特定的情境
+- [ ] 所有语句均使用 应当 (SHALL) 来表示系统响应
 
-### Clarity
-- [ ] Requirements are unambiguous
-- [ ] Technical jargon is explained in glossary
-- [ ] Stakeholders can understand all requirements
-- [ ] No conflicting requirements exist
+### 清晰度
+- [ ] 需求无歧义
+- [ ] 技术术语已在术语表中解释
+- [ ] 利益相关者能理解所有需求
+- [ ] 不存在冲突的需求
 
-### Traceability
-- [ ] Requirements are numbered and organized
+### 溯源性
+- [ ] 需求经过编号且组织有序
 - [ ] Dependencies between requirements are clear
 - [ ] Requirements link to business objectives
 - [ ] Assumptions and constraints are documented
